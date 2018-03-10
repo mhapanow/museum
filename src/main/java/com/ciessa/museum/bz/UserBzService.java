@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
