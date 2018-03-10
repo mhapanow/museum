@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Cumast" table="CUMAST">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cubk" type="java.lang.Integer">
+            <column name="CUBK" />
+        </property>
+        <property name="cunbr" type="string">
+            <column name="CUNBR" length="10" />
+        </property>
+        <property name="custat" type="string">
+            <column name="CUSTAT" length="1" />
+        </property>
+        <property name="cuna1" type="string">
+            <column name="CUNA1" length="40" />
+        </property>
+        <property name="cuna2" type="string">
+            <column name="CUNA2" length="40" />
+        </property>
+        <property name="cuna3" type="string">
+            <column name="CUNA3" length="40" />
+        </property>
+        <property name="cuna4" type="string">
+            <column name="CUNA4" length="40" />
+        </property>
+        <property name="cuna5" type="string">
+            <column name="CUNA5" length="40" />
+        </property>
+        <property name="cuna6" type="string">
+            <column name="CUNA6" length="40" />
+        </property>
+        <property name="cuzip" type="java.lang.Integer">
+            <column name="CUZIP" />
+        </property>
+        <property name="cuzip2" type="java.lang.Integer">
+            <column name="CUZIP2" />
+        </property>
+        <property name="cushrt" type="string">
+            <column name="CUSHRT" length="18" />
+        </property>
+        <property name="cussnr" type="java.lang.Long">
+            <column name="CUSSNR" />
+        </property>
+        <property name="cussty" type="string">
+            <column name="CUSSTY" length="1" />
+        </property>
+        <property name="cuhmph" type="java.lang.Long">
+            <column name="CUHMPH" />
+        </property>
+        <property name="cubuph" type="java.lang.Long">
+            <column name="CUBUPH" />
+        </property>
+        <property name="cupoff" type="string">
+            <column name="CUPOFF" length="3" />
+        </property>
+        <property name="cusoff" type="string">
+            <column name="CUSOFF" length="3" />
+        </property>
+        <property name="cuopdt" type="java.lang.Integer">
+            <column name="CUOPDT" />
+        </property>
+        <property name="cutype" type="string">
+            <column name="CUTYPE" length="2" />
+        </property>
+        <property name="cusic" type="java.lang.Integer">
+            <column name="CUSIC" />
+        </property>
+        <property name="cusex" type="string">
+            <column name="CUSEX" length="1" />
+        </property>
+        <property name="curace" type="string">
+            <column name="CURACE" length="1" />
+        </property>
+        <property name="cuown" type="string">
+            <column name="CUOWN" length="1" />
+        </property>
+        <property name="cuyrem" type="java.lang.Integer">
+            <column name="CUYREM" />
+        </property>
+        <property name="cuinc" type="java.lang.Integer">
+            <column name="CUINC" />
+        </property>
+        <property name="cusrin" type="string">
+            <column name="CUSRIN" length="1" />
+        </property>
+        <property name="cubdte" type="java.lang.Integer">
+            <column name="CUBDTE" />
+        </property>
+        <property name="cudep" type="java.lang.Integer">
+            <column name="CUDEP" />
+        </property>
+        <property name="cuctc" type="string">
+            <column name="CUCTC" length="18" />
+        </property>
+        <property name="cuctct" type="string">
+            <column name="CUCTCT" length="6" />
+        </property>
+        <property name="cucira" type="string">
+            <column name="CUCIRA" length="1" />
+        </property>
+        <property name="cumnbr" type="java.lang.Integer">
+            <column name="CUMNBR" />
+        </property>
+        <property name="cuntid" type="string">
+            <column name="CUNTID" length="20" />
+        </property>
+        <property name="cuusr1" type="string">
+            <column name="CUUSR1" length="18" />
+        </property>
+        <property name="cuclnk" type="string">
+            <column name="CUCLNK" length="15" />
+        </property>
+        <property name="cuusr3" type="string">
+            <column name="CUUSR3" length="15" />
+        </property>
+        <property name="cucdch" type="string">
+            <column name="CUCDCH" length="1" />
+        </property>
+        <property name="cucdcn" type="string">
+            <column name="CUCDCN" length="16" />
+        </property>
+        <property name="cucdcd" type="java.lang.Integer">
+            <column name="CUCDCD" />
+        </property>
+        <property name="cucmch" type="string">
+            <column name="CUCMCH" length="1" />
+        </property>
+        <property name="cucmnr" type="string">
+            <column name="CUCMNR" length="16" />
+        </property>
+        <property name="cucmcd" type="java.lang.Integer">
+            <column name="CUCMCD" />
+        </property>
+        <property name="cucvsh" type="string">
+            <column name="CUCVSH" length="1" />
+        </property>
+        <property name="cucvcn" type="string">
+            <column name="CUCVCN" length="16" />
+        </property>
+        <property name="cucvcd" type="java.lang.Integer">
+            <column name="CUCVCD" />
+        </property>
+        <property name="cucath" type="string">
+            <column name="CUCATH" length="1" />
+        </property>
+        <property name="cucatn" type="string">
+            <column name="CUCATN" length="19" />
+        </property>
+        <property name="cucatd" type="java.lang.Integer">
+            <column name="CUCATD" />
+        </property>
+        <property name="cuclng" type="string">
+            <column name="CUCLNG" length="1" />
+        </property>
+        <property name="cucccd" type="java.lang.Integer">
+            <column name="CUCCCD" />
+        </property>
+        <property name="culglr" type="java.lang.Integer">
+            <column name="CULGLR" />
+        </property>
+        <property name="cucwhp" type="big_decimal">
+            <column name="CUCWHP" precision="5" scale="5" />
+        </property>
+        <property name="cucpsp" type="string">
+            <column name="CUCPSP" length="10" />
+        </property>
+        <property name="cuctxn" type="string">
+            <column name="CUCTXN" length="14" />
+        </property>
+        <property name="cucprf" type="java.lang.Integer">
+            <column name="CUCPRF" />
+        </property>
+        <property name="cushky" type="string">
+            <column name="CUSHKY" length="10" />
+        </property>
+        <property name="cuitld" type="java.lang.Integer">
+            <column name="CUITLD" />
+        </property>
+        <property name="cupstl" type="string">
+            <column name="CUPSTL" length="10" />
+        </property>
+        <property name="blk26" type="string">
+            <column name="BLK26" length="26" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Saldom" table="SALDOM">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cbank" type="java.lang.Integer">
+            <column name="CBANK" />
+        </property>
+        <property name="ccta" type="java.lang.Integer">
+            <column name="CCTA" />
+        </property>
+        <property name="&#241;cta" type="java.lang.Long">
+            <column name="&#209;CTA" />
+        </property>
+        <property name="cbranc" type="java.lang.Integer">
+            <column name="CBRANC" />
+        </property>
+        <property name="cdivi" type="java.lang.Integer">
+            <column name="CDIVI" />
+        </property>
+        <property name="daasal" type="java.lang.Integer">
+            <column name="DAASAL" />
+        </property>
+        <property name="dmmsal" type="java.lang.Integer">
+            <column name="DMMSAL" />
+        </property>
+        <property name="ssaxdi" type="string">
+            <column name="SSAXDI" length="248" />
+        </property>
+        <property name="ssaman" type="big_decimal">
+            <column name="SSAMAN" precision="15" />
+        </property>
+        <property name="sinaan" type="big_decimal">
+            <column name="SINAAN" precision="15" />
+        </property>
+        <property name="snuaan" type="big_decimal">
+            <column name="SNUAAN" precision="15" />
+        </property>
+        <property name="dsadeu" type="java.lang.Integer">
+            <column name="DSADEU" />
+        </property>
+        <property name="dexaca" type="java.lang.Integer">
+            <column name="DEXACA" />
+        </property>
+        <property name="dexpto" type="java.lang.Integer">
+            <column name="DEXPTO" />
+        </property>
+        <property name="dsapen" type="java.lang.Integer">
+            <column name="DSAPEN" />
+        </property>
+        <property name="dsana" type="java.lang.Integer">
+            <column name="DSANA" />
+        </property>
+        <property name="dsawo" type="java.lang.Integer">
+            <column name="DSAWO" />
+        </property>
+        <property name="dspdeu" type="java.lang.Integer">
+            <column name="DSPDEU" />
+        </property>
+        <property name="depaca" type="java.lang.Integer">
+            <column name="DEPACA" />
+        </property>
+        <property name="deppto" type="java.lang.Integer">
+            <column name="DEPPTO" />
+        </property>
+        <property name="dsppen" type="java.lang.Integer">
+            <column name="DSPPEN" />
+        </property>
+        <property name="dspna" type="java.lang.Integer">
+            <column name="DSPNA" />
+        </property>
+        <property name="dspwo" type="java.lang.Integer">
+            <column name="DSPWO" />
+        </property>
+        <property name="slpbac" type="big_decimal">
+            <column name="SLPBAC" precision="15" />
+        </property>
+        <property name="slpabl" type="big_decimal">
+            <column name="SLPABL" precision="15" />
+        </property>
+        <property name="slpdes" type="big_decimal">
+            <column name="SLPDES" precision="15" />
+        </property>
+        <property name="slpaba" type="big_decimal">
+            <column name="SLPABA" precision="15" />
+        </property>
+        <property name="slpexc" type="big_decimal">
+            <column name="SLPEXC" precision="15" />
+        </property>
+        <property name="slpdde" type="big_decimal">
+            <column name="SLPDDE" precision="15" />
+        </property>
+        <property name="slpdex" type="big_decimal">
+            <column name="SLPDEX" precision="15" />
+        </property>
+        <property name="slpna" type="big_decimal">
+            <column name="SLPNA" precision="15" />
+        </property>
+        <property name="slpwo" type="big_decimal">
+            <column name="SLPWO" precision="15" />
+        </property>
+        <property name="slabac" type="big_decimal">
+            <column name="SLABAC" precision="15" />
+        </property>
+        <property name="slaabl" type="big_decimal">
+            <column name="SLAABL" precision="15" />
+        </property>
+        <property name="slades" type="big_decimal">
+            <column name="SLADES" precision="15" />
+        </property>
+        <property name="slaaba" type="big_decimal">
+            <column name="SLAABA" precision="15" />
+        </property>
+        <property name="slaexc" type="big_decimal">
+            <column name="SLAEXC" precision="15" />
+        </property>
+        <property name="sladde" type="big_decimal">
+            <column name="SLADDE" precision="15" />
+        </property>
+        <property name="sladex" type="big_decimal">
+            <column name="SLADEX" precision="15" />
+        </property>
+        <property name="slana" type="big_decimal">
+            <column name="SLANA" precision="15" />
+        </property>
+        <property name="slawo" type="big_decimal">
+            <column name="SLAWO" precision="15" />
+        </property>
+        <property name="nmabac" type="big_decimal">
+            <column name="NMABAC" precision="15" />
+        </property>
+        <property name="nmaabl" type="big_decimal">
+            <column name="NMAABL" precision="15" />
+        </property>
+        <property name="nmades" type="big_decimal">
+            <column name="NMADES" precision="15" />
+        </property>
+        <property name="nmaaba" type="big_decimal">
+            <column name="NMAABA" precision="15" />
+        </property>
+        <property name="nmaexc" type="big_decimal">
+            <column name="NMAEXC" precision="15" />
+        </property>
+        <property name="nmadde" type="big_decimal">
+            <column name="NMADDE" precision="15" />
+        </property>
+        <property name="nmadex" type="big_decimal">
+            <column name="NMADEX" precision="15" />
+        </property>
+        <property name="nmana" type="big_decimal">
+            <column name="NMANA" precision="15" />
+        </property>
+        <property name="nmawo" type="big_decimal">
+            <column name="NMAWO" precision="15" />
+        </property>
+        <property name="diexna" type="java.lang.Integer">
+            <column name="DIEXNA" />
+        </property>
+        <property name="ultpro" type="java.lang.Integer">
+            <column name="ULTPRO" />
+        </property>
+    </class>
+</hibernate-mapping>

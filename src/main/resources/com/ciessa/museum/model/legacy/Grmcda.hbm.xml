@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Grmcda" table="GRMCDA">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="ryrmcn" type="java.lang.Long">
+            <column name="RYRMCN" />
+        </property>
+        <property name="rystat" type="string">
+            <column name="RYSTAT" length="1" />
+        </property>
+        <property name="rybrcd" type="java.lang.Integer">
+            <column name="RYBRCD" />
+        </property>
+        <property name="ryaqdt" type="java.lang.Integer">
+            <column name="RYAQDT" />
+        </property>
+        <property name="rycpcn" type="string">
+            <column name="RYCPCN" length="30" />
+        </property>
+        <property name="rycii&#241;" type="string">
+            <column name="RYCII&#209;" length="12" />
+        </property>
+        <property name="rystcd" type="java.lang.Integer">
+            <column name="RYSTCD" />
+        </property>
+        <property name="rylssd" type="java.lang.Integer">
+            <column name="RYLSSD" />
+        </property>
+        <property name="ryrgno" type="string">
+            <column name="RYRGNO" length="15" />
+        </property>
+        <property name="ryrgdt" type="java.lang.Integer">
+            <column name="RYRGDT" />
+        </property>
+        <property name="rybsfv" type="java.lang.Integer">
+            <column name="RYBSFV" />
+        </property>
+        <property name="rycoyb" type="java.lang.Integer">
+            <column name="RYCOYB" />
+        </property>
+        <property name="ryciri" type="string">
+            <column name="RYCIRI" length="20" />
+        </property>
+        <property name="ryivas" type="string">
+            <column name="RYIVAS" length="1" />
+        </property>
+        <property name="ryyiva" type="java.lang.Integer">
+            <column name="RYYIVA" />
+        </property>
+        <property name="rycutx" type="string">
+            <column name="RYCUTX" length="1" />
+        </property>
+        <property name="rygri&#241;" type="java.lang.Long">
+            <column name="RYGRI&#209;" />
+        </property>
+        <property name="ryygri" type="java.lang.Integer">
+            <column name="RYYGRI" />
+        </property>
+        <property name="rydpn&#241;" type="java.lang.Integer">
+            <column name="RYDPN&#209;" />
+        </property>
+        <property name="ryriin" type="string">
+            <column name="RYRIIN" length="1" />
+        </property>
+        <property name="ryanrd" type="java.lang.Integer">
+            <column name="RYANRD" />
+        </property>
+        <property name="rylsnd" type="java.lang.Integer">
+            <column name="RYLSND" />
+        </property>
+        <property name="rylsns" type="java.lang.Long">
+            <column name="RYLSNS" />
+        </property>
+        <property name="ryylsn" type="java.lang.Integer">
+            <column name="RYYLSN" />
+        </property>
+        <property name="rylsyd" type="java.lang.Integer">
+            <column name="RYLSYD" />
+        </property>
+        <property name="rylsys" type="java.lang.Long">
+            <column name="RYLSYS" />
+        </property>
+        <property name="ryylsy" type="java.lang.Integer">
+            <column name="RYYLSY" />
+        </property>
+        <property name="rylsad" type="java.lang.Integer">
+            <column name="RYLSAD" />
+        </property>
+        <property name="rylsas" type="java.lang.Long">
+            <column name="RYLSAS" />
+        </property>
+        <property name="ryylsa" type="java.lang.Integer">
+            <column name="RYYLSA" />
+        </property>
+        <property name="rylsld" type="java.lang.Integer">
+            <column name="RYLSLD" />
+        </property>
+        <property name="rylsls" type="java.lang.Long">
+            <column name="RYLSLS" />
+        </property>
+        <property name="ryylsl" type="java.lang.Integer">
+            <column name="RYYLSL" />
+        </property>
+        <property name="rybccd" type="java.lang.Integer">
+            <column name="RYBCCD" />
+        </property>
+        <property name="rycoct" type="java.lang.Integer">
+            <column name="RYCOCT" />
+        </property>
+        <property name="ryfisc" type="java.lang.Integer">
+            <column name="RYFISC" />
+        </property>
+        <property name="ryyfis" type="java.lang.Integer">
+            <column name="RYYFIS" />
+        </property>
+        <property name="rycres" type="string">
+            <column name="RYCRES" length="1" />
+        </property>
+        <property name="ryempy" type="string">
+            <column name="RYEMPY" length="1" />
+        </property>
+        <property name="ryecgi" type="string">
+            <column name="RYECGI" length="1" />
+        </property>
+        <property name="ryecgo" type="string">
+            <column name="RYECGO" length="1" />
+        </property>
+        <property name="ryacde" type="string">
+            <column name="RYACDE" length="1" />
+        </property>
+        <property name="ryauti" type="string">
+            <column name="RYAUTI" length="1" />
+        </property>
+        <property name="ryausr" type="string">
+            <column name="RYAUSR" length="10" />
+        </property>
+        <property name="ryadte" type="java.lang.Integer">
+            <column name="RYADTE" />
+        </property>
+        <property name="ryatme" type="java.lang.Integer">
+            <column name="RYATME" />
+        </property>
+    </class>
+</hibernate-mapping>

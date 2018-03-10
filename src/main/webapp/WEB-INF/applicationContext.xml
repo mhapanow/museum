@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- ** Activates annotation configuration ** -->
+	<context:annotation-config />
+
+	<!-- ** Simple beans ** -->
+	<bean id="system.configuration" class="com.ciessa.museum.model.SystemConfiguration" scope="singleton">
+		<property name="authTokenValidityInDays" value="2" />
+		<property name="defaultFromRange" value="0" />
+		<property name="defaultToRange" value="25" />
+	</bean>
+
+	<bean id="system.auth.helper" class="com.ciessa.museum.auth.AuthHelper" scope="singleton" />
+	<bean id="applicationContextProvder" class="com.ciessa.museum.tools.ApplicationContextProvider" />
+	<bean id="common.validator" class="com.ciessa.museum.tools.CommonValidator" scope="singleton" />
+
+	<!-- ** DAOs implementation ** -->
+	<bean id="user.dao.ref" class="com.ciessa.museum.dao.UserDAO" />
+	<bean id="dataset.dao.ref" class="com.ciessa.museum.dao.DataSetDAO" />
+	<bean id="auditentry.dao.ref" class="com.ciessa.museum.dao.AuditEntryDAO" />
+
+	<!-- ** REST resource ** -->
+	<bean id="base.rest.resource" class="com.ciessa.museum.bz.RestBaseServerResource" abstract="true" />
+	<bean id="ipaddress.rest.resource" class="com.ciessa.museum.bz.IPAddressBzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="auth.rest.resource" class="com.ciessa.museum.auth.AuthBzService" parent="base.rest.resource" scope="prototype" />
+  	<bean id="pass.rest.resource" class="com.ciessa.museum.auth.PassBzService" parent="base.rest.resource" scope="prototype" />
+  	<bean id="user.rest.resource" class="com.ciessa.museum.bz.UserBzService" parent="base.rest.resource" scope="prototype" />
+
+</beans>

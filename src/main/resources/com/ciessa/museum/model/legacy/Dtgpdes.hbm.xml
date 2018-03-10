@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Dtgpdes" table="DTGPDES">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="dscoca" type="java.lang.Integer">
+            <column name="DSCOCA" />
+        </property>
+        <property name="dscoac" type="string">
+            <column name="DSCOAC" length="25" />
+        </property>
+        <property name="dsmcre" type="java.lang.Integer">
+            <column name="DSMCRE" />
+        </property>
+        <property name="dsfcre" type="java.lang.Integer">
+            <column name="DSFCRE" />
+        </property>
+        <property name="dshcre" type="java.lang.Integer">
+            <column name="DSHCRE" />
+        </property>
+        <property name="dsmumo" type="java.lang.Integer">
+            <column name="DSMUMO" />
+        </property>
+        <property name="dsfumo" type="java.lang.Integer">
+            <column name="DSFUMO" />
+        </property>
+        <property name="dshumo" type="java.lang.Integer">
+            <column name="DSHUMO" />
+        </property>
+        <property name="dsmanu" type="java.lang.Integer">
+            <column name="DSMANU" />
+        </property>
+        <property name="dsfanu" type="java.lang.Integer">
+            <column name="DSFANU" />
+        </property>
+        <property name="dshanu" type="java.lang.Integer">
+            <column name="DSHANU" />
+        </property>
+        <property name="dsmvig" type="java.lang.Integer">
+            <column name="DSMVIG" />
+        </property>
+        <property name="dsfvig" type="java.lang.Integer">
+            <column name="DSFVIG" />
+        </property>
+        <property name="dsmexp" type="java.lang.Integer">
+            <column name="DSMEXP" />
+        </property>
+        <property name="dsfexp" type="java.lang.Integer">
+            <column name="DSFEXP" />
+        </property>
+        <property name="dsinvi" type="java.lang.Integer">
+            <column name="DSINVI" />
+        </property>
+        <property name="dstreg" type="string">
+            <column name="DSTREG" length="1" />
+        </property>
+        <property name="dsds01" type="string">
+            <column name="DSDS01" length="30" />
+        </property>
+        <property name="dsds02" type="string">
+            <column name="DSDS02" length="30" />
+        </property>
+        <property name="dsds03" type="string">
+            <column name="DSDS03" length="30" />
+        </property>
+        <property name="dsds04" type="string">
+            <column name="DSDS04" length="30" />
+        </property>
+        <property name="dsvl01" type="java.lang.Long">
+            <column name="DSVL01" />
+        </property>
+        <property name="dsvl02" type="java.lang.Long">
+            <column name="DSVL02" />
+        </property>
+        <property name="dsvl03" type="java.lang.Long">
+            <column name="DSVL03" />
+        </property>
+        <property name="dsmade" type="java.lang.Integer">
+            <column name="DSMADE" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.AuditEntry" table="AuditEntry">
+        <id name="key" type="string">
+            <column name="identifier" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="login" type="string">
+            <column name="login" length="50" />
+        </property>
+        <property name="action" type="string">
+            <column name="action" length="200" />
+        </property>
+        <property name="module" type="string">
+            <column name="module" length="50" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="200" />
+        </property>
+        <property name="creationDateTime" type="date">
+            <column name="creationDateTime" />
+        </property>
+    </class>
+</hibernate-mapping>

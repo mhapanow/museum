@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Tap902" table="TAP902">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cbnk" type="java.lang.Integer">
+            <column name="CBNK" />
+        </property>
+        <property name="crel" type="java.lang.Integer">
+            <column name="CREL" />
+        </property>
+        <property name="caplp" type="java.lang.Integer">
+            <column name="CAPLP" />
+        </property>
+        <property name="&#241;ctap" type="java.lang.Long">
+            <column name="&#209;CTAP" />
+        </property>
+        <property name="caplv" type="java.lang.Integer">
+            <column name="CAPLV" />
+        </property>
+        <property name="&#241;ctav" type="java.lang.Long">
+            <column name="&#209;CTAV" />
+        </property>
+        <property name="ssalmn" type="big_decimal">
+            <column name="SSALMN" precision="13" />
+        </property>
+        <property name="ssalmx" type="big_decimal">
+            <column name="SSALMX" precision="13" />
+        </property>
+        <property name="xmarc" type="string">
+            <column name="XMARC" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

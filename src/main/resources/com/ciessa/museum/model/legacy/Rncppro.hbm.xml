@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Rncppro" table="RNCPPRO">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="prcppr" type="string">
+            <column name="PRCPPR" length="4" />
+        </property>
+        <property name="prsepm" type="string">
+            <column name="PRSEPM" length="1" />
+        </property>
+        <property name="prappm" type="string">
+            <column name="PRAPPM" length="30" />
+        </property>
+        <property name="prcosu" type="java.lang.Integer">
+            <column name="PRCOSU" />
+        </property>
+        <property name="prlo" type="string">
+            <column name="PRLO" length="30" />
+        </property>
+        <property name="praaal" type="java.lang.Integer">
+            <column name="PRAAAL" />
+        </property>
+        <property name="prmmal" type="java.lang.Integer">
+            <column name="PRMMAL" />
+        </property>
+        <property name="prddal" type="java.lang.Integer">
+            <column name="PRDDAL" />
+        </property>
+        <property name="praabj" type="java.lang.Integer">
+            <column name="PRAABJ" />
+        </property>
+        <property name="prmmbj" type="java.lang.Integer">
+            <column name="PRMMBJ" />
+        </property>
+        <property name="prddbj" type="java.lang.Integer">
+            <column name="PRDDBJ" />
+        </property>
+        <property name="prctal" type="java.lang.Integer">
+            <column name="PRCTAL" />
+        </property>
+        <property name="prfrst" type="string">
+            <column name="PRFRST" length="1" />
+        </property>
+        <property name="prclas" type="string">
+            <column name="PRCLAS" length="1" />
+        </property>
+        <property name="prmter" type="string">
+            <column name="PRMTER" length="1" />
+        </property>
+        <property name="presta" type="string">
+            <column name="PRESTA" length="1" />
+        </property>
+        <property name="prsecm" type="string">
+            <column name="PRSECM" length="2" />
+        </property>
+        <property name="prtipp" type="string">
+            <column name="PRTIPP" length="1" />
+        </property>
+        <property name="prctat" type="string">
+            <column name="PRCTAT" length="3" />
+        </property>
+        <property name="prslcf" type="java.lang.Integer">
+            <column name="PRSLCF" />
+        </property>
+        <property name="prslca" type="java.lang.Integer">
+            <column name="PRSLCA" />
+        </property>
+        <property name="prlega" type="java.lang.Integer">
+            <column name="PRLEGA" />
+        </property>
+        <property name="prdeba" type="string">
+            <column name="PRDEBA" length="1" />
+        </property>
+        <property name="prcada" type="java.lang.Integer">
+            <column name="PRCADA" />
+        </property>
+        <property name="prusid" type="string">
+            <column name="PRUSID" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.User" table="Users">
+        <id name="key" type="string">
+            <column name="identifier" length="38" />
+            <generator class="assigned" />
+        </id>
+        <property name="login" type="string">
+            <column name="login" length="50" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="200" />
+        </property>
+        <property name="firstname" type="string">
+            <column name="firstname" length="200" />
+        </property>
+        <property name="lastname" type="string">
+            <column name="lastname" length="200" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="200" />
+        </property>
+        <property name="role" type="java.lang.Integer">
+            <column name="role" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        <property name="defaultDataSet" type="string">
+            <column name="defaultDataSet" length="38" />
+        </property>
+        <property name="authToken" type="string">
+            <column name="authToken" length="200" />
+        </property>
+        <property name="tokenValidity" type="timestamp">
+            <column name="tokenValidity" />
+        </property>
+        <property name="creationDateTime" type="timestamp">
+            <column name="creationDateTime" />
+        </property>
+        <property name="lastUpdate" type="timestamp">
+            <column name="lastUpdate" />
+        </property>
+        <property name="lastLogin" type="timestamp">
+            <column name="lastLogin" />
+        </property>
+    </class>
+</hibernate-mapping>

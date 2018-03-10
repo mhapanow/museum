@@ -1,0 +1,537 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpcre" table="CCRPCRE">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="crbanc" type="java.lang.Integer">
+            <column name="CRBANC" />
+        </property>
+        <property name="crnucr" type="java.lang.Long">
+            <column name="CRNUCR" />
+        </property>
+        <property name="crcapi" type="string">
+            <column name="CRCAPI" length="1" />
+        </property>
+        <property name="crline" type="java.lang.Integer">
+            <column name="CRLINE" />
+        </property>
+        <property name="crtrta" type="java.lang.Integer">
+            <column name="CRTRTA" />
+        </property>
+        <property name="crtrin" type="java.lang.Integer">
+            <column name="CRTRIN" />
+        </property>
+        <property name="crcoaj" type="java.lang.Integer">
+            <column name="CRCOAJ" />
+        </property>
+        <property name="crctai" type="java.lang.Integer">
+            <column name="CRCTAI" />
+        </property>
+        <property name="crcina" type="java.lang.Integer">
+            <column name="CRCINA" />
+        </property>
+        <property name="crnucl" type="java.lang.Long">
+            <column name="CRNUCL" />
+        </property>
+        <property name="crcobc" type="java.lang.Integer">
+            <column name="CRCOBC" />
+        </property>
+        <property name="crnuov" type="java.lang.Long">
+            <column name="CRNUOV" />
+        </property>
+        <property name="crmaba" type="string">
+            <column name="CRMABA" length="1" />
+        </property>
+        <property name="crcodi" type="java.lang.Integer">
+            <column name="CRCODI" />
+        </property>
+        <property name="crtipr" type="string">
+            <column name="CRTIPR" length="2" />
+        </property>
+        <property name="crcsuc" type="java.lang.Integer">
+            <column name="CRCSUC" />
+        </property>
+        <property name="crcdiv" type="java.lang.Integer">
+            <column name="CRCDIV" />
+        </property>
+        <property name="crcocr" type="java.lang.Integer">
+            <column name="CRCOCR" />
+        </property>
+        <property name="crcsud" type="java.lang.Integer">
+            <column name="CRCSUD" />
+        </property>
+        <property name="crcdis" type="java.lang.Integer">
+            <column name="CRCDIS" />
+        </property>
+        <property name="crstco" type="string">
+            <column name="CRSTCO" length="1" />
+        </property>
+        <property name="craasc" type="java.lang.Integer">
+            <column name="CRAASC" />
+        </property>
+        <property name="crmmsc" type="java.lang.Integer">
+            <column name="CRMMSC" />
+        </property>
+        <property name="crddsc" type="java.lang.Integer">
+            <column name="CRDDSC" />
+        </property>
+        <property name="cresuc" type="string">
+            <column name="CRESUC" length="1" />
+        </property>
+        <property name="crmnac" type="java.lang.Integer">
+            <column name="CRMNAC" />
+        </property>
+        <property name="crstcr" type="java.lang.Integer">
+            <column name="CRSTCR" />
+        </property>
+        <property name="crmafz" type="string">
+            <column name="CRMAFZ" length="1" />
+        </property>
+        <property name="craaec" type="java.lang.Integer">
+            <column name="CRAAEC" />
+        </property>
+        <property name="crmmec" type="java.lang.Integer">
+            <column name="CRMMEC" />
+        </property>
+        <property name="crddec" type="java.lang.Integer">
+            <column name="CRDDEC" />
+        </property>
+        <property name="crcoes" type="string">
+            <column name="CRCOES" length="2" />
+        </property>
+        <property name="crusts" type="string">
+            <column name="CRUSTS" length="10" />
+        </property>
+        <property name="crmgej" type="string">
+            <column name="CRMGEJ" length="1" />
+        </property>
+        <property name="craaac" type="java.lang.Integer">
+            <column name="CRAAAC" />
+        </property>
+        <property name="crmmac" type="java.lang.Integer">
+            <column name="CRMMAC" />
+        </property>
+        <property name="crddac" type="java.lang.Integer">
+            <column name="CRDDAC" />
+        </property>
+        <property name="craaoc" type="java.lang.Integer">
+            <column name="CRAAOC" />
+        </property>
+        <property name="crmmoc" type="java.lang.Integer">
+            <column name="CRMMOC" />
+        </property>
+        <property name="crddoc" type="java.lang.Integer">
+            <column name="CRDDOC" />
+        </property>
+        <property name="craavc" type="java.lang.Integer">
+            <column name="CRAAVC" />
+        </property>
+        <property name="crmmvc" type="java.lang.Integer">
+            <column name="CRMMVC" />
+        </property>
+        <property name="crddvc" type="java.lang.Integer">
+            <column name="CRDDVC" />
+        </property>
+        <property name="crfina" type="string">
+            <column name="CRFINA" length="3" />
+        </property>
+        <property name="crmocr" type="big_decimal">
+            <column name="CRMOCR" precision="15" />
+        </property>
+        <property name="crmdde" type="string">
+            <column name="CRMDDE" length="1" />
+        </property>
+        <property name="crcoc1" type="java.lang.Integer">
+            <column name="CRCOC1" />
+        </property>
+        <property name="crica1" type="big_decimal">
+            <column name="CRICA1" precision="15" />
+        </property>
+        <property name="crcoc2" type="java.lang.Integer">
+            <column name="CRCOC2" />
+        </property>
+        <property name="crica2" type="big_decimal">
+            <column name="CRICA2" precision="15" />
+        </property>
+        <property name="crcoc3" type="java.lang.Integer">
+            <column name="CRCOC3" />
+        </property>
+        <property name="crica3" type="big_decimal">
+            <column name="CRICA3" precision="15" />
+        </property>
+        <property name="crqcuo" type="java.lang.Integer">
+            <column name="CRQCUO" />
+        </property>
+        <property name="crqcua" type="java.lang.Integer">
+            <column name="CRQCUA" />
+        </property>
+        <property name="crccup" type="java.lang.Integer">
+            <column name="CRCCUP" />
+        </property>
+        <property name="crccuv" type="java.lang.Integer">
+            <column name="CRCCUV" />
+        </property>
+        <property name="crisde" type="big_decimal">
+            <column name="CRISDE" precision="15" />
+        </property>
+        <property name="crsdfi" type="big_decimal">
+            <column name="CRSDFI" precision="15" />
+        </property>
+        <property name="craasf" type="java.lang.Integer">
+            <column name="CRAASF" />
+        </property>
+        <property name="crmmsf" type="java.lang.Integer">
+            <column name="CRMMSF" />
+        </property>
+        <property name="crddsf" type="java.lang.Integer">
+            <column name="CRDDSF" />
+        </property>
+        <property name="crinca" type="big_decimal">
+            <column name="CRINCA" precision="15" />
+        </property>
+        <property name="crinba" type="big_decimal">
+            <column name="CRINBA" precision="15" />
+        </property>
+        <property name="crinbc" type="big_decimal">
+            <column name="CRINBC" precision="15" />
+        </property>
+        <property name="crrets" type="string">
+            <column name="CRRETS" length="2" />
+        </property>
+        <property name="crtacr" type="big_decimal">
+            <column name="CRTACR" precision="9" scale="6" />
+        </property>
+        <property name="crvtpo" type="big_decimal">
+            <column name="CRVTPO" precision="9" scale="6" />
+        </property>
+        <property name="crdsin" type="string">
+            <column name="CRDSIN" length="1" />
+        </property>
+        <property name="crvdin" type="big_decimal">
+            <column name="CRVDIN" precision="9" scale="6" />
+        </property>
+        <property name="crmmiv" type="string">
+            <column name="CRMMIV" length="1" />
+        </property>
+        <property name="crqdan" type="java.lang.Integer">
+            <column name="CRQDAN" />
+        </property>
+        <property name="crvibo" type="java.lang.Long">
+            <column name="CRVIBO" />
+        </property>
+        <property name="cruiba" type="java.lang.Long">
+            <column name="CRUIBA" />
+        </property>
+        <property name="crvtpr" type="java.lang.Integer">
+            <column name="CRVTPR" />
+        </property>
+        <property name="crdvdr" type="big_decimal">
+            <column name="CRDVDR" precision="15" />
+        </property>
+        <property name="crdvdp" type="big_decimal">
+            <column name="CRDVDP" precision="15" />
+        </property>
+        <property name="crcodv" type="big_decimal">
+            <column name="CRCODV" precision="11" scale="9" />
+        </property>
+        <property name="crcodp" type="big_decimal">
+            <column name="CRCODP" precision="11" scale="9" />
+        </property>
+        <property name="crcopc" type="java.lang.Integer">
+            <column name="CRCOPC" />
+        </property>
+        <property name="crttar" type="string">
+            <column name="CRTTAR" length="3" />
+        </property>
+        <property name="crntar" type="string">
+            <column name="CRNTAR" length="16" />
+        </property>
+        <property name="crnccr" type="java.lang.Long">
+            <column name="CRNCCR" />
+        </property>
+        <property name="crcomc" type="string">
+            <column name="CRCOMC" length="1" />
+        </property>
+        <property name="crncdb" type="java.lang.Long">
+            <column name="CRNCDB" />
+        </property>
+        <property name="crmepa" type="string">
+            <column name="CRMEPA" length="1" />
+        </property>
+        <property name="crcsel" type="java.lang.Integer">
+            <column name="CRCSEL" />
+        </property>
+        <property name="crisel" type="big_decimal">
+            <column name="CRISEL" precision="15" />
+        </property>
+        <property name="crvipr" type="big_decimal">
+            <column name="CRVIPR" precision="15" />
+        </property>
+        <property name="crpusc" type="string">
+            <column name="CRPUSC" length="3" />
+        </property>
+        <property name="crcose" type="java.lang.Integer">
+            <column name="CRCOSE" />
+        </property>
+        <property name="crseme" type="big_decimal">
+            <column name="CRSEME" precision="15" />
+        </property>
+        <property name="crseac" type="big_decimal">
+            <column name="CRSEAC" precision="15" />
+        </property>
+        <property name="craa1a" type="java.lang.Integer">
+            <column name="CRAA1A" />
+        </property>
+        <property name="crmm1a" type="java.lang.Integer">
+            <column name="CRMM1A" />
+        </property>
+        <property name="crdd1a" type="java.lang.Integer">
+            <column name="CRDD1A" />
+        </property>
+        <property name="craa1i" type="java.lang.Integer">
+            <column name="CRAA1I" />
+        </property>
+        <property name="crmm1i" type="java.lang.Integer">
+            <column name="CRMM1I" />
+        </property>
+        <property name="crdd1i" type="java.lang.Integer">
+            <column name="CRDD1I" />
+        </property>
+        <property name="craapa" type="java.lang.Integer">
+            <column name="CRAAPA" />
+        </property>
+        <property name="crmmpa" type="java.lang.Integer">
+            <column name="CRMMPA" />
+        </property>
+        <property name="crddpa" type="java.lang.Integer">
+            <column name="CRDDPA" />
+        </property>
+        <property name="craapi" type="java.lang.Integer">
+            <column name="CRAAPI" />
+        </property>
+        <property name="crmmpi" type="java.lang.Integer">
+            <column name="CRMMPI" />
+        </property>
+        <property name="crddpi" type="java.lang.Integer">
+            <column name="CRDDPI" />
+        </property>
+        <property name="craaua" type="java.lang.Integer">
+            <column name="CRAAUA" />
+        </property>
+        <property name="crmmua" type="java.lang.Integer">
+            <column name="CRMMUA" />
+        </property>
+        <property name="crddua" type="java.lang.Integer">
+            <column name="CRDDUA" />
+        </property>
+        <property name="craaui" type="java.lang.Integer">
+            <column name="CRAAUI" />
+        </property>
+        <property name="crmmui" type="java.lang.Integer">
+            <column name="CRMMUI" />
+        </property>
+        <property name="crddui" type="java.lang.Integer">
+            <column name="CRDDUI" />
+        </property>
+        <property name="crapgc" type="java.lang.Integer">
+            <column name="CRAPGC" />
+        </property>
+        <property name="crmpgc" type="java.lang.Integer">
+            <column name="CRMPGC" />
+        </property>
+        <property name="crdpgc" type="java.lang.Integer">
+            <column name="CRDPGC" />
+        </property>
+        <property name="craaup" type="java.lang.Integer">
+            <column name="CRAAUP" />
+        </property>
+        <property name="crmmup" type="java.lang.Integer">
+            <column name="CRMMUP" />
+        </property>
+        <property name="crddup" type="java.lang.Integer">
+            <column name="CRDDUP" />
+        </property>
+        <property name="crplam" type="java.lang.Integer">
+            <column name="CRPLAM" />
+        </property>
+        <property name="crupam" type="string">
+            <column name="CRUPAM" length="1" />
+        </property>
+        <property name="crplin" type="java.lang.Integer">
+            <column name="CRPLIN" />
+        </property>
+        <property name="crupli" type="string">
+            <column name="CRUPLI" length="1" />
+        </property>
+        <property name="crpfin" type="java.lang.Integer">
+            <column name="CRPFIN" />
+        </property>
+        <property name="crncfc" type="java.lang.Integer">
+            <column name="CRNCFC" />
+        </property>
+        <property name="crtinv" type="big_decimal">
+            <column name="CRTINV" precision="15" />
+        </property>
+        <property name="criddd" type="big_decimal">
+            <column name="CRIDDD" precision="15" />
+        </property>
+        <property name="cridmm" type="big_decimal">
+            <column name="CRIDMM" precision="15" />
+        </property>
+        <property name="cridva" type="big_decimal">
+            <column name="CRIDVA" precision="15" />
+        </property>
+        <property name="criuco" type="big_decimal">
+            <column name="CRIUCO" precision="15" />
+        </property>
+        <property name="criacc" type="big_decimal">
+            <column name="CRIACC" precision="15" />
+        </property>
+        <property name="cricdm" type="big_decimal">
+            <column name="CRICDM" precision="15" />
+        </property>
+        <property name="cricma" type="big_decimal">
+            <column name="CRICMA" precision="15" />
+        </property>
+        <property name="cripum" type="big_decimal">
+            <column name="CRIPUM" precision="15" />
+        </property>
+        <property name="cripma" type="big_decimal">
+            <column name="CRIPMA" precision="15" />
+        </property>
+        <property name="cripdd" type="big_decimal">
+            <column name="CRIPDD" precision="15" />
+        </property>
+        <property name="cripdm" type="big_decimal">
+            <column name="CRIPDM" precision="15" />
+        </property>
+        <property name="cripda" type="big_decimal">
+            <column name="CRIPDA" precision="15" />
+        </property>
+        <property name="cripuc" type="big_decimal">
+            <column name="CRIPUC" precision="15" />
+        </property>
+        <property name="cripac" type="big_decimal">
+            <column name="CRIPAC" precision="15" />
+        </property>
+        <property name="craddd" type="big_decimal">
+            <column name="CRADDD" precision="15" />
+        </property>
+        <property name="crtajv" type="big_decimal">
+            <column name="CRTAJV" precision="15" />
+        </property>
+        <property name="cradmm" type="big_decimal">
+            <column name="CRADMM" precision="15" />
+        </property>
+        <property name="cradva" type="big_decimal">
+            <column name="CRADVA" precision="15" />
+        </property>
+        <property name="craduc" type="big_decimal">
+            <column name="CRADUC" precision="15" />
+        </property>
+        <property name="crajac" type="big_decimal">
+            <column name="CRAJAC" precision="15" />
+        </property>
+        <property name="craams" type="java.lang.Integer">
+            <column name="CRAAMS" />
+        </property>
+        <property name="crmmms" type="java.lang.Integer">
+            <column name="CRMMMS" />
+        </property>
+        <property name="crddms" type="java.lang.Integer">
+            <column name="CRDDMS" />
+        </property>
+        <property name="cridcr" type="string">
+            <column name="CRIDCR" length="10" />
+        </property>
+        <property name="crusau" type="string">
+            <column name="CRUSAU" length="10" />
+        </property>
+        <property name="crmawk" type="string">
+            <column name="CRMAWK" length="1" />
+        </property>
+        <property name="crcvwk" type="java.lang.Integer">
+            <column name="CRCVWK" />
+        </property>
+        <property name="crcrwk" type="java.lang.Integer">
+            <column name="CRCRWK" />
+        </property>
+        <property name="crcomo" type="java.lang.Integer">
+            <column name="CRCOMO" />
+        </property>
+        <property name="crcoti" type="big_decimal">
+            <column name="CRCOTI" precision="15" scale="5" />
+        </property>
+        <property name="crcuse" type="java.lang.Integer">
+            <column name="CRCUSE" />
+        </property>
+        <property name="crmose" type="java.lang.Integer">
+            <column name="CRMOSE" />
+        </property>
+        <property name="crisau" type="big_decimal">
+            <column name="CRISAU" precision="15" />
+        </property>
+        <property name="crpese" type="string">
+            <column name="CRPESE" length="3" />
+        </property>
+        <property name="cri9c1" type="big_decimal">
+            <column name="CRI9C1" precision="15" />
+        </property>
+        <property name="cri9c2" type="big_decimal">
+            <column name="CRI9C2" precision="15" />
+        </property>
+        <property name="cri9c3" type="big_decimal">
+            <column name="CRI9C3" precision="15" />
+        </property>
+        <property name="cri9cs" type="big_decimal">
+            <column name="CRI9CS" precision="15" />
+        </property>
+        <property name="cri8c1" type="big_decimal">
+            <column name="CRI8C1" precision="15" />
+        </property>
+        <property name="cri8c2" type="big_decimal">
+            <column name="CRI8C2" precision="15" />
+        </property>
+        <property name="cri8c3" type="big_decimal">
+            <column name="CRI8C3" precision="15" />
+        </property>
+        <property name="cri8cs" type="big_decimal">
+            <column name="CRI8CS" precision="15" />
+        </property>
+        <property name="crctxn" type="java.lang.Long">
+            <column name="CRCTXN" />
+        </property>
+        <property name="crcira" type="string">
+            <column name="CRCIRA" length="1" />
+        </property>
+        <property name="crcsau" type="big_decimal">
+            <column name="CRCSAU" precision="15" />
+        </property>
+        <property name="crauma" type="big_decimal">
+            <column name="CRAUMA" precision="15" />
+        </property>
+        <property name="crstga" type="string">
+            <column name="CRSTGA" length="1" />
+        </property>
+        <property name="crstgc" type="string">
+            <column name="CRSTGC" length="1" />
+        </property>
+        <property name="crgaco" type="big_decimal">
+            <column name="CRGACO" precision="15" />
+        </property>
+        <property name="crprco" type="big_decimal">
+            <column name="CRPRCO" precision="15" />
+        </property>
+        <property name="crcosc" type="big_decimal">
+            <column name="CRCOSC" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpind" table="CCRPIND">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="incina" type="java.lang.Integer">
+            <column name="INCINA" />
+        </property>
+        <property name="inaavi" type="java.lang.Integer">
+            <column name="INAAVI" />
+        </property>
+        <property name="inmmvi" type="java.lang.Integer">
+            <column name="INMMVI" />
+        </property>
+        <property name="inddvi" type="java.lang.Integer">
+            <column name="INDDVI" />
+        </property>
+        <property name="invain" type="java.lang.Long">
+            <column name="INVAIN" />
+        </property>
+        <property name="incdin" type="java.lang.Integer">
+            <column name="INCDIN" />
+        </property>
+        <property name="instin" type="string">
+            <column name="INSTIN" length="1" />
+        </property>
+        <property name="inaaai" type="java.lang.Integer">
+            <column name="INAAAI" />
+        </property>
+        <property name="inmmai" type="java.lang.Integer">
+            <column name="INMMAI" />
+        </property>
+        <property name="inddai" type="java.lang.Integer">
+            <column name="INDDAI" />
+        </property>
+        <property name="inusop" type="string">
+            <column name="INUSOP" length="10" />
+        </property>
+        <property name="inaati" type="java.lang.Integer">
+            <column name="INAATI" />
+        </property>
+        <property name="inmmti" type="java.lang.Integer">
+            <column name="INMMTI" />
+        </property>
+        <property name="inddti" type="java.lang.Integer">
+            <column name="INDDTI" />
+        </property>
+        <property name="inaopa" type="string">
+            <column name="INAOPA" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

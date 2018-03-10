@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Grmida" table="GRMIDA">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="rirmcn" type="java.lang.Long">
+            <column name="RIRMCN" />
+        </property>
+        <property name="ristat" type="string">
+            <column name="RISTAT" length="1" />
+        </property>
+        <property name="ribrcd" type="java.lang.Integer">
+            <column name="RIBRCD" />
+        </property>
+        <property name="riaqdt" type="java.lang.Integer">
+            <column name="RIAQDT" />
+        </property>
+        <property name="rilsnm" type="string">
+            <column name="RILSNM" length="30" />
+        </property>
+        <property name="rifsnm" type="string">
+            <column name="RIFSNM" length="20" />
+        </property>
+        <property name="rispmn" type="string">
+            <column name="RISPMN" length="20" />
+        </property>
+        <property name="ridcty" type="string">
+            <column name="RIDCTY" length="4" />
+        </property>
+        <property name="riddl&#241;" type="java.lang.Integer">
+            <column name="RIDDL&#209;" />
+        </property>
+        <property name="riidcn" type="java.lang.Integer">
+            <column name="RIIDCN" />
+        </property>
+        <property name="riidcc" type="string">
+            <column name="RIIDCC" length="4" />
+        </property>
+        <property name="riidcv" type="java.lang.Integer">
+            <column name="RIIDCV" />
+        </property>
+        <property name="rippno" type="string">
+            <column name="RIPPNO" length="10" />
+        </property>
+        <property name="rippis" type="java.lang.Integer">
+            <column name="RIPPIS" />
+        </property>
+        <property name="ricii&#241;" type="string">
+            <column name="RICII&#209;" length="12" />
+        </property>
+        <property name="riciri" type="string">
+            <column name="RICIRI" length="20" />
+        </property>
+        <property name="riczsv" type="java.lang.Integer">
+            <column name="RICZSV" />
+        </property>
+        <property name="ribhdt" type="java.lang.Integer">
+            <column name="RIBHDT" />
+        </property>
+        <property name="ribhpl" type="java.lang.Integer">
+            <column name="RIBHPL" />
+        </property>
+        <property name="risexv" type="java.lang.Integer">
+            <column name="RISEXV" />
+        </property>
+        <property name="rimrsv" type="java.lang.Integer">
+            <column name="RIMRSV" />
+        </property>
+        <property name="riymrs" type="java.lang.Integer">
+            <column name="RIYMRS" />
+        </property>
+        <property name="riclnq" type="java.lang.Integer">
+            <column name="RICLNQ" />
+        </property>
+        <property name="riyclq" type="java.lang.Integer">
+            <column name="RIYCLQ" />
+        </property>
+        <property name="ricldq" type="java.lang.Integer">
+            <column name="RICLDQ" />
+        </property>
+        <property name="rispri" type="java.lang.Long">
+            <column name="RISPRI" />
+        </property>
+        <property name="rifmfn" type="string">
+            <column name="RIFMFN" length="20" />
+        </property>
+        <property name="rimnmt" type="string">
+            <column name="RIMNMT" length="30" />
+        </property>
+        <property name="riempi" type="string">
+            <column name="RIEMPI" length="1" />
+        </property>
+        <property name="riemh&#241;" type="java.lang.Integer">
+            <column name="RIEMH&#209;" />
+        </property>
+        <property name="riempy" type="string">
+            <column name="RIEMPY" length="1" />
+        </property>
+        <property name="riyemy" type="java.lang.Integer">
+            <column name="RIYEMY" />
+        </property>
+        <property name="rifisc" type="java.lang.Integer">
+            <column name="RIFISC" />
+        </property>
+        <property name="riyfis" type="java.lang.Integer">
+            <column name="RIYFIS" />
+        </property>
+        <property name="riivas" type="string">
+            <column name="RIIVAS" length="1" />
+        </property>
+        <property name="riyiva" type="java.lang.Integer">
+            <column name="RIYIVA" />
+        </property>
+        <property name="ribccd" type="java.lang.Integer">
+            <column name="RIBCCD" />
+        </property>
+        <property name="ricutx" type="string">
+            <column name="RICUTX" length="1" />
+        </property>
+        <property name="riyctx" type="java.lang.Integer">
+            <column name="RIYCTX" />
+        </property>
+        <property name="rilcpi" type="string">
+            <column name="RILCPI" length="1" />
+        </property>
+        <property name="rimacn" type="string">
+            <column name="RIMACN" length="30" />
+        </property>
+        <property name="ribsfv" type="java.lang.Integer">
+            <column name="RIBSFV" />
+        </property>
+        <property name="ridpri" type="string">
+            <column name="RIDPRI" length="1" />
+        </property>
+        <property name="ripost" type="string">
+            <column name="RIPOST" length="4" />
+        </property>
+        <property name="riposv" type="java.lang.Integer">
+            <column name="RIPOSV" />
+        </property>
+        <property name="rimayw" type="java.lang.Integer">
+            <column name="RIMAYW" />
+        </property>
+        <property name="riprof" type="string">
+            <column name="RIPROF" length="4" />
+        </property>
+        <property name="riprov" type="java.lang.Integer">
+            <column name="RIPROV" />
+        </property>
+        <property name="riymac" type="java.lang.Integer">
+            <column name="RIYMAC" />
+        </property>
+        <property name="rimags" type="java.lang.Long">
+            <column name="RIMAGS" />
+        </property>
+        <property name="rimvgs" type="java.lang.Long">
+            <column name="RIMVGS" />
+        </property>
+        <property name="riymag" type="java.lang.Integer">
+            <column name="RIYMAG" />
+        </property>
+        <property name="ricuvp" type="string">
+            <column name="RICUVP" length="1" />
+        </property>
+        <property name="ricuph" type="string">
+            <column name="RICUPH" length="1" />
+        </property>
+        <property name="riacde" type="string">
+            <column name="RIACDE" length="1" />
+        </property>
+        <property name="riauti" type="string">
+            <column name="RIAUTI" length="1" />
+        </property>
+        <property name="riausr" type="string">
+            <column name="RIAUSR" length="10" />
+        </property>
+        <property name="riadte" type="java.lang.Integer">
+            <column name="RIADTE" />
+        </property>
+        <property name="riatme" type="java.lang.Integer">
+            <column name="RIATME" />
+        </property>
+        <property name="riidct" type="string">
+            <column name="RIIDCT" length="3" />
+        </property>
+        <property name="riaccd" type="java.lang.Integer">
+            <column name="RIACCD" />
+        </property>
+    </class>
+</hibernate-mapping>

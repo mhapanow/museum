@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Lcspusrs" table="LCSPUSRS">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="usrprf" type="string">
+            <column name="USRPRF" length="10" />
+        </property>
+        <property name="notify" type="string">
+            <column name="NOTIFY" length="10" />
+        </property>
+        <property name="text" type="string">
+            <column name="TEXT" length="50" />
+        </property>
+        <property name="forgot" type="java.lang.Integer">
+            <column name="FORGOT" />
+        </property>
+        <property name="bnknbr" type="java.lang.Integer">
+            <column name="BNKNBR" />
+        </property>
+        <property name="branch" type="java.lang.Integer">
+            <column name="BRANCH" />
+        </property>
+        <property name="dptnbr" type="java.lang.Integer">
+            <column name="DPTNBR" />
+        </property>
+        <property name="teller" type="java.lang.Integer">
+            <column name="TELLER" />
+        </property>
+        <property name="dtaent" type="java.lang.Integer">
+            <column name="DTAENT" />
+        </property>
+        <property name="bchnbr" type="java.lang.Integer">
+            <column name="BCHNBR" />
+        </property>
+        <property name="acntnb" type="string">
+            <column name="ACNTNB" length="10" />
+        </property>
+        <property name="cbsaut" type="string">
+            <column name="CBSAUT" length="2" />
+        </property>
+        <property name="dtalib" type="java.lang.Integer">
+            <column name="DTALIB" />
+        </property>
+        <property name="rotpsw" type="string">
+            <column name="ROTPSW" length="10" />
+        </property>
+        <property name="clsusr" type="string">
+            <column name="CLSUSR" length="1" />
+        </property>
+        <property name="nroleg" type="string">
+            <column name="NROLEG" length="6" />
+        </property>
+        <property name="usdtad" type="date">
+            <column name="USDTAD" length="10" />
+        </property>
+        <property name="usraut" type="string">
+            <column name="USRAUT" length="10" />
+        </property>
+        <property name="uslcl" type="string">
+            <column name="USLCL" length="1" />
+        </property>
+        <property name="xpau" type="string">
+            <column name="XPAU" length="1" />
+        </property>
+        <property name="grbnbr" type="java.lang.Long">
+            <column name="GRBNBR" />
+        </property>
+        <property name="ususac" type="string">
+            <column name="USUSAC" length="10" />
+        </property>
+        <property name="usdtac" type="date">
+            <column name="USDTAC" length="10" />
+        </property>
+        <property name="ustmac" type="time">
+            <column name="USTMAC" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

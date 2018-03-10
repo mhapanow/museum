@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpsch" table="CCRPSCH">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="scbanc" type="java.lang.Integer">
+            <column name="SCBANC" />
+        </property>
+        <property name="scnucr" type="java.lang.Long">
+            <column name="SCNUCR" />
+        </property>
+        <property name="scncuo" type="java.lang.Integer">
+            <column name="SCNCUO" />
+        </property>
+        <property name="scsbnc" type="java.lang.Integer">
+            <column name="SCSBNC" />
+        </property>
+        <property name="scticu" type="string">
+            <column name="SCTICU" length="2" />
+        </property>
+        <property name="scstcu" type="string">
+            <column name="SCSTCU" length="1" />
+        </property>
+        <property name="scagcu" type="java.lang.Integer">
+            <column name="SCAGCU" />
+        </property>
+        <property name="scmgcu" type="java.lang.Integer">
+            <column name="SCMGCU" />
+        </property>
+        <property name="scdgcu" type="java.lang.Integer">
+            <column name="SCDGCU" />
+        </property>
+        <property name="scavcu" type="java.lang.Integer">
+            <column name="SCAVCU" />
+        </property>
+        <property name="scmvcu" type="java.lang.Integer">
+            <column name="SCMVCU" />
+        </property>
+        <property name="scdvcu" type="java.lang.Integer">
+            <column name="SCDVCU" />
+        </property>
+        <property name="sctacr" type="big_decimal">
+            <column name="SCTACR" precision="9" scale="6" />
+        </property>
+        <property name="scvtpo" type="big_decimal">
+            <column name="SCVTPO" precision="9" scale="6" />
+        </property>
+        <property name="scibas" type="java.lang.Long">
+            <column name="SCIBAS" />
+        </property>
+        <property name="sciact" type="java.lang.Long">
+            <column name="SCIACT" />
+        </property>
+        <property name="scimam" type="big_decimal">
+            <column name="SCIMAM" precision="15" />
+        </property>
+        <property name="scimba" type="big_decimal">
+            <column name="SCIMBA" precision="15" />
+        </property>
+        <property name="scicaj" type="big_decimal">
+            <column name="SCICAJ" precision="15" />
+        </property>
+        <property name="scicin" type="big_decimal">
+            <column name="SCICIN" precision="15" />
+        </property>
+        <property name="scvipo" type="big_decimal">
+            <column name="SCVIPO" precision="15" />
+        </property>
+        <property name="scisvi" type="big_decimal">
+            <column name="SCISVI" precision="15" />
+        </property>
+        <property name="scicca" type="big_decimal">
+            <column name="SCICCA" precision="15" />
+        </property>
+        <property name="sciise" type="big_decimal">
+            <column name="SCIISE" precision="15" />
+        </property>
+        <property name="scaapc" type="java.lang.Integer">
+            <column name="SCAAPC" />
+        </property>
+        <property name="scmmpc" type="java.lang.Integer">
+            <column name="SCMMPC" />
+        </property>
+        <property name="scddpc" type="java.lang.Integer">
+            <column name="SCDDPC" />
+        </property>
+        <property name="scaaip" type="java.lang.Integer">
+            <column name="SCAAIP" />
+        </property>
+        <property name="scmmip" type="java.lang.Integer">
+            <column name="SCMMIP" />
+        </property>
+        <property name="scddip" type="java.lang.Integer">
+            <column name="SCDDIP" />
+        </property>
+        <property name="scfpcu" type="string">
+            <column name="SCFPCU" length="1" />
+        </property>
+        <property name="sccsup" type="java.lang.Integer">
+            <column name="SCCSUP" />
+        </property>
+        <property name="scdapc" type="java.lang.Integer">
+            <column name="SCDAPC" />
+        </property>
+        <property name="scarcu" type="java.lang.Integer">
+            <column name="SCARCU" />
+        </property>
+        <property name="scmrcu" type="java.lang.Integer">
+            <column name="SCMRCU" />
+        </property>
+        <property name="scdrcu" type="java.lang.Integer">
+            <column name="SCDRCU" />
+        </property>
+        <property name="scviaa" type="big_decimal">
+            <column name="SCVIAA" precision="15" />
+        </property>
+        <property name="scvima" type="big_decimal">
+            <column name="SCVIMA" precision="15" />
+        </property>
+        <property name="scvipa" type="big_decimal">
+            <column name="SCVIPA" precision="15" />
+        </property>
+        <property name="scipma" type="big_decimal">
+            <column name="SCIPMA" precision="15" />
+        </property>
+        <property name="scicma" type="big_decimal">
+            <column name="SCICMA" precision="15" />
+        </property>
+        <property name="sciipd" type="big_decimal">
+            <column name="SCIIPD" precision="15" />
+        </property>
+        <property name="sciicd" type="big_decimal">
+            <column name="SCIICD" precision="15" />
+        </property>
+        <property name="sciipc" type="big_decimal">
+            <column name="SCIIPC" precision="15" />
+        </property>
+        <property name="sciicc" type="big_decimal">
+            <column name="SCIICC" precision="15" />
+        </property>
+        <property name="scsdfi" type="big_decimal">
+            <column name="SCSDFI" precision="15" />
+        </property>
+        <property name="scacon" type="string">
+            <column name="SCACON" length="10" />
+        </property>
+        <property name="sccar1" type="big_decimal">
+            <column name="SCCAR1" precision="15" />
+        </property>
+        <property name="scmaav" type="string">
+            <column name="SCMAAV" length="1" />
+        </property>
+        <property name="scmaam" type="string">
+            <column name="SCMAAM" length="1" />
+        </property>
+        <property name="scusop" type="string">
+            <column name="SCUSOP" length="10" />
+        </property>
+        <property name="scusau" type="string">
+            <column name="SCUSAU" length="10" />
+        </property>
+        <property name="sccomo" type="java.lang.Integer">
+            <column name="SCCOMO" />
+        </property>
+        <property name="sccoti" type="big_decimal">
+            <column name="SCCOTI" precision="15" scale="5" />
+        </property>
+        <property name="sccopa" type="big_decimal">
+            <column name="SCCOPA" precision="15" scale="5" />
+        </property>
+        <property name="scisau" type="big_decimal">
+            <column name="SCISAU" precision="15" />
+        </property>
+        <property name="scncen" type="java.lang.Integer">
+            <column name="SCNCEN" />
+        </property>
+        <property name="sci9in" type="big_decimal">
+            <column name="SCI9IN" precision="15" />
+        </property>
+        <property name="sci9sv" type="big_decimal">
+            <column name="SCI9SV" precision="15" />
+        </property>
+        <property name="sci9ca" type="big_decimal">
+            <column name="SCI9CA" precision="15" />
+        </property>
+        <property name="sci9pd" type="big_decimal">
+            <column name="SCI9PD" precision="15" />
+        </property>
+        <property name="sci9cd" type="big_decimal">
+            <column name="SCI9CD" precision="15" />
+        </property>
+        <property name="sci9pc" type="big_decimal">
+            <column name="SCI9PC" precision="15" />
+        </property>
+        <property name="sci9cc" type="big_decimal">
+            <column name="SCI9CC" precision="15" />
+        </property>
+        <property name="sci9c1" type="big_decimal">
+            <column name="SCI9C1" precision="15" />
+        </property>
+        <property name="sci9cs" type="big_decimal">
+            <column name="SCI9CS" precision="15" />
+        </property>
+        <property name="sci8in" type="big_decimal">
+            <column name="SCI8IN" precision="15" />
+        </property>
+        <property name="sci8sv" type="big_decimal">
+            <column name="SCI8SV" precision="15" />
+        </property>
+        <property name="sci8ca" type="big_decimal">
+            <column name="SCI8CA" precision="15" />
+        </property>
+        <property name="sci8pd" type="big_decimal">
+            <column name="SCI8PD" precision="15" />
+        </property>
+        <property name="sci8cd" type="big_decimal">
+            <column name="SCI8CD" precision="15" />
+        </property>
+        <property name="sci8pc" type="big_decimal">
+            <column name="SCI8PC" precision="15" />
+        </property>
+        <property name="sci8cc" type="big_decimal">
+            <column name="SCI8CC" precision="15" />
+        </property>
+        <property name="sci8c1" type="big_decimal">
+            <column name="SCI8C1" precision="15" />
+        </property>
+        <property name="sci8cs" type="big_decimal">
+            <column name="SCI8CS" precision="15" />
+        </property>
+        <property name="sccsau" type="big_decimal">
+            <column name="SCCSAU" precision="15" />
+        </property>
+        <property name="sccsvi" type="big_decimal">
+            <column name="SCCSVI" precision="15" />
+        </property>
+        <property name="scauac" type="big_decimal">
+            <column name="SCAUAC" precision="15" />
+        </property>
+        <property name="scc8cs" type="big_decimal">
+            <column name="SCC8CS" precision="15" />
+        </property>
+        <property name="scc9cs" type="big_decimal">
+            <column name="SCC9CS" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>

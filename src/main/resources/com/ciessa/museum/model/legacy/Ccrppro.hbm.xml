@@ -1,0 +1,321 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrppro" table="CCRPPRO">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="orbanc" type="java.lang.Integer">
+            <column name="ORBANC" />
+        </property>
+        <property name="orcapi" type="string">
+            <column name="ORCAPI" length="1" />
+        </property>
+        <property name="orline" type="java.lang.Integer">
+            <column name="ORLINE" />
+        </property>
+        <property name="ortrta" type="java.lang.Integer">
+            <column name="ORTRTA" />
+        </property>
+        <property name="ortrin" type="java.lang.Integer">
+            <column name="ORTRIN" />
+        </property>
+        <property name="orcoaj" type="java.lang.Integer">
+            <column name="ORCOAJ" />
+        </property>
+        <property name="orctai" type="java.lang.Integer">
+            <column name="ORCTAI" />
+        </property>
+        <property name="orcina" type="java.lang.Integer">
+            <column name="ORCINA" />
+        </property>
+        <property name="orica1" type="big_decimal">
+            <column name="ORICA1" precision="15" />
+        </property>
+        <property name="orica2" type="big_decimal">
+            <column name="ORICA2" precision="15" />
+        </property>
+        <property name="orica3" type="big_decimal">
+            <column name="ORICA3" precision="15" />
+        </property>
+        <property name="oricac" type="big_decimal">
+            <column name="ORICAC" precision="15" />
+        </property>
+        <property name="ortipr" type="string">
+            <column name="ORTIPR" length="2" />
+        </property>
+        <property name="ormmiv" type="string">
+            <column name="ORMMIV" length="1" />
+        </property>
+        <property name="orqdan" type="java.lang.Integer">
+            <column name="ORQDAN" />
+        </property>
+        <property name="ormica" type="string">
+            <column name="ORMICA" length="1" />
+        </property>
+        <property name="ordepr" type="string">
+            <column name="ORDEPR" length="40" />
+        </property>
+        <property name="oraapr" type="java.lang.Integer">
+            <column name="ORAAPR" />
+        </property>
+        <property name="ormmpr" type="java.lang.Integer">
+            <column name="ORMMPR" />
+        </property>
+        <property name="orddpr" type="java.lang.Integer">
+            <column name="ORDDPR" />
+        </property>
+        <property name="orstpr" type="string">
+            <column name="ORSTPR" length="1" />
+        </property>
+        <property name="oraaep" type="java.lang.Integer">
+            <column name="ORAAEP" />
+        </property>
+        <property name="ormmep" type="java.lang.Integer">
+            <column name="ORMMEP" />
+        </property>
+        <property name="orddep" type="java.lang.Integer">
+            <column name="ORDDEP" />
+        </property>
+        <property name="ororfo" type="string">
+            <column name="ORORFO" length="2" />
+        </property>
+        <property name="orcfou" type="string">
+            <column name="ORCFOU" length="14" />
+        </property>
+        <property name="orcomo" type="java.lang.Integer">
+            <column name="ORCOMO" />
+        </property>
+        <property name="orbkco" type="java.lang.Integer">
+            <column name="ORBKCO" />
+        </property>
+        <property name="orcsel" type="java.lang.Integer">
+            <column name="ORCSEL" />
+        </property>
+        <property name="orcose" type="java.lang.Integer">
+            <column name="ORCOSE" />
+        </property>
+        <property name="orcopc" type="java.lang.Integer">
+            <column name="ORCOPC" />
+        </property>
+        <property name="orpca1" type="big_decimal">
+            <column name="ORPCA1" precision="7" scale="4" />
+        </property>
+        <property name="orpca2" type="big_decimal">
+            <column name="ORPCA2" precision="7" scale="4" />
+        </property>
+        <property name="orpca3" type="big_decimal">
+            <column name="ORPCA3" precision="7" scale="4" />
+        </property>
+        <property name="orpcca" type="big_decimal">
+            <column name="ORPCCA" precision="7" scale="4" />
+        </property>
+        <property name="orcoc1" type="java.lang.Integer">
+            <column name="ORCOC1" />
+        </property>
+        <property name="orcoc2" type="java.lang.Integer">
+            <column name="ORCOC2" />
+        </property>
+        <property name="orcoc3" type="java.lang.Integer">
+            <column name="ORCOC3" />
+        </property>
+        <property name="orcoca" type="java.lang.Integer">
+            <column name="ORCOCA" />
+        </property>
+        <property name="ordpdo" type="java.lang.Integer">
+            <column name="ORDPDO" />
+        </property>
+        <property name="ordnac" type="java.lang.Integer">
+            <column name="ORDNAC" />
+        </property>
+        <property name="ordwro" type="java.lang.Integer">
+            <column name="ORDWRO" />
+        </property>
+        <property name="orvtmi" type="big_decimal">
+            <column name="ORVTMI" precision="5" />
+        </property>
+        <property name="orvtma" type="big_decimal">
+            <column name="ORVTMA" precision="5" />
+        </property>
+        <property name="orccca" type="java.lang.Integer">
+            <column name="ORCCCA" />
+        </property>
+        <property name="orccin" type="java.lang.Integer">
+            <column name="ORCCIN" />
+        </property>
+        <property name="orccaj" type="java.lang.Integer">
+            <column name="ORCCAJ" />
+        </property>
+        <property name="orccic" type="java.lang.Integer">
+            <column name="ORCCIC" />
+        </property>
+        <property name="orccip" type="java.lang.Integer">
+            <column name="ORCCIP" />
+        </property>
+        <property name="orccri" type="java.lang.Integer">
+            <column name="ORCCRI" />
+        </property>
+        <property name="orccra" type="java.lang.Integer">
+            <column name="ORCCRA" />
+        </property>
+        <property name="orccrc" type="java.lang.Integer">
+            <column name="ORCCRC" />
+        </property>
+        <property name="orcrip" type="java.lang.Integer">
+            <column name="ORCRIP" />
+        </property>
+        <property name="orcipo" type="java.lang.Integer">
+            <column name="ORCIPO" />
+        </property>
+        <property name="orcpca" type="java.lang.Integer">
+            <column name="ORCPCA" />
+        </property>
+        <property name="orcpin" type="java.lang.Integer">
+            <column name="ORCPIN" />
+        </property>
+        <property name="orcpaj" type="java.lang.Integer">
+            <column name="ORCPAJ" />
+        </property>
+        <property name="orcicp" type="java.lang.Integer">
+            <column name="ORCICP" />
+        </property>
+        <property name="orcpip" type="java.lang.Integer">
+            <column name="ORCPIP" />
+        </property>
+        <property name="orcpri" type="java.lang.Integer">
+            <column name="ORCPRI" />
+        </property>
+        <property name="orcpra" type="java.lang.Integer">
+            <column name="ORCPRA" />
+        </property>
+        <property name="orcrcp" type="java.lang.Integer">
+            <column name="ORCRCP" />
+        </property>
+        <property name="orcpiu" type="java.lang.Integer">
+            <column name="ORCPIU" />
+        </property>
+        <property name="orcpil" type="java.lang.Integer">
+            <column name="ORCPIL" />
+        </property>
+        <property name="orcnca" type="java.lang.Integer">
+            <column name="ORCNCA" />
+        </property>
+        <property name="orcnin" type="java.lang.Integer">
+            <column name="ORCNIN" />
+        </property>
+        <property name="orcnaj" type="java.lang.Integer">
+            <column name="ORCNAJ" />
+        </property>
+        <property name="orcnra" type="java.lang.Integer">
+            <column name="ORCNRA" />
+        </property>
+        <property name="orcnil" type="java.lang.Integer">
+            <column name="ORCNIL" />
+        </property>
+        <property name="orccwo" type="java.lang.Integer">
+            <column name="ORCCWO" />
+        </property>
+        <property name="orccob" type="java.lang.Integer">
+            <column name="ORCCOB" />
+        </property>
+        <property name="orccse" type="java.lang.Integer">
+            <column name="ORCCSE" />
+        </property>
+        <property name="orcigp" type="java.lang.Integer">
+            <column name="ORCIGP" />
+        </property>
+        <property name="orcaig" type="java.lang.Integer">
+            <column name="ORCAIG" />
+        </property>
+        <property name="orusop" type="string">
+            <column name="ORUSOP" length="10" />
+        </property>
+        <property name="orusau" type="string">
+            <column name="ORUSAU" length="10" />
+        </property>
+        <property name="ortipo" type="java.lang.Integer">
+            <column name="ORTIPO" />
+        </property>
+        <property name="oremp" type="string">
+            <column name="OREMP" length="1" />
+        </property>
+        <property name="orciv1" type="java.lang.Integer">
+            <column name="ORCIV1" />
+        </property>
+        <property name="orciv2" type="java.lang.Integer">
+            <column name="ORCIV2" />
+        </property>
+        <property name="orciv3" type="java.lang.Integer">
+            <column name="ORCIV3" />
+        </property>
+        <property name="orciv4" type="java.lang.Integer">
+            <column name="ORCIV4" />
+        </property>
+        <property name="orciv5" type="java.lang.Integer">
+            <column name="ORCIV5" />
+        </property>
+        <property name="ormcol" type="string">
+            <column name="ORMCOL" length="3" />
+        </property>
+        <property name="ormcoo" type="string">
+            <column name="ORMCOO" length="3" />
+        </property>
+        <property name="ormcon" type="string">
+            <column name="ORMCON" length="3" />
+        </property>
+        <property name="orcdca" type="java.lang.Integer">
+            <column name="ORCDCA" />
+        </property>
+        <property name="orcdig" type="java.lang.Integer">
+            <column name="ORCDIG" />
+        </property>
+        <property name="orcdme" type="java.lang.Integer">
+            <column name="ORCDME" />
+        </property>
+        <property name="orcrwo" type="java.lang.Integer">
+            <column name="ORCRWO" />
+        </property>
+        <property name="orcta1" type="java.lang.Integer">
+            <column name="ORCTA1" />
+        </property>
+        <property name="orcta2" type="java.lang.Integer">
+            <column name="ORCTA2" />
+        </property>
+        <property name="orcta3" type="java.lang.Integer">
+            <column name="ORCTA3" />
+        </property>
+        <property name="orsbtp" type="string">
+            <column name="ORSBTP" length="2" />
+        </property>
+        <property name="orreqs" type="string">
+            <column name="ORREQS" length="1" />
+        </property>
+        <property name="orprcd" type="string">
+            <column name="ORPRCD" length="2" />
+        </property>
+        <property name="orpvfc" type="java.lang.Integer">
+            <column name="ORPVFC" />
+        </property>
+        <property name="orpvfa" type="java.lang.Integer">
+            <column name="ORPVFA" />
+        </property>
+        <property name="orctsf" type="java.lang.Integer">
+            <column name="ORCTSF" />
+        </property>
+        <property name="orcpzi" type="java.lang.Integer">
+            <column name="ORCPZI" />
+        </property>
+        <property name="orcpzx" type="java.lang.Integer">
+            <column name="ORCPZX" />
+        </property>
+        <property name="orpdoc" type="string">
+            <column name="ORPDOC" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

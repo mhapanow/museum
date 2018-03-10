@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpcpv" table="CCRPCPV">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cpnucr" type="java.lang.Long">
+            <column name="CPNUCR" />
+        </property>
+        <property name="cpcuat" type="java.lang.Integer">
+            <column name="CPCUAT" />
+        </property>
+        <property name="cpcuco" type="java.lang.Integer">
+            <column name="CPCUCO" />
+        </property>
+        <property name="cpfega" type="java.lang.Integer">
+            <column name="CPFEGA" />
+        </property>
+        <property name="cpusid" type="string">
+            <column name="CPUSID" length="10" />
+        </property>
+        <property name="cpfeve" type="java.lang.Integer">
+            <column name="CPFEVE" />
+        </property>
+        <property name="cpfepa" type="java.lang.Integer">
+            <column name="CPFEPA" />
+        </property>
+        <property name="cptacr" type="big_decimal">
+            <column name="CPTACR" precision="9" scale="6" />
+        </property>
+        <property name="cppuni" type="big_decimal">
+            <column name="CPPUNI" precision="11" />
+        </property>
+        <property name="cpcomp" type="big_decimal">
+            <column name="CPCOMP" precision="11" />
+        </property>
+        <property name="cpfeco" type="big_decimal">
+            <column name="CPFECO" precision="11" />
+        </property>
+        <property name="cpiva1" type="big_decimal">
+            <column name="CPIVA1" precision="11" />
+        </property>
+        <property name="cpiva2" type="big_decimal">
+            <column name="CPIVA2" precision="11" />
+        </property>
+        <property name="cpimen" type="big_decimal">
+            <column name="CPIMEN" precision="11" />
+        </property>
+        <property name="cpdiat" type="java.lang.Long">
+            <column name="CPDIAT" />
+        </property>
+        <property name="cpsbtp" type="string">
+            <column name="CPSBTP" length="2" />
+        </property>
+        <property name="cpcfez" type="string">
+            <column name="CPCFEZ" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

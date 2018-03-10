@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Tap014" table="TAP014">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="dmbk" type="java.lang.Integer">
+            <column name="DMBK" />
+        </property>
+        <property name="dmtyp" type="java.lang.Integer">
+            <column name="DMTYP" />
+        </property>
+        <property name="dmacct" type="java.lang.Long">
+            <column name="DMACCT" />
+        </property>
+        <property name="dmtodf" type="java.lang.Integer">
+            <column name="DMTODF" />
+        </property>
+        <property name="dodate" type="java.lang.Integer">
+            <column name="DODATE" />
+        </property>
+        <property name="dotie" type="java.lang.Integer">
+            <column name="DOTIE" />
+        </property>
+        <property name="dodatc" type="java.lang.Integer">
+            <column name="DODATC" />
+        </property>
+        <property name="doindx" type="java.lang.Integer">
+            <column name="DOINDX" />
+        </property>
+        <property name="doavar" type="big_decimal">
+            <column name="DOAVAR" precision="7" scale="6" />
+        </property>
+        <property name="doacb" type="string">
+            <column name="DOACB" length="1" />
+        </property>
+        <property name="doyrb" type="string">
+            <column name="DOYRB" length="1" />
+        </property>
+        <property name="docapc" type="string">
+            <column name="DOCAPC" length="1" />
+        </property>
+        <property name="dooffa" type="string">
+            <column name="DOOFFA" length="3" />
+        </property>
+        <property name="dooint" type="big_decimal">
+            <column name="DOOINT" precision="7" scale="6" />
+        </property>
+        <property name="dorvtm" type="java.lang.Integer">
+            <column name="DORVTM" />
+        </property>
+        <property name="dorvld" type="java.lang.Integer">
+            <column name="DORVLD" />
+        </property>
+        <property name="doamdt" type="java.lang.Integer">
+            <column name="DOAMDT" />
+        </property>
+        <property name="dolamd" type="java.lang.Integer">
+            <column name="DOLAMD" />
+        </property>
+        <property name="doamnd" type="java.lang.Integer">
+            <column name="DOAMND" />
+        </property>
+        <property name="doamnx" type="java.lang.Integer">
+            <column name="DOAMNX" />
+        </property>
+        <property name="doaamt" type="java.lang.Long">
+            <column name="DOAAMT" />
+        </property>
+        <property name="doawvi" type="string">
+            <column name="DOAWVI" length="1" />
+        </property>
+        <property name="dobits" type="string">
+            <column name="DOBITS" length="1" />
+        </property>
+        <property name="docbal" type="big_decimal">
+            <column name="DOCBAL" precision="13" />
+        </property>
+        <property name="dolrdt" type="java.lang.Integer">
+            <column name="DOLRDT" />
+        </property>
+        <property name="dotacc" type="big_decimal">
+            <column name="DOTACC" precision="15" scale="6" />
+        </property>
+        <property name="dopacc" type="big_decimal">
+            <column name="DOPACC" precision="13" />
+        </property>
+        <property name="doyacc" type="big_decimal">
+            <column name="DOYACC" precision="13" />
+        </property>
+        <property name="domacc" type="big_decimal">
+            <column name="DOMACC" precision="13" />
+        </property>
+        <property name="doaccr" type="java.lang.Integer">
+            <column name="DOACCR" />
+        </property>
+        <property name="doacc5" type="java.lang.Integer">
+            <column name="DOACC5" />
+        </property>
+        <property name="dotipd" type="big_decimal">
+            <column name="DOTIPD" precision="13" />
+        </property>
+        <property name="dopipd" type="big_decimal">
+            <column name="DOPIPD" precision="13" />
+        </property>
+        <property name="doyipd" type="big_decimal">
+            <column name="DOYIPD" precision="13" />
+        </property>
+        <property name="doaggi" type="big_decimal">
+            <column name="DOAGGI" precision="15" />
+        </property>
+        <property name="domxbl" type="big_decimal">
+            <column name="DOMXBL" precision="13" />
+        </property>
+        <property name="dohbal" type="big_decimal">
+            <column name="DOHBAL" precision="13" />
+        </property>
+        <property name="doipdy" type="big_decimal">
+            <column name="DOIPDY" precision="13" />
+        </property>
+        <property name="dotacw" type="big_decimal">
+            <column name="DOTACW" precision="15" scale="6" />
+        </property>
+        <property name="dopacw" type="big_decimal">
+            <column name="DOPACW" precision="13" />
+        </property>
+        <property name="doyacw" type="big_decimal">
+            <column name="DOYACW" precision="13" />
+        </property>
+        <property name="domacw" type="big_decimal">
+            <column name="DOMACW" precision="13" />
+        </property>
+        <property name="docpin" type="big_decimal">
+            <column name="DOCPIN" precision="15" scale="6" />
+        </property>
+        <property name="docppv" type="big_decimal">
+            <column name="DOCPPV" precision="13" />
+        </property>
+        <property name="docpmt" type="big_decimal">
+            <column name="DOCPMT" precision="11" />
+        </property>
+        <property name="docpyt" type="big_decimal">
+            <column name="DOCPYT" precision="11" />
+        </property>
+        <property name="docpln" type="java.lang.Integer">
+            <column name="DOCPLN" />
+        </property>
+        <property name="dobpbl" type="big_decimal">
+            <column name="DOBPBL" precision="13" />
+        </property>
+        <property name="dobpdt" type="java.lang.Integer">
+            <column name="DOBPDT" />
+        </property>
+        <property name="dobprt" type="big_decimal">
+            <column name="DOBPRT" precision="7" scale="6" />
+        </property>
+        <property name="dopwvr" type="string">
+            <column name="DOPWVR" length="1" />
+        </property>
+        <property name="dopamt" type="java.lang.Long">
+            <column name="DOPAMT" />
+        </property>
+        <property name="doaggp" type="big_decimal">
+            <column name="DOAGGP" precision="15" />
+        </property>
+        <property name="domaxl" type="big_decimal">
+            <column name="DOMAXL" precision="13" />
+        </property>
+        <property name="dowkrt" type="big_decimal">
+            <column name="DOWKRT" precision="7" scale="6" />
+        </property>
+        <property name="copid" type="string">
+            <column name="COPID" length="10" />
+        </property>
+        <property name="ddingr" type="java.lang.Integer">
+            <column name="DDINGR" />
+        </property>
+        <property name="dmingr" type="java.lang.Integer">
+            <column name="DMINGR" />
+        </property>
+        <property name="dyingr" type="java.lang.Integer">
+            <column name="DYINGR" />
+        </property>
+        <property name="cautid" type="string">
+            <column name="CAUTID" length="10" />
+        </property>
+        <property name="ddauto" type="java.lang.Integer">
+            <column name="DDAUTO" />
+        </property>
+        <property name="dmauto" type="java.lang.Integer">
+            <column name="DMAUTO" />
+        </property>
+        <property name="dyauto" type="java.lang.Integer">
+            <column name="DYAUTO" />
+        </property>
+        <property name="xstatu" type="string">
+            <column name="XSTATU" length="1" />
+        </property>
+        <property name="xstaut" type="string">
+            <column name="XSTAUT" length="1" />
+        </property>
+        <property name="xliqin" type="string">
+            <column name="XLIQIN" length="1" />
+        </property>
+        <property name="xalta" type="string">
+            <column name="XALTA" length="1" />
+        </property>
+        <property name="xvenci" type="string">
+            <column name="XVENCI" length="1" />
+        </property>
+        <property name="xsegur" type="string">
+            <column name="XSEGUR" length="1" />
+        </property>
+        <property name="xcomis" type="string">
+            <column name="XCOMIS" length="1" />
+        </property>
+        <property name="dolima" type="java.lang.Long">
+            <column name="DOLIMA" />
+        </property>
+        <property name="dolido" type="java.lang.Long">
+            <column name="DOLIDO" />
+        </property>
+    </class>
+</hibernate-mapping>

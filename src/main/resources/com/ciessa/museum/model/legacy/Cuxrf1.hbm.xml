@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Cuxrf1" table="CUXRF1">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cuxbk" type="java.lang.Integer">
+            <column name="CUXBK" />
+        </property>
+        <property name="cuxrec" type="string">
+            <column name="CUXREC" length="1" />
+        </property>
+        <property name="cux1cs" type="string">
+            <column name="CUX1CS" length="10" />
+        </property>
+        <property name="cux1ap" type="java.lang.Integer">
+            <column name="CUX1AP" />
+        </property>
+        <property name="cux1ty" type="java.lang.Integer">
+            <column name="CUX1TY" />
+        </property>
+        <property name="cux1ac" type="java.lang.Long">
+            <column name="CUX1AC" />
+        </property>
+        <property name="cuxrel" type="string">
+            <column name="CUXREL" length="3" />
+        </property>
+        <property name="cuxbrc" type="java.lang.Integer">
+            <column name="CUXBRC" />
+        </property>
+        <property name="cuxsts" type="string">
+            <column name="CUXSTS" length="1" />
+        </property>
+        <property name="cuxfch" type="java.lang.Integer">
+            <column name="CUXFCH" />
+        </property>
+    </class>
+</hibernate-mapping>

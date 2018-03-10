@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Rsctam" table="RSCTAM">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cbanco" type="java.lang.Integer">
+            <column name="CBANCO" />
+        </property>
+        <property name="cuenta" type="java.lang.Long">
+            <column name="CUENTA" />
+        </property>
+        <property name="cnomdi" type="java.lang.Integer">
+            <column name="CNOMDI" />
+        </property>
+        <property name="qresum" type="java.lang.Integer">
+            <column name="QRESUM" />
+        </property>
+        <property name="cappli" type="java.lang.Integer">
+            <column name="CAPPLI" />
+        </property>
+        <property name="client" type="java.lang.Long">
+            <column name="CLIENT" />
+        </property>
+        <property name="djcnst" type="java.lang.Integer">
+            <column name="DJCNST" />
+        </property>
+        <property name="cactiv" type="java.lang.Integer">
+            <column name="CACTIV" />
+        </property>
+        <property name="csegme" type="java.lang.Integer">
+            <column name="CSEGME" />
+        </property>
+        <property name="&#241;resct" type="java.lang.Integer">
+            <column name="&#209;RESCT" />
+        </property>
+        <property name="&#241;rcppr" type="string">
+            <column name="&#209;RCPPR" length="4" />
+        </property>
+        <property name="&#241;rslch" type="java.lang.Integer">
+            <column name="&#209;RSLCH" />
+        </property>
+        <property name="&#241;rcofn" type="string">
+            <column name="&#209;RCOFN" length="6" />
+        </property>
+        <property name="&#241;rdere" type="java.lang.Integer">
+            <column name="&#209;RDERE" />
+        </property>
+        <property name="&#241;rmcap" type="string">
+            <column name="&#209;RMCAP" length="1" />
+        </property>
+        <property name="&#241;ropin" type="string">
+            <column name="&#209;ROPIN" length="10" />
+        </property>
+        <property name="&#241;ropea" type="string">
+            <column name="&#209;ROPEA" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

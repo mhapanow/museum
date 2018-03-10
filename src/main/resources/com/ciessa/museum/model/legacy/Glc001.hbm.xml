@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Glc001" table="GLC001">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="gcbank" type="java.lang.Integer">
+            <column name="GCBANK" />
+        </property>
+        <property name="gccode" type="java.lang.Integer">
+            <column name="GCCODE" />
+        </property>
+        <property name="gciso" type="java.lang.Integer">
+            <column name="GCISO" />
+        </property>
+        <property name="gccent" type="java.lang.Integer">
+            <column name="GCCENT" />
+        </property>
+        <property name="gcdec" type="java.lang.Integer">
+            <column name="GCDEC" />
+        </property>
+        <property name="gcpet" type="string">
+            <column name="GCPET" length="6" />
+        </property>
+        <property name="gcdesc" type="string">
+            <column name="GCDESC" length="20" />
+        </property>
+        <property name="gcloc" type="string">
+            <column name="GCLOC" length="20" />
+        </property>
+        <property name="gcind" type="string">
+            <column name="GCIND" length="1" />
+        </property>
+        <property name="gcdate" type="java.lang.Integer">
+            <column name="GCDATE" />
+        </property>
+        <property name="gctime" type="java.lang.Integer">
+            <column name="GCTIME" />
+        </property>
+        <property name="gcterm" type="string">
+            <column name="GCTERM" length="10" />
+        </property>
+        <property name="gcok1" type="string">
+            <column name="GCOK1" length="10" />
+        </property>
+        <property name="gcok2" type="string">
+            <column name="GCOK2" length="10" />
+        </property>
+        <property name="gcactv" type="java.lang.Integer">
+            <column name="GCACTV" />
+        </property>
+        <property name="gcefdt" type="java.lang.Integer">
+            <column name="GCEFDT" />
+        </property>
+        <property name="gceftm" type="java.lang.Integer">
+            <column name="GCEFTM" />
+        </property>
+    </class>
+</hibernate-mapping>

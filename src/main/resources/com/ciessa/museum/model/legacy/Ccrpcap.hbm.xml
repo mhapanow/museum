@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpcap" table="CCRPCAP">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cabanc" type="java.lang.Integer">
+            <column name="CABANC" />
+        </property>
+        <property name="canmov" type="java.lang.Integer">
+            <column name="CANMOV" />
+        </property>
+        <property name="canucr" type="java.lang.Long">
+            <column name="CANUCR" />
+        </property>
+        <property name="cancuo" type="java.lang.Integer">
+            <column name="CANCUO" />
+        </property>
+        <property name="casbnc" type="java.lang.Integer">
+            <column name="CASBNC" />
+        </property>
+        <property name="cadtem" type="java.lang.Integer">
+            <column name="CADTEM" />
+        </property>
+        <property name="cacsup" type="java.lang.Integer">
+            <column name="CACSUP" />
+        </property>
+        <property name="cafpcu" type="string">
+            <column name="CAFPCU" length="1" />
+        </property>
+        <property name="caimap" type="big_decimal">
+            <column name="CAIMAP" precision="15" />
+        </property>
+        <property name="caimbp" type="big_decimal">
+            <column name="CAIMBP" precision="15" />
+        </property>
+        <property name="caicap" type="big_decimal">
+            <column name="CAICAP" precision="15" />
+        </property>
+        <property name="caicip" type="big_decimal">
+            <column name="CAICIP" precision="15" />
+        </property>
+        <property name="caisvp" type="big_decimal">
+            <column name="CAISVP" precision="15" />
+        </property>
+        <property name="caiccp" type="big_decimal">
+            <column name="CAICCP" precision="15" />
+        </property>
+        <property name="caiisp" type="big_decimal">
+            <column name="CAIISP" precision="15" />
+        </property>
+        <property name="caiipp" type="big_decimal">
+            <column name="CAIIPP" precision="15" />
+        </property>
+        <property name="caiicp" type="big_decimal">
+            <column name="CAIICP" precision="15" />
+        </property>
+        <property name="cacarp" type="big_decimal">
+            <column name="CACARP" precision="15" />
+        </property>
+        <property name="caisap" type="big_decimal">
+            <column name="CAISAP" precision="15" />
+        </property>
+        <property name="cai9ip" type="big_decimal">
+            <column name="CAI9IP" precision="15" />
+        </property>
+        <property name="cai9vp" type="big_decimal">
+            <column name="CAI9VP" precision="15" />
+        </property>
+        <property name="cai9ca" type="big_decimal">
+            <column name="CAI9CA" precision="15" />
+        </property>
+        <property name="cai9pp" type="big_decimal">
+            <column name="CAI9PP" precision="15" />
+        </property>
+        <property name="cai9op" type="big_decimal">
+            <column name="CAI9OP" precision="15" />
+        </property>
+        <property name="cai9gp" type="big_decimal">
+            <column name="CAI9GP" precision="15" />
+        </property>
+        <property name="cai9sp" type="big_decimal">
+            <column name="CAI9SP" precision="15" />
+        </property>
+        <property name="cai8ip" type="big_decimal">
+            <column name="CAI8IP" precision="15" />
+        </property>
+        <property name="cai8vp" type="big_decimal">
+            <column name="CAI8VP" precision="15" />
+        </property>
+        <property name="cai8ca" type="big_decimal">
+            <column name="CAI8CA" precision="15" />
+        </property>
+        <property name="cai8pp" type="big_decimal">
+            <column name="CAI8PP" precision="15" />
+        </property>
+        <property name="cai8op" type="big_decimal">
+            <column name="CAI8OP" precision="15" />
+        </property>
+        <property name="cai8gp" type="big_decimal">
+            <column name="CAI8GP" precision="15" />
+        </property>
+        <property name="cai8sp" type="big_decimal">
+            <column name="CAI8SP" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>

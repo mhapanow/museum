@@ -1,0 +1,912 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Tap002" table="TAP002">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="dmbk" type="java.lang.Integer">
+            <column name="DMBK" />
+        </property>
+        <property name="dmtyp" type="java.lang.Integer">
+            <column name="DMTYP" />
+        </property>
+        <property name="dmacct" type="java.lang.Long">
+            <column name="DMACCT" />
+        </property>
+        <property name="dmtitl" type="string">
+            <column name="DMTITL" length="20" />
+        </property>
+        <property name="dmctl" type="java.lang.Integer">
+            <column name="DMCTL" />
+        </property>
+        <property name="dmshrt" type="string">
+            <column name="DMSHRT" length="18" />
+        </property>
+        <property name="dmnow" type="string">
+            <column name="DMNOW" length="1" />
+        </property>
+        <property name="dmtafg" type="string">
+            <column name="DMTAFG" length="1" />
+        </property>
+        <property name="dmcorr" type="string">
+            <column name="DMCORR" length="1" />
+        </property>
+        <property name="dmpub" type="string">
+            <column name="DMPUB" length="1" />
+        </property>
+        <property name="dmgovt" type="string">
+            <column name="DMGOVT" length="1" />
+        </property>
+        <property name="dmsec" type="string">
+            <column name="DMSEC" length="1" />
+        </property>
+        <property name="dmpers" type="string">
+            <column name="DMPERS" length="1" />
+        </property>
+        <property name="dmemp" type="string">
+            <column name="DMEMP" length="1" />
+        </property>
+        <property name="dmbrch" type="java.lang.Integer">
+            <column name="DMBRCH" />
+        </property>
+        <property name="dmtype" type="java.lang.Integer">
+            <column name="DMTYPE" />
+        </property>
+        <property name="dmdopn" type="java.lang.Integer">
+            <column name="DMDOPN" />
+        </property>
+        <property name="dmoff" type="string">
+            <column name="DMOFF" length="3" />
+        </property>
+        <property name="dmlp" type="string">
+            <column name="DMLP" length="1" />
+        </property>
+        <property name="dmmail" type="string">
+            <column name="DMMAIL" length="1" />
+        </property>
+        <property name="dmclov" type="string">
+            <column name="DMCLOV" length="1" />
+        </property>
+        <property name="dmnoac" type="string">
+            <column name="DMNOAC" length="1" />
+        </property>
+        <property name="dmrege" type="string">
+            <column name="DMREGE" length="1" />
+        </property>
+        <property name="dmclst" type="string">
+            <column name="DMCLST" length="1" />
+        </property>
+        <property name="dmrest" type="string">
+            <column name="DMREST" length="1" />
+        </property>
+        <property name="dmsig" type="java.lang.Integer">
+            <column name="DMSIG" />
+        </property>
+        <property name="dmsiga" type="java.lang.Integer">
+            <column name="DMSIGA" />
+        </property>
+        <property name="dmspin" type="string">
+            <column name="DMSPIN" length="1" />
+        </property>
+        <property name="dmodl" type="java.lang.Integer">
+            <column name="DMODL" />
+        </property>
+        <property name="dmhist" type="string">
+            <column name="DMHIST" length="1" />
+        </property>
+        <property name="dmprvs" type="string">
+            <column name="DMPRVS" length="1" />
+        </property>
+        <property name="dmbffg" type="string">
+            <column name="DMBFFG" length="1" />
+        </property>
+        <property name="dmcodt" type="java.lang.Integer">
+            <column name="DMCODT" />
+        </property>
+        <property name="dmlmtn" type="java.lang.Integer">
+            <column name="DMLMTN" />
+        </property>
+        <property name="dmstat" type="string">
+            <column name="DMSTAT" length="1" />
+        </property>
+        <property name="dmusr1" type="string">
+            <column name="DMUSR1" length="1" />
+        </property>
+        <property name="dmusr2" type="string">
+            <column name="DMUSR2" length="1" />
+        </property>
+        <property name="dmcbal" type="big_decimal">
+            <column name="DMCBAL" precision="13" />
+        </property>
+        <property name="dmybal" type="big_decimal">
+            <column name="DMYBAL" precision="13" />
+        </property>
+        <property name="dmcmcn" type="java.lang.Integer">
+            <column name="DMCMCN" />
+        </property>
+        <property name="dmlcyb" type="big_decimal">
+            <column name="DMLCYB" precision="15" />
+        </property>
+        <property name="dmhold" type="java.lang.Long">
+            <column name="DMHOLD" />
+        </property>
+        <property name="dmcf1" type="java.lang.Long">
+            <column name="DMCF1" />
+        </property>
+        <property name="dmcf2" type="java.lang.Long">
+            <column name="DMCF2" />
+        </property>
+        <property name="dmcf3" type="java.lang.Long">
+            <column name="DMCF3" />
+        </property>
+        <property name="dmcf4" type="java.lang.Long">
+            <column name="DMCF4" />
+        </property>
+        <property name="dmcf5" type="java.lang.Long">
+            <column name="DMCF5" />
+        </property>
+        <property name="dmcf6" type="java.lang.Long">
+            <column name="DMCF6" />
+        </property>
+        <property name="dmcf7" type="java.lang.Long">
+            <column name="DMCF7" />
+        </property>
+        <property name="dmcf8" type="java.lang.Long">
+            <column name="DMCF8" />
+        </property>
+        <property name="dmcf9" type="java.lang.Long">
+            <column name="DMCF9" />
+        </property>
+        <property name="dmlnsf" type="big_decimal">
+            <column name="DMLNSF" precision="7" />
+        </property>
+        <property name="dmlsc" type="big_decimal">
+            <column name="DMLSC" precision="7" />
+        </property>
+        <property name="dmeft" type="string">
+            <column name="DMEFT" length="1" />
+        </property>
+        <property name="dmbits" type="string">
+            <column name="DMBITS" length="1" />
+        </property>
+        <property name="dmbit2" type="string">
+            <column name="DMBIT2" length="1" />
+        </property>
+        <property name="dmdla" type="java.lang.Integer">
+            <column name="DMDLA" />
+        </property>
+        <property name="dmdld" type="java.lang.Integer">
+            <column name="DMDLD" />
+        </property>
+        <property name="dmald" type="big_decimal">
+            <column name="DMALD" precision="13" />
+        </property>
+        <property name="dmactv" type="string">
+            <column name="DMACTV" length="1" />
+        </property>
+        <property name="dmttrn" type="java.lang.Integer">
+            <column name="DMTTRN" />
+        </property>
+        <property name="dmmwd" type="java.lang.Integer">
+            <column name="DMMWD" />
+        </property>
+        <property name="dmnsfa" type="big_decimal">
+            <column name="DMNSFA" precision="13" />
+        </property>
+        <property name="dmcktd" type="java.lang.Integer">
+            <column name="DMCKTD" />
+        </property>
+        <property name="dmdrt" type="big_decimal">
+            <column name="DMDRT" precision="13" />
+        </property>
+        <property name="dmdrtl" type="big_decimal">
+            <column name="DMDRTL" precision="13" />
+        </property>
+        <property name="dmdrti" type="java.lang.Integer">
+            <column name="DMDRTI" />
+        </property>
+        <property name="dmcrt" type="big_decimal">
+            <column name="DMCRT" precision="13" />
+        </property>
+        <property name="dmcrtl" type="big_decimal">
+            <column name="DMCRTL" precision="13" />
+        </property>
+        <property name="dmcrti" type="java.lang.Integer">
+            <column name="DMCRTI" />
+        </property>
+        <property name="dmexsc" type="big_decimal">
+            <column name="DMEXSC" precision="13" />
+        </property>
+        <property name="dmnsff" type="big_decimal">
+            <column name="DMNSFF" precision="9" />
+        </property>
+        <property name="dmccam" type="big_decimal">
+            <column name="DMCCAM" precision="13" />
+        </property>
+        <property name="dmsofd" type="big_decimal">
+            <column name="DMSOFD" precision="9" />
+        </property>
+        <property name="dmsofc" type="big_decimal">
+            <column name="DMSOFC" precision="9" />
+        </property>
+        <property name="dmdtdy" type="java.lang.Integer">
+            <column name="DMDTDY" />
+        </property>
+        <property name="dmctdy" type="java.lang.Integer">
+            <column name="DMCTDY" />
+        </property>
+        <property name="dmfrst" type="java.lang.Integer">
+            <column name="DMFRST" />
+        </property>
+        <property name="dmfstt" type="java.lang.Integer">
+            <column name="DMFSTT" />
+        </property>
+        <property name="dmlast" type="java.lang.Integer">
+            <column name="DMLAST" />
+        </property>
+        <property name="dmstct" type="string">
+            <column name="DMSTCT" length="1" />
+        </property>
+        <property name="dmstcp" type="java.lang.Integer">
+            <column name="DMSTCP" />
+        </property>
+        <property name="dmstcd" type="string">
+            <column name="DMSTCD" length="1" />
+        </property>
+        <property name="dmstfr" type="java.lang.Integer">
+            <column name="DMSTFR" />
+        </property>
+        <property name="dmstsp" type="java.lang.Integer">
+            <column name="DMSTSP" />
+        </property>
+        <property name="dmstdt" type="java.lang.Integer">
+            <column name="DMSTDT" />
+        </property>
+        <property name="dmpbal" type="big_decimal">
+            <column name="DMPBAL" precision="13" />
+        </property>
+        <property name="dmcra" type="big_decimal">
+            <column name="DMCRA" precision="13" />
+        </property>
+        <property name="dmdra" type="big_decimal">
+            <column name="DMDRA" precision="13" />
+        </property>
+        <property name="dmcri" type="java.lang.Integer">
+            <column name="DMCRI" />
+        </property>
+        <property name="dmdri" type="java.lang.Integer">
+            <column name="DMDRI" />
+        </property>
+        <property name="dmencc" type="java.lang.Integer">
+            <column name="DMENCC" />
+        </property>
+        <property name="dmencd" type="java.lang.Integer">
+            <column name="DMENCD" />
+        </property>
+        <property name="dmscst" type="big_decimal">
+            <column name="DMSCST" precision="9" />
+        </property>
+        <property name="dmintc" type="big_decimal">
+            <column name="DMINTC" precision="9" />
+        </property>
+        <property name="dmints" type="big_decimal">
+            <column name="DMINTS" precision="11" />
+        </property>
+        <property name="dmintp" type="big_decimal">
+            <column name="DMINTP" precision="11" />
+        </property>
+        <property name="dminws" type="big_decimal">
+            <column name="DMINWS" precision="11" />
+        </property>
+        <property name="dmdlst" type="java.lang.Integer">
+            <column name="DMDLST" />
+        </property>
+        <property name="dmefff" type="string">
+            <column name="DMEFFF" length="1" />
+        </property>
+        <property name="dmscty" type="string">
+            <column name="DMSCTY" length="1" />
+        </property>
+        <property name="dmsccd" type="java.lang.Integer">
+            <column name="DMSCCD" />
+        </property>
+        <property name="dmscpr" type="string">
+            <column name="DMSCPR" length="1" />
+        </property>
+        <property name="dmscfr" type="java.lang.Integer">
+            <column name="DMSCFR" />
+        </property>
+        <property name="dmscsp" type="java.lang.Integer">
+            <column name="DMSCSP" />
+        </property>
+        <property name="dmscnx" type="java.lang.Integer">
+            <column name="DMSCNX" />
+        </property>
+        <property name="dmscri" type="java.lang.Integer">
+            <column name="DMSCRI" />
+        </property>
+        <property name="dmsdri" type="java.lang.Integer">
+            <column name="DMSDRI" />
+        </property>
+        <property name="dmldi" type="java.lang.Integer">
+            <column name="DMLDI" />
+        </property>
+        <property name="dmfdi1" type="java.lang.Integer">
+            <column name="DMFDI1" />
+        </property>
+        <property name="dmfdi2" type="java.lang.Integer">
+            <column name="DMFDI2" />
+        </property>
+        <property name="dmfdi3" type="java.lang.Integer">
+            <column name="DMFDI3" />
+        </property>
+        <property name="dmfdi4" type="java.lang.Integer">
+            <column name="DMFDI4" />
+        </property>
+        <property name="dmsoft" type="big_decimal">
+            <column name="DMSOFT" precision="9" />
+        </property>
+        <property name="dmaggb" type="java.lang.Long">
+            <column name="DMAGGB" />
+        </property>
+        <property name="dmagcb" type="java.lang.Long">
+            <column name="DMAGCB" />
+        </property>
+        <property name="dmaggd" type="java.lang.Integer">
+            <column name="DMAGGD" />
+        </property>
+        <property name="dmmbal" type="java.lang.Long">
+            <column name="DMMBAL" />
+        </property>
+        <property name="dmmbld" type="java.lang.Integer">
+            <column name="DMMBLD" />
+        </property>
+        <property name="dmatm" type="java.lang.Integer">
+            <column name="DMATM" />
+        </property>
+        <property name="dmatmc" type="java.lang.Integer">
+            <column name="DMATMC" />
+        </property>
+        <property name="dmnsf" type="java.lang.Integer">
+            <column name="DMNSF" />
+        </property>
+        <property name="dmscod" type="java.lang.Integer">
+            <column name="DMSCOD" />
+        </property>
+        <property name="dmsc1a" type="big_decimal">
+            <column name="DMSC1A" precision="9" />
+        </property>
+        <property name="dmsc1i" type="java.lang.Integer">
+            <column name="DMSC1I" />
+        </property>
+        <property name="dmsc2a" type="big_decimal">
+            <column name="DMSC2A" precision="9" />
+        </property>
+        <property name="dmsc2i" type="java.lang.Integer">
+            <column name="DMSC2I" />
+        </property>
+        <property name="dmsc3a" type="big_decimal">
+            <column name="DMSC3A" precision="9" />
+        </property>
+        <property name="dmsc3i" type="java.lang.Integer">
+            <column name="DMSC3I" />
+        </property>
+        <property name="dmsc4a" type="big_decimal">
+            <column name="DMSC4A" precision="9" />
+        </property>
+        <property name="dmsc4i" type="java.lang.Integer">
+            <column name="DMSC4I" />
+        </property>
+        <property name="dmsc5a" type="big_decimal">
+            <column name="DMSC5A" precision="9" />
+        </property>
+        <property name="dmsc5i" type="java.lang.Integer">
+            <column name="DMSC5I" />
+        </property>
+        <property name="dmsc6a" type="big_decimal">
+            <column name="DMSC6A" precision="9" />
+        </property>
+        <property name="dmsc6i" type="java.lang.Integer">
+            <column name="DMSC6I" />
+        </property>
+        <property name="dmsc7a" type="big_decimal">
+            <column name="DMSC7A" precision="9" />
+        </property>
+        <property name="dmsc7i" type="java.lang.Integer">
+            <column name="DMSC7I" />
+        </property>
+        <property name="dmsc8a" type="big_decimal">
+            <column name="DMSC8A" precision="9" />
+        </property>
+        <property name="dmsc8i" type="java.lang.Integer">
+            <column name="DMSC8I" />
+        </property>
+        <property name="dmsc9a" type="big_decimal">
+            <column name="DMSC9A" precision="9" />
+        </property>
+        <property name="dmsc9i" type="java.lang.Integer">
+            <column name="DMSC9I" />
+        </property>
+        <property name="dmrela" type="java.lang.Long">
+            <column name="DMRELA" />
+        </property>
+        <property name="dmscpt" type="java.lang.Integer">
+            <column name="DMSCPT" />
+        </property>
+        <property name="dmscls" type="java.lang.Integer">
+            <column name="DMSCLS" />
+        </property>
+        <property name="dmscpb" type="big_decimal">
+            <column name="DMSCPB" precision="13" />
+        </property>
+        <property name="dmlipd" type="java.lang.Integer">
+            <column name="DMLIPD" />
+        </property>
+        <property name="dmidsp" type="string">
+            <column name="DMIDSP" length="1" />
+        </property>
+        <property name="dmtfap" type="java.lang.Integer">
+            <column name="DMTFAP" />
+        </property>
+        <property name="dmtfac" type="java.lang.Long">
+            <column name="DMTFAC" />
+        </property>
+        <property name="dmdint" type="java.lang.Integer">
+            <column name="DMDINT" />
+        </property>
+        <property name="dmwhfg" type="string">
+            <column name="DMWHFG" length="1" />
+        </property>
+        <property name="dmintr" type="big_decimal">
+            <column name="DMINTR" precision="7" scale="6" />
+        </property>
+        <property name="dmlrdt" type="java.lang.Integer">
+            <column name="DMLRDT" />
+        </property>
+        <property name="dmtacc" type="big_decimal">
+            <column name="DMTACC" precision="15" scale="7" />
+        </property>
+        <property name="dmpacc" type="big_decimal">
+            <column name="DMPACC" precision="13" />
+        </property>
+        <property name="dmyacc" type="big_decimal">
+            <column name="DMYACC" precision="13" />
+        </property>
+        <property name="dmmacc" type="big_decimal">
+            <column name="DMMACC" precision="13" />
+        </property>
+        <property name="dmaccr" type="java.lang.Integer">
+            <column name="DMACCR" />
+        </property>
+        <property name="dmacc5" type="java.lang.Integer">
+            <column name="DMACC5" />
+        </property>
+        <property name="dmtipd" type="big_decimal">
+            <column name="DMTIPD" precision="13" />
+        </property>
+        <property name="dmpipd" type="big_decimal">
+            <column name="DMPIPD" precision="13" />
+        </property>
+        <property name="dmyipd" type="big_decimal">
+            <column name="DMYIPD" precision="13" />
+        </property>
+        <property name="dmwhty" type="big_decimal">
+            <column name="DMWHTY" precision="11" />
+        </property>
+        <property name="dmiada" type="big_decimal">
+            <column name="DMIADA" precision="11" />
+        </property>
+        <property name="dmiapa" type="big_decimal">
+            <column name="DMIAPA" precision="11" />
+        </property>
+        <property name="dmaggi" type="big_decimal">
+            <column name="DMAGGI" precision="15" />
+        </property>
+        <property name="dmagid" type="java.lang.Integer">
+            <column name="DMAGID" />
+        </property>
+        <property name="dmmbli" type="java.lang.Long">
+            <column name="DMMBLI" />
+        </property>
+        <property name="dmipdy" type="big_decimal">
+            <column name="DMIPDY" precision="13" />
+        </property>
+        <property name="dmwhly" type="big_decimal">
+            <column name="DMWHLY" precision="11" />
+        </property>
+        <property name="dmonpp" type="java.lang.Integer">
+            <column name="DMONPP" />
+        </property>
+        <property name="dmonrp" type="java.lang.Integer">
+            <column name="DMONRP" />
+        </property>
+        <property name="dmonpw" type="java.lang.Integer">
+            <column name="DMONPW" />
+        </property>
+        <property name="dmonrw" type="java.lang.Integer">
+            <column name="DMONRW" />
+        </property>
+        <property name="dmccac" type="java.lang.Long">
+            <column name="DMCCAC" />
+        </property>
+        <property name="dmccin" type="java.lang.Integer">
+            <column name="DMCCIN" />
+        </property>
+        <property name="dmccfg" type="string">
+            <column name="DMCCFG" length="1" />
+        </property>
+        <property name="dmoddt" type="java.lang.Integer">
+            <column name="DMODDT" />
+        </property>
+        <property name="dmoddy" type="java.lang.Integer">
+            <column name="DMODDY" />
+        </property>
+        <property name="dmodiy" type="big_decimal">
+            <column name="DMODIY" precision="11" />
+        </property>
+        <property name="dmodly" type="java.lang.Integer">
+            <column name="DMODLY" />
+        </property>
+        <property name="dmoddp" type="java.lang.Integer">
+            <column name="DMODDP" />
+        </property>
+        <property name="dmoldy" type="java.lang.Integer">
+            <column name="DMOLDY" />
+        </property>
+        <property name="dmolyd" type="java.lang.Integer">
+            <column name="DMOLYD" />
+        </property>
+        <property name="dmamtn" type="java.lang.Integer">
+            <column name="DMAMTN" />
+        </property>
+        <property name="dmiovf" type="string">
+            <column name="DMIOVF" length="1" />
+        </property>
+        <property name="dmiova" type="string">
+            <column name="DMIOVA" length="1" />
+        </property>
+        <property name="dmiodl" type="java.lang.Long">
+            <column name="DMIODL" />
+        </property>
+        <property name="dmiodd" type="java.lang.Integer">
+            <column name="DMIODD" />
+        </property>
+        <property name="dmiodc" type="big_decimal">
+            <column name="DMIODC" precision="13" />
+        </property>
+        <property name="dmbhbl" type="big_decimal">
+            <column name="DMBHBL" precision="13" />
+        </property>
+        <property name="dmbhdt" type="java.lang.Integer">
+            <column name="DMBHDT" />
+        </property>
+        <property name="dmbhft" type="java.lang.Integer">
+            <column name="DMBHFT" />
+        </property>
+        <property name="dmbcpn" type="big_decimal">
+            <column name="DMBCPN" precision="13" />
+        </property>
+        <property name="dmmtda" type="java.lang.Long">
+            <column name="DMMTDA" />
+        </property>
+        <property name="dmmtdc" type="java.lang.Long">
+            <column name="DMMTDC" />
+        </property>
+        <property name="dmytda" type="java.lang.Long">
+            <column name="DMYTDA" />
+        </property>
+        <property name="dmytdc" type="java.lang.Long">
+            <column name="DMYTDC" />
+        </property>
+        <property name="dmmtdd" type="java.lang.Integer">
+            <column name="DMMTDD" />
+        </property>
+        <property name="dmytdd" type="java.lang.Integer">
+            <column name="DMYTDD" />
+        </property>
+        <property name="dmlyav" type="java.lang.Long">
+            <column name="DMLYAV" />
+        </property>
+        <property name="dmsctm" type="big_decimal">
+            <column name="DMSCTM" precision="9" />
+        </property>
+        <property name="dmmdri" type="java.lang.Integer">
+            <column name="DMMDRI" />
+        </property>
+        <property name="dmmcri" type="java.lang.Integer">
+            <column name="DMMCRI" />
+        </property>
+        <property name="dmmcrd" type="java.lang.Integer">
+            <column name="DMMCRD" />
+        </property>
+        <property name="dmmnsf" type="java.lang.Integer">
+            <column name="DMMNSF" />
+        </property>
+        <property name="dmmnsp" type="java.lang.Integer">
+            <column name="DMMNSP" />
+        </property>
+        <property name="dmmodm" type="java.lang.Integer">
+            <column name="DMMODM" />
+        </property>
+        <property name="dmkmo" type="java.lang.Integer">
+            <column name="DMKMO" />
+        </property>
+        <property name="dmkite" type="java.lang.Integer">
+            <column name="DMKITE" />
+        </property>
+        <property name="dmnsfy" type="java.lang.Integer">
+            <column name="DMNSFY" />
+        </property>
+        <property name="dmnsfp" type="java.lang.Integer">
+            <column name="DMNSFP" />
+        </property>
+        <property name="dmnsfl" type="java.lang.Integer">
+            <column name="DMNSFL" />
+        </property>
+        <property name="dmpsbl" type="big_decimal">
+            <column name="DMPSBL" precision="13" />
+        </property>
+        <property name="dmpscr" type="big_decimal">
+            <column name="DMPSCR" precision="13" />
+        </property>
+        <property name="dmpsdr" type="big_decimal">
+            <column name="DMPSDR" precision="13" />
+        </property>
+        <property name="dmpsci" type="java.lang.Integer">
+            <column name="DMPSCI" />
+        </property>
+        <property name="dmpsdi" type="java.lang.Integer">
+            <column name="DMPSDI" />
+        </property>
+        <property name="dmpssc" type="big_decimal">
+            <column name="DMPSSC" precision="9" />
+        </property>
+        <property name="dmpsoc" type="big_decimal">
+            <column name="DMPSOC" precision="9" />
+        </property>
+        <property name="dmpsin" type="big_decimal">
+            <column name="DMPSIN" precision="11" />
+        </property>
+        <property name="dmpsip" type="big_decimal">
+            <column name="DMPSIP" precision="11" />
+        </property>
+        <property name="dmpsiw" type="big_decimal">
+            <column name="DMPSIW" precision="11" />
+        </property>
+        <property name="dmpsls" type="java.lang.Integer">
+            <column name="DMPSLS" />
+        </property>
+        <property name="dmpslt" type="java.lang.Integer">
+            <column name="DMPSLT" />
+        </property>
+        <property name="dmpsft" type="java.lang.Integer">
+            <column name="DMPSFT" />
+        </property>
+        <property name="dmirte" type="big_decimal">
+            <column name="DMIRTE" precision="7" scale="6" />
+        </property>
+        <property name="dmbkcl" type="string">
+            <column name="DMBKCL" length="1" />
+        </property>
+        <property name="dmiavg" type="big_decimal">
+            <column name="DMIAVG" precision="13" />
+        </property>
+        <property name="dmiday" type="java.lang.Integer">
+            <column name="DMIDAY" />
+        </property>
+        <property name="dmipd1" type="big_decimal">
+            <column name="DMIPD1" precision="13" />
+        </property>
+        <property name="dmipd2" type="big_decimal">
+            <column name="DMIPD2" precision="13" />
+        </property>
+        <property name="dmipd3" type="big_decimal">
+            <column name="DMIPD3" precision="13" />
+        </property>
+        <property name="dmipd4" type="big_decimal">
+            <column name="DMIPD4" precision="13" />
+        </property>
+        <property name="dmscac" type="big_decimal">
+            <column name="DMSCAC" precision="13" />
+        </property>
+        <property name="dmscav" type="big_decimal">
+            <column name="DMSCAV" precision="13" />
+        </property>
+        <property name="dmscdy" type="java.lang.Integer">
+            <column name="DMSCDY" />
+        </property>
+        <property name="dmscbl" type="big_decimal">
+            <column name="DMSCBL" precision="13" />
+        </property>
+        <property name="dmscpd" type="java.lang.Integer">
+            <column name="DMSCPD" />
+        </property>
+        <property name="dmscpc" type="java.lang.Integer">
+            <column name="DMSCPC" />
+        </property>
+        <property name="dmscli" type="java.lang.Integer">
+            <column name="DMSCLI" />
+        </property>
+        <property name="dmsf1" type="java.lang.Integer">
+            <column name="DMSF1" />
+        </property>
+        <property name="dmsf2" type="java.lang.Integer">
+            <column name="DMSF2" />
+        </property>
+        <property name="dmsf3" type="java.lang.Integer">
+            <column name="DMSF3" />
+        </property>
+        <property name="dmsf4" type="java.lang.Integer">
+            <column name="DMSF4" />
+        </property>
+        <property name="dmscsf" type="big_decimal">
+            <column name="DMSCSF" precision="7" />
+        </property>
+        <property name="dmscnf" type="java.lang.Integer">
+            <column name="DMSCNF" />
+        </property>
+        <property name="dmscof" type="java.lang.Integer">
+            <column name="DMSCOF" />
+        </property>
+        <property name="dmscat" type="java.lang.Integer">
+            <column name="DMSCAT" />
+        </property>
+        <property name="dmscmb" type="java.lang.Long">
+            <column name="DMSCMB" />
+        </property>
+        <property name="dmscas" type="big_decimal">
+            <column name="DMSCAS" precision="9" />
+        </property>
+        <property name="dmscwv" type="big_decimal">
+            <column name="DMSCWV" precision="9" />
+        </property>
+        <property name="dmscrb" type="java.lang.Long">
+            <column name="DMSCRB" />
+        </property>
+        <property name="dmscah" type="java.lang.Integer">
+            <column name="DMSCAH" />
+        </property>
+        <property name="dmsp1a" type="big_decimal">
+            <column name="DMSP1A" precision="9" />
+        </property>
+        <property name="dmsp1i" type="java.lang.Integer">
+            <column name="DMSP1I" />
+        </property>
+        <property name="dmsp2a" type="big_decimal">
+            <column name="DMSP2A" precision="9" />
+        </property>
+        <property name="dmsp2i" type="java.lang.Integer">
+            <column name="DMSP2I" />
+        </property>
+        <property name="dmsp3a" type="big_decimal">
+            <column name="DMSP3A" precision="9" />
+        </property>
+        <property name="dmsp3i" type="java.lang.Integer">
+            <column name="DMSP3I" />
+        </property>
+        <property name="dmsp4a" type="big_decimal">
+            <column name="DMSP4A" precision="9" />
+        </property>
+        <property name="dmsp4i" type="java.lang.Integer">
+            <column name="DMSP4I" />
+        </property>
+        <property name="dmsp5a" type="big_decimal">
+            <column name="DMSP5A" precision="9" />
+        </property>
+        <property name="dmsp5i" type="java.lang.Integer">
+            <column name="DMSP5I" />
+        </property>
+        <property name="dmsp6a" type="big_decimal">
+            <column name="DMSP6A" precision="9" />
+        </property>
+        <property name="dmsp6i" type="java.lang.Integer">
+            <column name="DMSP6I" />
+        </property>
+        <property name="dmsp7a" type="big_decimal">
+            <column name="DMSP7A" precision="9" />
+        </property>
+        <property name="dmsp7i" type="java.lang.Integer">
+            <column name="DMSP7I" />
+        </property>
+        <property name="dmsp8a" type="big_decimal">
+            <column name="DMSP8A" precision="9" />
+        </property>
+        <property name="dmsp8i" type="java.lang.Integer">
+            <column name="DMSP8I" />
+        </property>
+        <property name="dmsp9a" type="big_decimal">
+            <column name="DMSP9A" precision="9" />
+        </property>
+        <property name="dmsp9i" type="java.lang.Integer">
+            <column name="DMSP9I" />
+        </property>
+        <property name="dmcpin" type="big_decimal">
+            <column name="DMCPIN" precision="15" scale="6" />
+        </property>
+        <property name="dmcppv" type="big_decimal">
+            <column name="DMCPPV" precision="13" />
+        </property>
+        <property name="dmcpmt" type="big_decimal">
+            <column name="DMCPMT" precision="11" />
+        </property>
+        <property name="dmcpyt" type="big_decimal">
+            <column name="DMCPYT" precision="11" />
+        </property>
+        <property name="dmcpln" type="java.lang.Integer">
+            <column name="DMCPLN" />
+        </property>
+        <property name="dmcprt" type="big_decimal">
+            <column name="DMCPRT" precision="7" scale="7" />
+        </property>
+        <property name="dmcapl" type="java.lang.Integer">
+            <column name="DMCAPL" />
+        </property>
+        <property name="dmcapf" type="java.lang.Integer">
+            <column name="DMCAPF" />
+        </property>
+        <property name="dmadex" type="string">
+            <column name="DMADEX" length="1" />
+        </property>
+        <property name="dmadda" type="big_decimal">
+            <column name="DMADDA" precision="13" />
+        </property>
+        <property name="dmaddw" type="big_decimal">
+            <column name="DMADDW" precision="13" />
+        </property>
+        <property name="dmadde" type="big_decimal">
+            <column name="DMADDE" precision="13" />
+        </property>
+        <property name="dmadta" type="big_decimal">
+            <column name="DMADTA" precision="13" />
+        </property>
+        <property name="dmadtw" type="big_decimal">
+            <column name="DMADTW" precision="13" />
+        </property>
+        <property name="dmadte" type="big_decimal">
+            <column name="DMADTE" precision="13" />
+        </property>
+        <property name="dmadtc" type="big_decimal">
+            <column name="DMADTC" precision="13" />
+        </property>
+        <property name="dmadas" type="big_decimal">
+            <column name="DMADAS" precision="13" />
+        </property>
+        <property name="dmadws" type="big_decimal">
+            <column name="DMADWS" precision="13" />
+        </property>
+        <property name="dmmipd" type="big_decimal">
+            <column name="DMMIPD" precision="13" />
+        </property>
+        <property name="dmwhth" type="big_decimal">
+            <column name="DMWHTH" precision="13" />
+        </property>
+        <property name="dmntdt" type="java.lang.Integer">
+            <column name="DMNTDT" />
+        </property>
+        <property name="dmntrq" type="string">
+            <column name="DMNTRQ" length="1" />
+        </property>
+        <property name="dmopdp" type="big_decimal">
+            <column name="DMOPDP" precision="13" />
+        </property>
+        <property name="dmslpt" type="string">
+            <column name="DMSLPT" length="3" />
+        </property>
+        <property name="dmwhpc" type="big_decimal">
+            <column name="DMWHPC" precision="7" scale="6" />
+        </property>
+        <property name="dmwhtm" type="big_decimal">
+            <column name="DMWHTM" precision="13" />
+        </property>
+        <property name="dmtxex" type="big_decimal">
+            <column name="DMTXEX" precision="13" />
+        </property>
+    </class>
+</hibernate-mapping>

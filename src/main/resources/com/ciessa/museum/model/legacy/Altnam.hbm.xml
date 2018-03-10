@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Altnam" table="ALTNAM">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cbanco" type="java.lang.Integer">
+            <column name="CBANCO" />
+        </property>
+        <property name="cappli" type="java.lang.Integer">
+            <column name="CAPPLI" />
+        </property>
+        <property name="cuenta" type="java.lang.Long">
+            <column name="CUENTA" />
+        </property>
+        <property name="cregis" type="java.lang.Integer">
+            <column name="CREGIS" />
+        </property>
+        <property name="namel1" type="string">
+            <column name="NAMEL1" length="40" />
+        </property>
+        <property name="namel2" type="string">
+            <column name="NAMEL2" length="40" />
+        </property>
+        <property name="namel3" type="string">
+            <column name="NAMEL3" length="40" />
+        </property>
+        <property name="adres1" type="string">
+            <column name="ADRES1" length="40" />
+        </property>
+        <property name="adres2" type="string">
+            <column name="ADRES2" length="40" />
+        </property>
+        <property name="adres3" type="string">
+            <column name="ADRES3" length="40" />
+        </property>
+        <property name="cposta" type="java.lang.Integer">
+            <column name="CPOSTA" />
+        </property>
+        <property name="ctelef" type="string">
+            <column name="CTELEF" length="13" />
+        </property>
+        <property name="xstatu" type="string">
+            <column name="XSTATU" length="1" />
+        </property>
+        <property name="cpais" type="string">
+            <column name="CPAIS" length="4" />
+        </property>
+    </class>
+</hibernate-mapping>
