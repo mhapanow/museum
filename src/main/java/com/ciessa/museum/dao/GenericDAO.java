@@ -11,6 +11,7 @@ public interface GenericDAO<T extends ModelKey> {
 
 	// Basic Gets
 	T get(String identifier) throws ASException; 
+	Class<T> getAffectedClass();
 	
 	// List Gets
 	List<T> getAll() throws ASException;

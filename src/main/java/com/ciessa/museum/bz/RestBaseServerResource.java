@@ -119,10 +119,24 @@ public abstract class RestBaseServerResource extends ServerResource {
 	 * @return A map with the request parameters
 	 */
 	public Map<String,String> getParameters() {
-		if( this.getRequest() == null ) return new HashMap<String, String>();
+		Map<String, String> ret = CollectionFactory.createMap();
+		if( this.getRequest() == null ) return ret;
 		Reference url = this.getRequest().getResourceRef();
 		Form query = url.getQueryAsForm();
-		return query.getValuesMap();
+		ret.putAll(query.getValuesMap());
+		return ret;
+	}
+
+	/**
+	 * Gets a map with all the request parameters
+	 * 
+	 * @return A map with the request parameters
+	 */
+	public Map<String,String> getHeaders() {
+		Map<String, String> ret = CollectionFactory.createMap();
+		if( this.getRequest() == null ) return ret;
+		ret.putAll(this.getRequest().getHeaders().getValuesMap());
+		return ret;
 	}
 
 	/**
@@ -438,10 +452,14 @@ public abstract class RestBaseServerResource extends ServerResource {
 	 */
 	public User getUserFromToken() throws ASException {
 		// take the authToken form request
-		Map<String,String> parameters = this.getParameters();
-		String authToken = parameters.get("authToken");
+		Map<String,String> headers = this.getHeaders();
+		String authToken = headers.get("authtoken");
 		if (!StringUtils.hasText(authToken)) {
-			throw ASExceptionHelper.authTokenMissingException();
+			Map<String,String> parameters = this.getParameters();
+			authToken = parameters.get("authToken");
+			if (!StringUtils.hasText(authToken)) {
+				throw ASExceptionHelper.authTokenMissingException();
+			}
 		}
 		
 		User authUser = null;
@@ -482,11 +500,16 @@ public abstract class RestBaseServerResource extends ServerResource {
 	 */
 	public void invalidateToken() throws ASException {
 		// take the authToken form request
-		Map<String,String> parameters = this.getParameters();
-		String authToken = parameters.get("authToken");
-		if (authToken == null) {
-			throw ASExceptionHelper.authTokenMissingException();
+		Map<String,String> headers = this.getHeaders();
+		String authToken = headers.get("authtoken");
+		if (!StringUtils.hasText(authToken)) {
+			Map<String,String> parameters = this.getParameters();
+			authToken = parameters.get("authToken");
+			if (!StringUtils.hasText(authToken)) {
+				throw ASExceptionHelper.authTokenMissingException();
+			}
 		}
+
 		User authUser = null;
 		try {
 			// obtain the use from the token

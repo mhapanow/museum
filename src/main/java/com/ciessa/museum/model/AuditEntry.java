@@ -12,21 +12,22 @@ public class AuditEntry implements Serializable, ModelKey {
 
 	public static final String ACTION_LOGIN = "login";
 	public static final String ACTION_LOGOUT = "logout";
-	
+
 	private String key;
 	private String login;
 	private String action;
 	private String module;
 	private String description;
 	private Date creationDateTime;
+	private Date lastUpdate;
 
 	public AuditEntry() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AuditEntry(String key, String login, String action, String module, String description,
-			Date creationDateTime) {
+	public AuditEntry(String key, String login, String action, String module, String description, Date creationDateTime,
+			Date lastUpdate) {
 		super();
 		this.key = key;
 		this.login = login;
@@ -34,6 +35,7 @@ public class AuditEntry implements Serializable, ModelKey {
 		this.module = module;
 		this.description = description;
 		this.creationDateTime = creationDateTime;
+		this.lastUpdate = lastUpdate;
 	}
 
 	/**
@@ -123,6 +125,21 @@ public class AuditEntry implements Serializable, ModelKey {
 	 */
 	public Date getCreationDateTime() {
 		return creationDateTime;
+	}
+
+	/**
+	 * @return the lastUpdate
+	 */
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	/**
+	 * @param lastUpdate
+	 *            the lastUpdate to set
+	 */
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 	/**

@@ -38,13 +38,13 @@ extends CrudBzService<User> {
 	private CommonValidator commonValidator;
 
 	private static final String[] MANDATORY_ADD_FIELDS = new String[] {
-		"contactInfo.mail",
+		"email",
 		"password"
 	};
 	
 	private static final String[] MANDATORY_UPDATE_FIELDS = new String[] {
 		"identifier",
-		"contactInfo.mail"
+		"email"
 	};
 	
 	private static final String[] MANDATORY_DELETE_FIELDS = new String[] {
@@ -55,19 +55,14 @@ extends CrudBzService<User> {
 	public String[] getListFields() {
 		return new String[] {
 				"identifier",
-				"avatarId",
 				"firstname",
 				"lastname",
 				"fullname",
 				"creationDateTime",
-				"statusModificationDateTime",
 				"lastUpdate",
-				"viewLocation.country",
 				"lastLogin",
-				"securitySettings.status",
-				"securitySettings.role",
-				"activityStatus",
-				"gender"
+				"status",
+				"role"
 		};
 	}
 

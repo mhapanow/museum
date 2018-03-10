@@ -42,7 +42,7 @@ public class AuthBzService extends RestBaseServerResource {
 	 * It validates if a username exists. If the user already exists, it returns
 	 * a 405 error. If not, it returns a standard void message
 	 */
-	@Get
+	@Get("json")
 	public String validate() {
 		JSONObject jsonOut = new JSONObject();		
 		try {

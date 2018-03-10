@@ -183,7 +183,7 @@ extends RestBaseServerResource {
 	 * 
 	 * @return A JSON representation of the selected fields for a user
 	 */
-	@Get
+	@Get("json")
 	public String selectRetrieveOrList() {
 		if( myDao == null ) config();
 		JSONObject returnValue = new JSONObject();

@@ -12,7 +12,7 @@
             <column name="login" length="50" />
         </property>
         <property name="action" type="string">
-            <column name="action" length="200" />
+            <column name="action" length="50" />
         </property>
         <property name="module" type="string">
             <column name="module" length="50" />
@@ -20,8 +20,11 @@
         <property name="description" type="string">
             <column name="description" length="200" />
         </property>
-        <property name="creationDateTime" type="date">
+        <property name="creationDateTime" type="timestamp">
             <column name="creationDateTime" />
+        </property>
+        <property name="lastUpdate" type="timestamp">
+            <column name="lastUpdate" />
         </property>
     </class>
 </hibernate-mapping>
