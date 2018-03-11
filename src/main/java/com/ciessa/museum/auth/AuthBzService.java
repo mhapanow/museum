@@ -1,14 +1,12 @@
 package com.ciessa.museum.auth;
 
 import java.util.Date;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.json.JSONObject;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.Delete;
-import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,15 +17,11 @@ import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.AuditEntry;
 import com.ciessa.museum.model.User;
-import com.ciessa.museum.tools.CommonValidator;
 
 public class AuthBzService extends RestBaseServerResource {
 	private static final String[] DEFAULT_FIELDS = { "identifier", "firstname", "lastname", "avatarId", "tokenValidity" };
-	private static Set<String> invalidIdentifierNames = null;
 	private static final Logger log = Logger.getLogger(AuthBzService.class.getName());
 	private static final String PASSWORD_FIELD = "password";
-
-	private CommonValidator validator = new CommonValidator();
 
 	@Autowired
 	private UserDAO dao;
@@ -35,57 +29,6 @@ public class AuthBzService extends RestBaseServerResource {
 	private AuditEntryDAO aeDao;
 	@Autowired
 	private AuthHelper authHelper;
-
-
-	/**
-	 * Corresponding to /app/auth GET method. <br>
-	 * It validates if a username exists. If the user already exists, it returns
-	 * a 405 error. If not, it returns a standard void message
-	 */
-	@Get("json")
-	public String validate() {
-		JSONObject jsonOut = new JSONObject();		
-		try {
-			String userId = this.obtainIdentifier("userId");
-
-			// check for invalid names
-			if (invalidIdentifierNames.contains(userId)) {
-				throw ASExceptionHelper.notAcceptedException();
-			}
-
-			// check valid characters, length, and so on
-			if (!validator.validateIdentifier(userId)) {
-				throw ASExceptionHelper.notAcceptedException();
-			}
-
-			// checks that the new user is a valid email address
-			if (!validator.validateEmailAddress(userId)) {
-				throw ASExceptionHelper.notAcceptedException();
-			}
-
-			try {
-				// check if exists on database
-				dao.getByLogin(userId);
-				//exists, so we blow! 
-				throw ASExceptionHelper.alreadyExistsException();
-			} catch (ASException e) {
-				if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_NOTFOUND_CODE) {
-					jsonOut = this.generateJSONOkResponse();
-				} else {
-					// other error
-					jsonOut = this.getJSONRepresentationFromException(e);
-				}
-			}catch (Exception e) {
-				jsonOut = this.getJSONRepresentationFromException(e);
-			}
-		} catch (ASException e) {
-			jsonOut = this.getJSONRepresentationFromException(e);
-		} catch (Exception e) {
-			jsonOut = this.getJSONRepresentationFromException(e);
-		}
-
-		return jsonOut.toString();
-	}
 
 	/**
 	 * Corresponding to /app/auth POST method.<br>
