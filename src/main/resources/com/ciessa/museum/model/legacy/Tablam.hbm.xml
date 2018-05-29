@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated May 28, 2018 9:18:07 PM by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="com.ciessa.museum.model.legacy.Tablam" table="TABLAM">
+    <class name="com.ciessa.museum.model.legacy.Tablam" table="TABLAM" schema="dbo" catalog="museum">
         <id name="pkid" type="string">
             <column name="PKID" length="36" />
             <generator class="assigned" />

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated May 28, 2018 9:18:07 PM by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="com.ciessa.museum.model.legacy.Ccrpcal" table="CCRPCAL">
+    <class name="com.ciessa.museum.model.legacy.Ccrpcal" table="CCRPCAL" schema="dbo" catalog="museum">
         <id name="pkid" type="string">
             <column name="PKID" length="36" />
             <generator class="assigned" />
@@ -11,8 +11,8 @@
         <property name="member" type="string">
             <column name="MEMBER" length="10" />
         </property>
-        <property name="a&#241;o" type="java.lang.Integer">
-            <column name="A&#209;O" />
+        <property name="ano" type="java.lang.Integer">
+            <column name="ANO" />
         </property>
         <property name="mes" type="java.lang.Integer">
             <column name="MES" />
@@ -26,8 +26,8 @@
         <property name="indlab" type="string">
             <column name="INDLAB" length="1" />
         </property>
-        <property name="diaa&#241;o" type="java.lang.Integer">
-            <column name="DIAA&#209;O" />
+        <property name="diaano" type="java.lang.Integer">
+            <column name="DIAANO" />
         </property>
         <property name="indban" type="string">
             <column name="INDBAN" length="1" />

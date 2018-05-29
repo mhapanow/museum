@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated May 28, 2018 9:18:07 PM by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="com.ciessa.museum.model.legacy.Grmida" table="GRMIDA">
+    <class name="com.ciessa.museum.model.legacy.Grmida" table="GRMIDA" schema="dbo" catalog="museum">
         <id name="pkid" type="string">
             <column name="PKID" length="36" />
             <generator class="assigned" />
@@ -35,8 +35,8 @@
         <property name="ridcty" type="string">
             <column name="RIDCTY" length="4" />
         </property>
-        <property name="riddl&#241;" type="java.lang.Integer">
-            <column name="RIDDL&#209;" />
+        <property name="riddln" type="java.lang.Integer">
+            <column name="RIDDLN" />
         </property>
         <property name="riidcn" type="java.lang.Integer">
             <column name="RIIDCN" />
@@ -53,8 +53,8 @@
         <property name="rippis" type="java.lang.Integer">
             <column name="RIPPIS" />
         </property>
-        <property name="ricii&#241;" type="string">
-            <column name="RICII&#209;" length="12" />
+        <property name="riciin" type="string">
+            <column name="RICIIN" length="12" />
         </property>
         <property name="riciri" type="string">
             <column name="RICIRI" length="20" />
@@ -98,8 +98,8 @@
         <property name="riempi" type="string">
             <column name="RIEMPI" length="1" />
         </property>
-        <property name="riemh&#241;" type="java.lang.Integer">
-            <column name="RIEMH&#209;" />
+        <property name="riemhn" type="java.lang.Integer">
+            <column name="RIEMHN" />
         </property>
         <property name="riempy" type="string">
             <column name="RIEMPY" length="1" />

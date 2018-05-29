@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated May 28, 2018 9:18:07 PM by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="com.ciessa.museum.model.legacy.Grmcda" table="GRMCDA">
+    <class name="com.ciessa.museum.model.legacy.Grmcda" table="GRMCDA" schema="dbo" catalog="museum">
         <id name="pkid" type="string">
             <column name="PKID" length="36" />
             <generator class="assigned" />
@@ -26,8 +26,8 @@
         <property name="rycpcn" type="string">
             <column name="RYCPCN" length="30" />
         </property>
-        <property name="rycii&#241;" type="string">
-            <column name="RYCII&#209;" length="12" />
+        <property name="ryciin" type="string">
+            <column name="RYCIIN" length="12" />
         </property>
         <property name="rystcd" type="java.lang.Integer">
             <column name="RYSTCD" />
@@ -59,14 +59,14 @@
         <property name="rycutx" type="string">
             <column name="RYCUTX" length="1" />
         </property>
-        <property name="rygri&#241;" type="java.lang.Long">
-            <column name="RYGRI&#209;" />
+        <property name="rygrin" type="java.lang.Long">
+            <column name="RYGRIN" />
         </property>
         <property name="ryygri" type="java.lang.Integer">
             <column name="RYYGRI" />
         </property>
-        <property name="rydpn&#241;" type="java.lang.Integer">
-            <column name="RYDPN&#209;" />
+        <property name="rydpnn" type="java.lang.Integer">
+            <column name="RYDPNN" />
         </property>
         <property name="ryriin" type="string">
             <column name="RYRIIN" length="1" />

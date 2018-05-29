@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 7, 2018 6:25:13 PM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated May 28, 2018 9:18:07 PM by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="com.ciessa.museum.model.legacy.Rsctam" table="RSCTAM">
+    <class name="com.ciessa.museum.model.legacy.Rsctam" table="RSCTAM" schema="dbo" catalog="museum">
         <id name="pkid" type="string">
             <column name="PKID" length="36" />
             <generator class="assigned" />
@@ -38,29 +38,29 @@
         <property name="csegme" type="java.lang.Integer">
             <column name="CSEGME" />
         </property>
-        <property name="&#241;resct" type="java.lang.Integer">
-            <column name="&#209;RESCT" />
+        <property name="nresct" type="java.lang.Integer">
+            <column name="NRESCT" />
         </property>
-        <property name="&#241;rcppr" type="string">
-            <column name="&#209;RCPPR" length="4" />
+        <property name="nrcppr" type="string">
+            <column name="NRCPPR" length="4" />
         </property>
-        <property name="&#241;rslch" type="java.lang.Integer">
-            <column name="&#209;RSLCH" />
+        <property name="nrslch" type="java.lang.Integer">
+            <column name="NRSLCH" />
         </property>
-        <property name="&#241;rcofn" type="string">
-            <column name="&#209;RCOFN" length="6" />
+        <property name="nrcofn" type="string">
+            <column name="NRCOFN" length="6" />
         </property>
-        <property name="&#241;rdere" type="java.lang.Integer">
-            <column name="&#209;RDERE" />
+        <property name="nrdere" type="java.lang.Integer">
+            <column name="NRDERE" />
         </property>
-        <property name="&#241;rmcap" type="string">
-            <column name="&#209;RMCAP" length="1" />
+        <property name="nrmcap" type="string">
+            <column name="NRMCAP" length="1" />
         </property>
-        <property name="&#241;ropin" type="string">
-            <column name="&#209;ROPIN" length="10" />
+        <property name="nropin" type="string">
+            <column name="NROPIN" length="10" />
         </property>
-        <property name="&#241;ropea" type="string">
-            <column name="&#209;ROPEA" length="10" />
+        <property name="nropea" type="string">
+            <column name="NROPEA" length="10" />
         </property>
     </class>
 </hibernate-mapping>
