@@ -73,7 +73,7 @@ public abstract class RestBaseServerResource extends ServerResource {
 	protected static final Set<String> EMPTY_SET = new HashSet<String>();
 
 	@Autowired
-	private UserDAO dao;
+	private UserDAO myDao;
 	@Autowired
 	private AuthHelper authHelper;
 	@Autowired
@@ -466,7 +466,7 @@ public abstract class RestBaseServerResource extends ServerResource {
 		
 		try {
 			// obtain the use from the token
-			authUser = dao.getByAuthToken(authToken);
+			authUser = myDao.getByAuthToken(authToken);
 			
 			if( authUser == null || authUser.getTokenValidity() == null)
 				throw ASExceptionHelper.tokenExpiredException();
@@ -478,7 +478,7 @@ public abstract class RestBaseServerResource extends ServerResource {
 					// if the token is invalid remove the token and the date and update the user...
 					authUser.setAuthToken(null);
 					authUser.setTokenValidity(null);
-					dao.update(authUser);
+					myDao.update(authUser);
 				} catch (Exception e) {}
 				//  ...then send a specific error to the client
 				throw ASExceptionHelper.tokenExpiredException();
@@ -513,13 +513,13 @@ public abstract class RestBaseServerResource extends ServerResource {
 		User authUser = null;
 		try {
 			// obtain the use from the token
-			authUser = dao.getByAuthToken(authToken);
+			authUser = myDao.getByAuthToken(authToken);
 			
 				try {
 					// if the token is invalid remove the token and the date and update the user...
 					authUser.setAuthToken(null);
 					authUser.setTokenValidity(null);
-					dao.update(authUser);
+					myDao.update(authUser);
 				} catch (Exception e) {
 				}
 		} catch (ASException e) {

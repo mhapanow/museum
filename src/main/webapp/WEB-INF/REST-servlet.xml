@@ -17,6 +17,9 @@
 				<entry key="/user" 							value-ref="spring.user.rest.resource" />
 				<entry key="/user/{identifier}" 			value-ref="spring.user.rest.resource" />
 				<entry key="/me" 							value-ref="spring.user.rest.resource" />
+
+				<entry key="/legacy/tar0077/list" 			value-ref="spring.legacy.tar0077.list" />
+				<entry key="/legacy/tar0077/view" 			value-ref="spring.legacy.tar0077.view" />
 			</map>
 		</property>
 	</bean>
@@ -33,6 +36,12 @@
  	</bean>
  	<bean id="spring.user.rest.resource" class="org.restlet.ext.spring.SpringFinder">
  	    <lookup-method name="create" bean="user.rest.resource" />
+ 	</bean>
+ 	<bean id="spring.legacy.tar0077.list" class="org.restlet.ext.spring.SpringFinder">
+ 	    <lookup-method name="create" bean="legacy.tar0077.list" />
+ 	</bean>
+ 	<bean id="spring.legacy.tar0077.view" class="org.restlet.ext.spring.SpringFinder">
+ 	    <lookup-method name="create" bean="legacy.tar0077.view" />
  	</bean>
 
 </beans>
