@@ -34,7 +34,7 @@ public class Tap002DAO {
 
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM TAP002 where DMBK = 1 and DMTYP = 6 AND DMACCT = :wcta");
+			Query q = session.createQuery("FROM Tap002 where dmbk = 1 and dmtyp = 6 AND dmacct = :wcta");
 			q.setParameter("wcta", wcta);
 			Tap002 o = (Tap002)q.uniqueResult();
 			
@@ -75,7 +75,7 @@ public class Tap002DAO {
 
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM TAP002 WHERE DMBK = 1 AND DMTYP = 6 AND DMACCT = :wbas");
+			Query q = session.createQuery("FROM Tap002 WHERE dmbk = 1 AND dmtyp = 6 AND dmacct = :wbas");
 			q.setParameter("wbas", wbas.substring(2-1, 7-1));
 			Tap002 o = (Tap002)q.uniqueResult();
 			
