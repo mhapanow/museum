@@ -5,25 +5,19 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
+import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Tap002;
-import com.ciessa.museum.tools.HibernateUtil;
 
 public class Tap002DAO {
 
 	public Tap002 getUsingWcta(DataSet ds, String wcta) throws ASException {
-		SessionFactory factory = HibernateUtil.getInstance().getSessionFactory();
+		SessionFactory factory = null;
 		try {
-			Configuration config = new Configuration();
-			config.configure("hibernate_legacy.cfg.xml");
-			config.setProperty("hibernate.connection.url", ds.getUrl());
-			config.setProperty("hibernate.connection.username", ds.getUsername());
-			config.setProperty("hibernate.connection.password", ds.getPassword());
-			factory = config.buildSessionFactory();
+			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
@@ -57,14 +51,9 @@ public class Tap002DAO {
 	}
 	
 	public Tap002 getUsingWbas(DataSet ds, String wbas) throws ASException {
-		SessionFactory factory = HibernateUtil.getInstance().getSessionFactory();
+		SessionFactory factory = null;
 		try {
-			Configuration config = new Configuration();
-			config.configure("hibernate_legacy.cfg.xml");
-			config.setProperty("hibernate.connection.url", ds.getUrl());
-			config.setProperty("hibernate.connection.username", ds.getUsername());
-			config.setProperty("hibernate.connection.password", ds.getPassword());
-			factory = config.buildSessionFactory();
+			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);

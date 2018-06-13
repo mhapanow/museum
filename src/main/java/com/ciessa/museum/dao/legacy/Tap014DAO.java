@@ -10,25 +10,19 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
+import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Tap014;
-import com.ciessa.museum.tools.HibernateUtil;
 
 public class Tap014DAO {
 
 	public ArrayList<Tap014> getUsingWcta(DataSet ds, String wcta, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp) throws ASException {
-		SessionFactory factory = HibernateUtil.getInstance().getSessionFactory();
+		SessionFactory factory = null;
 		try {
-			Configuration config = new Configuration();
-			config.configure("hibernate_legacy.cfg.xml");
-			config.setProperty("hibernate.connection.url", ds.getUrl());
-			config.setProperty("hibernate.connection.username", ds.getUsername());
-			config.setProperty("hibernate.connection.password", ds.getPassword());
-			factory = config.buildSessionFactory();
+			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
@@ -60,6 +54,7 @@ public class Tap014DAO {
 				queryStr = queryStr + " AND dolima >= " + wimp;
 			Query q = session.createQuery(queryStr);
 			q.setParameter("wcta", wcta);
+			@SuppressWarnings("unchecked")
 			ArrayList<Tap014> list = (ArrayList<Tap014>)q.list();
 			
 			if( list.size() == 0 ) {
@@ -81,14 +76,9 @@ public class Tap014DAO {
 	}
 	
 	public ArrayList<Tap014> getUsingWbas(DataSet ds, String wbas, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp) throws ASException {
-		SessionFactory factory = HibernateUtil.getInstance().getSessionFactory();
+		SessionFactory factory = null;
 		try {
-			Configuration config = new Configuration();
-			config.configure("hibernate_legacy.cfg.xml");
-			config.setProperty("hibernate.connection.url", ds.getUrl());
-			config.setProperty("hibernate.connection.username", ds.getUsername());
-			config.setProperty("hibernate.connection.password", ds.getPassword());
-			factory = config.buildSessionFactory();
+			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
@@ -120,6 +110,7 @@ public class Tap014DAO {
 				queryStr = queryStr + " AND dolima >= " + wimp;
 			Query q = session.createQuery(queryStr);
 			q.setParameter("wbas", wbas.substring(2-1, 7-1));
+			@SuppressWarnings("unchecked")
 			ArrayList<Tap014> list = (ArrayList<Tap014>)q.list();
 			
 			if( list.size() == 0 ) {
