@@ -40,24 +40,24 @@ public class Tap014DAO {
 
 		try {
 			tx = session.beginTransaction();
-			String queryStr = "FROM TAP014 WHERE DMBK = 1 AND DMTYP = 6 AND DMACCT = :wcta";
+			String queryStr = "FROM Tap014 WHERE dmbk = 1 AND dmtyp = 6 AND dmacct = :wcta";
 			if (waca == "X")
-				queryStr = queryStr + " AND DMTODF = 1 ";
+				queryStr = queryStr + " AND dmtodf = 1 ";
 			if (wpto == "X")
-				queryStr = queryStr + " AND DMTODF = 2 ";
+				queryStr = queryStr + " AND dmtodf = 2 ";
 			if (wtod == "X")
-				queryStr = queryStr + " AND DMTODF = 9 ";
+				queryStr = queryStr + " AND dmtodf = 9 ";
 			if (null != fecjud && null != fecjuh) {
 				queryStr = queryStr + " AND (";
 				cal = Calendar.getInstance();
 				cal.setTime(fecjud);
-				queryStr = queryStr + "DOAMNX >= " + cal.get(Calendar.YEAR) + new DecimalFormat("000").format(cal.get(Calendar.DAY_OF_YEAR)) +  " AND ";
+				queryStr = queryStr + "doamnx >= " + cal.get(Calendar.YEAR) + new DecimalFormat("000").format(cal.get(Calendar.DAY_OF_YEAR)) +  " AND ";
 				cal.setTime(fecjuh);
-				queryStr = queryStr + "DOAMNX <= " + cal.get(Calendar.YEAR) + new DecimalFormat("000").format(cal.get(Calendar.DAY_OF_YEAR));
+				queryStr = queryStr + "doamnx <= " + cal.get(Calendar.YEAR) + new DecimalFormat("000").format(cal.get(Calendar.DAY_OF_YEAR));
 				queryStr = queryStr +  " ) ";
 			}
 			if (wimp > 0)
-				queryStr = queryStr + " AND DOLIMA >= " + wimp;
+				queryStr = queryStr + " AND dolima >= " + wimp;
 			Query q = session.createQuery(queryStr);
 			q.setParameter("wcta", wcta);
 			ArrayList<Tap014> list = (ArrayList<Tap014>)q.list();
@@ -100,24 +100,24 @@ public class Tap014DAO {
 
 		try {
 			tx = session.beginTransaction();
-			String queryStr = "FROM TAP014 WHERE DMBK = 1 AND DMTYP = 6 AND DMACCT = :wcta";
+			String queryStr = "FROM Tap014 WHERE dmbk = 1 AND dmtyp = 6 AND dmacct = :wcta";
 			if (waca == "X")
-				queryStr = queryStr + " AND DMTODF = 1 ";
+				queryStr = queryStr + " AND dmtodf = 1 ";
 			if (wpto == "X")
-				queryStr = queryStr + " AND DMTODF = 2 ";
+				queryStr = queryStr + " AND dmtodf = 2 ";
 			if (wtod == "X")
-				queryStr = queryStr + " AND DMTODF = 9 ";
+				queryStr = queryStr + " AND dmtodf = 9 ";
 			if (null != fecjud && null != fecjuh) {
 				queryStr = queryStr + " AND (";
 				cal = Calendar.getInstance();
 				cal.setTime(fecjud);
-				queryStr = queryStr + "DOAMNX >= " + cal.get(Calendar.YEAR) + new DecimalFormat("000").format(cal.get(Calendar.DAY_OF_YEAR)) +  " AND ";
+				queryStr = queryStr + "doamnx >= " + cal.get(Calendar.YEAR) + new DecimalFormat("000").format(cal.get(Calendar.DAY_OF_YEAR)) +  " AND ";
 				cal.setTime(fecjuh);
-				queryStr = queryStr + "DOAMNX <= " + cal.get(Calendar.YEAR) + new DecimalFormat("000").format(cal.get(Calendar.DAY_OF_YEAR));
+				queryStr = queryStr + "doamnx <= " + cal.get(Calendar.YEAR) + new DecimalFormat("000").format(cal.get(Calendar.DAY_OF_YEAR));
 				queryStr = queryStr +  " ) ";
 			}
 			if (wimp > 0)
-				queryStr = queryStr + " AND DOLIMA >= " + wimp;
+				queryStr = queryStr + " AND dolima >= " + wimp;
 			Query q = session.createQuery(queryStr);
 			q.setParameter("wbas", wbas.substring(2-1, 7-1));
 			ArrayList<Tap014> list = (ArrayList<Tap014>)q.list();

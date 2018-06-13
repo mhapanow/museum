@@ -37,7 +37,7 @@ public class SaldomDAO {
 		
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM SALDOM WHERE CBANK = 1 AND CCTA = 6 AND NCTA = :wcta AND DAASAL = :daasal AND DMMSAL = :dmmsal");
+			Query q = session.createQuery("FROM Saldom WHERE cbank = 1 AND ccta = 6 AND ncta = :wcta AND daasal = :daasal AND dmmsal = :dmmsal");
 			q.setParameter("wcta", wcta);
 			q.setParameter("daasal", Calendar.getInstance().get(Calendar.YEAR));
 			q.setParameter("dmmsal", Calendar.getInstance().get(Calendar.MONTH));

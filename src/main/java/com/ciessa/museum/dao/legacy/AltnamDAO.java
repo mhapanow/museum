@@ -34,7 +34,7 @@ public class AltnamDAO {
 
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM ALTNAM where CBANCO = 1 AND CAPPLI = 20 AND CUENTA = :wcta AND CREGIS = 80");
+			Query q = session.createQuery("FROM Altnam where cbanco = 1 AND cappli = 20 AND cuenta = :wcta AND cregis = 80");
 			q.setParameter("wcta", wcta);
 			Altnam o = (Altnam)q.uniqueResult();
 			
