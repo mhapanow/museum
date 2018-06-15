@@ -67,7 +67,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 	// Get the output fields
 	String[] arrayFields = new String[] {
 			"DESTIP",
-			"DOLIDO",
+			"DOLIMA",
 			"WSDATC",
 			"WSAMND",
 			"DOAGGI",
@@ -137,8 +137,10 @@ public class FER1020View2BzService extends RestBaseServerResource{
 	
 	private String SubRut001(DataSet ds, String wcta, String wbas, String wvigd, String wvigh, String wtod, Date fecjud, Date fecjuh) throws ParseException {
 		try {
-			if ((Integer.parseInt(wbas) == 0 && Integer.parseInt(wcta) == 0) || (Integer.parseInt(wbas) > 0 && Integer.parseInt(wcta) > 0)){
-				return "Parametros Incorrectos";
+			if (wcta != null && wbas != null) {				
+				if ((Integer.parseInt(wbas) == 0 && Integer.parseInt(wcta) == 0) || (Integer.parseInt(wbas) > 0 && Integer.parseInt(wcta) > 0)){
+					return "Parametros Incorrectos";
+				}
 			}
 			if (Integer.parseInt(wcta) > 0) {
 				Tap002 obj = myDaoTap002.getUsingWcta(ds, wcta);
@@ -338,7 +340,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 
 	public class Fer1020SFLAdapter {
 		private String DESTIP;
-		private Long DOLIDO;
+		private Long DOLIMA;
 		private Date WSDATC;
 		private Date WSAMND;
 		private BigDecimal DOAGGI;
@@ -360,7 +362,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 //					this.WSDATC = new SimpleDateFormat("yyyyMMDD").parse(src2.getDexaca().toString());
 //				} catch( Exception e ) {}
 			}
-			this.DOLIDO = src.getDolido();
+			this.DOLIMA = src.getDolima();
 			this.DOAGGI = src.getDoaggi();
 
 			try {
@@ -386,15 +388,15 @@ public class FER1020View2BzService extends RestBaseServerResource{
 		/**
 		 * @return the dOLIDO
 		 */
-		public Long getDOLIDO() {
-			return DOLIDO;
+		public Long getDOLIMA() {
+			return DOLIMA;
 		}
 
 		/**
 		 * @param dOLIDO the dOLIDO to set
 		 */
-		public void setDOLIDO(Long dOLIDO) {
-			DOLIDO = dOLIDO;
+		public void setDOLIMA(Long dOLIMA) {
+			DOLIMA = dOLIMA;
 		}
 
 		/**

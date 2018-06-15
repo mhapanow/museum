@@ -52,6 +52,7 @@ public class Tap014DAO {
 			}
 			if (wimp > 0)
 				queryStr = queryStr + " AND dolima >= " + wimp;
+			queryStr = queryStr + " AND (dmtodf = 1 OR dmtodf = 2 OR (DMTODF = 9 AND dotacc > 0) ) ";
 			Query q = session.createQuery(queryStr);
 			q.setParameter("wcta", wcta);
 			@SuppressWarnings("unchecked")
@@ -90,7 +91,8 @@ public class Tap014DAO {
 
 		try {
 			tx = session.beginTransaction();
-			String queryStr = "FROM Tap014 WHERE dmbk = 1 AND dmtyp = 6 AND dmacct = :wcta";
+			String queryStr = "FROM Tap014 WHERE dmbk = 1 AND dmtyp = 6 ";
+			queryStr = queryStr + " AND dmacct >= :wbas1 AND dmacct <= :wbas2 ";
 			if (waca == "X")
 				queryStr = queryStr + " AND dmtodf = 1 ";
 			if (wpto == "X")
@@ -108,8 +110,10 @@ public class Tap014DAO {
 			}
 			if (wimp > 0)
 				queryStr = queryStr + " AND dolima >= " + wimp;
+			queryStr = queryStr + " AND (dmtodf = 1 OR dmtodf = 2 OR (DMTODF = 9 AND dotacc > 0) ) ";
 			Query q = session.createQuery(queryStr);
-			q.setParameter("wbas", wbas.substring(2-1, 7-1));
+			q.setParameter("wbas1", Long.valueOf(wbas + "00"));
+			q.setParameter("wbas2", Long.valueOf(wbas + "99"));
 			@SuppressWarnings("unchecked")
 			ArrayList<Tap014> list = (ArrayList<Tap014>)q.list();
 			

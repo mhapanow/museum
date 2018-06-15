@@ -67,7 +67,7 @@ public class FER1020View3BzService extends RestBaseServerResource {
 	String[] arrayFields = new String[] {
 			"WCTA1",
 			"DESTIP",
-			"DOLIDO",
+			"DOLIMA",
 			"DMCMCN",
 			"WSDATC",
 			"WSAMND",
@@ -143,19 +143,24 @@ public class FER1020View3BzService extends RestBaseServerResource {
 					return "Parametros Incorrectos";
 				}
 			}
-			if (Integer.parseInt(wcta) > 0) {
-				Tap002 obj = myDaoTap002.getUsingWcta(ds, wcta);
-				if (obj == null)
-					return "Cuenta Inexistente";
-				else
-					return "";
+			if (wcta != null)
+			{
+				if (Integer.parseInt(wcta) > 0) {
+					Tap002 obj = myDaoTap002.getUsingWcta(ds, wcta);
+					if (obj == null)
+						return "Cuenta Inexistente";
+					else
+						return "";
+				}
 			}
-			if (Integer.parseInt(wbas) > 0) {
-				Tap002 obj = myDaoTap002.getUsingWbas(ds, wbas);
-				if (obj == null)
-					return "Numero de Base Inexistente";
-				else
-					return "";
+			if (wbas != null) {
+				if (Integer.parseInt(wbas) > 0) {
+					Tap002 obj = myDaoTap002.getUsingWbas(ds, wbas);
+					if (obj == null)
+						return "Numero de Base Inexistente";
+					else
+						return "";
+				}	
 			}
 			if (Integer.parseInt(wvigd) > 0) {
 				if (wtod == "X")
@@ -213,7 +218,7 @@ public class FER1020View3BzService extends RestBaseServerResource {
 	public class Fer1020SFLAdapter {
 		private Long WCTA1;
 		private String DESTIP;
-		private Long DOLIDO;
+		private Long DOLIMA;
 		private String DMCMCN;
 		private Date WSDATC;
 		private Date WSAMND;
@@ -230,7 +235,7 @@ public class FER1020View3BzService extends RestBaseServerResource {
 				this.DESTIP = "PTO";
 			} else if( src.getDmtodf().equals(9)) {
 				this.DESTIP = "TOD";
-			this.DOLIDO = src.getDolido();
+			this.DOLIMA = src.getDolima();
 			try {
 				this.WSAMND = new SimpleDateFormat("yyyyMMdd").parse(src.getDoamnd().toString());
 			} catch( Exception e ) {}
@@ -255,12 +260,12 @@ public class FER1020View3BzService extends RestBaseServerResource {
 			DESTIP = dESTIP;
 		}
 
-		public Long getDOLIDO() {
-			return DOLIDO;
+		public Long getDOLIMA() {
+			return DOLIMA;
 		}
 
-		public void setDOLIDO(Long dOLIDO) {
-			DOLIDO = dOLIDO;
+		public void setDOLIMA(Long dOLIMA) {
+			DOLIMA = dOLIMA;
 		}
 
 		public String getDMCMCN() {
