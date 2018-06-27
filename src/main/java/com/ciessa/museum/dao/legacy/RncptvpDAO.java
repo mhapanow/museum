@@ -1,27 +1,21 @@
 package com.ciessa.museum.dao.legacy;
 
-import java.util.List;
-import java.util.Map;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.util.StringUtils;
 
 import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Cfp00101;
-import com.ciessa.museum.tools.Range;
+import com.ciessa.museum.model.legacy.Rncptvp;
 
-public class Cfp00101DAO {
-
-	public List<Cfp00101> getUsingKeyAndRange(DataSet ds, Range range, String order,
-			Map<String, String> attributes) throws ASException {
-
+public class RncptvpDAO {
+	
+	public Rncptvp getUsingNrmcap(DataSet ds, String nrmcap) throws ASException {
+		
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -29,81 +23,39 @@ public class Cfp00101DAO {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
 		}
-		
 		Session session = factory.openSession();
 		Transaction tx = null;
-
-		try {
-			tx = session.beginTransaction();
-			StringBuffer sb = new StringBuffer();
-			sb.append("FROM Cfp00101 WHERE cfbco = '001' AND cfreg = '220'");
-			if( StringUtils.hasText(order)) {
-				sb.append(" ORDER BY " + order);
-			} else {
-				sb.append(" ORDER BY cfctr");
-			}
-			Query q = session.createQuery(sb.toString());
-			
-			if( range != null ) {
-				q.setFirstResult(range.getFrom());
-				q.setMaxResults(range.getTo() - range.getFrom());
-			}
-			@SuppressWarnings("unchecked")
-			List<Cfp00101> list = (List<Cfp00101>)q.list();
-			
-			for( Cfp00101 o : list ) {
-				session.evict(o);
-			}
-			tx.commit();
-			
-			return list;
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			throw ASExceptionHelper.defaultException(e.getMessage(), e);
-		} finally {
-			session.close();
-		}
-	}
-
-	//TODO: nomenclatuda de los metodos 'getUsingWscodiAndWsacct'
-	public Cfp00101 getUsingWscodi(DataSet ds, String wscodi) throws ASException {
-		SessionFactory factory = null;
-		try {
-			factory = FactoryManager.getInstance().getFactory(ds);
-		} catch (Throwable ex) {
-			System.err.println("Failed to create sessionFactory object." + ex);
-			throw new ExceptionInInitializerError(ex);
-		}
 		
-		Session session = factory.openSession();
-		Transaction tx = null;
-
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Cfp00101 WHERE cfbco = '001' AND cfreg = '220' AND cfctr = :wscodi");
-			q.setParameter("wscodi", wscodi);
-			Cfp00101 o = (Cfp00101)q.uniqueResult();
+			Query q = session.createQuery(" from Rncptvp where vpodst=187 and vpvanr = :nrmcap");
+			nrmcap ="1";
+			q.setParameter("nrmcap", nrmcap);
+			Rncptvp o = (Rncptvp)q.uniqueResult();
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(wscodi);
+				throw ASExceptionHelper.notFoundException(nrmcap);
 			}
 			
 			session.evict(o);
 			tx.commit();
 			
 			return o;
+			
+				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
+			}
 		}
-	}
-	
-	public Cfp00101 getUsingTipoAndDmtype(DataSet ds, String tipo, Integer dmtype) throws ASException {
+		
+
+	public Rncptvp getUsingNrslch(DataSet ds, Integer nrslch) throws ASException {
+		
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -111,41 +63,74 @@ public class Cfp00101DAO {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
 		}
-		
 		Session session = factory.openSession();
 		Transaction tx = null;
-
+		
 		try {
 			tx = session.beginTransaction();
-			
-			Query q = session.createQuery("FROM Cfp00101 where PKID ='0576d2af-7356-4a92-bb4c-76a98075e68f'");
-			//TODO: Se nos pide implementar:  Acceder al archivo CFP001 con clave KEY = ‘001210’ + TIPO + DMTYPE + Blancos
-			//TODO: El Valor Key no se ha definido en la doc.
-			q.setParameter("tipo", tipo);
-			q.setParameter("dmtype", dmtype);
-			Cfp00101 o = (Cfp00101)q.uniqueResult();
+			Query q = session.createQuery(" from Rncptvp where vpodst=59 and vpvanr = :nrslch ");
+			q.setParameter("nrslch", nrslch);
+			Rncptvp o = (Rncptvp)q.uniqueResult();
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+				throw ASExceptionHelper.notFoundException(nrslch.toString());
 			}
 			
 			session.evict(o);
 			tx.commit();
 			
 			return o;
+			
+				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
+			}
 		}
-	}
 	
-	
-	
-	
+
+	public Rncptvp getUsingNrcofn(DataSet ds, String nrcofn) throws ASException {
+		
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		Session session = factory.openSession();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery(" from Rncptvp where vpodst=60 and vpvanr = :nrcofn ");
+			nrcofn ="21";
+			q.setParameter("nrcofn", nrcofn);
+			Rncptvp o = (Rncptvp)q.uniqueResult();
+			
+			if( o == null ) {
+				tx.rollback();
+				throw ASExceptionHelper.notFoundException(nrcofn);
+			}
+			
+			session.evict(o);
+			tx.commit();
+			
+			return o;
+			
+				
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+			}
+		}
 	
 	
 }

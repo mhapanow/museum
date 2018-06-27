@@ -21,6 +21,9 @@
 				<entry key="/legacy/tar0077/list" 			value-ref="spring.legacy.tar0077.list" />
 				<entry key="/legacy/tar0077/view" 			value-ref="spring.legacy.tar0077.view" />
 				<entry key="/legacy/fer1020/view2" 			value-ref="spring.legacy.fer1020.view2" />
+				<entry key="/legacy/fer1020/view3" 			value-ref="spring.legacy.fer1020.view3" />
+				<entry key="/legacy/tar0030/view1" 			value-ref="spring.legacy.tar0030.view1" />
+				<entry key="/legacy/tar0030/view2" 			value-ref="spring.legacy.tar0030.view2" />
 			</map>
 		</property>
 	</bean>
@@ -46,6 +49,17 @@
  	</bean>
  	<bean id="spring.legacy.fer1020.view2" class="org.restlet.ext.spring.SpringFinder">
  	    <lookup-method name="create" bean="legacy.fer1020.view2" />
+ 	</bean>
+ 	<bean id="spring.legacy.fer1020.view3" class="org.restlet.ext.spring.SpringFinder">
+ 	    <lookup-method name="create" bean="legacy.fer1020.view3" />
+ 	</bean>
+ 	
+ 	<bean id="spring.legacy.tar0030.view1" class="org.restlet.ext.spring.SpringFinder">
+ 	    <lookup-method name="create" bean="legacy.tar0030.view1" />
+ 	</bean>
+ 	
+ 		<bean id="spring.legacy.tar0030.view2" class="org.restlet.ext.spring.SpringFinder">
+ 	    <lookup-method name="create" bean="legacy.tar0030.view2" />
  	</bean>
 
 </beans>

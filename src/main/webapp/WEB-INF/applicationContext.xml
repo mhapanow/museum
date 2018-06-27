@@ -27,11 +27,19 @@
 	<bean id="auditentry.dao.ref" class="com.ciessa.museum.dao.AuditEntryDAO" />
 
 	<!-- ** Legacy DAOs implementation ** -->
-	<bean id="cfp00101.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp00101DAO" />
 	<bean id="Altnam.dao.ref" class="com.ciessa.museum.dao.legacy.AltnamDAO" />
+	<bean id="Cfp00101.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp00101DAO" />
+	<bean id="Cfp00102.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp00102DAO" />
+	<bean id="Cumast.dao.ref" class="com.ciessa.museum.dao.legacy.CumastDAO" />
+	<bean id="Cuxrf1.dao.ref" class="com.ciessa.museum.dao.legacy.Cuxrf1DAO" />
+	<bean id="Rncppro.dao.ref" class="com.ciessa.museum.dao.legacy.RncpproDAO" />
+	<bean id="Rncptvp.dao.ref" class="com.ciessa.museum.dao.legacy.RncptvpDAO" />
+	<bean id="Rsctam.dao.ref" class="com.ciessa.museum.dao.legacy.RsctamDAO" />
 	<bean id="Saldom.dao.ref" class="com.ciessa.museum.dao.legacy.SaldomDAO" />
+	<bean id="Tablam.dao.ref" class="com.ciessa.museum.dao.legacy.TablamDAO" />
 	<bean id="Tap002.dao.ref" class="com.ciessa.museum.dao.legacy.Tap002DAO" />
 	<bean id="Tap014.dao.ref" class="com.ciessa.museum.dao.legacy.Tap014DAO" />
+	<bean id="Tap902.dao.ref" class="com.ciessa.museum.dao.legacy.Tap902DAO" />
  
 	<!-- ** REST resource ** -->
 	<bean id="base.rest.resource" class="com.ciessa.museum.bz.RestBaseServerResource" abstract="true" />
@@ -42,6 +50,10 @@
 
 	<bean id="legacy.tar0077.list" class="com.ciessa.museum.bz.legacy.TAR0077ListBzService" parent="base.rest.resource" scope="prototype" />
 	<bean id="legacy.tar0077.view" class="com.ciessa.museum.bz.legacy.TAR0077ViewBzService" parent="base.rest.resource" scope="prototype" />
-	<bean id="legacy.fer1020.view2" class="com.ciessa.museum.bz.legacy.Fer1020View2BzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="legacy.fer1020.view2" class="com.ciessa.museum.bz.legacy.FER1020View2BzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="legacy.fer1020.view3" class="com.ciessa.museum.bz.legacy.FER1020View3BzService" parent="base.rest.resource" scope="prototype" />
 
+	<bean id="legacy.tar0030.view1" class="com.ciessa.museum.bz.legacy.TAR0030View01BzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="legacy.tar0030.view2" class="com.ciessa.museum.bz.legacy.TAR0030View02BzService" parent="base.rest.resource" scope="prototype" />
+	
 </beans>

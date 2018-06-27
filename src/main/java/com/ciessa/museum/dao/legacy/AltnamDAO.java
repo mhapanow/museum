@@ -49,5 +49,41 @@ public class AltnamDAO {
 			session.close();
 		}
 	}
+	
+	public Altnam getUsingCuenta(DataSet ds, String cuenta) throws ASException {
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery("FROM Altnam where cuenta = :cuenta");
+			q.setParameter("cuenta", cuenta);
+			Altnam o = (Altnam)q.uniqueResult();
+			
+			if( o == null ) {
+				tx.rollback();
+				throw ASExceptionHelper.notFoundException(cuenta);
+			}
+			
+			session.evict(o);
+			tx.commit();
+			
+			return o;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
 
 }

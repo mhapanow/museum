@@ -87,4 +87,46 @@ public class Tap002DAO {
 		}
 	}
 	
+	
+	
+	public Tap002 getUsingTipoAndCuenta(DataSet ds, String tipo, String cuenta) throws ASException {
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery("FROM Tap002 where dmbk = 1 and dmtyp = :tipo AND dmacct = :cuenta");
+			q.setParameter("cuenta", cuenta);
+			q.setParameter("tipo", tipo);
+			Tap002 o = (Tap002)q.uniqueResult();
+			
+			if( o == null ) {
+				tx.rollback();
+				throw ASExceptionHelper.notFoundException(cuenta);
+			}
+			
+			session.evict(o);
+			tx.commit();
+			
+			return o;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
+	
+	
+	
+	
 }
