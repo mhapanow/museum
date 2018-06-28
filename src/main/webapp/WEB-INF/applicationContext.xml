@@ -27,7 +27,7 @@
 	<bean id="auditentry.dao.ref" class="com.ciessa.museum.dao.AuditEntryDAO" />
 
 	<!-- ** Legacy DAOs implementation ** -->
-	<bean id="cfp00101.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp00101DAO" />
+	<bean id="Cfp001220.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001220DAO" />
 	<bean id="Altnam.dao.ref" class="com.ciessa.museum.dao.legacy.AltnamDAO" />
 	<bean id="Saldom.dao.ref" class="com.ciessa.museum.dao.legacy.SaldomDAO" />
 	<bean id="Tap002.dao.ref" class="com.ciessa.museum.dao.legacy.Tap002DAO" />

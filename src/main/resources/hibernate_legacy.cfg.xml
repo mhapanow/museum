@@ -17,7 +17,7 @@
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
 
-		<mapping resource="com/ciessa/museum/model/legacy/Cfp00101.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Cfp001220.hbm.xml"></mapping>
 		<mapping resource="com/ciessa/museum/model/legacy/Altnam.hbm.xml"></mapping>
 		<mapping resource="com/ciessa/museum/model/legacy/Saldom.hbm.xml"></mapping>
 		<mapping resource="com/ciessa/museum/model/legacy/Tap002.hbm.xml"></mapping>

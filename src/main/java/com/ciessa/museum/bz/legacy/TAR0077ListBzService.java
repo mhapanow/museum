@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
-import com.ciessa.museum.dao.legacy.Cfp00101DAO;
+import com.ciessa.museum.dao.legacy.Cfp001220DAO;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
-import com.ciessa.museum.model.legacy.Cfp00101;
+import com.ciessa.museum.model.legacy.Cfp001220;
 import com.ciessa.museum.tools.CollectionFactory;
 import com.ciessa.museum.tools.Range;
 
@@ -30,7 +30,7 @@ public class TAR0077ListBzService extends RestBaseServerResource {
 	DataSetDAO dsDao;
 	
 	@Autowired
-	Cfp00101DAO myDao;
+	Cfp001220DAO myDao;
 	
 	@Get
 	public String list() {
@@ -38,7 +38,7 @@ public class TAR0077ListBzService extends RestBaseServerResource {
     	long start = markStart();
 		JSONObject returnValue = null;
 		try {
-			List<Cfp00101> list = new ArrayList<Cfp00101>();
+			List<Cfp001220> list = new ArrayList<Cfp001220>();
 			
 			// validate authToken
 			User user = this.getUserFromToken();
@@ -60,7 +60,7 @@ public class TAR0077ListBzService extends RestBaseServerResource {
 			// Logs the result
 			log.info("Number of elements found [" + list.size() + "] in " + diff + " millis");
 			List<TAR0077Adapter> adapted = new ArrayList<TAR0077Adapter>();
-			for( Cfp00101 obj : list ) {
+			for( Cfp001220 obj : list ) {
 				adapted.add(new TAR0077Adapter(obj));
 			}
 
@@ -105,7 +105,7 @@ public class TAR0077ListBzService extends RestBaseServerResource {
 		private String WSDESC;
 		private String WSDESL;
 		
-		public TAR0077Adapter(Cfp00101 src) {
+		public TAR0077Adapter(Cfp001220 src) {
 			this.Pkid = src.getPkid();
 			this.member = src.getMember();
 			this.WSCODI = src.getCfctr();

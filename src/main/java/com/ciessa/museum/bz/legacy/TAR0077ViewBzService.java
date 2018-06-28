@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
-import com.ciessa.museum.dao.legacy.Cfp00101DAO;
+import com.ciessa.museum.dao.legacy.Cfp001220DAO;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
-import com.ciessa.museum.model.legacy.Cfp00101;
+import com.ciessa.museum.model.legacy.Cfp001220;
 
 public class TAR0077ViewBzService extends RestBaseServerResource {
 
@@ -25,7 +25,7 @@ public class TAR0077ViewBzService extends RestBaseServerResource {
 	DataSetDAO dsDao;
 
 	@Autowired
-	Cfp00101DAO myDao;
+	Cfp001220DAO myDao;
 
 	@Get
 	public String view() {
@@ -39,7 +39,7 @@ public class TAR0077ViewBzService extends RestBaseServerResource {
 
 			long millisPre = new Date().getTime();
 			String wscodi = obtainStringValue("wscodi", null);
-			Cfp00101 obj = myDao.getUsingWscodi(ds, wscodi);
+			Cfp001220 obj = myDao.getUsingWscodi(ds, wscodi);
 			long diff = new Date().getTime() - millisPre;
 			
 			// Logs the result
@@ -98,7 +98,7 @@ public class TAR0077ViewBzService extends RestBaseServerResource {
 		private String WSCAOP;
 		private String WSGENU;
 
-		public TAR0077Adapter(Cfp00101 src) {
+		public TAR0077Adapter(Cfp001220 src) {
 			this.Pkid = src.getPkid();
 			this.member = src.getMember();
 			this.WSCODI = src.getCfctr();
