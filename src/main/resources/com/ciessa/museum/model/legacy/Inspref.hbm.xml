@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2018 10:23:38 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Inspref" table="INSPREF" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="bkgnty" type="java.lang.Integer">
+            <column name="BKGNTY" />
+        </property>
+        <property name="bkgncd" type="string">
+            <column name="BKGNCD" length="6" />
+        </property>
+        <property name="bkstat" type="string">
+            <column name="BKSTAT" length="1" />
+        </property>
+        <property name="bklgds" type="string">
+            <column name="BKLGDS" length="25" />
+        </property>
+        <property name="bksrds" type="string">
+            <column name="BKSRDS" length="10" />
+        </property>
+        <property name="bkmusr" type="string">
+            <column name="BKMUSR" length="10" />
+        </property>
+        <property name="bkmdte" type="java.lang.Integer">
+            <column name="BKMDTE" />
+        </property>
+        <property name="bkmtme" type="java.lang.Integer">
+            <column name="BKMTME" />
+        </property>
+        <property name="bkmtrm" type="string">
+            <column name="BKMTRM" length="10" />
+        </property>
+        <property name="bkausr" type="string">
+            <column name="BKAUSR" length="10" />
+        </property>
+        <property name="bkadte" type="java.lang.Integer">
+            <column name="BKADTE" />
+        </property>
+        <property name="bkatme" type="java.lang.Integer">
+            <column name="BKATME" />
+        </property>
+        <property name="bkatrm" type="string">
+            <column name="BKATRM" length="10" />
+        </property>
+        <property name="bkacde" type="string">
+            <column name="BKACDE" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

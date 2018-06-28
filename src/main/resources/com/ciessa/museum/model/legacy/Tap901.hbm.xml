@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2018 10:23:38 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Tap901" table="TAP901" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="ssbk" type="java.lang.Integer">
+            <column name="SSBK" />
+        </property>
+        <property name="sstyp" type="java.lang.Integer">
+            <column name="SSTYP" />
+        </property>
+        <property name="ssacct" type="java.lang.Long">
+            <column name="SSACCT" />
+        </property>
+        <property name="ssamon" type="big_decimal">
+            <column name="SSAMON" precision="13" />
+        </property>
+        <property name="ssrate" type="big_decimal">
+            <column name="SSRATE" precision="7" scale="7" />
+        </property>
+        <property name="sscdyy" type="java.lang.Integer">
+            <column name="SSCDYY" />
+        </property>
+        <property name="sscdmm" type="java.lang.Integer">
+            <column name="SSCDMM" />
+        </property>
+        <property name="sscddd" type="java.lang.Integer">
+            <column name="SSCDDD" />
+        </property>
+        <property name="ssedyy" type="java.lang.Integer">
+            <column name="SSEDYY" />
+        </property>
+        <property name="ssedmm" type="java.lang.Integer">
+            <column name="SSEDMM" />
+        </property>
+        <property name="sseddd" type="java.lang.Integer">
+            <column name="SSEDDD" />
+        </property>
+        <property name="ssindi" type="string">
+            <column name="SSINDI" length="2" />
+        </property>
+        <property name="ssidyy" type="java.lang.Integer">
+            <column name="SSIDYY" />
+        </property>
+        <property name="ssidmm" type="java.lang.Integer">
+            <column name="SSIDMM" />
+        </property>
+        <property name="ssiddd" type="java.lang.Integer">
+            <column name="SSIDDD" />
+        </property>
+        <property name="ssbato" type="string">
+            <column name="SSBATO" length="8" />
+        </property>
+        <property name="ssvenc" type="string">
+            <column name="SSVENC" length="1" />
+        </property>
+        <property name="sstacc" type="big_decimal">
+            <column name="SSTACC" precision="15" />
+        </property>
+        <property name="sspacc" type="big_decimal">
+            <column name="SSPACC" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -54,4 +54,52 @@ public class SaldomDAO {
 		}
 	}
 	
+	
+	
+	
+	public Saldom getUsingTipoAndCuenta(DataSet ds, String tipo, String cuenta) throws ASException {
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery("FROM Saldom WHERE cbank = 1 AND ccta = :tipo AND ncta = :cuenta AND daasal = :daasal AND dmmsal = :dmmsal");
+			q.setParameter("tipo", tipo);
+			q.setParameter("cuenta", cuenta);
+			q.setParameter("daasal", Calendar.getInstance().get(Calendar.YEAR));
+			q.setParameter("dmmsal", Calendar.getInstance().get(Calendar.MONTH) + 1);
+			Saldom o = (Saldom)q.uniqueResult();
+			
+			if( o == null ) {
+				tx.rollback();
+				//throw ASExceptionHelper.notFoundException(cuenta);
+			}
+			
+			session.evict(o);
+			tx.commit();
+			
+			return o;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 }

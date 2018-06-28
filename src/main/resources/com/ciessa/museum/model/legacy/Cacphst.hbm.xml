@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2018 10:23:38 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Cacphst" table="CACPHST" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="hifunc" type="string">
+            <column name="HIFUNC" length="1" />
+        </property>
+        <property name="hitreg" type="string">
+            <column name="HITREG" length="1" />
+        </property>
+        <property name="hiacct" type="java.lang.Long">
+            <column name="HIACCT" />
+        </property>
+        <property name="hitodf" type="java.lang.Integer">
+            <column name="HITODF" />
+        </property>
+        <property name="hidate" type="java.lang.Integer">
+            <column name="HIDATE" />
+        </property>
+        <property name="hitie" type="java.lang.Integer">
+            <column name="HITIE" />
+        </property>
+        <property name="hifsel" type="java.lang.Integer">
+            <column name="HIFSEL" />
+        </property>
+        <property name="hiaamt" type="java.lang.Long">
+            <column name="HIAAMT" />
+        </property>
+        <property name="histat" type="string">
+            <column name="HISTAT" length="1" />
+        </property>
+        <property name="hicbal" type="big_decimal">
+            <column name="HICBAL" precision="13" />
+        </property>
+        <property name="hiiodl" type="java.lang.Long">
+            <column name="HIIODL" />
+        </property>
+        <property name="hibrch" type="java.lang.Integer">
+            <column name="HIBRCH" />
+        </property>
+        <property name="hisf4" type="java.lang.Integer">
+            <column name="HISF4" />
+        </property>
+        <property name="hicmcn" type="java.lang.Integer">
+            <column name="HICMCN" />
+        </property>
+        <property name="hiamnd" type="java.lang.Integer">
+            <column name="HIAMND" />
+        </property>
+        <property name="hitype" type="java.lang.Integer">
+            <column name="HITYPE" />
+        </property>
+        <property name="hiresu" type="string">
+            <column name="HIRESU" length="1" />
+        </property>
+        <property name="himrec" type="java.lang.Integer">
+            <column name="HIMREC" />
+        </property>
+        <property name="hipgme" type="string">
+            <column name="HIPGME" length="10" />
+        </property>
+        <property name="hifcan" type="java.lang.Integer">
+            <column name="HIFCAN" />
+        </property>
+        <property name="hifact" type="java.lang.Integer">
+            <column name="HIFACT" />
+        </property>
+        <property name="hietap" type="java.lang.Integer">
+            <column name="HIETAP" />
+        </property>
+        <property name="hisuml" type="java.lang.Long">
+            <column name="HISUML" />
+        </property>
+        <property name="hidiex" type="java.lang.Integer">
+            <column name="HIDIEX" />
+        </property>
+        <property name="hiimex" type="big_decimal">
+            <column name="HIIMEX" precision="13" />
+        </property>
+        <property name="himexh" type="java.lang.Integer">
+            <column name="HIMEXH" />
+        </property>
+        <property name="hinvt2" type="java.lang.Integer">
+            <column name="HINVT2" />
+        </property>
+        <property name="histan" type="string">
+            <column name="HISTAN" length="1" />
+        </property>
+        <property name="hitypn" type="java.lang.Integer">
+            <column name="HITYPN" />
+        </property>
+        <property name="hibhdn" type="big_decimal">
+            <column name="HIBHDN" precision="7" />
+        </property>
+        <property name="hibhmc" type="big_decimal">
+            <column name="HIBHMC" precision="7" />
+        </property>
+        <property name="hibhvs" type="big_decimal">
+            <column name="HIBHVS" precision="7" />
+        </property>
+        <property name="hinlim" type="big_decimal">
+            <column name="HINLIM" precision="13" />
+        </property>
+        <property name="hinvto" type="java.lang.Integer">
+            <column name="HINVTO" />
+        </property>
+        <property name="hiobse" type="string">
+            <column name="HIOBSE" length="100" />
+        </property>
+        <property name="hisent" type="java.lang.Integer">
+            <column name="HISENT" />
+        </property>
+    </class>
+</hibernate-mapping>

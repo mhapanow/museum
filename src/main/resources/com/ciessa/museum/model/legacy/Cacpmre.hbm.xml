@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2018 10:23:38 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Cacpmre" table="CACPMRE" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="mrmrec" type="java.lang.Integer">
+            <column name="MRMREC" />
+        </property>
+        <property name="mrcort" type="string">
+            <column name="MRCORT" length="4" />
+        </property>
+        <property name="mrdesc" type="string">
+            <column name="MRDESC" length="40" />
+        </property>
+        <property name="mrenvi" type="string">
+            <column name="MRENVI" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

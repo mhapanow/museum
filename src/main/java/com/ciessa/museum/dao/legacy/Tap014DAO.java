@@ -135,4 +135,43 @@ public class Tap014DAO {
 		}
 	}
 	
+	public Tap014 getUsingDmtypDmacctAndDmtodf(DataSet ds, String dmtyp, String dmacct, Integer dmtodf) throws ASException {
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			String queryStr = "FROM Tap014 WHERE dmbk = 1 AND dmtyp = :dmtyp AND dmacct = :dmacct AND dmtodf = :dmtodf";
+			Query q = session.createQuery(queryStr);
+			q.setParameter("dmtyp", dmtyp);
+			q.setParameter("dmacct", dmacct);
+			q.setParameter("dmtodf", dmtodf);
+			Tap014 o = (Tap014)q.uniqueResult();
+			
+			if( o == null ) {
+				tx.rollback();
+				throw ASExceptionHelper.notFoundException(dmtyp);
+			}
+			
+			session.evict(o);
+			tx.commit();
+			
+			return o;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
+	
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2018 10:23:38 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccupvin" table="CCUPVIN" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="viempp" type="string">
+            <column name="VIEMPP" length="3" />
+        </property>
+        <property name="viidgi" type="string">
+            <column name="VIIDGI" length="3" />
+        </property>
+        <property name="virmcn" type="java.lang.Long">
+            <column name="VIRMCN" />
+        </property>
+        <property name="vistat" type="string">
+            <column name="VISTAT" length="1" />
+        </property>
+        <property name="viprcd" type="string">
+            <column name="VIPRCD" length="2" />
+        </property>
+        <property name="viactn" type="java.lang.Long">
+            <column name="VIACTN" />
+        </property>
+        <property name="vinemp" type="string">
+            <column name="VINEMP" length="3" />
+        </property>
+        <property name="vifpaa" type="java.lang.Integer">
+            <column name="VIFPAA" />
+        </property>
+        <property name="vifpam" type="java.lang.Integer">
+            <column name="VIFPAM" />
+        </property>
+        <property name="vifpad" type="java.lang.Integer">
+            <column name="VIFPAD" />
+        </property>
+        <property name="viaccd" type="java.lang.Integer">
+            <column name="VIACCD" />
+        </property>
+        <property name="vivusc" type="string">
+            <column name="VIVUSC" length="10" />
+        </property>
+        <property name="vifal8" type="java.lang.Integer">
+            <column name="VIFAL8" />
+        </property>
+        <property name="vivusr" type="string">
+            <column name="VIVUSR" length="10" />
+        </property>
+        <property name="vimdte" type="java.lang.Integer">
+            <column name="VIMDTE" />
+        </property>
+        <property name="vimtme" type="java.lang.Integer">
+            <column name="VIMTME" />
+        </property>
+        <property name="vimusr" type="string">
+            <column name="VIMUSR" length="10" />
+        </property>
+        <property name="vimtrm" type="string">
+            <column name="VIMTRM" length="10" />
+        </property>
+        <property name="viadte" type="java.lang.Integer">
+            <column name="VIADTE" />
+        </property>
+        <property name="viatme" type="java.lang.Integer">
+            <column name="VIATME" />
+        </property>
+        <property name="viausr" type="string">
+            <column name="VIAUSR" length="10" />
+        </property>
+        <property name="viatrm" type="string">
+            <column name="VIATRM" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

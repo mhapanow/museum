@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2018 10:23:38 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccupgin" table="CCUPGIN" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="giempp" type="string">
+            <column name="GIEMPP" length="3" />
+        </property>
+        <property name="giidgi" type="string">
+            <column name="GIIDGI" length="3" />
+        </property>
+        <property name="gistat" type="string">
+            <column name="GISTAT" length="1" />
+        </property>
+        <property name="gidegi" type="string">
+            <column name="GIDEGI" length="30" />
+        </property>
+        <property name="gifal8" type="java.lang.Integer">
+            <column name="GIFAL8" />
+        </property>
+        <property name="givusr" type="string">
+            <column name="GIVUSR" length="10" />
+        </property>
+        <property name="gistnm" type="string">
+            <column name="GISTNM" length="30" />
+        </property>
+        <property name="gistrn" type="java.lang.Integer">
+            <column name="GISTRN" />
+        </property>
+        <property name="gistyn" type="string">
+            <column name="GISTYN" length="2" />
+        </property>
+        <property name="giadcm" type="string">
+            <column name="GIADCM" length="3" />
+        </property>
+        <property name="gicity" type="string">
+            <column name="GICITY" length="20" />
+        </property>
+        <property name="gistan" type="string">
+            <column name="GISTAN" length="20" />
+        </property>
+        <property name="gizpcd" type="java.lang.Integer">
+            <column name="GIZPCD" />
+        </property>
+        <property name="giqmbf" type="java.lang.Integer">
+            <column name="GIQMBF" />
+        </property>
+        <property name="giqmbl" type="java.lang.Integer">
+            <column name="GIQMBL" />
+        </property>
+        <property name="giqchd" type="java.lang.Integer">
+            <column name="GIQCHD" />
+        </property>
+        <property name="giqcjf" type="java.lang.Integer">
+            <column name="GIQCJF" />
+        </property>
+        <property name="giqott" type="java.lang.Integer">
+            <column name="GIQOTT" />
+        </property>
+        <property name="gimdte" type="java.lang.Integer">
+            <column name="GIMDTE" />
+        </property>
+        <property name="gimtme" type="java.lang.Integer">
+            <column name="GIMTME" />
+        </property>
+        <property name="gimusr" type="string">
+            <column name="GIMUSR" length="10" />
+        </property>
+        <property name="gimtrm" type="string">
+            <column name="GIMTRM" length="10" />
+        </property>
+        <property name="giadte" type="java.lang.Integer">
+            <column name="GIADTE" />
+        </property>
+        <property name="giatme" type="java.lang.Integer">
+            <column name="GIATME" />
+        </property>
+        <property name="giausr" type="string">
+            <column name="GIAUSR" length="10" />
+        </property>
+        <property name="giatrm" type="string">
+            <column name="GIATRM" length="10" />
+        </property>
+        <property name="girmcn" type="java.lang.Long">
+            <column name="GIRMCN" />
+        </property>
+        <property name="giciin" type="string">
+            <column name="GICIIN" length="12" />
+        </property>
+        <property name="gibtrf" type="string">
+            <column name="GIBTRF" length="1" />
+        </property>
+        <property name="gibocp" type="string">
+            <column name="GIBOCP" length="1" />
+        </property>
+        <property name="gicone" type="string">
+            <column name="GICONE" length="20" />
+        </property>
+        <property name="giccoe" type="string">
+            <column name="GICCOE" length="15" />
+        </property>
+        <property name="gip1pn" type="java.lang.Long">
+            <column name="GIP1PN" />
+        </property>
+        <property name="giadic" type="string">
+            <column name="GIADIC" length="70" />
+        </property>
+        <property name="giembo" type="string">
+            <column name="GIEMBO" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2018 10:23:38 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Tranem" table="TRANEM" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cbanco" type="java.lang.Integer">
+            <column name="CBANCO" />
+        </property>
+        <property name="csucur" type="java.lang.Integer">
+            <column name="CSUCUR" />
+        </property>
+        <property name="cbat" type="string">
+            <column name="CBAT" length="1" />
+        </property>
+        <property name="nbat" type="java.lang.Integer">
+            <column name="NBAT" />
+        </property>
+        <property name="nsec" type="java.lang.Integer">
+            <column name="NSEC" />
+        </property>
+        <property name="codop" type="string">
+            <column name="CODOP" length="4" />
+        </property>
+        <property name="daain" type="java.lang.Integer">
+            <column name="DAAIN" />
+        </property>
+        <property name="dmmin" type="java.lang.Integer">
+            <column name="DMMIN" />
+        </property>
+        <property name="dddin" type="java.lang.Integer">
+            <column name="DDDIN" />
+        </property>
+        <property name="daava" type="java.lang.Integer">
+            <column name="DAAVA" />
+        </property>
+        <property name="dmmva" type="java.lang.Integer">
+            <column name="DMMVA" />
+        </property>
+        <property name="dddva" type="java.lang.Integer">
+            <column name="DDDVA" />
+        </property>
+        <property name="covrfe" type="string">
+            <column name="COVRFE" length="1" />
+        </property>
+        <property name="aopid" type="string">
+            <column name="AOPID" length="10" />
+        </property>
+        <property name="aopia" type="string">
+            <column name="AOPIA" length="10" />
+        </property>
+        <property name="xstat" type="string">
+            <column name="XSTAT" length="1" />
+        </property>
+        <property name="ncta" type="java.lang.Long">
+            <column name="NCTA" />
+        </property>
+        <property name="simloc" type="big_decimal">
+            <column name="SIMLOC" precision="13" />
+        </property>
+        <property name="ctraex" type="java.lang.Integer">
+            <column name="CTRAEX" />
+        </property>
+        <property name="ctrain" type="java.lang.Integer">
+            <column name="CTRAIN" />
+        </property>
+        <property name="cdbcr" type="java.lang.Integer">
+            <column name="CDBCR" />
+        </property>
+        <property name="caplic" type="java.lang.Integer">
+            <column name="CAPLIC" />
+        </property>
+        <property name="fcomtr" type="java.lang.Integer">
+            <column name="FCOMTR" />
+        </property>
+        <property name="cref" type="string">
+            <column name="CREF" length="10" />
+        </property>
+        <property name="qoper" type="java.lang.Integer">
+            <column name="QOPER" />
+        </property>
+        <property name="cmonex" type="java.lang.Integer">
+            <column name="CMONEX" />
+        </property>
+        <property name="simpex" type="big_decimal">
+            <column name="SIMPEX" precision="13" />
+        </property>
+        <property name="stpcan" type="big_decimal">
+            <column name="STPCAN" precision="11" scale="5" />
+        </property>
+        <property name="cposcm" type="string">
+            <column name="CPOSCM" length="1" />
+        </property>
+        <property name="cccost" type="java.lang.Integer">
+            <column name="CCCOST" />
+        </property>
+        <property name="covrtr" type="string">
+            <column name="COVRTR" length="1" />
+        </property>
+        <property name="xerror" type="string">
+            <column name="XERROR" length="1" />
+        </property>
+        <property name="cerror" type="string">
+            <column name="CERROR" length="60" />
+        </property>
+        <property name="awrkst" type="string">
+            <column name="AWRKST" length="10" />
+        </property>
+        <property name="ahora" type="java.lang.Integer">
+            <column name="AHORA" />
+        </property>
+        <property name="capint" type="string">
+            <column name="CAPINT" length="1" />
+        </property>
+        <property name="xvalid" type="string">
+            <column name="XVALID" length="1" />
+        </property>
+        <property name="ctcta" type="string">
+            <column name="CTCTA" length="1" />
+        </property>
+        <property name="cctaco" type="string">
+            <column name="CCTACO" length="1" />
+        </property>
+        <property name="ctrsim" type="string">
+            <column name="CTRSIM" length="1" />
+        </property>
+        <property name="ctrdct" type="string">
+            <column name="CTRDCT" length="1" />
+        </property>
+        <property name="cbatco" type="string">
+            <column name="CBATCO" length="8" />
+        </property>
+        <property name="trreun" type="string">
+            <column name="TRREUN" length="15" />
+        </property>
+        <property name="tridcp" type="string">
+            <column name="TRIDCP" length="22" />
+        </property>
+        <property name="trfgtr" type="string">
+            <column name="TRFGTR" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>
