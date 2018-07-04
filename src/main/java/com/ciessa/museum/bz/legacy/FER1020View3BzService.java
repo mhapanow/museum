@@ -28,8 +28,8 @@ import com.ciessa.museum.model.legacy.Saldom;
 import com.ciessa.museum.model.legacy.Tap002;
 import com.ciessa.museum.model.legacy.Tap014;
 
-public class FER1020View3BzService extends RestBaseServerResource {
-
+public class FER1020View3BzService extends RestBaseServerResource{
+	
 	public static final Logger log = Logger.getLogger(FER1020View3BzService.class.getName());
 	
 	@Autowired
@@ -225,9 +225,12 @@ public class FER1020View3BzService extends RestBaseServerResource {
 		private BigDecimal WSINTE;
 		
 		public Fer1020SFLAdapter(Tap014 src) {
+			this.DOLIMA = src.getDolima();
 			this.WCTA1 = src.getDmacct();
+			this.WSINTE = src.getDotacc();
 			try {
 				this.WSDATC = new SimpleDateFormat("yyyyMMdd").parse(src.getDodatc().toString());
+				this.WSAMND = new SimpleDateFormat("yyyyMMdd").parse(src.getDoamnd().toString());
 			} catch( Exception e ) {}
 			if( src.getDmtodf().equals(1)) {
 				this.DESTIP = "ACA";
@@ -235,11 +238,6 @@ public class FER1020View3BzService extends RestBaseServerResource {
 				this.DESTIP = "PTO";
 			} else if( src.getDmtodf().equals(9)) {
 				this.DESTIP = "TOD";
-			this.DOLIMA = src.getDolima();
-			try {
-				this.WSAMND = new SimpleDateFormat("yyyyMMdd").parse(src.getDoamnd().toString());
-			} catch( Exception e ) {}
-			this.WSINTE = src.getDotacc();
 		}
 
 	}
@@ -301,4 +299,5 @@ public class FER1020View3BzService extends RestBaseServerResource {
 		}
 	
 	}
+
 }

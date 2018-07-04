@@ -129,6 +129,11 @@ public class TAR0030View02BzService extends RestBaseServerResource{
 
 			// Obtains the user JSON representation
 			TAR0030Adapter adapted = new TAR0030Adapter();
+			adapted.setCUENTA(this.cuenta);
+			adapted.setWWPROM(this.wwprom);
+			adapted.setWWCVTA(this.wwcvta);
+			adapted.setWWCPRO(this.wwcpro);
+			adapted.setWWMCAP(this.wwmcap);
 			returnValue = getJSONRepresentationFromObject(adapted, fields);
 
 		

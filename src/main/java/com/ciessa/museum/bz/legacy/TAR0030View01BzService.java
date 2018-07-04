@@ -1,5 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -461,8 +462,8 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 			objSaldom = myDaoSaldom.getUsingTipoAndCuenta(ds, tipo, cuenta);
 			if (objSaldom == null)
 			{
-				log.log(Level.SEVERE,  "Cuenta inexistente.", new Exception());
-				return "Cuenta inexistente";
+				log.log(Level.SEVERE,  "Cuenta con Saldo inexistente.", new Exception());
+				return "Cuenta con Saldo inexistente.";
 			}
 			else
 			{
@@ -482,9 +483,9 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 					cvalor = "99";
 				}
 				else{			
-					cvalor = " " + objTap002.getDmcf1().toString().substring(objTap002.getDmcf1().toString().length() - 2);
+					cvalor = " " + new DecimalFormat("00").format(objTap002.getDmcf1());
 				}
-				objTablam = myDaoTablam.getUsingCvalor(ds, CVALOR);
+				objTablam = myDaoTablam.getUsingCvalor(ds, cvalor);
 				if (objTablam != null)
 				{
 					desbaj = objTablam.getTdescr();					
