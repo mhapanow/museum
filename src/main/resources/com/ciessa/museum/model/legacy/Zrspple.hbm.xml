@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 4, 2018 10:36:47 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrspple" table="ZRSPPLE" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="rlorg" type="java.lang.Integer">
+            <column name="RLORG" />
+        </property>
+        <property name="rllogo" type="java.lang.Integer">
+            <column name="RLLOGO" />
+        </property>
+        <property name="rlncct" type="string">
+            <column name="RLNCCT" length="19" />
+        </property>
+        <property name="rlaaf4" type="java.lang.Integer">
+            <column name="RLAAF4" />
+        </property>
+        <property name="rlcifa" type="string">
+            <column name="RLCIFA" length="2" />
+        </property>
+        <property name="rlagig" type="string">
+            <column name="RLAGIG" length="2" />
+        </property>
+        <property name="rltenv" type="string">
+            <column name="RLTENV" length="1" />
+        </property>
+        <property name="rliddp" type="java.lang.Integer">
+            <column name="RLIDDP" />
+        </property>
+        <property name="rltif1" type="string">
+            <column name="RLTIF1" length="1" />
+        </property>
+        <property name="rlidf1" type="java.lang.Integer">
+            <column name="RLIDF1" />
+        </property>
+        <property name="rltif2" type="string">
+            <column name="RLTIF2" length="1" />
+        </property>
+        <property name="rlidf2" type="java.lang.Integer">
+            <column name="RLIDF2" />
+        </property>
+        <property name="rltif3" type="string">
+            <column name="RLTIF3" length="1" />
+        </property>
+        <property name="rlidf3" type="java.lang.Integer">
+            <column name="RLIDF3" />
+        </property>
+        <property name="rltif4" type="string">
+            <column name="RLTIF4" length="1" />
+        </property>
+        <property name="rlidf4" type="java.lang.Integer">
+            <column name="RLIDF4" />
+        </property>
+        <property name="rltif5" type="string">
+            <column name="RLTIF5" length="1" />
+        </property>
+        <property name="rlidf5" type="java.lang.Integer">
+            <column name="RLIDF5" />
+        </property>
+        <property name="rltif6" type="string">
+            <column name="RLTIF6" length="1" />
+        </property>
+        <property name="rlidf6" type="java.lang.Integer">
+            <column name="RLIDF6" />
+        </property>
+        <property name="rltid1" type="string">
+            <column name="RLTID1" length="1" />
+        </property>
+        <property name="rlidd1" type="java.lang.Integer">
+            <column name="RLIDD1" />
+        </property>
+        <property name="rltid2" type="string">
+            <column name="RLTID2" length="1" />
+        </property>
+        <property name="rlidd2" type="java.lang.Integer">
+            <column name="RLIDD2" />
+        </property>
+        <property name="rltid3" type="string">
+            <column name="RLTID3" length="1" />
+        </property>
+        <property name="rlidd3" type="java.lang.Integer">
+            <column name="RLIDD3" />
+        </property>
+        <property name="rltid4" type="string">
+            <column name="RLTID4" length="1" />
+        </property>
+        <property name="rlidd4" type="java.lang.Integer">
+            <column name="RLIDD4" />
+        </property>
+        <property name="rltid5" type="string">
+            <column name="RLTID5" length="1" />
+        </property>
+        <property name="rlidd5" type="java.lang.Integer">
+            <column name="RLIDD5" />
+        </property>
+        <property name="rltid6" type="string">
+            <column name="RLTID6" length="1" />
+        </property>
+        <property name="rlidd6" type="java.lang.Integer">
+            <column name="RLIDD6" />
+        </property>
+        <property name="rlpggp" type="string">
+            <column name="RLPGGP" length="10" />
+        </property>
+        <property name="rlfgpq" type="java.lang.Integer">
+            <column name="RLFGPQ" />
+        </property>
+        <property name="rlhgpq" type="java.lang.Integer">
+            <column name="RLHGPQ" />
+        </property>
+        <property name="rlepeq" type="string">
+            <column name="RLEPEQ" length="1" />
+        </property>
+        <property name="rlmelm" type="string">
+            <column name="RLMELM" length="4" />
+        </property>
+        <property name="rlpprc" type="string">
+            <column name="RLPPRC" length="10" />
+        </property>
+        <property name="rlfpro" type="java.lang.Integer">
+            <column name="RLFPRO" />
+        </property>
+        <property name="rlhpro" type="java.lang.Integer">
+            <column name="RLHPRO" />
+        </property>
+        <property name="rlvsf1" type="string">
+            <column name="RLVSF1" length="80" />
+        </property>
+        <property name="rlvsf2" type="string">
+            <column name="RLVSF2" length="80" />
+        </property>
+        <property name="rlvsf3" type="string">
+            <column name="RLVSF3" length="80" />
+        </property>
+        <property name="rlvsf4" type="string">
+            <column name="RLVSF4" length="80" />
+        </property>
+        <property name="rlvsf5" type="string">
+            <column name="RLVSF5" length="80" />
+        </property>
+        <property name="rlvsf6" type="string">
+            <column name="RLVSF6" length="80" />
+        </property>
+        <property name="rlvsd1" type="string">
+            <column name="RLVSD1" length="80" />
+        </property>
+        <property name="rlvsd2" type="string">
+            <column name="RLVSD2" length="80" />
+        </property>
+        <property name="rlvsd3" type="string">
+            <column name="RLVSD3" length="80" />
+        </property>
+        <property name="rlvsd4" type="string">
+            <column name="RLVSD4" length="80" />
+        </property>
+        <property name="rlvsd5" type="string">
+            <column name="RLVSD5" length="80" />
+        </property>
+        <property name="rlvsd6" type="string">
+            <column name="RLVSD6" length="80" />
+        </property>
+        <property name="rlocf1" type="java.lang.Integer">
+            <column name="RLOCF1" />
+        </property>
+        <property name="rlocf2" type="java.lang.Integer">
+            <column name="RLOCF2" />
+        </property>
+        <property name="rlocf3" type="java.lang.Integer">
+            <column name="RLOCF3" />
+        </property>
+        <property name="rlocf4" type="java.lang.Integer">
+            <column name="RLOCF4" />
+        </property>
+        <property name="rlocf5" type="java.lang.Integer">
+            <column name="RLOCF5" />
+        </property>
+        <property name="rlocf6" type="java.lang.Integer">
+            <column name="RLOCF6" />
+        </property>
+        <property name="rlocd1" type="java.lang.Integer">
+            <column name="RLOCD1" />
+        </property>
+        <property name="rlocd2" type="java.lang.Integer">
+            <column name="RLOCD2" />
+        </property>
+        <property name="rlocd3" type="java.lang.Integer">
+            <column name="RLOCD3" />
+        </property>
+        <property name="rlocd4" type="java.lang.Integer">
+            <column name="RLOCD4" />
+        </property>
+        <property name="rlocd5" type="java.lang.Integer">
+            <column name="RLOCD5" />
+        </property>
+        <property name="rlocd6" type="java.lang.Integer">
+            <column name="RLOCD6" />
+        </property>
+        <property name="rlcfso" type="string">
+            <column name="RLCFSO" length="1" />
+        </property>
+        <property name="rlqmcf" type="java.lang.Integer">
+            <column name="RLQMCF" />
+        </property>
+    </class>
+</hibernate-mapping>

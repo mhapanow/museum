@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 4, 2018 10:36:47 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrsplen" table="ZRSPLEN" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="lrtile" type="string">
+            <column name="LRTILE" length="1" />
+        </property>
+        <property name="lridln" type="java.lang.Integer">
+            <column name="LRIDLN" />
+        </property>
+        <property name="lrnuli" type="java.lang.Integer">
+            <column name="LRNULI" />
+        </property>
+        <property name="lrlcs1" type="java.lang.Integer">
+            <column name="LRLCS1" />
+        </property>
+        <property name="lrlcs2" type="java.lang.Integer">
+            <column name="LRLCS2" />
+        </property>
+        <property name="lrlcs3" type="java.lang.Integer">
+            <column name="LRLCS3" />
+        </property>
+        <property name="lrlcs4" type="java.lang.Integer">
+            <column name="LRLCS4" />
+        </property>
+        <property name="lrlcs5" type="java.lang.Integer">
+            <column name="LRLCS5" />
+        </property>
+        <property name="lrlipc" type="string">
+            <column name="LRLIPC" length="150" />
+        </property>
+        <property name="lrlisc" type="string">
+            <column name="LRLISC" length="70" />
+        </property>
+        <property name="lrcope" type="string">
+            <column name="LRCOPE" length="10" />
+        </property>
+        <property name="lrfac8" type="java.lang.Integer">
+            <column name="LRFAC8" />
+        </property>
+        <property name="lrhact" type="java.lang.Integer">
+            <column name="LRHACT" />
+        </property>
+        <property name="lreley" type="string">
+            <column name="LRELEY" length="1" />
+        </property>
+        <property name="lrus01" type="string">
+            <column name="LRUS01" length="1" />
+        </property>
+        <property name="lrus02" type="string">
+            <column name="LRUS02" length="1" />
+        </property>
+        <property name="lrus03" type="string">
+            <column name="LRUS03" length="1" />
+        </property>
+        <property name="lrus04" type="string">
+            <column name="LRUS04" length="1" />
+        </property>
+        <property name="lrus05" type="string">
+            <column name="LRUS05" length="1" />
+        </property>
+        <property name="lrus06" type="string">
+            <column name="LRUS06" length="1" />
+        </property>
+        <property name="lrus07" type="string">
+            <column name="LRUS07" length="1" />
+        </property>
+        <property name="lrus08" type="string">
+            <column name="LRUS08" length="1" />
+        </property>
+        <property name="lrus09" type="string">
+            <column name="LRUS09" length="1" />
+        </property>
+        <property name="lrus10" type="string">
+            <column name="LRUS10" length="1" />
+        </property>
+        <property name="lrus11" type="string">
+            <column name="LRUS11" length="1" />
+        </property>
+        <property name="lrus12" type="string">
+            <column name="LRUS12" length="1" />
+        </property>
+        <property name="lrus13" type="string">
+            <column name="LRUS13" length="1" />
+        </property>
+        <property name="lrus14" type="string">
+            <column name="LRUS14" length="1" />
+        </property>
+        <property name="lrus15" type="string">
+            <column name="LRUS15" length="1" />
+        </property>
+        <property name="lrus16" type="string">
+            <column name="LRUS16" length="1" />
+        </property>
+        <property name="lrus17" type="string">
+            <column name="LRUS17" length="1" />
+        </property>
+        <property name="lrus18" type="string">
+            <column name="LRUS18" length="1" />
+        </property>
+        <property name="lrus19" type="string">
+            <column name="LRUS19" length="1" />
+        </property>
+        <property name="lrus20" type="string">
+            <column name="LRUS20" length="1" />
+        </property>
+        <property name="lrus21" type="string">
+            <column name="LRUS21" length="1" />
+        </property>
+        <property name="lrubdg" type="string">
+            <column name="LRUBDG" length="2" />
+        </property>
+        <property name="lrqlin" type="java.lang.Integer">
+            <column name="LRQLIN" />
+        </property>
+        <property name="lrprcd" type="string">
+            <column name="LRPRCD" length="2" />
+        </property>
+        <property name="lrqcar" type="java.lang.Integer">
+            <column name="LRQCAR" />
+        </property>
+        <property name="lriddp" type="java.lang.Integer">
+            <column name="LRIDDP" />
+        </property>
+        <property name="lrfrdg" type="string">
+            <column name="LRFRDG" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 4, 2018 10:36:47 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpscb" table="CCRPSCB" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="sbbanc" type="java.lang.Integer">
+            <column name="SBBANC" />
+        </property>
+        <property name="sbnucr" type="java.lang.Long">
+            <column name="SBNUCR" />
+        </property>
+        <property name="sbncuo" type="java.lang.Integer">
+            <column name="SBNCUO" />
+        </property>
+        <property name="sbsbnc" type="java.lang.Integer">
+            <column name="SBSBNC" />
+        </property>
+        <property name="sbticu" type="string">
+            <column name="SBTICU" length="2" />
+        </property>
+        <property name="sbstcu" type="string">
+            <column name="SBSTCU" length="1" />
+        </property>
+        <property name="sbagcu" type="java.lang.Integer">
+            <column name="SBAGCU" />
+        </property>
+        <property name="sbmgcu" type="java.lang.Integer">
+            <column name="SBMGCU" />
+        </property>
+        <property name="sbdgcu" type="java.lang.Integer">
+            <column name="SBDGCU" />
+        </property>
+        <property name="sbavcu" type="java.lang.Integer">
+            <column name="SBAVCU" />
+        </property>
+        <property name="sbmvcu" type="java.lang.Integer">
+            <column name="SBMVCU" />
+        </property>
+        <property name="sbdvcu" type="java.lang.Integer">
+            <column name="SBDVCU" />
+        </property>
+        <property name="sbtacr" type="big_decimal">
+            <column name="SBTACR" precision="9" scale="6" />
+        </property>
+        <property name="sbvtpo" type="big_decimal">
+            <column name="SBVTPO" precision="9" scale="6" />
+        </property>
+        <property name="sbibas" type="java.lang.Long">
+            <column name="SBIBAS" />
+        </property>
+        <property name="sbiact" type="java.lang.Long">
+            <column name="SBIACT" />
+        </property>
+        <property name="sbimam" type="big_decimal">
+            <column name="SBIMAM" precision="15" />
+        </property>
+        <property name="sbimba" type="big_decimal">
+            <column name="SBIMBA" precision="15" />
+        </property>
+        <property name="sbicaj" type="big_decimal">
+            <column name="SBICAJ" precision="15" />
+        </property>
+        <property name="sbicin" type="big_decimal">
+            <column name="SBICIN" precision="15" />
+        </property>
+        <property name="sbvipo" type="big_decimal">
+            <column name="SBVIPO" precision="15" />
+        </property>
+        <property name="sbisvi" type="big_decimal">
+            <column name="SBISVI" precision="15" />
+        </property>
+        <property name="sbicca" type="big_decimal">
+            <column name="SBICCA" precision="15" />
+        </property>
+        <property name="sbiise" type="big_decimal">
+            <column name="SBIISE" precision="15" />
+        </property>
+        <property name="sbaapc" type="java.lang.Integer">
+            <column name="SBAAPC" />
+        </property>
+        <property name="sbmmpc" type="java.lang.Integer">
+            <column name="SBMMPC" />
+        </property>
+        <property name="sbddpc" type="java.lang.Integer">
+            <column name="SBDDPC" />
+        </property>
+        <property name="sbaaip" type="java.lang.Integer">
+            <column name="SBAAIP" />
+        </property>
+        <property name="sbmmip" type="java.lang.Integer">
+            <column name="SBMMIP" />
+        </property>
+        <property name="sbddip" type="java.lang.Integer">
+            <column name="SBDDIP" />
+        </property>
+        <property name="sbfpcu" type="string">
+            <column name="SBFPCU" length="1" />
+        </property>
+        <property name="sbcsup" type="java.lang.Integer">
+            <column name="SBCSUP" />
+        </property>
+        <property name="sbdapc" type="java.lang.Integer">
+            <column name="SBDAPC" />
+        </property>
+        <property name="sbarcu" type="java.lang.Integer">
+            <column name="SBARCU" />
+        </property>
+        <property name="sbmrcu" type="java.lang.Integer">
+            <column name="SBMRCU" />
+        </property>
+        <property name="sbdrcu" type="java.lang.Integer">
+            <column name="SBDRCU" />
+        </property>
+        <property name="sbviaa" type="big_decimal">
+            <column name="SBVIAA" precision="15" />
+        </property>
+        <property name="sbvima" type="big_decimal">
+            <column name="SBVIMA" precision="15" />
+        </property>
+        <property name="sbvipa" type="big_decimal">
+            <column name="SBVIPA" precision="15" />
+        </property>
+        <property name="sbipma" type="big_decimal">
+            <column name="SBIPMA" precision="15" />
+        </property>
+        <property name="sbicma" type="big_decimal">
+            <column name="SBICMA" precision="15" />
+        </property>
+        <property name="sbiipd" type="big_decimal">
+            <column name="SBIIPD" precision="15" />
+        </property>
+        <property name="sbiicd" type="big_decimal">
+            <column name="SBIICD" precision="15" />
+        </property>
+        <property name="sbiipc" type="big_decimal">
+            <column name="SBIIPC" precision="15" />
+        </property>
+        <property name="sbiicc" type="big_decimal">
+            <column name="SBIICC" precision="15" />
+        </property>
+        <property name="sbsdfi" type="big_decimal">
+            <column name="SBSDFI" precision="15" />
+        </property>
+        <property name="sbacon" type="string">
+            <column name="SBACON" length="10" />
+        </property>
+        <property name="sbcar1" type="big_decimal">
+            <column name="SBCAR1" precision="15" />
+        </property>
+        <property name="sbmaav" type="string">
+            <column name="SBMAAV" length="1" />
+        </property>
+        <property name="sbmaam" type="string">
+            <column name="SBMAAM" length="1" />
+        </property>
+        <property name="sbusop" type="string">
+            <column name="SBUSOP" length="10" />
+        </property>
+        <property name="sbusau" type="string">
+            <column name="SBUSAU" length="10" />
+        </property>
+        <property name="sbcono" type="java.lang.Integer">
+            <column name="SBCONO" />
+        </property>
+        <property name="sbaano" type="java.lang.Integer">
+            <column name="SBAANO" />
+        </property>
+        <property name="sbmmno" type="java.lang.Integer">
+            <column name="SBMMNO" />
+        </property>
+        <property name="sbddno" type="java.lang.Integer">
+            <column name="SBDDNO" />
+        </property>
+        <property name="sbcomo" type="java.lang.Integer">
+            <column name="SBCOMO" />
+        </property>
+        <property name="sbcoti" type="big_decimal">
+            <column name="SBCOTI" precision="15" scale="5" />
+        </property>
+        <property name="sbcopa" type="big_decimal">
+            <column name="SBCOPA" precision="15" scale="5" />
+        </property>
+        <property name="sbisau" type="big_decimal">
+            <column name="SBISAU" precision="15" />
+        </property>
+        <property name="sbncen" type="java.lang.Integer">
+            <column name="SBNCEN" />
+        </property>
+        <property name="sbi9in" type="big_decimal">
+            <column name="SBI9IN" precision="15" />
+        </property>
+        <property name="sbi9sv" type="big_decimal">
+            <column name="SBI9SV" precision="15" />
+        </property>
+        <property name="sbi9ca" type="big_decimal">
+            <column name="SBI9CA" precision="15" />
+        </property>
+        <property name="sbi9pd" type="big_decimal">
+            <column name="SBI9PD" precision="15" />
+        </property>
+        <property name="sbi9cd" type="big_decimal">
+            <column name="SBI9CD" precision="15" />
+        </property>
+        <property name="sbi9pc" type="big_decimal">
+            <column name="SBI9PC" precision="15" />
+        </property>
+        <property name="sbi9cc" type="big_decimal">
+            <column name="SBI9CC" precision="15" />
+        </property>
+        <property name="sbi9c1" type="big_decimal">
+            <column name="SBI9C1" precision="15" />
+        </property>
+        <property name="sbi9cs" type="big_decimal">
+            <column name="SBI9CS" precision="15" />
+        </property>
+        <property name="sbi8in" type="big_decimal">
+            <column name="SBI8IN" precision="15" />
+        </property>
+        <property name="sbi8sv" type="big_decimal">
+            <column name="SBI8SV" precision="15" />
+        </property>
+        <property name="sbi8ca" type="big_decimal">
+            <column name="SBI8CA" precision="15" />
+        </property>
+        <property name="sbi8pd" type="big_decimal">
+            <column name="SBI8PD" precision="15" />
+        </property>
+        <property name="sbi8cd" type="big_decimal">
+            <column name="SBI8CD" precision="15" />
+        </property>
+        <property name="sbi8pc" type="big_decimal">
+            <column name="SBI8PC" precision="15" />
+        </property>
+        <property name="sbi8cc" type="big_decimal">
+            <column name="SBI8CC" precision="15" />
+        </property>
+        <property name="sbi8c1" type="big_decimal">
+            <column name="SBI8C1" precision="15" />
+        </property>
+        <property name="sbi8cs" type="big_decimal">
+            <column name="SBI8CS" precision="15" />
+        </property>
+        <property name="sbcsau" type="big_decimal">
+            <column name="SBCSAU" precision="15" />
+        </property>
+        <property name="sbcsvi" type="big_decimal">
+            <column name="SBCSVI" precision="15" />
+        </property>
+        <property name="sbauac" type="big_decimal">
+            <column name="SBAUAC" precision="15" />
+        </property>
+        <property name="sbc8cs" type="big_decimal">
+            <column name="SBC8CS" precision="15" />
+        </property>
+        <property name="sbc9cs" type="big_decimal">
+            <column name="SBC9CS" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>

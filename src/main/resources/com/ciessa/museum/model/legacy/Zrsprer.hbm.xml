@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 4, 2018 10:36:47 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrsprer" table="ZRSPRER" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="meyfac" type="java.lang.Integer">
+            <column name="MEYFAC" />
+        </property>
+        <property name="meaafc" type="java.lang.Integer">
+            <column name="MEAAFC" />
+        </property>
+        <property name="mecifa" type="string">
+            <column name="MECIFA" length="2" />
+        </property>
+        <property name="meagig" type="string">
+            <column name="MEAGIG" length="2" />
+        </property>
+        <property name="meorg" type="java.lang.Integer">
+            <column name="MEORG" />
+        </property>
+        <property name="melogo" type="java.lang.Integer">
+            <column name="MELOGO" />
+        </property>
+        <property name="mencct" type="string">
+            <column name="MENCCT" length="19" />
+        </property>
+        <property name="mencrd" type="string">
+            <column name="MENCRD" length="19" />
+        </property>
+        <property name="metcon" type="string">
+            <column name="METCON" length="1" />
+        </property>
+        <property name="mecacl" type="string">
+            <column name="MECACL" length="1" />
+        </property>
+        <property name="mecsu9" type="java.lang.Integer">
+            <column name="MECSU9" />
+        </property>
+        <property name="mecprv" type="java.lang.Integer">
+            <column name="MECPRV" />
+        </property>
+        <property name="mename" type="string">
+            <column name="MENAME" length="40" />
+        </property>
+        <property name="meadr1" type="string">
+            <column name="MEADR1" length="40" />
+        </property>
+        <property name="meadr2" type="string">
+            <column name="MEADR2" length="40" />
+        </property>
+        <property name="meadr3" type="string">
+            <column name="MEADR3" length="40" />
+        </property>
+        <property name="meadr4" type="string">
+            <column name="MEADR4" length="40" />
+        </property>
+        <property name="meadr5" type="string">
+            <column name="MEADR5" length="40" />
+        </property>
+        <property name="meapen" type="string">
+            <column name="MEAPEN" length="25" />
+        </property>
+        <property name="meatsr" type="string">
+            <column name="MEATSR" length="25" />
+        </property>
+        <property name="medomc" type="string">
+            <column name="MEDOMC" length="30" />
+        </property>
+        <property name="meloct" type="string">
+            <column name="MELOCT" length="25" />
+        </property>
+        <property name="mecp12" type="string">
+            <column name="MECP12" length="12" />
+        </property>
+        <property name="mefunc" type="string">
+            <column name="MEFUNC" length="1" />
+        </property>
+        <property name="meosuc" type="string">
+            <column name="MEOSUC" length="3" />
+        </property>
+        <property name="meoseg" type="java.lang.Integer">
+            <column name="MEOSEG" />
+        </property>
+        <property name="meocpr" type="java.lang.Integer">
+            <column name="MEOCPR" />
+        </property>
+        <property name="meobol" type="java.lang.Integer">
+            <column name="MEOBOL" />
+        </property>
+        <property name="menule" type="string">
+            <column name="MENULE" length="10" />
+        </property>
+        <property name="memorr" type="java.lang.Integer">
+            <column name="MEMORR" />
+        </property>
+        <property name="meafac" type="java.lang.Integer">
+            <column name="MEAFAC" />
+        </property>
+        <property name="memfac" type="java.lang.Integer">
+            <column name="MEMFAC" />
+        </property>
+        <property name="medfac" type="java.lang.Integer">
+            <column name="MEDFAC" />
+        </property>
+        <property name="meavto" type="java.lang.Integer">
+            <column name="MEAVTO" />
+        </property>
+        <property name="memvto" type="java.lang.Integer">
+            <column name="MEMVTO" />
+        </property>
+        <property name="medvto" type="java.lang.Integer">
+            <column name="MEDVTO" />
+        </property>
+        <property name="meaprv" type="java.lang.Integer">
+            <column name="MEAPRV" />
+        </property>
+        <property name="memprv" type="java.lang.Integer">
+            <column name="MEMPRV" />
+        </property>
+        <property name="medprv" type="java.lang.Integer">
+            <column name="MEDPRV" />
+        </property>
+        <property name="meestc" type="string">
+            <column name="MEESTC" length="2" />
+        </property>
+        <property name="meesta" type="string">
+            <column name="MEESTA" length="2" />
+        </property>
+        <property name="medeau" type="string">
+            <column name="MEDEAU" length="1" />
+        </property>
+        <property name="mecncl" type="java.lang.Integer">
+            <column name="MECNCL" />
+        </property>
+        <property name="mecnci" type="java.lang.Integer">
+            <column name="MECNCI" />
+        </property>
+        <property name="metfor" type="string">
+            <column name="METFOR" length="1" />
+        </property>
+        <property name="mesafl" type="big_decimal">
+            <column name="MESAFL" precision="15" />
+        </property>
+        <property name="mestlc" type="big_decimal">
+            <column name="MESTLC" precision="15" />
+        </property>
+        <property name="mepmin" type="big_decimal">
+            <column name="MEPMIN" precision="11" />
+        </property>
+        <property name="memlic" type="big_decimal">
+            <column name="MEMLIC" precision="15" />
+        </property>
+        <property name="mesafi" type="big_decimal">
+            <column name="MESAFI" precision="15" />
+        </property>
+        <property name="mestic" type="big_decimal">
+            <column name="MESTIC" precision="15" />
+        </property>
+        <property name="mechoc" type="java.lang.Integer">
+            <column name="MECHOC" />
+        </property>
+        <property name="mensim" type="java.lang.Integer">
+            <column name="MENSIM" />
+        </property>
+        <property name="melilc" type="java.lang.Integer">
+            <column name="MELILC" />
+        </property>
+        <property name="meliin" type="java.lang.Integer">
+            <column name="MELIIN" />
+        </property>
+        <property name="mepmid" type="big_decimal">
+            <column name="MEPMID" precision="11" />
+        </property>
+        <property name="mecuit" type="java.lang.Long">
+            <column name="MECUIT" />
+        </property>
+        <property name="metipc" type="string">
+            <column name="METIPC" length="1" />
+        </property>
+        <property name="megrco" type="string">
+            <column name="MEGRCO" length="1" />
+        </property>
+        <property name="meacif" type="java.lang.Integer">
+            <column name="MEACIF" />
+        </property>
+        <property name="memcif" type="java.lang.Integer">
+            <column name="MEMCIF" />
+        </property>
+        <property name="medcif" type="java.lang.Integer">
+            <column name="MEDCIF" />
+        </property>
+        <property name="meapci" type="java.lang.Integer">
+            <column name="MEAPCI" />
+        </property>
+        <property name="mempci" type="java.lang.Integer">
+            <column name="MEMPCI" />
+        </property>
+        <property name="medpci" type="java.lang.Integer">
+            <column name="MEDPCI" />
+        </property>
+        <property name="mesuns" type="big_decimal">
+            <column name="MESUNS" precision="15" />
+        </property>
+        <property name="mesunu" type="big_decimal">
+            <column name="MESUNU" precision="15" />
+        </property>
+        <property name="mepmus" type="big_decimal">
+            <column name="MEPMUS" precision="15" />
+        </property>
+        <property name="mepmuu" type="big_decimal">
+            <column name="MEPMUU" precision="15" />
+        </property>
+        <property name="mecoco" type="big_decimal">
+            <column name="MECOCO" precision="9" scale="3" />
+        </property>
+        <property name="mecove" type="big_decimal">
+            <column name="MECOVE" precision="9" scale="3" />
+        </property>
+        <property name="mepoto" type="java.lang.Long">
+            <column name="MEPOTO" />
+        </property>
+        <property name="memlco" type="big_decimal">
+            <column name="MEMLCO" precision="15" />
+        </property>
+        <property name="melidi" type="big_decimal">
+            <column name="MELIDI" precision="15" />
+        </property>
+        <property name="meclm1" type="string">
+            <column name="MECLM1" length="1" />
+        </property>
+        <property name="meclm2" type="string">
+            <column name="MECLM2" length="1" />
+        </property>
+        <property name="mecma1" type="string">
+            <column name="MECMA1" length="3" />
+        </property>
+        <property name="mecma2" type="string">
+            <column name="MECMA2" length="3" />
+        </property>
+        <property name="mecace" type="string">
+            <column name="MECACE" length="1" />
+        </property>
+        <property name="metnal" type="big_decimal">
+            <column name="METNAL" precision="5" />
+        </property>
+        <property name="metnai" type="big_decimal">
+            <column name="METNAI" precision="5" />
+        </property>
+        <property name="meteml" type="big_decimal">
+            <column name="METEML" precision="5" />
+        </property>
+        <property name="metemi" type="big_decimal">
+            <column name="METEMI" precision="5" />
+        </property>
+        <property name="mebacd" type="string">
+            <column name="MEBACD" length="40" />
+        </property>
+        <property name="mepami" type="string">
+            <column name="MEPAMI" length="40" />
+        </property>
+        <property name="mepymt" type="big_decimal">
+            <column name="MEPYMT" precision="11" />
+        </property>
+        <property name="mecali" type="big_decimal">
+            <column name="MECALI" precision="11" />
+        </property>
+        <property name="metoli" type="big_decimal">
+            <column name="METOLI" precision="11" />
+        </property>
+        <property name="mesmfl" type="string">
+            <column name="MESMFL" length="12" />
+        </property>
+        <property name="mestrs" type="string">
+            <column name="MESTRS" length="3" />
+        </property>
+        <property name="medtls" type="java.lang.Integer">
+            <column name="MEDTLS" />
+        </property>
+        <property name="meabhi" type="string">
+            <column name="MEABHI" length="1" />
+        </property>
+        <property name="measex" type="string">
+            <column name="MEASEX" length="1" />
+        </property>
+        <property name="meaage" type="java.lang.Integer">
+            <column name="MEAAGE" />
+        </property>
+        <property name="meayob" type="java.lang.Integer">
+            <column name="MEAYOB" />
+        </property>
+        <property name="meamob" type="java.lang.Integer">
+            <column name="MEAMOB" />
+        </property>
+        <property name="meaani" type="string">
+            <column name="MEAANI" length="1" />
+        </property>
+        <property name="meabrn" type="java.lang.Integer">
+            <column name="MEABRN" />
+        </property>
+        <property name="meaprp" type="string">
+            <column name="MEAPRP" length="1" />
+        </property>
+        <property name="meaprr" type="string">
+            <column name="MEAPRR" length="1" />
+        </property>
+        <property name="meaced" type="java.lang.Integer">
+            <column name="MEACED" />
+        </property>
+        <property name="meotxi" type="string">
+            <column name="MEOTXI" length="20" />
+        </property>
+        <property name="meotxx" type="string">
+            <column name="MEOTXX" length="60" />
+        </property>
+        <property name="meotix" type="string">
+            <column name="MEOTIX" length="140" />
+        </property>
+        <property name="mepert" type="big_decimal">
+            <column name="MEPERT" precision="6" scale="3" />
+        </property>
+        <property name="mepbr1" type="java.lang.Integer">
+            <column name="MEPBR1" />
+        </property>
+        <property name="mepibn" type="big_decimal">
+            <column name="MEPIBN" precision="11" />
+        </property>
+        <property name="mepcbn" type="big_decimal">
+            <column name="MEPCBN" precision="11" />
+        </property>
+        <property name="meplie" type="java.lang.Integer">
+            <column name="MEPLIE" />
+        </property>
+        <property name="medbra" type="java.lang.Long">
+            <column name="MEDBRA" />
+        </property>
+        <property name="medbat" type="string">
+            <column name="MEDBAT" length="1" />
+        </property>
+        <property name="medban" type="string">
+            <column name="MEDBAN" length="19" />
+        </property>
+        <property name="medaaf" type="java.lang.Integer">
+            <column name="MEDAAF" />
+        </property>
+        <property name="medafa" type="big_decimal">
+            <column name="MEDAFA" precision="11" />
+        </property>
+        <property name="mecied" type="string">
+            <column name="MECIED" length="70" />
+        </property>
+        <property name="meciem" type="string">
+            <column name="MECIEM" length="1" />
+        </property>
+        <property name="mestit" type="string">
+            <column name="MESTIT" length="5" />
+        </property>
+        <property name="mecacc" type="string">
+            <column name="MECACC" length="1" />
+        </property>
+        <property name="mefvh6" type="java.lang.Integer">
+            <column name="MEFVH6" />
+        </property>
+        <property name="meocrt" type="java.lang.Long">
+            <column name="MEOCRT" />
+        </property>
+        <property name="mecydu" type="java.lang.Integer">
+            <column name="MECYDU" />
+        </property>
+        <property name="mehofl" type="string">
+            <column name="MEHOFL" length="1" />
+        </property>
+        <property name="mecbcd" type="string">
+            <column name="MECBCD" length="1" />
+        </property>
+        <property name="messts" type="string">
+            <column name="MESSTS" length="1" />
+        </property>
+        <property name="meusc6" type="string">
+            <column name="MEUSC6" length="2" />
+        </property>
+        <property name="meav4a" type="java.lang.Integer">
+            <column name="MEAV4A" />
+        </property>
+        <property name="memvta" type="java.lang.Integer">
+            <column name="MEMVTA" />
+        </property>
+        <property name="medvta" type="java.lang.Integer">
+            <column name="MEDVTA" />
+        </property>
+        <property name="meccyc" type="java.lang.Integer">
+            <column name="MECCYC" />
+        </property>
+        <property name="meloba" type="string">
+            <column name="MELOBA" length="1" />
+        </property>
+        <property name="meg90d" type="string">
+            <column name="MEG90D" length="1" />
+        </property>
+        <property name="mecrba" type="string">
+            <column name="MECRBA" length="1" />
+        </property>
+        <property name="meretr" type="string">
+            <column name="MERETR" length="1" />
+        </property>
+        <property name="meenba" type="big_decimal">
+            <column name="MEENBA" precision="11" />
+        </property>
+        <property name="meenbu" type="big_decimal">
+            <column name="MEENBU" precision="11" />
+        </property>
+        <property name="meacof" type="string">
+            <column name="MEACOF" length="1" />
+        </property>
+        <property name="memsgp" type="string">
+            <column name="MEMSGP" length="120" />
+        </property>
+        <property name="memsgu" type="string">
+            <column name="MEMSGU" length="120" />
+        </property>
+        <property name="mecbkr" type="string">
+            <column name="MECBKR" length="2" />
+        </property>
+        <property name="mepdin" type="big_decimal">
+            <column name="MEPDIN" precision="11" />
+        </property>
+        <property name="meudin" type="big_decimal">
+            <column name="MEUDIN" precision="11" />
+        </property>
+        <property name="menulu" type="string">
+            <column name="MENULU" length="10" />
+        </property>
+        <property name="mecpli" type="string">
+            <column name="MECPLI" length="3" />
+        </property>
+        <property name="merepr" type="big_decimal">
+            <column name="MEREPR" precision="15" scale="3" />
+        </property>
+        <property name="merepd" type="big_decimal">
+            <column name="MEREPD" precision="15" scale="3" />
+        </property>
+        <property name="mecfcd" type="string">
+            <column name="MECFCD" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>

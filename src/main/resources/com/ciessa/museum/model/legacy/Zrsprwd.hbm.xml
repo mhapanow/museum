@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 4, 2018 10:36:47 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrsprwd" table="ZRSPRWD" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="rwcafc" type="java.lang.Integer">
+            <column name="RWCAFC" />
+        </property>
+        <property name="rwaafc" type="java.lang.Integer">
+            <column name="RWAAFC" />
+        </property>
+        <property name="rwcifa" type="string">
+            <column name="RWCIFA" length="2" />
+        </property>
+        <property name="rwagig" type="string">
+            <column name="RWAGIG" length="2" />
+        </property>
+        <property name="rworg" type="java.lang.Integer">
+            <column name="RWORG" />
+        </property>
+        <property name="rwlogo" type="java.lang.Integer">
+            <column name="RWLOGO" />
+        </property>
+        <property name="rwncct" type="string">
+            <column name="RWNCCT" length="19" />
+        </property>
+        <property name="rwncrd" type="string">
+            <column name="RWNCRD" length="19" />
+        </property>
+        <property name="rwrpgi" type="java.lang.Integer">
+            <column name="RWRPGI" />
+        </property>
+        <property name="rwrbpi" type="java.lang.Integer">
+            <column name="RWRBPI" />
+        </property>
+        <property name="rwrbeg" type="big_decimal">
+            <column name="RWRBEG" precision="15" />
+        </property>
+        <property name="rwrear" type="big_decimal">
+            <column name="RWREAR" precision="15" />
+        </property>
+        <property name="rwryta" type="big_decimal">
+            <column name="RWRYTA" precision="15" />
+        </property>
+        <property name="rwrytu" type="big_decimal">
+            <column name="RWRYTU" precision="15" />
+        </property>
+        <property name="rwrava" type="big_decimal">
+            <column name="RWRAVA" precision="15" />
+        </property>
+        <property name="rwrpad" type="big_decimal">
+            <column name="RWRPAD" precision="15" />
+        </property>
+        <property name="rwrpre" type="big_decimal">
+            <column name="RWRPRE" precision="15" />
+        </property>
+        <property name="rwrexi" type="string">
+            <column name="RWREXI" length="1" />
+        </property>
+        <property name="rwrexd" type="java.lang.Integer">
+            <column name="RWREXD" />
+        </property>
+        <property name="rwrrep" type="big_decimal">
+            <column name="RWRREP" precision="15" />
+        </property>
+        <property name="rwrred" type="big_decimal">
+            <column name="RWRRED" precision="15" />
+        </property>
+        <property name="rwrrre" type="string">
+            <column name="RWRRRE" length="40" />
+        </property>
+        <property name="rwrrmp" type="big_decimal">
+            <column name="RWRRMP" precision="15" />
+        </property>
+        <property name="rwrrma" type="string">
+            <column name="RWRRMA" length="20" />
+        </property>
+        <property name="rwrbep" type="big_decimal">
+            <column name="RWRBEP" precision="15" />
+        </property>
+        <property name="rwccyc" type="java.lang.Integer">
+            <column name="RWCCYC" />
+        </property>
+    </class>
+</hibernate-mapping>

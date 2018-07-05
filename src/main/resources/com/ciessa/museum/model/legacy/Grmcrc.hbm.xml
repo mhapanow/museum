@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 4, 2018 10:36:47 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Grmcrc" table="GRMCRC" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="rgcrcn" type="java.lang.Long">
+            <column name="RGCRCN" />
+        </property>
+        <property name="rgprcd" type="string">
+            <column name="RGPRCD" length="2" />
+        </property>
+        <property name="rgactn" type="java.lang.Long">
+            <column name="RGACTN" />
+        </property>
+        <property name="rgrmcn" type="java.lang.Long">
+            <column name="RGRMCN" />
+        </property>
+        <property name="rgrlno" type="java.lang.Long">
+            <column name="RGRLNO" />
+        </property>
+        <property name="rgcrid" type="java.lang.Integer">
+            <column name="RGCRID" />
+        </property>
+        <property name="rgcred" type="java.lang.Integer">
+            <column name="RGCRED" />
+        </property>
+        <property name="rgcrst" type="string">
+            <column name="RGCRST" length="4" />
+        </property>
+        <property name="rgcrsd" type="java.lang.Integer">
+            <column name="RGCRSD" />
+        </property>
+        <property name="rgnmcr" type="string">
+            <column name="RGNMCR" length="27" />
+        </property>
+        <property name="rgcdod" type="java.lang.Integer">
+            <column name="RGCDOD" />
+        </property>
+        <property name="rgaccg" type="java.lang.Long">
+            <column name="RGACCG" />
+        </property>
+        <property name="rgcdpd" type="string">
+            <column name="RGCDPD" length="1" />
+        </property>
+        <property name="rgcrhs" type="string">
+            <column name="RGCRHS" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 4, 2018 10:36:47 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpcci" table="CCRPCCI" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cibanc" type="java.lang.Integer">
+            <column name="CIBANC" />
+        </property>
+        <property name="cinucr" type="java.lang.Long">
+            <column name="CINUCR" />
+        </property>
+        <property name="cincuo" type="java.lang.Integer">
+            <column name="CINCUO" />
+        </property>
+        <property name="ciiipd" type="big_decimal">
+            <column name="CIIIPD" precision="15" />
+        </property>
+        <property name="ciiipc" type="big_decimal">
+            <column name="CIIIPC" precision="15" />
+        </property>
+        <property name="ciiicd" type="big_decimal">
+            <column name="CIIICD" precision="15" />
+        </property>
+        <property name="ciiicc" type="big_decimal">
+            <column name="CIIICC" precision="15" />
+        </property>
+        <property name="cii8pd" type="big_decimal">
+            <column name="CII8PD" precision="15" />
+        </property>
+        <property name="cii9pd" type="big_decimal">
+            <column name="CII9PD" precision="15" />
+        </property>
+        <property name="cii8pc" type="big_decimal">
+            <column name="CII8PC" precision="15" />
+        </property>
+        <property name="cii9pc" type="big_decimal">
+            <column name="CII9PC" precision="15" />
+        </property>
+        <property name="cii8cd" type="big_decimal">
+            <column name="CII8CD" precision="15" />
+        </property>
+        <property name="cii9cd" type="big_decimal">
+            <column name="CII9CD" precision="15" />
+        </property>
+        <property name="cii8cc" type="big_decimal">
+            <column name="CII8CC" precision="15" />
+        </property>
+        <property name="cii9cc" type="big_decimal">
+            <column name="CII9CC" precision="15" />
+        </property>
+        <property name="ciaaco" type="java.lang.Integer">
+            <column name="CIAACO" />
+        </property>
+        <property name="cimmco" type="java.lang.Integer">
+            <column name="CIMMCO" />
+        </property>
+        <property name="ciddco" type="java.lang.Integer">
+            <column name="CIDDCO" />
+        </property>
+        <property name="cifpcu" type="string">
+            <column name="CIFPCU" length="1" />
+        </property>
+        <property name="ciusin" type="string">
+            <column name="CIUSIN" length="10" />
+        </property>
+        <property name="ciusau" type="string">
+            <column name="CIUSAU" length="10" />
+        </property>
+        <property name="cihoin" type="java.lang.Integer">
+            <column name="CIHOIN" />
+        </property>
+        <property name="cihoau" type="java.lang.Integer">
+            <column name="CIHOAU" />
+        </property>
+        <property name="cistco" type="string">
+            <column name="CISTCO" length="1" />
+        </property>
+        <property name="civipc" type="big_decimal">
+            <column name="CIVIPC" precision="15" />
+        </property>
+        <property name="civ8pc" type="big_decimal">
+            <column name="CIV8PC" precision="15" />
+        </property>
+        <property name="civ9pc" type="big_decimal">
+            <column name="CIV9PC" precision="15" />
+        </property>
+        <property name="civicc" type="big_decimal">
+            <column name="CIVICC" precision="15" />
+        </property>
+        <property name="civ8cc" type="big_decimal">
+            <column name="CIV8CC" precision="15" />
+        </property>
+        <property name="civ9cc" type="big_decimal">
+            <column name="CIV9CC" precision="15" />
+        </property>
+        <property name="ciccup" type="java.lang.Integer">
+            <column name="CICCUP" />
+        </property>
+        <property name="ciccuv" type="java.lang.Integer">
+            <column name="CICCUV" />
+        </property>
+        <property name="cisbnc" type="java.lang.Integer">
+            <column name="CISBNC" />
+        </property>
+        <property name="citicu" type="string">
+            <column name="CITICU" length="2" />
+        </property>
+        <property name="cistcu" type="string">
+            <column name="CISTCU" length="1" />
+        </property>
+        <property name="ciagcu" type="java.lang.Integer">
+            <column name="CIAGCU" />
+        </property>
+        <property name="cimgcu" type="java.lang.Integer">
+            <column name="CIMGCU" />
+        </property>
+        <property name="cidgcu" type="java.lang.Integer">
+            <column name="CIDGCU" />
+        </property>
+        <property name="ciavcu" type="java.lang.Integer">
+            <column name="CIAVCU" />
+        </property>
+        <property name="cimvcu" type="java.lang.Integer">
+            <column name="CIMVCU" />
+        </property>
+        <property name="cidvcu" type="java.lang.Integer">
+            <column name="CIDVCU" />
+        </property>
+        <property name="citacr" type="big_decimal">
+            <column name="CITACR" precision="9" scale="6" />
+        </property>
+        <property name="civtpo" type="big_decimal">
+            <column name="CIVTPO" precision="9" scale="6" />
+        </property>
+        <property name="ciibas" type="java.lang.Long">
+            <column name="CIIBAS" />
+        </property>
+        <property name="ciiact" type="java.lang.Long">
+            <column name="CIIACT" />
+        </property>
+        <property name="ciimam" type="big_decimal">
+            <column name="CIIMAM" precision="15" />
+        </property>
+        <property name="ciimba" type="big_decimal">
+            <column name="CIIMBA" precision="15" />
+        </property>
+        <property name="ciicaj" type="big_decimal">
+            <column name="CIICAJ" precision="15" />
+        </property>
+        <property name="ciicac" type="big_decimal">
+            <column name="CIICAC" precision="15" />
+        </property>
+        <property name="ciicin" type="big_decimal">
+            <column name="CIICIN" precision="15" />
+        </property>
+        <property name="civipo" type="big_decimal">
+            <column name="CIVIPO" precision="15" />
+        </property>
+        <property name="ciisvi" type="big_decimal">
+            <column name="CIISVI" precision="15" />
+        </property>
+        <property name="ciicca" type="big_decimal">
+            <column name="CIICCA" precision="15" />
+        </property>
+        <property name="ciiise" type="big_decimal">
+            <column name="CIIISE" precision="15" />
+        </property>
+        <property name="ciaapc" type="java.lang.Integer">
+            <column name="CIAAPC" />
+        </property>
+        <property name="cimmpc" type="java.lang.Integer">
+            <column name="CIMMPC" />
+        </property>
+        <property name="ciddpc" type="java.lang.Integer">
+            <column name="CIDDPC" />
+        </property>
+        <property name="ciaaip" type="java.lang.Integer">
+            <column name="CIAAIP" />
+        </property>
+        <property name="cimmip" type="java.lang.Integer">
+            <column name="CIMMIP" />
+        </property>
+        <property name="ciddip" type="java.lang.Integer">
+            <column name="CIDDIP" />
+        </property>
+        <property name="cicsup" type="java.lang.Integer">
+            <column name="CICSUP" />
+        </property>
+        <property name="cidapc" type="java.lang.Integer">
+            <column name="CIDAPC" />
+        </property>
+        <property name="ciarcu" type="java.lang.Integer">
+            <column name="CIARCU" />
+        </property>
+        <property name="cimrcu" type="java.lang.Integer">
+            <column name="CIMRCU" />
+        </property>
+        <property name="cidrcu" type="java.lang.Integer">
+            <column name="CIDRCU" />
+        </property>
+        <property name="civiaa" type="big_decimal">
+            <column name="CIVIAA" precision="15" />
+        </property>
+        <property name="civima" type="big_decimal">
+            <column name="CIVIMA" precision="15" />
+        </property>
+        <property name="civipa" type="big_decimal">
+            <column name="CIVIPA" precision="15" />
+        </property>
+        <property name="ciipma" type="big_decimal">
+            <column name="CIIPMA" precision="15" />
+        </property>
+        <property name="ciicma" type="big_decimal">
+            <column name="CIICMA" precision="15" />
+        </property>
+        <property name="cisdfi" type="big_decimal">
+            <column name="CISDFI" precision="15" />
+        </property>
+        <property name="cicar1" type="big_decimal">
+            <column name="CICAR1" precision="15" />
+        </property>
+        <property name="cimaav" type="string">
+            <column name="CIMAAV" length="1" />
+        </property>
+        <property name="cimaam" type="string">
+            <column name="CIMAAM" length="1" />
+        </property>
+        <property name="cicomo" type="java.lang.Integer">
+            <column name="CICOMO" />
+        </property>
+        <property name="cicoti" type="big_decimal">
+            <column name="CICOTI" precision="15" scale="5" />
+        </property>
+        <property name="cicopa" type="big_decimal">
+            <column name="CICOPA" precision="15" scale="5" />
+        </property>
+        <property name="ciisau" type="big_decimal">
+            <column name="CIISAU" precision="15" />
+        </property>
+        <property name="cincen" type="java.lang.Integer">
+            <column name="CINCEN" />
+        </property>
+        <property name="cii9in" type="big_decimal">
+            <column name="CII9IN" precision="15" />
+        </property>
+        <property name="cii9sv" type="big_decimal">
+            <column name="CII9SV" precision="15" />
+        </property>
+        <property name="cii9ca" type="big_decimal">
+            <column name="CII9CA" precision="15" />
+        </property>
+        <property name="cii9c1" type="big_decimal">
+            <column name="CII9C1" precision="15" />
+        </property>
+        <property name="cii9cs" type="big_decimal">
+            <column name="CII9CS" precision="15" />
+        </property>
+        <property name="cii8in" type="big_decimal">
+            <column name="CII8IN" precision="15" />
+        </property>
+        <property name="cii8sv" type="big_decimal">
+            <column name="CII8SV" precision="15" />
+        </property>
+        <property name="cii8ca" type="big_decimal">
+            <column name="CII8CA" precision="15" />
+        </property>
+        <property name="cii8c1" type="big_decimal">
+            <column name="CII8C1" precision="15" />
+        </property>
+        <property name="cii8cs" type="big_decimal">
+            <column name="CII8CS" precision="15" />
+        </property>
+        <property name="cicsau" type="big_decimal">
+            <column name="CICSAU" precision="15" />
+        </property>
+        <property name="cicsvi" type="big_decimal">
+            <column name="CICSVI" precision="15" />
+        </property>
+        <property name="ciauac" type="big_decimal">
+            <column name="CIAUAC" precision="15" />
+        </property>
+        <property name="cic8cs" type="big_decimal">
+            <column name="CIC8CS" precision="15" />
+        </property>
+        <property name="cic9cs" type="big_decimal">
+            <column name="CIC9CS" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>
