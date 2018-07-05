@@ -67,5 +67,7 @@
 	<bean id="legacy.cacr205.view1" class="com.ciessa.museum.bz.legacy.CACR205View01BzService" parent="base.rest.resource" scope="prototype" />
 	<bean id="legacy.cacr205.view2" class="com.ciessa.museum.bz.legacy.CACR205View02BzService" parent="base.rest.resource" scope="prototype" />
 	<bean id="legacy.cacr210.view1" class="com.ciessa.museum.bz.legacy.CACR210View01BzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="legacy.cacr210.view2" class="com.ciessa.museum.bz.legacy.CACR210View02BzService" parent="base.rest.resource" scope="prototype" />
+	
 	
 </beans>

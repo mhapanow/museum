@@ -1,7 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +14,6 @@ import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
-import com.ciessa.museum.bz.legacy.TAR0077ListBzService.TAR0077Adapter;
 import com.ciessa.museum.dao.DataSetDAO;
 import com.ciessa.museum.dao.legacy.CacphstDAO;
 import com.ciessa.museum.dao.legacy.CacpmreDAO;
@@ -30,15 +28,13 @@ import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Cacphst;
 import com.ciessa.museum.model.legacy.Cacpmre;
 import com.ciessa.museum.model.legacy.Cfp001002;
-import com.ciessa.museum.model.legacy.Cfp001220;
-import com.ciessa.museum.model.legacy.Cuxrf1;
 import com.ciessa.museum.model.legacy.Grmcda;
 import com.ciessa.museum.model.legacy.Grmida;
 import com.ciessa.museum.model.legacy.Grmria;
-import com.ciessa.museum.model.legacy.Tap014;
 import com.ciessa.museum.tools.CollectionFactory;
 
-public class CACR210View01BzService extends RestBaseServerResource {
+
+public class CACR210View01BzService extends RestBaseServerResource{
 	
 	public static final Logger log = Logger.getLogger(CACR210View01BzService.class.getName());
 	
@@ -70,19 +66,19 @@ public class CACR210View01BzService extends RestBaseServerResource {
 	Grmria objGrmria = new Grmria();
 	Grmida objGrmida = new Grmida();
 	Grmcda objGrmcda = new Grmcda();
-	
-	
+		
 	//Variables
-    Date sfeamd  = null;
+    Date sfeamd = null;
     Date sfedma = null;
     Date ssfsel = null;
+    Date wfsel  = null;
     String ssbrch = null;
     String ssresu = null;
     String ssmrec = null;
-    Date wfsel = null;
     String wsdbrc = null;
     String wsmrec = null;
     String ssdmre = null;
+    
     List<CACR210Adapter> listAdapted = null;   
     CACR210Adapter adapted = null;
     
@@ -100,11 +96,15 @@ public class CACR210View01BzService extends RestBaseServerResource {
 			
 			//Obtener Parametros
 			try {
+
 				ssfsel = new SimpleDateFormat("ddMMyyyy").parse(obtainStringValue("ssfsel", null).toString());
-			} catch (Exception e) {	}
+
+			}catch (Exception e) {	}
+			
 			ssbrch = obtainStringValue("ssbrch", null);
 			ssresu = obtainStringValue("ssresu", null);
 			ssmrec = obtainStringValue("ssmrec", null);
+			
 			if (ssbrch == null || ssresu == null || ssmrec == null) {
 				log.log(Level.SEVERE, "Parametros incorrectos", new Exception());
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException("Parametros incorrectos", new Exception())).toString();
@@ -139,7 +139,7 @@ public class CACR210View01BzService extends RestBaseServerResource {
 			log.info("Number of elements found [" + listAdapted.size() + "] in " + diff + " millis");
 			
 			String[] fields = new String[] {
-					"pkid",
+					"clave",
 					"member",
 					"WSACCT",
 					"WSDTRE",
@@ -152,11 +152,12 @@ public class CACR210View01BzService extends RestBaseServerResource {
 			
 			returnValue = this.getJSONRepresentationFromArrayOfObjects(listAdapted, fields);		
 			returnValue.put("SSFSEL", ssfsel);
-			returnValue.put("$$BRCH", ssbrch);
+			returnValue.put("SSBRCH", ssbrch);
 			returnValue.put("WSDBRC", wsdbrc);
 			returnValue.put("SSRESU", ssresu);
 			returnValue.put("SSMREC", ssmrec);
 			returnValue.put("SSDMRE", ssdmre);
+			
 			returnValue.put("WSCUEN", listAdapted.size());
 			
 			if( attributes.containsKey("recordCount"))
@@ -198,7 +199,7 @@ public class CACR210View01BzService extends RestBaseServerResource {
 			if (ssbrch.equals("999")) {
 				wsdbrc = "TODAS";
 			}
-			if(!ssmrec.equals("0")) { //W$MREC
+			if(!ssmrec.equals("0")) { 
 				objCacpmre = myDaoCacpmre.getUsingMrmrec(ds, ssmrec);
 				if (objCacpmre == null) {
 					return "No se ha encontrado el registro";
@@ -207,6 +208,8 @@ public class CACR210View01BzService extends RestBaseServerResource {
 					ssdmre = objCacpmre.getMrdesc();
 				}
 			}
+			
+			
 		} catch (ASException e) {
 			return e.getMessage();
 		}
@@ -239,7 +242,7 @@ public class CACR210View01BzService extends RestBaseServerResource {
 						}
 					}
 				}
-				adapted.setPkid(obj.getPkid());
+				
 				adapted.setMember(obj.getMember());
 				adapted.setWSBRCH(obj.getHibrch());
 				adapted.setWSSF4(obj.getHisf4());
@@ -300,8 +303,10 @@ public class CACR210View01BzService extends RestBaseServerResource {
 				adapted.setWSBHDN(obj.getHibhdn());
 				adapted.setWSBHMC(obj.getHibhmc());
 				adapted.setWSBHVS(obj.getHibhvs());
+				adapted.setClave(myDaoCacphst.getRegistroClave(obj.getHiacct(), obj.getHitodf(), obj.getHidate(), obj.getHitie(), obj.getHifsel()));
+				adapted.setWSACCT(obj.getHiacct().toString());
 				SubRutCarga(ds);
-				listAdapted.add(adapted);		
+				listAdapted.add(adapted);
 			}
 			
 		} catch (ASException e) {
@@ -366,7 +371,7 @@ public class CACR210View01BzService extends RestBaseServerResource {
 	}
 	
 	public class CACR210Adapter{
-		private String pkid;
+		private String clave;
 		private String member;
 		private String WSDTRE;
 		private String WSTITU;
@@ -407,17 +412,36 @@ public class CACR210View01BzService extends RestBaseServerResource {
 		private String WSDMRE; 
 		private String WSDSTN; 
 		private String WSTIPO; 
-		private String WSETAD; 	
+		private String WSETAD;
+		private String WSACCT;
+		 
 		
 		public CACR210Adapter() {}
+		
+		
 
-		public String getPkid() {
-			return pkid;
+		public String getWSACCT() {
+			return WSACCT;
 		}
 
-		public void setPkid(String pkid) {
-			this.pkid = pkid;
+
+
+		public void setWSACCT(String wSACCT) {
+			WSACCT = wSACCT;
 		}
+
+
+
+		public String getClave() {
+			return clave;
+		}
+
+
+
+		public void setClave(String clave) {
+			this.clave = clave;
+		}
+
 
 		public String getMember() {
 			return member;

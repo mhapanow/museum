@@ -65,7 +65,7 @@ public class CACR205View01BzService extends RestBaseServerResource {
 	
 	//Variables globales
 	String wsacct = null;
-	String clave = null;
+	//String clave = null;
 
 	List<CARC205Adapter> list = new ArrayList<CARC205Adapter>();
 	CARC205Adapter adapted = null;
@@ -183,9 +183,9 @@ public class CACR205View01BzService extends RestBaseServerResource {
 						}
 					}
 				}
-				adapted.setClave(o.getHiacct().toString() + o.getHitodf().toString() + o.getHidate().toString() + o.getHitie().toString() + o.getHifsel());
-				adapted.setWSBRCH(o.getHibrch()); //TODO: ASGINACIÓN DUPLICADA EN LA LINEA 199
-				adapted.setWSSF4(o.getHisf4()); //TODO: ASGINACIÓN DUPLICADA EN LA LINEA 200
+				adapted.setClave(myDaoCacphst.getRegistroClave(o.getHiacct(), o.getHitodf(), o.getHidate(), o.getHitie(), o.getHifsel()));
+				adapted.setWSBRCH(o.getHibrch()); 
+				adapted.setWSSF4(o.getHisf4());
 				adapted.setSFEAMD(new SimpleDateFormat("yyyyMMdd").parse(o.getHidate().toString()));
 				//TODO: Ejecutar rutina FECHA
 				adapted.setWSDATE(adapted.getSFEAMD());

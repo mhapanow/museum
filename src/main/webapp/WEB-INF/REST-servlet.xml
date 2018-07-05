@@ -29,6 +29,7 @@
 				<entry key="/legacy/cacr205/view1" 			value-ref="spring.legacy.cacr205.view1" />
 				<entry key="/legacy/cacr205/view2" 			value-ref="spring.legacy.cacr205.view2" />
 				<entry key="/legacy/cacr210/view1" 			value-ref="spring.legacy.cacr210.view1" />
+				<entry key="/legacy/cacr210/view2" 			value-ref="spring.legacy.cacr210.view2" />
 				
 			</map>
 		</property>
@@ -77,7 +78,10 @@
  	<bean id="spring.legacy.cacr205.view2" class="org.restlet.ext.spring.SpringFinder">
  	    <lookup-method name="create" bean="legacy.cacr205.view2" />
  	</bean>
- 	<bean id="spring.legacy.cacr210.view1" class="org.restlet.ext.spring.SpringFinder">
+	<bean id="spring.legacy.cacr210.view1" class="org.restlet.ext.spring.SpringFinder">
  	    <lookup-method name="create" bean="legacy.cacr210.view1" />
+ 	</bean>
+ 	<bean id="spring.legacy.cacr210.view2" class="org.restlet.ext.spring.SpringFinder">
+ 	    <lookup-method name="create" bean="legacy.cacr210.view2" />
  	</bean>
 </beans>

@@ -198,9 +198,9 @@ public class CACR205View02BzService extends RestBaseServerResource{
 	
 	private String SubRutCarsf1(DataSet ds) {
 		try {
-			listCacphst = myDaoCacphst.getUsingHiacct(ds, wsacct);
+			listCacphst = myDaoCacphst.getUsingHiacctAndClave(ds, wsacct, clave);
 			for( Cacphst o : listCacphst ) {
-				if (clave.equals(o.getHiacct().toString() + o.getHitodf().toString() + o.getHidate().toString() + o.getHitie().toString() + o.getHifsel())){
+				//if (clave.equals(o.getHiacct().toString() + o.getHitodf().toString() + o.getHidate().toString() + o.getHitie().toString() + o.getHifsel())){
 					adapted = new CARC205Adapter();
 					if ( o.getHitreg().equals("1")) {
 						adapted.setWSDTRE("ACT");
@@ -284,7 +284,7 @@ public class CACR205View02BzService extends RestBaseServerResource{
 					adapted.setWSBHVS(o.getHibhvs());				
 					SubRutCarga(ds);
 					list.add(adapted);	
-				}
+				//}
 			}
 			return "";
 		}
@@ -364,7 +364,6 @@ public class CACR205View02BzService extends RestBaseServerResource{
 		Integer WSTYPE = null;
 		Double WSCBAL = null;
 		Long WSIODL = null;
-		
 		String WOPC  = null;; 
 		Integer WSMREC = null;
 		Date WSFCAN =  null;
