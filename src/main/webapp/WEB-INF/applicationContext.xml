@@ -28,10 +28,16 @@
 
 	<!-- ** Legacy DAOs implementation ** -->
 	<bean id="Altnam.dao.ref" class="com.ciessa.museum.dao.legacy.AltnamDAO" />
+	<bean id="Cacphst.dao.ref" class="com.ciessa.museum.dao.legacy.CacphstDAO" />
+	<bean id="Cacpmre.dao.ref" class="com.ciessa.museum.dao.legacy.CacpmreDAO" />
+	<bean id="Cfp001002.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001002DAO" />
 	<bean id="Cfp001220.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001220DAO" />
 	<bean id="Cfp001210.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001210DAO" />
 	<bean id="Cumast.dao.ref" class="com.ciessa.museum.dao.legacy.CumastDAO" />
 	<bean id="Cuxrf1.dao.ref" class="com.ciessa.museum.dao.legacy.Cuxrf1DAO" />
+	<bean id="Grmcda.dao.ref" class="com.ciessa.museum.dao.legacy.GrmcdaDAO" />
+	<bean id="Grmida.dao.ref" class="com.ciessa.museum.dao.legacy.GrmidaDAO" />
+	<bean id="Grmria.dao.ref" class="com.ciessa.museum.dao.legacy.GrmriaDAO" />
 	<bean id="Rncppro.dao.ref" class="com.ciessa.museum.dao.legacy.RncpproDAO" />
 	<bean id="Rncptvp.dao.ref" class="com.ciessa.museum.dao.legacy.RncptvpDAO" />
 	<bean id="Rsctam.dao.ref" class="com.ciessa.museum.dao.legacy.RsctamDAO" />
@@ -40,7 +46,7 @@
 	<bean id="Tap002.dao.ref" class="com.ciessa.museum.dao.legacy.Tap002DAO" />
 	<bean id="Tap014.dao.ref" class="com.ciessa.museum.dao.legacy.Tap014DAO" />
 	<bean id="Tap902.dao.ref" class="com.ciessa.museum.dao.legacy.Tap902DAO" />
- 
+
 	<!-- ** REST resource ** -->
 	<bean id="base.rest.resource" class="com.ciessa.museum.bz.RestBaseServerResource" abstract="true" />
 	<bean id="ipaddress.rest.resource" class="com.ciessa.museum.bz.IPAddressBzService" parent="base.rest.resource" scope="prototype" />
@@ -55,5 +61,13 @@
 
 	<bean id="legacy.tar0030.view1" class="com.ciessa.museum.bz.legacy.TAR0030View01BzService" parent="base.rest.resource" scope="prototype" />
 	<bean id="legacy.tar0030.view2" class="com.ciessa.museum.bz.legacy.TAR0030View02BzService" parent="base.rest.resource" scope="prototype" />
+
+	<bean id="legacy.cacr215.view1" class="com.ciessa.museum.bz.legacy.CACR215View01BzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="legacy.cacr216.view1" class="com.ciessa.museum.bz.legacy.CACR216View01BzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="legacy.cacr205.view1" class="com.ciessa.museum.bz.legacy.CACR205View01BzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="legacy.cacr205.view2" class="com.ciessa.museum.bz.legacy.CACR205View02BzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="legacy.cacr210.view1" class="com.ciessa.museum.bz.legacy.CACR210View01BzService" parent="base.rest.resource" scope="prototype" />
+	<bean id="legacy.cacr210.view2" class="com.ciessa.museum.bz.legacy.CACR210View02BzService" parent="base.rest.resource" scope="prototype" />
+	
 	
 </beans>
