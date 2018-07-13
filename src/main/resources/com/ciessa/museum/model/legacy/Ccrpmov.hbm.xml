@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 13, 2018 12:00:18 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpmov" table="CCRPMOV" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="mvbanc" type="java.lang.Integer">
+            <column name="MVBANC" />
+        </property>
+        <property name="mvnmov" type="java.lang.Integer">
+            <column name="MVNMOV" />
+        </property>
+        <property name="mvnucr" type="java.lang.Long">
+            <column name="MVNUCR" />
+        </property>
+        <property name="mvdtem" type="java.lang.Integer">
+            <column name="MVDTEM" />
+        </property>
+        <property name="mvimpm" type="big_decimal">
+            <column name="MVIMPM" precision="15" />
+        </property>
+        <property name="mvstat" type="string">
+            <column name="MVSTAT" length="1" />
+        </property>
+        <property name="mvcsup" type="java.lang.Integer">
+            <column name="MVCSUP" />
+        </property>
+        <property name="mvfpcu" type="string">
+            <column name="MVFPCU" length="1" />
+        </property>
+        <property name="mvdtei" type="java.lang.Integer">
+            <column name="MVDTEI" />
+        </property>
+        <property name="mvtmei" type="java.lang.Integer">
+            <column name="MVTMEI" />
+        </property>
+        <property name="mvopri" type="string">
+            <column name="MVOPRI" length="10" />
+        </property>
+        <property name="mvdtea" type="java.lang.Integer">
+            <column name="MVDTEA" />
+        </property>
+        <property name="mvtmea" type="java.lang.Integer">
+            <column name="MVTMEA" />
+        </property>
+        <property name="mvopra" type="string">
+            <column name="MVOPRA" length="10" />
+        </property>
+        <property name="mvcmmo" type="string">
+            <column name="MVCMMO" length="1" />
+        </property>
+        <property name="mvdtep" type="java.lang.Integer">
+            <column name="MVDTEP" />
+        </property>
+        <property name="mvtmep" type="java.lang.Integer">
+            <column name="MVTMEP" />
+        </property>
+        <property name="mvmoti" type="string">
+            <column name="MVMOTI" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

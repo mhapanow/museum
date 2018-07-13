@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Jul 4, 2018 10:36:47 PM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated Jul 13, 2018 12:00:18 PM by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="com.ciessa.museum.model.legacy.Rsctam" table="RSCTAM" schema="dbo" catalog="museum">
         <id name="pkid" type="string">

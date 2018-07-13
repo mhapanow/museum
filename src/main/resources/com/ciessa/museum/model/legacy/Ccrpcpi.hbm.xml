@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 13, 2018 12:00:18 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpcpi" table="CCRPCPI" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cpbanc" type="java.lang.Integer">
+            <column name="CPBANC" />
+        </property>
+        <property name="cpnmov" type="java.lang.Integer">
+            <column name="CPNMOV" />
+        </property>
+        <property name="cpnucr" type="java.lang.Long">
+            <column name="CPNUCR" />
+        </property>
+        <property name="cpncuo" type="java.lang.Integer">
+            <column name="CPNCUO" />
+        </property>
+        <property name="cpsbnc" type="java.lang.Integer">
+            <column name="CPSBNC" />
+        </property>
+        <property name="cpcdco" type="java.lang.Integer">
+            <column name="CPCDCO" />
+        </property>
+        <property name="cpcsup" type="java.lang.Integer">
+            <column name="CPCSUP" />
+        </property>
+        <property name="cpfpcu" type="string">
+            <column name="CPFPCU" length="1" />
+        </property>
+        <property name="cpimpp" type="big_decimal">
+            <column name="CPIMPP" precision="15" />
+        </property>
+        <property name="cpi9ip" type="big_decimal">
+            <column name="CPI9IP" precision="15" />
+        </property>
+        <property name="cpi8ip" type="big_decimal">
+            <column name="CPI8IP" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>
