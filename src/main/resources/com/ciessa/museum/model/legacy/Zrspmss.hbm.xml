@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrspmss" table="ZRSPMSS" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="msyfac" type="java.lang.Integer">
+            <column name="MSYFAC" />
+        </property>
+        <property name="msaafc" type="java.lang.Integer">
+            <column name="MSAAFC" />
+        </property>
+        <property name="mscifa" type="string">
+            <column name="MSCIFA" length="2" />
+        </property>
+        <property name="msccyc" type="java.lang.Integer">
+            <column name="MSCCYC" />
+        </property>
+        <property name="msorg" type="java.lang.Integer">
+            <column name="MSORG" />
+        </property>
+        <property name="mslogo" type="java.lang.Integer">
+            <column name="MSLOGO" />
+        </property>
+        <property name="msmgcd" type="string">
+            <column name="MSMGCD" length="2" />
+        </property>
+        <property name="msvrsn" type="java.lang.Integer">
+            <column name="MSVRSN" />
+        </property>
+        <property name="msclge" type="string">
+            <column name="MSCLGE" length="1" />
+        </property>
+        <property name="msmgds" type="string">
+            <column name="MSMGDS" length="120" />
+        </property>
+    </class>
+</hibernate-mapping>
