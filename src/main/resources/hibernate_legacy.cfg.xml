@@ -5,9 +5,9 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.password">rootman01</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://192.168.22.133:1433;databaseName=museum</property>
-		<property name="hibernate.connection.username">museum</property>
+		<property name="hibernate.connection.password">43096915</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://127.0.0.1:1433;databaseName=museum</property>
+		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.default_catalog">museum</property>
 		<property name="hibernate.default_schema">dbo</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
@@ -17,8 +17,65 @@
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
 
-		<mapping resource="com/ciessa/museum/model/legacy/Cfp00101.hbm.xml"></mapping>
-
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Altnam.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cacphst.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cacpmre.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cfp001002.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cfp001220.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cfp001210.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cumast.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cuxrf1.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Grmcda.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Grmida.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Grmria.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Rncppro.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Rncptvp.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Rsctam.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Saldom.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Tablam.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Tap002.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Tap014.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Tap902.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpcre.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpcpv.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrppro.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpind.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpscb.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpsch.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpcap.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpmov.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpcar.hbm.xml"></mapping>
+ 		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpcci.hbm.xml"></mapping>
+			
 	</session-factory>
 
 </hibernate-configuration>

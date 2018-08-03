@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Cfp001210" table="CFP001210" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cfbk" type="string">
+            <column name="CFBK" length="3" />
+        </property>
+        <property name="cfrec" type="string">
+            <column name="CFREC" length="3" />
+        </property>
+        <property name="cfadsg" type="string">
+            <column name="CFADSG" length="1" />
+        </property>
+        <property name="cftnbr" type="string">
+            <column name="CFTNBR" length="3" />
+        </property>
+        <property name="cffil8" type="string">
+            <column name="CFFIL8" length="8" />
+        </property>
+        <property name="cfindr" type="string">
+            <column name="CFINDR" length="1" />
+        </property>
+        <property name="cfstat" type="string">
+            <column name="CFSTAT" length="1" />
+        </property>
+        <property name="cftnme" type="string">
+            <column name="CFTNME" length="30" />
+        </property>
+        <property name="cftlin" type="string">
+            <column name="CFTLIN" length="2" />
+        </property>
+        <property name="cfads2" type="string">
+            <column name="CFADS2" length="1" />
+        </property>
+        <property name="cfpers" type="string">
+            <column name="CFPERS" length="1" />
+        </property>
+        <property name="cftafg" type="string">
+            <column name="CFTAFG" length="1" />
+        </property>
+        <property name="cflp" type="string">
+            <column name="CFLP" length="1" />
+        </property>
+        <property name="cfmail" type="string">
+            <column name="CFMAIL" length="1" />
+        </property>
+        <property name="cfclov" type="string">
+            <column name="CFCLOV" length="1" />
+        </property>
+        <property name="cfsig" type="string">
+            <column name="CFSIG" length="1" />
+        </property>
+        <property name="cfsiga" type="string">
+            <column name="CFSIGA" length="1" />
+        </property>
+        <property name="cfspin" type="string">
+            <column name="CFSPIN" length="1" />
+        </property>
+        <property name="cfodl" type="string">
+            <column name="CFODL" length="1" />
+        </property>
+        <property name="cfdorf" type="string">
+            <column name="CFDORF" length="1" />
+        </property>
+        <property name="cfdord" type="java.lang.Integer">
+            <column name="CFDORD" />
+        </property>
+        <property name="cfbdmo" type="java.lang.Integer">
+            <column name="CFBDMO" />
+        </property>
+        <property name="cfnrwd" type="java.lang.Integer">
+            <column name="CFNRWD" />
+        </property>
+        <property name="cfstct" type="string">
+            <column name="CFSTCT" length="1" />
+        </property>
+        <property name="cfstcd" type="string">
+            <column name="CFSTCD" length="1" />
+        </property>
+        <property name="cfstcy" type="java.lang.Integer">
+            <column name="CFSTCY" />
+        </property>
+        <property name="cfrege" type="string">
+            <column name="CFREGE" length="1" />
+        </property>
+        <property name="cfclst" type="string">
+            <column name="CFCLST" length="1" />
+        </property>
+        <property name="cfnoac" type="string">
+            <column name="CFNOAC" length="1" />
+        </property>
+        <property name="cfscty" type="string">
+            <column name="CFSCTY" length="1" />
+        </property>
+        <property name="cfsccd" type="java.lang.Integer">
+            <column name="CFSCCD" />
+        </property>
+        <property name="cfsc" type="string">
+            <column name="CFSC" length="16" />
+        </property>
+        <property name="cfscpr" type="string">
+            <column name="CFSCPR" length="1" />
+        </property>
+        <property name="cfscfr" type="java.lang.Integer">
+            <column name="CFSCFR" />
+        </property>
+        <property name="cfdint" type="java.lang.Integer">
+            <column name="CFDINT" />
+        </property>
+        <property name="cfin" type="string">
+            <column name="CFIN" length="10" />
+        </property>
+        <property name="cfinpr" type="string">
+            <column name="CFINPR" length="1" />
+        </property>
+        <property name="cfinfr" type="java.lang.Integer">
+            <column name="CFINFR" />
+        </property>
+        <property name="cfidsp" type="string">
+            <column name="CFIDSP" length="1" />
+        </property>
+        <property name="cfthst" type="string">
+            <column name="CFTHST" length="1" />
+        </property>
+        <property name="cfencc" type="string">
+            <column name="CFENCC" length="1" />
+        </property>
+        <property name="cfencd" type="string">
+            <column name="CFENCD" length="1" />
+        </property>
+        <property name="cfpbfg" type="string">
+            <column name="CFPBFG" length="1" />
+        </property>
+        <property name="citodc" type="string">
+            <column name="CITODC" length="1" />
+        </property>
+        <property name="cicurc" type="java.lang.Integer">
+            <column name="CICURC" />
+        </property>
+        <property name="cicapc" type="string">
+            <column name="CICAPC" length="1" />
+        </property>
+        <property name="ciacap" type="java.lang.Integer">
+            <column name="CIACAP" />
+        </property>
+        <property name="ciacsp" type="big_decimal">
+            <column name="CIACSP" precision="7" scale="6" />
+        </property>
+        <property name="citodp" type="java.lang.Integer">
+            <column name="CITODP" />
+        </property>
+        <property name="citosp" type="big_decimal">
+            <column name="CITOSP" precision="7" scale="6" />
+        </property>
+        <property name="cimodr" type="big_decimal">
+            <column name="CIMODR" precision="9" />
+        </property>
+        <property name="cicpol" type="java.lang.Integer">
+            <column name="CICPOL" />
+        </property>
+        <property name="ciwhpc" type="big_decimal">
+            <column name="CIWHPC" precision="7" scale="6" />
+        </property>
+        <property name="cimffi" type="string">
+            <column name="CIMFFI" length="1" />
+        </property>
+        <property name="cidcpn" type="java.lang.Integer">
+            <column name="CIDCPN" />
+        </property>
+        <property name="citoab" type="string">
+            <column name="CITOAB" length="1" />
+        </property>
+        <property name="citoyr" type="string">
+            <column name="CITOYR" length="1" />
+        </property>
+        <property name="ciacab" type="string">
+            <column name="CIACAB" length="1" />
+        </property>
+        <property name="ciacyr" type="string">
+            <column name="CIACYR" length="1" />
+        </property>
+        <property name="cfnsfr" type="big_decimal">
+            <column name="CFNSFR" precision="7" />
+        </property>
+        <property name="cfnsfp" type="big_decimal">
+            <column name="CFNSFP" precision="7" />
+        </property>
+        <property name="cfretc" type="big_decimal">
+            <column name="CFRETC" precision="7" />
+        </property>
+        <property name="cicpvr" type="big_decimal">
+            <column name="CICPVR" precision="7" scale="6" />
+        </property>
+        <property name="cidcpv" type="big_decimal">
+            <column name="CIDCPV" precision="7" scale="6" />
+        </property>
+    </class>
+</hibernate-mapping>

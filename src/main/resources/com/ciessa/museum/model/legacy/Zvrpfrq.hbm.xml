@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zvrpfrq" table="ZVRPFRQ" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="fr1066" type="string">
+            <column name="FR1066" length="3" />
+        </property>
+        <property name="fr1069" type="string">
+            <column name="FR1069" length="35" />
+        </property>
+        <property name="fr3013" type="string">
+            <column name="FR3013" length="30" />
+        </property>
+        <property name="fr3018" type="string">
+            <column name="FR3018" length="30" />
+        </property>
+        <property name="fr8165" type="string">
+            <column name="FR8165" length="24" />
+        </property>
+        <property name="fr3022" type="string">
+            <column name="FR3022" length="20" />
+        </property>
+        <property name="fr1150" type="string">
+            <column name="FR1150" length="18" />
+        </property>
+        <property name="fr4264" type="big_decimal">
+            <column name="FR4264" precision="5" />
+        </property>
+        <property name="fr6302" type="java.lang.Integer">
+            <column name="FR6302" />
+        </property>
+        <property name="fr8170" type="java.lang.Integer">
+            <column name="FR8170" />
+        </property>
+        <property name="fr8175" type="java.lang.Integer">
+            <column name="FR8175" />
+        </property>
+        <property name="fr8180" type="java.lang.Integer">
+            <column name="FR8180" />
+        </property>
+        <property name="fr8185" type="java.lang.Integer">
+            <column name="FR8185" />
+        </property>
+        <property name="fr2848" type="java.lang.Integer">
+            <column name="FR2848" />
+        </property>
+        <property name="fr3476" type="string">
+            <column name="FR3476" length="3" />
+        </property>
+        <property name="fr8190" type="java.lang.Integer">
+            <column name="FR8190" />
+        </property>
+        <property name="fr4430" type="java.lang.Integer">
+            <column name="FR4430" />
+        </property>
+        <property name="fr8195" type="java.lang.Integer">
+            <column name="FR8195" />
+        </property>
+        <property name="fr8200" type="java.lang.Integer">
+            <column name="FR8200" />
+        </property>
+        <property name="fr8197" type="java.lang.Integer">
+            <column name="FR8197" />
+        </property>
+        <property name="fr8202" type="java.lang.Integer">
+            <column name="FR8202" />
+        </property>
+        <property name="fr9999" type="big_decimal">
+            <column name="FR9999" precision="5" />
+        </property>
+        <property name="fr9969" type="string">
+            <column name="FR9969" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

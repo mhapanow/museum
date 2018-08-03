@@ -10,7 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.junit.Test;
 
-import com.ciessa.museum.model.legacy.Cfp00101;
+import com.ciessa.museum.model.legacy.Cfp001220;
 
 import junit.framework.TestCase;
 
@@ -40,9 +40,9 @@ public class HibernateTest extends TestCase {
 		try {
 			tx = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Cfp00101> list = (List<Cfp00101>)session.createQuery("FROM Cfp00101").list();
-			for (Iterator<Cfp00101> iterator = list.iterator(); iterator.hasNext();) {
-				Cfp00101 record = (Cfp00101) iterator.next();
+			List<Cfp001220> list = (List<Cfp001220>)session.createQuery("FROM Cfp001220").list();
+			for (Iterator<Cfp001220> iterator = list.iterator(); iterator.hasNext();) {
+				Cfp001220 record = (Cfp001220) iterator.next();
 				System.out.print("Banco: " + record.getCfbco());
 				System.out.print("  Reg: " + record.getCfreg());
 				System.out.print("  CodTran: " + record.getCfctr());

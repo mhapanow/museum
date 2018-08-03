@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Cbiptic" table="CBIPTIC" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="tccode" type="java.lang.Integer">
+            <column name="TCCODE" />
+        </property>
+        <property name="tcbrch" type="java.lang.Integer">
+            <column name="TCBRCH" />
+        </property>
+        <property name="tcsegm" type="string">
+            <column name="TCSEGM" length="4" />
+        </property>
+        <property name="tcfgen" type="java.lang.Integer">
+            <column name="TCFGEN" />
+        </property>
+        <property name="tchgen" type="java.lang.Integer">
+            <column name="TCHGEN" />
+        </property>
+        <property name="tccomp" type="big_decimal">
+            <column name="TCCOMP" precision="8" scale="4" />
+        </property>
+        <property name="tccvta" type="big_decimal">
+            <column name="TCCVTA" precision="8" scale="4" />
+        </property>
+    </class>
+</hibernate-mapping>

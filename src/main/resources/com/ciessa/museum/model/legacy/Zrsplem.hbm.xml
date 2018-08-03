@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrsplem" table="ZRSPLEM" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="amtmai" type="string">
+            <column name="AMTMAI" length="1" />
+        </property>
+        <property name="amnmai" type="java.lang.Integer">
+            <column name="AMNMAI" />
+        </property>
+        <property name="amnuli" type="java.lang.Integer">
+            <column name="AMNULI" />
+        </property>
+        <property name="amlcs1" type="java.lang.Integer">
+            <column name="AMLCS1" />
+        </property>
+        <property name="amlcs2" type="java.lang.Integer">
+            <column name="AMLCS2" />
+        </property>
+        <property name="amlcs3" type="java.lang.Integer">
+            <column name="AMLCS3" />
+        </property>
+        <property name="amlcs4" type="java.lang.Integer">
+            <column name="AMLCS4" />
+        </property>
+        <property name="amlcs5" type="java.lang.Integer">
+            <column name="AMLCS5" />
+        </property>
+        <property name="amltxc" type="string">
+            <column name="AMLTXC" length="90" />
+        </property>
+        <property name="amemai" type="string">
+            <column name="AMEMAI" length="1" />
+        </property>
+        <property name="amus01" type="string">
+            <column name="AMUS01" length="1" />
+        </property>
+        <property name="amus02" type="string">
+            <column name="AMUS02" length="1" />
+        </property>
+        <property name="amus03" type="string">
+            <column name="AMUS03" length="1" />
+        </property>
+        <property name="amus04" type="string">
+            <column name="AMUS04" length="1" />
+        </property>
+        <property name="amus05" type="string">
+            <column name="AMUS05" length="1" />
+        </property>
+        <property name="amus06" type="string">
+            <column name="AMUS06" length="1" />
+        </property>
+        <property name="amus07" type="string">
+            <column name="AMUS07" length="1" />
+        </property>
+        <property name="amus08" type="string">
+            <column name="AMUS08" length="1" />
+        </property>
+        <property name="amus09" type="string">
+            <column name="AMUS09" length="1" />
+        </property>
+        <property name="amus10" type="string">
+            <column name="AMUS10" length="1" />
+        </property>
+        <property name="amus11" type="string">
+            <column name="AMUS11" length="1" />
+        </property>
+        <property name="amus12" type="string">
+            <column name="AMUS12" length="1" />
+        </property>
+        <property name="amus13" type="string">
+            <column name="AMUS13" length="1" />
+        </property>
+        <property name="amus14" type="string">
+            <column name="AMUS14" length="1" />
+        </property>
+        <property name="amus15" type="string">
+            <column name="AMUS15" length="1" />
+        </property>
+        <property name="amus16" type="string">
+            <column name="AMUS16" length="1" />
+        </property>
+        <property name="amus17" type="string">
+            <column name="AMUS17" length="1" />
+        </property>
+        <property name="amus18" type="string">
+            <column name="AMUS18" length="1" />
+        </property>
+        <property name="amus19" type="string">
+            <column name="AMUS19" length="1" />
+        </property>
+        <property name="amus20" type="string">
+            <column name="AMUS20" length="1" />
+        </property>
+        <property name="amus21" type="string">
+            <column name="AMUS21" length="1" />
+        </property>
+        <property name="amus22" type="string">
+            <column name="AMUS22" length="1" />
+        </property>
+        <property name="amprcd" type="string">
+            <column name="AMPRCD" length="2" />
+        </property>
+        <property name="amiddp" type="java.lang.Integer">
+            <column name="AMIDDP" />
+        </property>
+        <property name="amubdg" type="string">
+            <column name="AMUBDG" length="2" />
+        </property>
+        <property name="amcope" type="string">
+            <column name="AMCOPE" length="10" />
+        </property>
+        <property name="amfac8" type="java.lang.Integer">
+            <column name="AMFAC8" />
+        </property>
+        <property name="amhact" type="java.lang.Integer">
+            <column name="AMHACT" />
+        </property>
+    </class>
+</hibernate-mapping>

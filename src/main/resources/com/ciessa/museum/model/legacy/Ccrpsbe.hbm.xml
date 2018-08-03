@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpsbe" table="CCRPSBE" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="sbbanc" type="java.lang.Integer">
+            <column name="SBBANC" />
+        </property>
+        <property name="sbnucr" type="java.lang.Long">
+            <column name="SBNUCR" />
+        </property>
+        <property name="sbncuo" type="java.lang.Integer">
+            <column name="SBNCUO" />
+        </property>
+        <property name="sbsbnc" type="java.lang.Integer">
+            <column name="SBSBNC" />
+        </property>
+        <property name="sbccon" type="java.lang.Integer">
+            <column name="SBCCON" />
+        </property>
+        <property name="sbiimp" type="big_decimal">
+            <column name="SBIIMP" precision="15" />
+        </property>
+        <property name="sbiimb" type="big_decimal">
+            <column name="SBIIMB" precision="15" />
+        </property>
+        <property name="sbi8im" type="big_decimal">
+            <column name="SBI8IM" precision="15" />
+        </property>
+        <property name="sbi9im" type="big_decimal">
+            <column name="SBI9IM" precision="15" />
+        </property>
+        <property name="sbalic" type="big_decimal">
+            <column name="SBALIC" precision="7" scale="4" />
+        </property>
+    </class>
+</hibernate-mapping>

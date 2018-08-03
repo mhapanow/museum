@@ -5,9 +5,9 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.password">rootman01</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://192.168.22.133:1433;databaseName=museum</property>
-		<property name="hibernate.connection.username">museum</property>
+		<property name="hibernate.connection.password">123456789</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://127.0.0.1:1433;databaseName=museum</property>
+		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.default_catalog">museum_security</property>
 		<property name="hibernate.default_schema">dbo</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>

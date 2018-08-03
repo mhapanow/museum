@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Ccrpcar" table="CCRPCAR" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="rvbanc" type="java.lang.Integer">
+            <column name="RVBANC" />
+        </property>
+        <property name="rvnmov" type="java.lang.Integer">
+            <column name="RVNMOV" />
+        </property>
+        <property name="rvnucr" type="java.lang.Long">
+            <column name="RVNUCR" />
+        </property>
+        <property name="rvncuo" type="java.lang.Integer">
+            <column name="RVNCUO" />
+        </property>
+        <property name="rvsbnc" type="java.lang.Integer">
+            <column name="RVSBNC" />
+        </property>
+        <property name="rvdtem" type="java.lang.Integer">
+            <column name="RVDTEM" />
+        </property>
+        <property name="rvcsup" type="java.lang.Integer">
+            <column name="RVCSUP" />
+        </property>
+        <property name="rvfpcu" type="string">
+            <column name="RVFPCU" length="1" />
+        </property>
+        <property name="rvimap" type="big_decimal">
+            <column name="RVIMAP" precision="15" />
+        </property>
+        <property name="rvimbp" type="big_decimal">
+            <column name="RVIMBP" precision="15" />
+        </property>
+        <property name="rvicap" type="big_decimal">
+            <column name="RVICAP" precision="15" />
+        </property>
+        <property name="rvicip" type="big_decimal">
+            <column name="RVICIP" precision="15" />
+        </property>
+        <property name="rvisvp" type="big_decimal">
+            <column name="RVISVP" precision="15" />
+        </property>
+        <property name="rviccp" type="big_decimal">
+            <column name="RVICCP" precision="15" />
+        </property>
+        <property name="rviisp" type="big_decimal">
+            <column name="RVIISP" precision="15" />
+        </property>
+        <property name="rviipp" type="big_decimal">
+            <column name="RVIIPP" precision="15" />
+        </property>
+        <property name="rviicp" type="big_decimal">
+            <column name="RVIICP" precision="15" />
+        </property>
+        <property name="rvcarp" type="big_decimal">
+            <column name="RVCARP" precision="15" />
+        </property>
+        <property name="rvisap" type="big_decimal">
+            <column name="RVISAP" precision="15" />
+        </property>
+        <property name="rvi9ip" type="big_decimal">
+            <column name="RVI9IP" precision="15" />
+        </property>
+        <property name="rvi9vp" type="big_decimal">
+            <column name="RVI9VP" precision="15" />
+        </property>
+        <property name="rvi9ca" type="big_decimal">
+            <column name="RVI9CA" precision="15" />
+        </property>
+        <property name="rvi9pp" type="big_decimal">
+            <column name="RVI9PP" precision="15" />
+        </property>
+        <property name="rvi9op" type="big_decimal">
+            <column name="RVI9OP" precision="15" />
+        </property>
+        <property name="rvi9gp" type="big_decimal">
+            <column name="RVI9GP" precision="15" />
+        </property>
+        <property name="rvi9sp" type="big_decimal">
+            <column name="RVI9SP" precision="15" />
+        </property>
+        <property name="rvi8ip" type="big_decimal">
+            <column name="RVI8IP" precision="15" />
+        </property>
+        <property name="rvi8vp" type="big_decimal">
+            <column name="RVI8VP" precision="15" />
+        </property>
+        <property name="rvi8ca" type="big_decimal">
+            <column name="RVI8CA" precision="15" />
+        </property>
+        <property name="rvi8pp" type="big_decimal">
+            <column name="RVI8PP" precision="15" />
+        </property>
+        <property name="rvi8op" type="big_decimal">
+            <column name="RVI8OP" precision="15" />
+        </property>
+        <property name="rvi8gp" type="big_decimal">
+            <column name="RVI8GP" precision="15" />
+        </property>
+        <property name="rvi8sp" type="big_decimal">
+            <column name="RVI8SP" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>
