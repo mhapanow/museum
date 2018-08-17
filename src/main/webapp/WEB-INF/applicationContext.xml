@@ -166,16 +166,6 @@
 	<bean id="legacy.ccrr0500.view3"
 		class="com.ciessa.museum.bz.legacy.CCRR0500View03BzService"
 		parent="base.rest.resource" scope="prototype" />
-
-	<bean id="legacy.tar0030.view1" class="com.ciessa.museum.bz.legacy.TAR0030View01BzService" parent="base.rest.resource" scope="prototype" />
-	<bean id="legacy.tar0030.view2" class="com.ciessa.museum.bz.legacy.TAR0030View02BzService" parent="base.rest.resource" scope="prototype" />
-
-	<bean id="legacy.cacr215.view1" class="com.ciessa.museum.bz.legacy.CACR215View01BzService" parent="base.rest.resource" scope="prototype" />
-	<bean id="legacy.cacr216.view1" class="com.ciessa.museum.bz.legacy.CACR216View01BzService" parent="base.rest.resource" scope="prototype" />
-	<bean id="legacy.cacr205.view1" class="com.ciessa.museum.bz.legacy.CACR205View01BzService" parent="base.rest.resource" scope="prototype" />
-	<bean id="legacy.cacr205.view2" class="com.ciessa.museum.bz.legacy.CACR205View02BzService" parent="base.rest.resource" scope="prototype" />
-	<bean id="legacy.cacr210.view1" class="com.ciessa.museum.bz.legacy.CACR210View01BzService" parent="base.rest.resource" scope="prototype" />
-	<bean id="legacy.cacr210.view2" class="com.ciessa.museum.bz.legacy.CACR210View02BzService" parent="base.rest.resource" scope="prototype" />
 	
 	
 </beans>

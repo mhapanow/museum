@@ -15,7 +15,7 @@ import com.ciessa.museum.model.legacy.Ccrpind;
 
 public class CcrpindDAO {
 
-	public Ccrpind getUsingCrcinaAndAñoAndMesAndDia(DataSet ds, int crcina, int anno, int mes, int dia) throws ASException	{
+	public Ccrpind getUsingCrcinaAndAnoAndMesAndDia(DataSet ds, int crcina, int anno, int mes, int dia) throws ASException	{
 		
 		SessionFactory factory = null;
 		

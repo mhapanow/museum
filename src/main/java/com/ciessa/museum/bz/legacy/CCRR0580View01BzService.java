@@ -137,7 +137,7 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 				int anno = calendar.get(Calendar.YEAR);
 				int mes = calendar.get(Calendar.MONTH);
 
-				ObjCcrpind = myDaoCcrpind.getUsingCrcinaAndAñoAndMesAndDia(ds, ObjCcrpcre.getCrcina(), anno, mes,  idia);
+				ObjCcrpind = myDaoCcrpind.getUsingCrcinaAndAnoAndMesAndDia(ds, ObjCcrpcre.getCrcina(), anno, mes,  idia);
 			}
 
 			if (this.tplan.equals("1") && ObjCcrpcre.getCrccup()>0)	{
