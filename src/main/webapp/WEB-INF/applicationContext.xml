@@ -52,7 +52,6 @@
 	<bean id="Ccrpsce.dao.ref" class="com.ciessa.museum.dao.legacy.CcrpsceDAO" />
 	<bean id="Ccrpsch.dao.ref" class="com.ciessa.museum.dao.legacy.CcrpschDAO" />
 	<bean id="Cfp001002.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001002DAO" />
-	<bean id="Cfp00101.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp00101DAO" />
 	<bean id="Cfp001220.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001220DAO" />
 	<bean id="Cfp001210.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001210DAO" />
 	<bean id="Cumast.dao.ref" class="com.ciessa.museum.dao.legacy.CumastDAO" />
