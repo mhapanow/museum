@@ -45,7 +45,8 @@ public class TAR0077ListBzService extends RestBaseServerResource {
 			DataSet ds = dsDao.get(user.getDefaultDataSet()); 
 			
 			// get range, if not defined use default value
-			Range range = this.obtainRange();
+			// Range range = this.obtainRange();
+			Range range = null;
 				
 			// Get order
 			String order = this.obtainStringValue(ORDER, null);
