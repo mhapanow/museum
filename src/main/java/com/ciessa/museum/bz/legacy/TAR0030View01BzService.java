@@ -146,8 +146,8 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 	String name4 = null;
 	String name5 = null;
 	String name6 = null;
-	
-	FUNCIONESBzService func = new FUNCIONESBzService();
+
+  FUNCIONESBzService func = new FUNCIONESBzService();
     
 	@Get
 	public String view() {

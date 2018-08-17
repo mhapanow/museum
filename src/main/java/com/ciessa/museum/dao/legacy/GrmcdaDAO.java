@@ -51,7 +51,6 @@ public class GrmcdaDAO {
 			session.close();
 			}
 	}
-
 	
 	public Grmcda getUsingCrnucl(DataSet ds, String crnucl) throws ASException	{
 		

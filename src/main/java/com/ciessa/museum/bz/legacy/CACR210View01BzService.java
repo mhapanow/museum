@@ -72,7 +72,6 @@ public class CACR210View01BzService extends RestBaseServerResource{
     Date sfedma = null;
     Date ssfsel = null;
     Date wfsel  = null;
-    
     String ssbrch = null;
     String ssresu = null;
     String ssmrec = null;
