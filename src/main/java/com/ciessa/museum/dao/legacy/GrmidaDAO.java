@@ -34,13 +34,14 @@ public class GrmidaDAO {
 			q.setParameter("rqrmcn", rqrmcn);
 			Grmida o = (Grmida)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(rqrmcn);
+			if( o != null ) {
+				// tx.rollback();
+				// throw ASExceptionHelper.notFoundException(rqrmcn);
+				session.evict(o);
+				tx.commit();
 			}
 			
-			session.evict(o);
-			tx.commit();
+			
 			
 			return o;
 		} catch (HibernateException e) {

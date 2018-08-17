@@ -96,7 +96,7 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 			crcdiv = obtainStringValue("crcdiv", null);
 			crstco = obtainStringValue("crstco", null);
 			
-			if (this.crntar =="") {
+			if (this.crntar.equals("")) {
 				rpta = SubRutRtn100(ds);
 			} else {
 				if (Integer.parseInt(this.crcsuc) > 0 |	Integer.parseInt(this.crcdiv) > 0 |	Integer.parseInt(this.crstco) > 0) {

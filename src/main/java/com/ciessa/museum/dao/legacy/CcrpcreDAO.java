@@ -149,7 +149,7 @@ public class CcrpcreDAO {
 		try {
 			tx = session.beginTransaction();
 			
-			Query q = session.createQuery("FROM Ccrpcre WHERE crntar = :crntar ");
+			Query q = session.createQuery(" FROM Ccrpcre WHERE crntar = :crntar ");
 			q.setParameter("crntar", crntar);
 			
 			@SuppressWarnings("unchecked")

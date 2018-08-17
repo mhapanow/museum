@@ -74,7 +74,7 @@ public class CCRR0500View03BzService extends RestBaseServerResource {
 			
 			String rpta = "";
 			
-			if (this.crntar =="") {
+			if (this.crntar.equals("")) {
 				rpta = "ERROR FALTAN PARAMETROS";
 			}
 			else {
@@ -144,9 +144,11 @@ public class CCRR0500View03BzService extends RestBaseServerResource {
 				if (this.cuna1 =="") {
 					this.cuna1 = "??????????";
 				}
+				adapted.setCRSTCR(o.getCrstcr().toString());
+				adapted.setCRNUCR(o.getCrnucr().toString());
 				adapted.setNOMCLI(this.cuna1);
-				adapted.setFECALT(o.getCrddoc().toString() + o.getCrmmoc().toString() + o.getCraaoc().toString());
-				adapted.setFECVTO(o.getCrddvc().toString() + o.getCrmmvc().toString() + o.getCraavc().toString());
+				adapted.setFECALT(String.format("%02d", o.getCrddoc()) + "/"+ String.format("%02d", o.getCrmmoc()) + "/" + o.getCraaoc().toString());
+				adapted.setFECVTO(String.format("%02d", o.getCrddvc()) + "/"+ String.format("%02d", o.getCrmmvc()) + "/" + o.getCraavc().toString());
 				list.add(adapted);
 			}
 			

@@ -72,12 +72,14 @@ public class CACR210View01BzService extends RestBaseServerResource{
     Date sfedma = null;
     Date ssfsel = null;
     Date wfsel  = null;
+    
     String ssbrch = null;
     String ssresu = null;
     String ssmrec = null;
     String wsdbrc = null;
     String wsmrec = null;
     String ssdmre = null;
+    String order = null;
     
     List<CACR210Adapter> listAdapted = null;   
     CACR210Adapter adapted = null;
@@ -96,14 +98,17 @@ public class CACR210View01BzService extends RestBaseServerResource{
 			
 			//Obtener Parametros
 			try {
-
+				//fecha
 				ssfsel = new SimpleDateFormat("ddMMyyyy").parse(obtainStringValue("ssfsel", null).toString());
 
 			}catch (Exception e) {	}
 			
-			ssbrch = obtainStringValue("ssbrch", null);
-			ssresu = obtainStringValue("ssresu", null);
-			ssmrec = obtainStringValue("ssmrec", null);
+			ssbrch = obtainStringValue("ssbrch", null); //Sucursal
+			ssresu = obtainStringValue("ssresu", null); //Estado
+			ssmrec = obtainStringValue("ssmrec", null); //Motivo
+			
+			// Get order
+			this.order = this.obtainStringValue("ORDER", null);
 			
 			if (ssbrch == null || ssresu == null || ssmrec == null) {
 				log.log(Level.SEVERE, "Parametros incorrectos", new Exception());
@@ -221,7 +226,7 @@ public class CACR210View01BzService extends RestBaseServerResource{
 			List<Cacphst> list = new ArrayList<Cacphst>();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			String fechaComoCadena = sdf.format(ssfsel);
-			list = myDaoCacphst.getUsingKey(ds, Integer.parseInt(fechaComoCadena), Integer.parseInt(ssbrch), Integer.parseInt(ssmrec), ssresu);
+			list = myDaoCacphst.getUsingKey(ds, Integer.parseInt(fechaComoCadena), Integer.parseInt(ssbrch), Integer.parseInt(ssmrec), ssresu, order);
 			listAdapted = new ArrayList<CACR210Adapter>();
 			for( Cacphst obj : list ) {
 				adapted = new CACR210Adapter();

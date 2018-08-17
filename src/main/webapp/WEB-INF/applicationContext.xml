@@ -53,12 +53,15 @@
 	<bean id="Ccrpsce.dao.ref" class="com.ciessa.museum.dao.legacy.CcrpsceDAO" />
 	<bean id="Ccrpsch.dao.ref" class="com.ciessa.museum.dao.legacy.CcrpschDAO" />
 	<bean id="Cfp001002.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001002DAO" />
+	<bean id="Cfp00101.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp00101DAO" />
 	<bean id="Cfp001220.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001220DAO" />
 	<bean id="Cfp001210.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001210DAO" />
 	<bean id="Cumast.dao.ref" class="com.ciessa.museum.dao.legacy.CumastDAO" />
 	<bean id="Cuxrf1.dao.ref" class="com.ciessa.museum.dao.legacy.Cuxrf1DAO" />
 	<bean id="Dtgpdes.dao.ref" class="com.ciessa.museum.dao.legacy.DtgpdesDAO" />
+	<bean id="Glc001.dao.ref" class="com.ciessa.museum.dao.legacy.Glc001DAO" />
 	<bean id="Grmcda.dao.ref" class="com.ciessa.museum.dao.legacy.GrmcdaDAO" />
+	<bean id="Grmcrc.dao.ref" class="com.ciessa.museum.dao.legacy.GrmcrcDAO" />
 	<bean id="Grmida.dao.ref" class="com.ciessa.museum.dao.legacy.GrmidaDAO" />
 	<bean id="Grmria.dao.ref" class="com.ciessa.museum.dao.legacy.GrmriaDAO" />
 	<bean id="Rncppro.dao.ref" class="com.ciessa.museum.dao.legacy.RncpproDAO" />
@@ -69,6 +72,13 @@
 	<bean id="Tap002.dao.ref" class="com.ciessa.museum.dao.legacy.Tap002DAO" />
 	<bean id="Tap014.dao.ref" class="com.ciessa.museum.dao.legacy.Tap014DAO" />
 	<bean id="Tap902.dao.ref" class="com.ciessa.museum.dao.legacy.Tap902DAO" />
+	<bean id="Zrsplem.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsplemDAO" />
+	<bean id="Zrsplen.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsplenDAO" />
+	<bean id="Zrspple.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsppleDAO" />
+	<bean id="Zrsppma.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsppmaDAO" />
+	<bean id="Zrsprer.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsprerDAO" />
+	<bean id="Zrsprwd.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsprwdDAO" />
+	<bean id="Zvrpfrq.dao.ref" class="com.ciessa.museum.dao.legacy.ZvrpfrqDAO" />
 
 	<!-- ** REST resource ** -->
 	<bean id="base.rest.resource"
@@ -144,6 +154,18 @@
 		
 	<bean id="legacy.ccrr0580.view2"
 		class="com.ciessa.museum.bz.legacy.CCRR0580View02BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.ccrr0500.view1"
+		class="com.ciessa.museum.bz.legacy.CCRR0500View01BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.ccrr0500.view2"
+		class="com.ciessa.museum.bz.legacy.CCRR0500View02BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.ccrr0500.view3"
+		class="com.ciessa.museum.bz.legacy.CCRR0500View03BzService"
 		parent="base.rest.resource" scope="prototype" />
 
 

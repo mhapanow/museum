@@ -51,6 +51,12 @@
 					value-ref="spring.legacy.ccrr0580.view1" />
 				<entry key="/legacy/ccrr0580/view2"
 					value-ref="spring.legacy.ccrr0580.view2" />
+				<entry key="/legacy/ccrr0500/view1"
+					value-ref="spring.legacy.ccrr0500.view1" />
+				<entry key="/legacy/ccrr0500/view2"
+					value-ref="spring.legacy.ccrr0500.view2" />
+				<entry key="/legacy/ccrr0500/view3"
+					value-ref="spring.legacy.ccrr0500.view3" />
 					
 			</map>
 		</property>
@@ -141,5 +147,20 @@
 		class="org.restlet.ext.spring.SpringFinder">
 		<lookup-method name="create"
 			bean="legacy.ccrr0580.view2" />
+	</bean>
+	<bean id="spring.legacy.ccrr0500.view1"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.ccrr0500.view1" />
+	</bean>
+	<bean id="spring.legacy.ccrr0500.view2"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.ccrr0500.view2" />
+	</bean>
+	<bean id="spring.legacy.ccrr0500.view3"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.ccrr0500.view3" />
 	</bean>
 </beans>

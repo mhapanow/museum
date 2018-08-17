@@ -121,6 +121,10 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 			tplan  = obtainStringValue("tplan", null);		
 			
 			ObjCcrpcre = myDaoCcrpcre.getUsingNumcre(ds, numcre);
+			if (ObjCcrpcre.equals(null)) {
+				log.log(Level.SEVERE, "Hubo Error", new Exception());
+				return getJSONRepresentationFromException(ASExceptionHelper.defaultException("Hubo Error", new Exception())).toString();
+			}
 			ObjCcrppro = myDaoCcrppro.getUsingCrcapiAndCrlineAndCrtrtaAndCrtrinAndCrcoajAndCrctaiAndCrcina(ds, ObjCcrpcre.getCrcapi(), ObjCcrpcre.getCrline().toString(), ObjCcrpcre.getCrtrta().toString(), ObjCcrpcre.getCrtrin().toString(), ObjCcrpcre.getCrcoaj().toString(), ObjCcrpcre.getCrctai().toString(), ObjCcrpcre.getCrcina().toString());   
 			
 			if(ObjCcrppro!= null) {
@@ -205,12 +209,12 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 			adapted = new CCRR0580Adapter();
 			adapted.ARCHIV = "8";
 			Scstcu = ObjCcrpscb.getSbstcu();
-			Sci8in = ObjCcrpscb.getSbi8in().toString();
-			Sci9in = ObjCcrpscb.getSbi9in().toString();
+			Sci8in = ObjCcrpscb.getSbi8in() == null ? "" : ObjCcrpscb.getSbi8in().toString();
+			Sci9in = ObjCcrpscb.getSbi9in() == null ? "": ObjCcrpscb.getSbi9in().toString();
 			
 			do {
 				Ccrpsch o = (Ccrpsch) ListCcrpsch;
-				adapted.AMORT = o.getScimba().toString() + o.getScimam();   //SCIMBA + SCIMAM
+				adapted.AMORT = o.getScimba().toString() + o.getScimam();
 				adapted.SCICIN = adapted.getSCICIN() + Sci9in + Sci8in;
 				adapted.INTERE = adapted.getSCICIN();
 				adapted.AJUSTE = o.getScicaj().toString();
