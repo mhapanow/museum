@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Tap03w" table="TAP03W" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="wshbk" type="java.lang.Integer">
+            <column name="WSHBK" />
+        </property>
+        <property name="wshdsv" type="string">
+            <column name="WSHDSV" length="1" />
+        </property>
+        <property name="wsacct" type="java.lang.Long">
+            <column name="WSACCT" />
+        </property>
+        <property name="wshrec" type="java.lang.Integer">
+            <column name="WSHREC" />
+        </property>
+        <property name="wstype" type="string">
+            <column name="WSTYPE" length="1" />
+        </property>
+        <property name="wsstat" type="string">
+            <column name="WSSTAT" length="1" />
+        </property>
+        <property name="wsedt" type="java.lang.Integer">
+            <column name="WSEDT" />
+        </property>
+        <property name="wsexdt" type="java.lang.Integer">
+            <column name="WSEXDT" />
+        </property>
+        <property name="widalt" type="string">
+            <column name="WIDALT" length="10" />
+        </property>
+        <property name="wnrde" type="java.lang.Long">
+            <column name="WNRDE" />
+        </property>
+        <property name="wnrha" type="java.lang.Long">
+            <column name="WNRHA" />
+        </property>
+        <property name="widbaj" type="string">
+            <column name="WIDBAJ" length="10" />
+        </property>
+        <property name="widaut" type="string">
+            <column name="WIDAUT" length="10" />
+        </property>
+        <property name="wsckdt" type="java.lang.Integer">
+            <column name="WSCKDT" />
+        </property>
+        <property name="wsamt" type="big_decimal">
+            <column name="WSAMT" precision="13" />
+        </property>
+        <property name="wspaye" type="string">
+            <column name="WSPAYE" length="30" />
+        </property>
+        <property name="wsresn" type="string">
+            <column name="WSRESN" length="27" />
+        </property>
+        <property name="wscmcn" type="java.lang.Integer">
+            <column name="WSCMCN" />
+        </property>
+        <property name="wscod" type="java.lang.Integer">
+            <column name="WSCOD" />
+        </property>
+        <property name="whralt" type="java.lang.Integer">
+            <column name="WHRALT" />
+        </property>
+        <property name="whrbaj" type="java.lang.Integer">
+            <column name="WHRBAJ" />
+        </property>
+        <property name="wscalt" type="java.lang.Integer">
+            <column name="WSCALT" />
+        </property>
+        <property name="wscbaj" type="java.lang.Integer">
+            <column name="WSCBAJ" />
+        </property>
+        <property name="wsccta" type="java.lang.Integer">
+            <column name="WSCCTA" />
+        </property>
+        <property name="wnshrt" type="string">
+            <column name="WNSHRT" length="18" />
+        </property>
+        <property name="worigi" type="string">
+            <column name="WORIGI" length="30" />
+        </property>
+        <property name="wobser" type="string">
+            <column name="WOBSER" length="30" />
+        </property>
+        <property name="wauba" type="string">
+            <column name="WAUBA" length="10" />
+        </property>
+        <property name="wfeba" type="java.lang.Integer">
+            <column name="WFEBA" />
+        </property>
+    </class>
+</hibernate-mapping>

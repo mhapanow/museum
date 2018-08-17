@@ -17,8 +17,26 @@
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
 
-		<mapping resource="com/ciessa/museum/model/legacy/Cfp00101.hbm.xml"></mapping>
-
+		<mapping resource="com/ciessa/museum/model/legacy/Altnam.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Cacphst.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Cacpmre.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Cfp001002.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Cfp001220.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Cfp001210.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Cumast.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Cuxrf1.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Grmcda.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Grmida.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Grmria.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Rncppro.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Rncptvp.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Rsctam.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Saldom.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Tablam.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Tap002.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Tap014.hbm.xml"></mapping>
+		<mapping resource="com/ciessa/museum/model/legacy/Tap902.hbm.xml"></mapping>
+	
 	</session-factory>
 
 </hibernate-configuration>

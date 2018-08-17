@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Tap003" table="TAP003" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="dshbk" type="java.lang.Integer">
+            <column name="DSHBK" />
+        </property>
+        <property name="dshdsv" type="string">
+            <column name="DSHDSV" length="1" />
+        </property>
+        <property name="dsacct" type="java.lang.Long">
+            <column name="DSACCT" />
+        </property>
+        <property name="dshrec" type="java.lang.Integer">
+            <column name="DSHREC" />
+        </property>
+        <property name="dstype" type="string">
+            <column name="DSTYPE" length="1" />
+        </property>
+        <property name="dsstat" type="string">
+            <column name="DSSTAT" length="1" />
+        </property>
+        <property name="dsedt" type="java.lang.Integer">
+            <column name="DSEDT" />
+        </property>
+        <property name="dsexdt" type="java.lang.Integer">
+            <column name="DSEXDT" />
+        </property>
+        <property name="dsser" type="java.lang.Long">
+            <column name="DSSER" />
+        </property>
+        <property name="dsckdt" type="java.lang.Integer">
+            <column name="DSCKDT" />
+        </property>
+        <property name="dsamt" type="big_decimal">
+            <column name="DSAMT" precision="13" />
+        </property>
+        <property name="dspaye" type="string">
+            <column name="DSPAYE" length="30" />
+        </property>
+        <property name="dsresn" type="string">
+            <column name="DSRESN" length="27" />
+        </property>
+        <property name="dssuc" type="java.lang.Integer">
+            <column name="DSSUC" />
+        </property>
+        <property name="dsfill" type="java.lang.Integer">
+            <column name="DSFILL" />
+        </property>
+        <property name="dscmcn" type="java.lang.Integer">
+            <column name="DSCMCN" />
+        </property>
+        <property name="dscod" type="java.lang.Integer">
+            <column name="DSCOD" />
+        </property>
+        <property name="dsopal" type="string">
+            <column name="DSOPAL" length="10" />
+        </property>
+        <property name="dsopba" type="string">
+            <column name="DSOPBA" length="10" />
+        </property>
+        <property name="dsfeba" type="java.lang.Integer">
+            <column name="DSFEBA" />
+        </property>
+        <property name="dssuba" type="java.lang.Integer">
+            <column name="DSSUBA" />
+        </property>
+        <property name="dshoba" type="java.lang.Integer">
+            <column name="DSHOBA" />
+        </property>
+    </class>
+</hibernate-mapping>

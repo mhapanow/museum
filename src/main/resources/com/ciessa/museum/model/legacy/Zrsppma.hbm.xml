@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrsppma" table="ZRSPPMA" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="imorg" type="java.lang.Integer">
+            <column name="IMORG" />
+        </property>
+        <property name="imlogo" type="java.lang.Integer">
+            <column name="IMLOGO" />
+        </property>
+        <property name="imncct" type="string">
+            <column name="IMNCCT" length="19" />
+        </property>
+        <property name="imaaf4" type="java.lang.Integer">
+            <column name="IMAAF4" />
+        </property>
+        <property name="imcifa" type="string">
+            <column name="IMCIFA" length="2" />
+        </property>
+        <property name="imagig" type="string">
+            <column name="IMAGIG" length="2" />
+        </property>
+        <property name="imtenv" type="string">
+            <column name="IMTENV" length="1" />
+        </property>
+        <property name="imiddp" type="java.lang.Integer">
+            <column name="IMIDDP" />
+        </property>
+        <property name="imtmam" type="string">
+            <column name="IMTMAM" length="1" />
+        </property>
+        <property name="imnmam" type="java.lang.Integer">
+            <column name="IMNMAM" />
+        </property>
+        <property name="imvsum" type="string">
+            <column name="IMVSUM" length="80" />
+        </property>
+        <property name="imocmm" type="java.lang.Integer">
+            <column name="IMOCMM" />
+        </property>
+        <property name="imtmas" type="string">
+            <column name="IMTMAS" length="1" />
+        </property>
+        <property name="imnmas" type="java.lang.Integer">
+            <column name="IMNMAS" />
+        </property>
+        <property name="imvsuv" type="string">
+            <column name="IMVSUV" length="80" />
+        </property>
+        <property name="imocms" type="java.lang.Integer">
+            <column name="IMOCMS" />
+        </property>
+        <property name="impggp" type="string">
+            <column name="IMPGGP" length="10" />
+        </property>
+        <property name="imfgpq" type="java.lang.Integer">
+            <column name="IMFGPQ" />
+        </property>
+        <property name="imhgpq" type="java.lang.Integer">
+            <column name="IMHGPQ" />
+        </property>
+        <property name="imepeq" type="string">
+            <column name="IMEPEQ" length="1" />
+        </property>
+        <property name="immelm" type="string">
+            <column name="IMMELM" length="4" />
+        </property>
+        <property name="impprc" type="string">
+            <column name="IMPPRC" length="10" />
+        </property>
+        <property name="imfpro" type="java.lang.Integer">
+            <column name="IMFPRO" />
+        </property>
+        <property name="imhpro" type="java.lang.Integer">
+            <column name="IMHPRO" />
+        </property>
+    </class>
+</hibernate-mapping>

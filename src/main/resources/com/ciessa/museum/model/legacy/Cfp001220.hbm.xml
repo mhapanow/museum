@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated May 28, 2018 9:18:07 PM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="com.ciessa.museum.model.legacy.Cfp00101" table="CFP00101" schema="dbo" catalog="museum">
+    <class name="com.ciessa.museum.model.legacy.Cfp001220" table="CFP001220" schema="dbo" catalog="museum">
         <id name="pkid" type="string">
             <column name="PKID" length="36" />
             <generator class="assigned" />

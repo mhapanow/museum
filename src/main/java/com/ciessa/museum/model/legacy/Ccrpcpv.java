@@ -1,5 +1,5 @@
 package com.ciessa.museum.model.legacy;
-// Generated May 28, 2018 9:18:53 PM by Hibernate Tools 3.2.2.GA
+// Generated Jul 30, 2018 8:24:30 PM by Hibernate Tools 3.2.2.GA
 
 
 import java.math.BigDecimal;

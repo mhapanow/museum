@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Grmcus" table="GRMCUS" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="rbrmcn" type="java.lang.Long">
+            <column name="RBRMCN" />
+        </property>
+        <property name="rbaico" type="string">
+            <column name="RBAICO" length="1" />
+        </property>
+        <property name="rbaitm" type="string">
+            <column name="RBAITM" length="1" />
+        </property>
+        <property name="rbciin" type="string">
+            <column name="RBCIIN" length="12" />
+        </property>
+        <property name="rbculs" type="string">
+            <column name="RBCULS" length="1" />
+        </property>
+        <property name="rbcupi" type="string">
+            <column name="RBCUPI" length="15" />
+        </property>
+        <property name="rbcuty" type="string">
+            <column name="RBCUTY" length="1" />
+        </property>
+        <property name="rbddln" type="java.lang.Integer">
+            <column name="RBDDLN" />
+        </property>
+        <property name="rbidcn" type="java.lang.Integer">
+            <column name="RBIDCN" />
+        </property>
+        <property name="rbppno" type="string">
+            <column name="RBPPNO" length="10" />
+        </property>
+        <property name="rbdngi" type="string">
+            <column name="RBDNGI" length="1" />
+        </property>
+        <property name="rbcurd" type="java.lang.Integer">
+            <column name="RBCURD" />
+        </property>
+        <property name="rbcuri" type="java.lang.Integer">
+            <column name="RBCURI" />
+        </property>
+        <property name="rbcurn" type="java.lang.Integer">
+            <column name="RBCURN" />
+        </property>
+        <property name="rbacde" type="string">
+            <column name="RBACDE" length="1" />
+        </property>
+        <property name="rbstat" type="string">
+            <column name="RBSTAT" length="1" />
+        </property>
+        <property name="rbpkco" type="java.lang.Integer">
+            <column name="RBPKCO" />
+        </property>
+        <property name="rbstpk" type="string">
+            <column name="RBSTPK" length="1" />
+        </property>
+        <property name="rbshrn" type="string">
+            <column name="RBSHRN" length="20" />
+        </property>
+        <property name="rbsgcd" type="java.lang.Integer">
+            <column name="RBSGCD" />
+        </property>
+        <property name="rbstsg" type="string">
+            <column name="RBSTSG" length="1" />
+        </property>
+        <property name="rbtdlc" type="string">
+            <column name="RBTDLC" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2018 8:24:03 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Cgrprec" table="CGRPREC" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cgbank" type="string">
+            <column name="CGBANK" length="5" />
+        </property>
+        <property name="cgbrch" type="string">
+            <column name="CGBRCH" length="3" />
+        </property>
+        <property name="cgacct" type="string">
+            <column name="CGACCT" length="11" />
+        </property>
+        <property name="cgnche" type="string">
+            <column name="CGNCHE" length="8" />
+        </property>
+        <property name="cganio" type="string">
+            <column name="CGANIO" length="2" />
+        </property>
+        <property name="cgnrtr" type="string">
+            <column name="CGNRTR" length="6" />
+        </property>
+        <property name="cgtipr" type="string">
+            <column name="CGTIPR" length="1" />
+        </property>
+        <property name="cgnsec" type="string">
+            <column name="CGNSEC" length="1" />
+        </property>
+        <property name="cgaemi" type="string">
+            <column name="CGAEMI" length="4" />
+        </property>
+        <property name="cgmemi" type="string">
+            <column name="CGMEMI" length="2" />
+        </property>
+        <property name="cgdemi" type="string">
+            <column name="CGDEMI" length="2" />
+        </property>
+        <property name="cgrech" type="string">
+            <column name="CGRECH" length="1" />
+        </property>
+        <property name="cgcmcn" type="string">
+            <column name="CGCMCN" length="2" />
+        </property>
+        <property name="cgimpo" type="string">
+            <column name="CGIMPO" length="15" />
+        </property>
+        <property name="cgarec" type="string">
+            <column name="CGAREC" length="4" />
+        </property>
+        <property name="cgmrec" type="string">
+            <column name="CGMREC" length="2" />
+        </property>
+        <property name="cgdrec" type="string">
+            <column name="CGDREC" length="2" />
+        </property>
+        <property name="cgareg" type="string">
+            <column name="CGAREG" length="4" />
+        </property>
+        <property name="cgmreg" type="string">
+            <column name="CGMREG" length="2" />
+        </property>
+        <property name="cgdreg" type="string">
+            <column name="CGDREG" length="2" />
+        </property>
+        <property name="cgpdif" type="string">
+            <column name="CGPDIF" length="3" />
+        </property>
+        <property name="cgapag" type="string">
+            <column name="CGAPAG" length="4" />
+        </property>
+        <property name="cgmpag" type="string">
+            <column name="CGMPAG" length="2" />
+        </property>
+        <property name="cgdpag" type="string">
+            <column name="CGDPAG" length="2" />
+        </property>
+        <property name="cgadbt" type="string">
+            <column name="CGADBT" length="4" />
+        </property>
+        <property name="cgmdbt" type="string">
+            <column name="CGMDBT" length="2" />
+        </property>
+        <property name="cgddbt" type="string">
+            <column name="CGDDBT" length="2" />
+        </property>
+        <property name="cgasam" type="string">
+            <column name="CGASAM" length="4" />
+        </property>
+        <property name="cgmsam" type="string">
+            <column name="CGMSAM" length="2" />
+        </property>
+        <property name="cgdsam" type="string">
+            <column name="CGDSAM" length="2" />
+        </property>
+        <property name="cgacie" type="string">
+            <column name="CGACIE" length="4" />
+        </property>
+        <property name="cgmcie" type="string">
+            <column name="CGMCIE" length="2" />
+        </property>
+        <property name="cgdcie" type="string">
+            <column name="CGDCIE" length="2" />
+        </property>
+        <property name="cgcui1" type="string">
+            <column name="CGCUI1" length="11" />
+        </property>
+        <property name="cgcui2" type="string">
+            <column name="CGCUI2" length="11" />
+        </property>
+        <property name="cgcui3" type="string">
+            <column name="CGCUI3" length="11" />
+        </property>
+        <property name="cgcui4" type="string">
+            <column name="CGCUI4" length="11" />
+        </property>
+        <property name="cgcui5" type="string">
+            <column name="CGCUI5" length="11" />
+        </property>
+        <property name="cgcui6" type="string">
+            <column name="CGCUI6" length="11" />
+        </property>
+        <property name="cgcui7" type="string">
+            <column name="CGCUI7" length="11" />
+        </property>
+        <property name="cgcui8" type="string">
+            <column name="CGCUI8" length="11" />
+        </property>
+        <property name="cgcui9" type="string">
+            <column name="CGCUI9" length="11" />
+        </property>
+        <property name="cgcui0" type="string">
+            <column name="CGCUI0" length="11" />
+        </property>
+        <property name="cgfeuc" type="java.lang.Integer">
+            <column name="CGFEUC" />
+        </property>
+        <property name="cgfenv" type="java.lang.Integer">
+            <column name="CGFENV" />
+        </property>
+        <property name="cgmult" type="big_decimal">
+            <column name="CGMULT" precision="15" />
+        </property>
+        <property name="cgfaut" type="java.lang.Integer">
+            <column name="CGFAUT" />
+        </property>
+        <property name="cgcodi" type="java.lang.Integer">
+            <column name="CGCODI" />
+        </property>
+        <property name="cgusri" type="string">
+            <column name="CGUSRI" length="10" />
+        </property>
+        <property name="cgusra" type="string">
+            <column name="CGUSRA" length="10" />
+        </property>
+        <property name="cgstat" type="string">
+            <column name="CGSTAT" length="1" />
+        </property>
+        <property name="cgmudb" type="java.lang.Integer">
+            <column name="CGMUDB" />
+        </property>
+        <property name="cgmubc" type="big_decimal">
+            <column name="CGMUBC" precision="15" />
+        </property>
+        <property name="cgbcra" type="java.lang.Integer">
+            <column name="CGBCRA" />
+        </property>
+        <property name="cgfenm" type="java.lang.Integer">
+            <column name="CGFENM" />
+        </property>
+        <property name="cgfdev" type="java.lang.Integer">
+            <column name="CGFDEV" />
+        </property>
+        <property name="cgfcfp" type="java.lang.Integer">
+            <column name="CGFCFP" />
+        </property>
+        <property name="cgfd50" type="java.lang.Integer">
+            <column name="CGFD50" />
+        </property>
+        <property name="cgcaen" type="string">
+            <column name="CGCAEN" length="1" />
+        </property>
+        <property name="cgfzen" type="string">
+            <column name="CGFZEN" length="1" />
+        </property>
+        <property name="cgfenr" type="java.lang.Integer">
+            <column name="CGFENR" />
+        </property>
+        <property name="cgnref" type="java.lang.Long">
+            <column name="CGNREF" />
+        </property>
+        <property name="cgimco" type="big_decimal">
+            <column name="CGIMCO" precision="15" />
+        </property>
+    </class>
+</hibernate-mapping>
