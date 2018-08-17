@@ -5,18 +5,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Grmcda;
+import com.ciessa.museum.model.legacy.Ccrpscb;
 
 
-public class GrmcdaDAO {
+public class CcrpscbDAO {
 
-	public Grmcda getUsingRyrmcn(DataSet ds, String rqrmcn) throws ASException	{
-		
+	public Ccrpscb getUsingCrnucr(DataSet ds, String crnucr) throws ASException	{
 		SessionFactory factory = null;
 		
 		try {
@@ -30,19 +28,18 @@ public class GrmcdaDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Grmcda where ryrmcn = :rqrmcn ");
-			q.setParameter("rqrmcn", rqrmcn);
-			Grmcda o = (Grmcda)q.uniqueResult();
+			Query q = session.createQuery(" from Ccrpscb Where sbbanc = 1 and sbnucr = :crnucr ");
+			q.setParameter("crnucr", crnucr);
+			Ccrpscb o = (Ccrpscb)q.uniqueResult();
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(rqrmcn);
+				throw ASExceptionHelper.notFoundException();
 			}
-			
 			session.evict(o);
 			tx.commit();
-			
 			return o;
+				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -50,10 +47,9 @@ public class GrmcdaDAO {
 		} finally {
 			session.close();
 			}
-	}
+	} // fin public
 	
-	public Grmcda getUsingCrnucl(DataSet ds, String crnucl) throws ASException	{
-		
+	public Ccrpscb getUsingCrnucrAndScncuo (DataSet ds, String crnucr, int scncuo) throws ASException	{
 		SessionFactory factory = null;
 		
 		try {
@@ -67,19 +63,19 @@ public class GrmcdaDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Grmcda Where ryrmcn = :crnucl and rystat = 'A' ");
-			q.setParameter("crnucl", crnucl);
-			Grmcda o = (Grmcda)q.uniqueResult();
+			Query q = session.createQuery(" from Ccrpscb Where sbbanc = 1 and sbnucr = :crnucr and sbncuo = :scncuo");
+			q.setParameter("crnucr", crnucr);
+			q.setParameter("scncuo", scncuo);
+			Ccrpscb o = (Ccrpscb)q.uniqueResult();
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(crnucl);
+				throw ASExceptionHelper.notFoundException();
 			}
-			
 			session.evict(o);
 			tx.commit();
-			
 			return o;
+				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -87,6 +83,7 @@ public class GrmcdaDAO {
 		} finally {
 			session.close();
 			}
-	}
+	} // fin public
 	
-}
+	
+} //fin public class

@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.util.StringUtils;
 import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
@@ -197,7 +198,7 @@ public class CacphstDAO {
 		}
 	}
 	
-	public List<Cacphst> getUsingKey(DataSet ds, Integer Ssfsel, Integer Ssbrch, Integer Ssmrec, String Ssresu) throws ASException {
+	public List<Cacphst> getUsingKey(DataSet ds, Integer Ssfsel, Integer Ssbrch, Integer Ssmrec, String Ssresu,String order) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -218,6 +219,9 @@ public class CacphstDAO {
 			if (Ssmrec.toString() != "") {
 				queryStr = queryStr + " AND himrec = "+ Ssmrec;
 			}
+			if( StringUtils.hasText(order)) {
+				queryStr= queryStr + " ORDER BY " + order;
+			} 
 			Query q = session.createQuery(queryStr);
 			q.setParameter("ssresu", Ssresu);
 			q.setParameter("ssfsel", Ssfsel);

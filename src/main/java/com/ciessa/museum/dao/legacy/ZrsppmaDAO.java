@@ -10,12 +10,12 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Tap902;
+import com.ciessa.museum.model.legacy.Zrsppma;
 
-public class Tap902DAO {
-
-	public Tap902 getUsingCuentaAndCaplp(DataSet ds, String cuenta, Integer caplp) throws ASException {
+public class ZrsppmaDAO {
+	public Zrsppma getUsingImorgAndImlogoAndImncctAndImaaf4AndImcifaAndImagig(DataSet ds, String imorg, String imlogo, String imncct, String imaaf4, String imcifa, String imagig) throws ASException {
 		SessionFactory factory = null;
+		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -25,23 +25,27 @@ public class Tap902DAO {
 		
 		Session session = factory.openSession();
 		Transaction tx = null;
-
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Tap902 where cbnk = 1 AND crel = 1 AND caplp = :caplp and nctap = :cuenta");
-			q.setParameter("cuenta", cuenta);
-			q.setParameter("caplp", caplp);
-			Tap902 o = (Tap902)q.uniqueResult();
+			Query q = session.createQuery(" FROM Zrsppma Where Imorg = :imorg And Imlogo = :imlogo And Imncct = :imncct And Imaaf4 = :imaaf4 And Imcifa = :imcifa And  Imagig = :imagig ");
+			q.setParameter("imorg", imorg);
+			q.setParameter("imlogo", imlogo);
+			q.setParameter("imncct", imncct);
+			q.setParameter("imaaf4", imaaf4);
+			q.setParameter("imcifa", imcifa);
+			q.setParameter("imagig", imagig);
+			
+			Zrsppma o = (Zrsppma)q.uniqueResult();
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(cuenta);
+				throw ASExceptionHelper.notFoundException();
 			}
 			
 			session.evict(o);
 			tx.commit();
-			
 			return o;
+			
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -50,5 +54,5 @@ public class Tap902DAO {
 			session.close();
 		}
 	}
-	
+
 }

@@ -146,6 +146,8 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 	String name4 = null;
 	String name5 = null;
 	String name6 = null;
+
+  FUNCIONESBzService func = new FUNCIONESBzService();
     
 	@Get
 	public String view() {
@@ -268,8 +270,8 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 			if (objTap002.getDmmail().equals("C")) {
 				envpos = "9";
 			}
-			fecape = new SimpleDateFormat("yyyyMMdd").parse(objTap002.getDmdopn().toString());
-			fecult = new SimpleDateFormat("yyyyMMdd").parse(objTap002.getDmntdt().toString());
+			fecape = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertAmdToDma(objTap002.getDmdopn().toString()) );
+			fecult = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertAmdToDma(objTap002.getDmntdt().toString()));
 			if (objTap002.getDmnoac().equals("D")) {
 				exsmov = "N";
 			}

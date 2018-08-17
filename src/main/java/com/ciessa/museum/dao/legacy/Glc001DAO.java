@@ -10,12 +10,12 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Tap902;
+import com.ciessa.museum.model.legacy.Glc001;
 
-public class Tap902DAO {
-
-	public Tap902 getUsingCuentaAndCaplp(DataSet ds, String cuenta, Integer caplp) throws ASException {
+public class Glc001DAO {
+	public Glc001 getUsingCrcomo(DataSet ds, String crcomo) throws ASException	{
 		SessionFactory factory = null;
+		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -25,17 +25,16 @@ public class Tap902DAO {
 		
 		Session session = factory.openSession();
 		Transaction tx = null;
-
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Tap902 where cbnk = 1 AND crel = 1 AND caplp = :caplp and nctap = :cuenta");
-			q.setParameter("cuenta", cuenta);
-			q.setParameter("caplp", caplp);
-			Tap902 o = (Tap902)q.uniqueResult();
+
+			Query q = session.createQuery(" from Glc001 where gcbank = '1' AND gccode = :crcomo ");
+			q.setParameter("crcomo", crcomo);
+			Glc001 o = (Glc001)q.uniqueResult();
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(cuenta);
+				throw ASExceptionHelper.notFoundException(crcomo);
 			}
 			
 			session.evict(o);
@@ -49,6 +48,7 @@ public class Tap902DAO {
 		} finally {
 			session.close();
 		}
+		
 	}
-	
+
 }

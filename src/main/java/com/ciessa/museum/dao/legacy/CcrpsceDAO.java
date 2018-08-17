@@ -1,5 +1,7 @@
 package com.ciessa.museum.dao.legacy;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -10,12 +12,10 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Grmcda;
+import com.ciessa.museum.model.legacy.Ccrpsce;
 
-
-public class GrmcdaDAO {
-
-	public Grmcda getUsingRyrmcn(DataSet ds, String rqrmcn) throws ASException	{
+public class CcrpsceDAO {
+public List<Ccrpsce> getUsingnAbancAnucrAncuoAndAsbncToList(DataSet ds, String abanc , String anucr, String ancuo, String asbnc) throws ASException	{
 		
 		SessionFactory factory = null;
 		
@@ -29,30 +29,41 @@ public class GrmcdaDAO {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
+			
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Grmcda where ryrmcn = :rqrmcn ");
-			q.setParameter("rqrmcn", rqrmcn);
-			Grmcda o = (Grmcda)q.uniqueResult();
+			StringBuffer sb = new StringBuffer();
+
+			sb.append(" FROM Ccrpsce Where scbanc = :abanc and scnucr = :anucr and scncuo = :ancuo and scsbnc = :asbnc ");
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(rqrmcn);
+			Query q = session.createQuery(sb.toString());
+			q.setParameter("abanc", abanc);
+			q.setParameter("anucr", anucr);
+			q.setParameter("ancuo", ancuo);
+			q.setParameter("asbnc", asbnc);
+			
+			@SuppressWarnings("unchecked")
+			List<Ccrpsce> list = (List<Ccrpsce>)q.list();
+			
+			for( Ccrpsce o : list ) {
+				session.evict(o);
 			}
-			
-			session.evict(o);
 			tx.commit();
 			
-			return o;
+			return list;
+			
+				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-			}
+		}
+
 	}
-	
-	public Grmcda getUsingCrnucl(DataSet ds, String crnucl) throws ASException	{
+
+
+	public List<Ccrpsce> getUsingnAbancAnucrAncuoAsbncAndAcconToList(DataSet ds, String abanc , String anucr, String ancuo, String asbnc, String accon) throws ASException	{
 		
 		SessionFactory factory = null;
 		
@@ -66,27 +77,38 @@ public class GrmcdaDAO {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
+			
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Grmcda Where ryrmcn = :crnucl and rystat = 'A' ");
-			q.setParameter("crnucl", crnucl);
-			Grmcda o = (Grmcda)q.uniqueResult();
+			StringBuffer sb = new StringBuffer();
+	
+			sb.append(" FROM Ccrpsce Where scbanc = :abanc and scnucr = :anucr and scncuo = :ancuo and scsbnc = :asbnc and scccon = :accon");
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(crnucl);
+			Query q = session.createQuery(sb.toString());
+			q.setParameter("abanc", abanc);
+			q.setParameter("anucr", anucr);
+			q.setParameter("ancuo", ancuo);
+			q.setParameter("asbnc", asbnc);
+			q.setParameter("accon", accon);
+			
+			@SuppressWarnings("unchecked")
+			List<Ccrpsce> list = (List<Ccrpsce>)q.list();
+			
+			for( Ccrpsce o : list ) {
+				session.evict(o);
 			}
-			
-			session.evict(o);
 			tx.commit();
 			
-			return o;
+			return list;
+			
+				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-			}
+		}
+	
 	}
 	
 }

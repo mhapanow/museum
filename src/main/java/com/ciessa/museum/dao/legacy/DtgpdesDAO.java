@@ -10,15 +10,14 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Grmcda;
+import com.ciessa.museum.model.legacy.Dtgpdes;
 
+public class DtgpdesDAO {
+	
+	
+	public Dtgpdes getUsingCtstco(DataSet ds, String ctstco) throws ASException {
 
-public class GrmcdaDAO {
-
-	public Grmcda getUsingRyrmcn(DataSet ds, String rqrmcn) throws ASException	{
-		
 		SessionFactory factory = null;
-		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -30,19 +29,21 @@ public class GrmcdaDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Grmcda where ryrmcn = :rqrmcn ");
-			q.setParameter("rqrmcn", rqrmcn);
-			Grmcda o = (Grmcda)q.uniqueResult();
+			Query q = session.createQuery(" from Dtgpdes where DSCOCA ='038' and DSCOAC = :ctstco ");
+			q.setParameter("ctstco", ctstco);
+			Dtgpdes o = (Dtgpdes)q.uniqueResult();
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(rqrmcn);
+				throw ASExceptionHelper.notFoundException(ctstco);
 			}
 			
 			session.evict(o);
 			tx.commit();
 			
 			return o;
+			
+				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -50,12 +51,12 @@ public class GrmcdaDAO {
 		} finally {
 			session.close();
 			}
-	}
+		}
 	
-	public Grmcda getUsingCrnucl(DataSet ds, String crnucl) throws ASException	{
-		
+	
+	public Dtgpdes getUsingTxmhab(DataSet ds, String txmhab) throws ASException {
+
 		SessionFactory factory = null;
-		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -67,19 +68,21 @@ public class GrmcdaDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Grmcda Where ryrmcn = :crnucl and rystat = 'A' ");
-			q.setParameter("crnucl", crnucl);
-			Grmcda o = (Grmcda)q.uniqueResult();
+			Query q = session.createQuery(" from Dtgpdes Where dscoca=810 And dscoac = :txmhab ");
+			q.setParameter("txmhab", txmhab);
+			Dtgpdes o = (Dtgpdes)q.uniqueResult();
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(crnucl);
+				throw ASExceptionHelper.notFoundException(txmhab);
 			}
 			
 			session.evict(o);
 			tx.commit();
 			
 			return o;
+			
+				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -87,6 +90,9 @@ public class GrmcdaDAO {
 		} finally {
 			session.close();
 			}
-	}
+		}
+
 	
+	
+
 }

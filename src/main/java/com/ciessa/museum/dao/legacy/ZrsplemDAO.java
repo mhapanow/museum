@@ -1,5 +1,7 @@
 package com.ciessa.museum.dao.legacy;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -10,12 +12,13 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Tap902;
+import com.ciessa.museum.model.legacy.Zrsplem;
 
-public class Tap902DAO {
-
-	public Tap902 getUsingCuentaAndCaplp(DataSet ds, String cuenta, Integer caplp) throws ASException {
+public class ZrsplemDAO {
+	
+	public List<Zrsplem> getUsinAmtmaiAndAmnmai(DataSet ds, String amtmai, Integer amnmai) throws ASException {
 		SessionFactory factory = null;
+		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -25,23 +28,26 @@ public class Tap902DAO {
 		
 		Session session = factory.openSession();
 		Transaction tx = null;
-
 		try {
+			
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Tap902 where cbnk = 1 AND crel = 1 AND caplp = :caplp and nctap = :cuenta");
-			q.setParameter("cuenta", cuenta);
-			q.setParameter("caplp", caplp);
-			Tap902 o = (Tap902)q.uniqueResult();
+			StringBuffer sb = new StringBuffer();
+			sb.append(" FROM Zrsplem Where Amtmai = :amtmai And Amnmai = :amnmai ");
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(cuenta);
+			Query q = session.createQuery(sb.toString());
+			q.setParameter("amtmai", amtmai);
+			q.setParameter("amnmai", amnmai);
+			
+			@SuppressWarnings("unchecked")
+			List<Zrsplem> list = (List<Zrsplem>)q.list();
+			
+			for( Zrsplem o : list ) {
+				session.evict(o);
 			}
-			
-			session.evict(o);
 			tx.commit();
 			
-			return o;
+			return list;
+			
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -50,5 +56,5 @@ public class Tap902DAO {
 			session.close();
 		}
 	}
-	
+
 }

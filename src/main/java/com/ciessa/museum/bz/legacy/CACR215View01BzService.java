@@ -40,7 +40,7 @@ public class CACR215View01BzService extends RestBaseServerResource {
 			DataSet ds = dsDao.get(user.getDefaultDataSet()); 
 							
 			// Get order
-			String order = this.obtainStringValue(ORDER, null);
+			String order = this.obtainStringValue("ORDER", null);
 
 			// retrieve all elements
 			Map<String,String> attributes = CollectionFactory.createMap();
