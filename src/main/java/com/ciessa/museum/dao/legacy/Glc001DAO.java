@@ -32,14 +32,10 @@ public class Glc001DAO {
 			q.setParameter("crcomo", crcomo);
 			Glc001 o = (Glc001)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(crcomo);
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
-			
 			return o;
 		} catch (HibernateException e) {
 			if (tx != null)

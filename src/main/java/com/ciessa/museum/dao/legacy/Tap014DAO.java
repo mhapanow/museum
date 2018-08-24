@@ -16,10 +16,11 @@ import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Tap014;
+import com.ciessa.museum.tools.Range;
 
 public class Tap014DAO {
 
-	public ArrayList<Tap014> getUsingWcta(DataSet ds, String wcta, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp) throws ASException {
+	public ArrayList<Tap014> getUsingWcta(DataSet ds, String wcta, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp, Range range) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -55,6 +56,12 @@ public class Tap014DAO {
 			queryStr = queryStr + " AND (dmtodf = 1 OR dmtodf = 2 OR (DMTODF = 9 AND dotacc > 0) ) ";
 			Query q = session.createQuery(queryStr);
 			q.setParameter("wcta", wcta);
+			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
+			
 			@SuppressWarnings("unchecked")
 			ArrayList<Tap014> list = (ArrayList<Tap014>)q.list();
 			
@@ -76,7 +83,7 @@ public class Tap014DAO {
 		}
 	}
 	
-	public ArrayList<Tap014> getUsingWbas(DataSet ds, String wbas, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp) throws ASException {
+	public ArrayList<Tap014> getUsingWbas(DataSet ds, String wbas, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp, Range range) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -114,6 +121,12 @@ public class Tap014DAO {
 			Query q = session.createQuery(queryStr);
 			q.setParameter("wbas1", Long.valueOf(wbas + "00"));
 			q.setParameter("wbas2", Long.valueOf(wbas + "99"));
+			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
+			
 			@SuppressWarnings("unchecked")
 			ArrayList<Tap014> list = (ArrayList<Tap014>)q.list();
 			
@@ -154,15 +167,14 @@ public class Tap014DAO {
 			q.setParameter("dmtyp", dmtyp);
 			q.setParameter("dmacct", dmacct);
 			q.setParameter("dmtodf", dmtodf);
-			Tap014 o = (Tap014)q.uniqueResult();
+			Tap014 o = (Tap014)q.setMaxResults(1).uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(dmtyp);
+			if( o != null ) {
+				//tx.rollback();
+				//throw ASExceptionHelper.notFoundException(dmtyp);
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
 			
 			return o;
 		} catch (HibernateException e) {

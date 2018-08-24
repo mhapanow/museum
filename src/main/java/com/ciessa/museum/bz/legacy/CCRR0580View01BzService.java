@@ -24,7 +24,14 @@ import com.ciessa.museum.dao.legacy.CcrpindDAO;
 import com.ciessa.museum.model.legacy.Ccrpscb;
 import com.ciessa.museum.dao.legacy.CcrpscbDAO;
 import com.ciessa.museum.model.legacy.Ccrpsch;
+import com.ciessa.museum.model.legacy.Glc001;
+import com.ciessa.museum.model.legacy.Grmcda;
+import com.ciessa.museum.model.legacy.Grmida;
+import com.ciessa.museum.tools.Range;
 import com.ciessa.museum.dao.legacy.CcrpschDAO;
+import com.ciessa.museum.dao.legacy.Glc001DAO;
+import com.ciessa.museum.dao.legacy.GrmcdaDAO;
+import com.ciessa.museum.dao.legacy.GrmidaDAO;
 import com.ciessa.museum.model.legacy.Ccrpcap;
 import com.ciessa.museum.dao.legacy.CcrpcapDAO;
 import com.ciessa.museum.model.legacy.Ccrpmov;
@@ -64,6 +71,15 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 	@Autowired
 	CcrpcarDAO myDaoCcrpcar;
 	
+	@Autowired
+	GrmidaDAO myDaoGrmida;
+	
+	@Autowired
+	GrmcdaDAO myDaoGrmcda;
+	
+	@Autowired
+	Glc001DAO myDaoGlc001;
+	
 	//Objetos
 	Ccrpcre ObjCcrpcre = new Ccrpcre();
 	Ccrppro ObjCcrppro = new Ccrppro();
@@ -73,6 +89,10 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 	Ccrpcap ObjCcrpcap = new Ccrpcap();
 	Ccrpmov ObjCcrpmov = new Ccrpmov();
 	Ccrpcar ObjCcrpcar = new Ccrpcar();
+	
+	Grmida ObjGrmida = new Grmida();
+	Grmcda ObjGrmcda = new Grmcda();
+	Glc001 ObjGlc001 = new Glc001();
 	
 	//Variables_globales
 	int idia   = 0;
@@ -96,7 +116,8 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 	String CRTACR = null;
 	String INVAIN = null;
 	String INCDIN = null;
-	String SELECC = null;
+	
+	String cuna1 = null;
 	
 	List<Ccrpcap> ListCcrpcap  = null;
 	List<Ccrpsch> ListCcrpsch  = null;
@@ -119,6 +140,10 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 			//Parametros_Get
 			numcre = obtainStringValue("numcre", null);
 			tplan  = obtainStringValue("tplan", null);		
+			
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
 			
 			ObjCcrpcre = myDaoCcrpcre.getUsingNumcre(ds, numcre);
 			if (ObjCcrpcre.equals(null)) {
@@ -161,45 +186,33 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 					scncuo = 1;
 				}
 			}
-			if(!ObjCcrpcre.getCrmawk().equals("0")) {
+			if(ObjCcrpcre.getCrmawk().equals("0")) {
 				if(this.tplan.equals("0")) {
-					ObjCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
+					this.ListCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString(), range);
+					//ObjCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
 				}else {
-					ObjCcrpsch = myDaoCcrpsch.getUsingCrnucrAndScncuo(ds, ObjCcrpcre.getCrnucr().toString(), scncuo );
+					this.ListCcrpsch = myDaoCcrpsch.getUsingCrnucrAndScncuo(ds, ObjCcrpcre.getCrnucr().toString(), scncuo );
+					//ObjCcrpsch = myDaoCcrpsch.getUsingCrnucrAndScncuo(ds, ObjCcrpcre.getCrnucr().toString(), scncuo );
 				}
 				archiv = "H";
-				String rpta = SubRutPPAR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
-					if (rpta.equals("")) {
-						log.log(Level.SEVERE, rpta, new Exception());
-						return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
-					}	
-				rpta = SubRutEXTR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
-					if (rpta.equals("")) {
-						log.log(Level.SEVERE, rpta, new Exception());
-						return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
-					}
+				SubRutPPAR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
+				SubRutEXTR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
 			}
 			if(!ObjCcrpcre.getCrmawk().equals("0") && scncuo < ObjCcrpcre.getCrcvwk()) {
 				if(this.tplan.equals("0")) {
-					ObjCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
+					this.ListCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString(), range);
+					//ObjCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
 				}else {
-					ObjCcrpsch = myDaoCcrpsch.getUsingCrnucrAndScncuo(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
+					this.ListCcrpsch = myDaoCcrpsch.getUsingCrnucrAndScncuo(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
+					//ObjCcrpsch = myDaoCcrpsch.getUsingCrnucrAndScncuo(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
 				}
-				String rpta = SubRutPPAR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
-					if (rpta.equals("")) {
-						log.log(Level.SEVERE, rpta, new Exception());
-						return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
-					}			
-				rpta = SubRutEXTR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
-					if (rpta.equals("")) {
-						log.log(Level.SEVERE, rpta, new Exception());
-						return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
-					}
+				SubRutPPAR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
+				SubRutEXTR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
 				if ( ObjCcrpsch == null)
 				{	    scncuo=999;	  }
 				archiv = "H";
 			}
-			if(!ObjCcrpcre.getCrmawk().equals("0") && scncuo > ObjCcrpcre.getCrcvwk()) {
+			if(!ObjCcrpcre.getCrmawk().equals("0") && scncuo >= ObjCcrpcre.getCrcvwk()) {
 				if(this.tplan.equals("0")) {
 					ObjCcrpscb = myDaoCcrpscb.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
 				}else {
@@ -207,39 +220,57 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 				}
 			}
 			adapted = new CCRR0580Adapter();
-			adapted.ARCHIV = "8";
-			Scstcu = ObjCcrpscb.getSbstcu();
+			adapted.ARCHIV = "B";
+			//Scstcu = ObjCcrpscb.getSbstcu() == null ? "": ObjCcrpscb.getSbstcu().toString();
+			adapted.SCSTCU = ObjCcrpscb.getSbstcu() == null ? "": ObjCcrpscb.getSbstcu().toString();
 			Sci8in = ObjCcrpscb.getSbi8in() == null ? "" : ObjCcrpscb.getSbi8in().toString();
 			Sci9in = ObjCcrpscb.getSbi9in() == null ? "": ObjCcrpscb.getSbi9in().toString();
 			
-			do {
-				Ccrpsch o = (Ccrpsch) ListCcrpsch;
-				adapted.AMORT = o.getScimba().toString() + o.getScimam();
-				adapted.SCICIN = adapted.getSCICIN() + Sci9in + Sci8in;
-				adapted.INTERE = adapted.getSCICIN();
-				adapted.AJUSTE = o.getScicaj().toString();
-				adapted.TASA = o.getSctacr().toString();
-				if(ObjCcrpcre.getCrmawk().equals("0")) {
-					ObjCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
-					adapted.ARCHIV = "H";
-					SubRutPPAR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
-					SubRutEXTR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
-				}
-				if(!ObjCcrpcre.getCrmawk().equals("0") && scncuo < ObjCcrpcre.getCrcvwk()) {
-					ObjCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
-					adapted.ARCHIV = "H";
-					SubRutPPAR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
-					SubRutEXTR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
-				}					
-				if(!ObjCcrpcre.getCrmawk().equals("0") && scncuo >= ObjCcrpcre.getCrcvwk()) {
-					ObjCcrpscb = myDaoCcrpscb.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
-					adapted.ARCHIV = "B";
-					Scstcu = ObjCcrpscb.getSbstcu();
-					Sci8in = ObjCcrpscb.getSbi8in().toString();
-					Sci9in = ObjCcrpscb.getSbi9in().toString();
-				}
-				list.add(adapted);
-			} while (ObjCcrpsch != null);
+			int indexCcrpsch = 0;
+			if (this.ListCcrpsch != null) {
+				do {
+					Ccrpsch o = this.ListCcrpsch.get(indexCcrpsch);
+					adapted.AMORT = o.getScimba().add(o.getScimam()).toString();
+					adapted.SCICIN = adapted.SCICIN + Sci9in + Sci8in;
+					adapted.INTERE = adapted.SCICIN;
+					adapted.AJUSTE = o.getScicaj().toString();
+					adapted.TASA = o.getSctacr().toString();
+					adapted.SCNCUO = o.getScncuo().toString();
+					if(ObjCcrpcre.getCrmawk().equals("0")) {
+						indexCcrpsch++;
+						if (indexCcrpsch >= this.ListCcrpsch.size()) {
+							list.add(adapted);
+							break;
+						}
+						ObjCcrpsch = this.ListCcrpsch.get(indexCcrpsch);
+						//ObjCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
+						adapted.ARCHIV = "H";
+						SubRutPPAR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
+						SubRutEXTR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
+					}
+					if(!ObjCcrpcre.getCrmawk().equals("0") && scncuo < ObjCcrpcre.getCrcvwk()) {
+						indexCcrpsch++;
+						if (indexCcrpsch >= this.ListCcrpsch.size()) {
+							list.add(adapted);
+							break;
+						}
+						ObjCcrpsch = this.ListCcrpsch.get(indexCcrpsch);
+						//ObjCcrpsch = myDaoCcrpsch.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
+						adapted.ARCHIV = "H";
+						SubRutPPAR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
+						SubRutEXTR01(ds, ObjCcrpcre.getCrnucr().toString(), scncuo);
+					}					
+					if(!ObjCcrpcre.getCrmawk().equals("0") && scncuo >= ObjCcrpcre.getCrcvwk()) {
+						ObjCcrpscb = myDaoCcrpscb.getUsingCrnucr(ds, ObjCcrpcre.getCrnucr().toString());
+						adapted.ARCHIV = "B";
+						//Scstcu = ObjCcrpscb.getSbstcu();
+						adapted.SCSTCU = ObjCcrpscb.getSbstcu();
+						Sci8in = ObjCcrpscb.getSbi8in().toString();
+						Sci9in = ObjCcrpscb.getSbi9in().toString();
+					}
+					list.add(adapted);
+				} while (indexCcrpsch < this.ListCcrpsch.size());
+			}
 			
 			long diff = new Date().getTime() - millisPre;
 			// Logs the result
@@ -259,6 +290,45 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 					"ARCHIV"
 			};
 			returnValue = this.getJSONRepresentationFromArrayOfObjects(list, fields);
+			
+			this.NUMCRE = this.numcre;
+			
+			//Agregar codigo para obtener los datos faltantes
+			ObjGrmida = myDaoGrmida.getUsingCrnucl(ds, ObjCcrpcre.getCrnucl().toString());
+			if (ObjGrmida != null) {
+				this.cuna1 = ObjGrmida.getRifsnm() +" "+ ObjGrmida.getRilsnm();
+			}
+			else {
+				ObjGrmcda = myDaoGrmcda.getUsingRyrmcn(ds, ObjCcrpcre.getCrnucl().toString());
+				if(ObjGrmcda != null) {
+					this.cuna1 = ObjGrmcda.getRycpcn();
+				}
+			}
+			if (this.cuna1 == "") {
+				this.cuna1 = "?????? ??????";
+			}
+			this.NOMCLI = this.cuna1;
+			ObjGlc001 = myDaoGlc001.getUsingCrcomo(ds, ObjCcrpcre.getCrcomo().toString());
+			if (ObjGlc001 == null) {
+				this.MONEDA = "??????";
+			}else {
+				this.MONEDA = ObjGlc001.getGcdesc();
+			}
+			
+			//----
+			
+			returnValue.put("NUMCRE", this.NUMCRE);
+			returnValue.put("CRCSUC", ObjCcrpcre.getCrcsuc().toString());
+			returnValue.put("CRCDIV", ObjCcrpcre.getCrcdiv().toString());
+			returnValue.put("ORCAPI", ObjCcrpcre.getCrcapi().toString());
+			returnValue.put("CLAVE", ""); //TODO: Averiguar como obtener este valor
+			returnValue.put("NOMPRO", ""); //TODO: Averiguar como obtener este valor
+			returnValue.put("NOMCLI", this.NOMCLI);
+			returnValue.put("MONEDA", this.MONEDA);
+			returnValue.put("CRTACR", ObjCcrpcre.getCrtacr().toString());
+			returnValue.put("INVAIN", ObjCcrpind.getInvain() == null ? "" : ObjCcrpind.getInvain().toString());
+			returnValue.put("INCDIN", ObjCcrpind.getIncdin() == null ? "" : ObjCcrpind.getIncdin().toString());
+			
 		} //fin try
 		
 		catch (ASException e) {
@@ -426,14 +496,6 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 
 		public void setINCDIN(String iNCDIN) {
 			INCDIN = iNCDIN;
-		}
-
-		public String getSELECC() {
-			return SELECC;
-		}
-
-		public void setSELECC(String sELECC) {
-			SELECC = sELECC;
 		}
 
 		public String getFECVTO() {

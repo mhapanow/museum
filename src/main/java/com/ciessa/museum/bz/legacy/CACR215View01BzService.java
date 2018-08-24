@@ -18,6 +18,7 @@ import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Cacpmre;
 import com.ciessa.museum.tools.CollectionFactory;
+import com.ciessa.museum.tools.Range;
 
 public class CACR215View01BzService extends RestBaseServerResource {
 	public static final Logger log = Logger.getLogger(CACR215View01BzService.class.getName());
@@ -41,11 +42,14 @@ public class CACR215View01BzService extends RestBaseServerResource {
 							
 			// Get order
 			String order = this.obtainStringValue("ORDER", null);
-
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
+			
 			// retrieve all elements
 			Map<String,String> attributes = CollectionFactory.createMap();
 			long millisPre = new Date().getTime();
-			list = myDao.getUsing(ds, order, attributes);
+			list = myDao.getUsing(ds, order, attributes, range);
 			
 			long diff = new Date().getTime() - millisPre;
 			

@@ -34,13 +34,10 @@ public class GrmcdaDAO {
 			q.setParameter("rqrmcn", rqrmcn);
 			Grmcda o = (Grmcda)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(rqrmcn);
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
 			
 			return o;
 		} catch (HibernateException e) {
@@ -72,12 +69,9 @@ public class GrmcdaDAO {
 			Grmcda o = (Grmcda)q.uniqueResult();
 			
 			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(crnucl);
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
 			
 			return o;
 		} catch (HibernateException e) {

@@ -73,8 +73,8 @@ public class TablamDAO {
 			Tablam o = (Tablam)q.uniqueResult();
 			
 			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(crcdiv);
+				//tx.rollback();
+				//throw ASExceptionHelper.notFoundException(crcdiv);
 			}
 			
 			session.evict(o);

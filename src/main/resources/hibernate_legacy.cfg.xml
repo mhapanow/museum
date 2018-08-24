@@ -5,7 +5,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.password">43096915</property>
+		<property name="hibernate.connection.password">123456789</property>
 		<property name="hibernate.connection.url">jdbc:sqlserver://127.0.0.1:1433;databaseName=museum</property>
 		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.default_catalog">museum</property>
@@ -33,6 +33,10 @@
 			resource="com/ciessa/museum/model/legacy/Cumast.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Cuxrf1.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Dtgpdes.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Glc001.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Grmcda.hbm.xml"></mapping>
 		<mapping

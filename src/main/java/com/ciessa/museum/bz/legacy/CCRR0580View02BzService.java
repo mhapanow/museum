@@ -212,7 +212,7 @@ public class CCRR0580View02BzService extends RestBaseServerResource {
 	private String SubRutRtn100 (DataSet ds, String archiv, String crnucr, String scncuo) {
 		try {
 			if (archiv.equals("H")) {
-				ObjCcrpsch = myDaoCcrpsch.getUsingCrnucrAndScncuo(ds, crnucr, Integer.parseInt(scncuo));
+				ObjCcrpsch = myDaoCcrpsch.getUsingCrnucrAndScncuo(ds, crnucr, Integer.parseInt(scncuo)).get(0);
 				SubRutPPAR01(ds, crnucr, Integer.parseInt(scncuo));
 				SubRutEXTR01(ds, crnucr, Integer.parseInt(scncuo));
 			}else {

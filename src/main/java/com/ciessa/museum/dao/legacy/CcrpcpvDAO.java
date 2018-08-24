@@ -12,6 +12,7 @@ import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Ccrpcpv;
+import com.ciessa.museum.tools.Range;
 
 
 public class CcrpcpvDAO {
@@ -59,7 +60,7 @@ public class CcrpcpvDAO {
 	} // fin public
 	
 
-	public List<Ccrpcpv> getUsingnNpresAndNcuotToList(DataSet ds, String npres, String ncuot) throws ASException {
+	public List<Ccrpcpv> getUsingnNpresAndNcuotToList(DataSet ds, String npres, String ncuot, Range range) throws ASException {
 
 		SessionFactory factory = null;
 		try {
@@ -80,6 +81,11 @@ public class CcrpcpvDAO {
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("npres", npres);
 			q.setParameter("ncuot", ncuot);
+			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
 			
 			@SuppressWarnings("unchecked")
 			List<Ccrpcpv> list = (List<Ccrpcpv>)q.list();

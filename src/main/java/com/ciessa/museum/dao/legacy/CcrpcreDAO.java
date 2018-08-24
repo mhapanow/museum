@@ -13,6 +13,7 @@ import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Ccrpcre;
+import com.ciessa.museum.tools.Range;
 
 
 public class CcrpcreDAO {
@@ -76,13 +77,10 @@ public class CcrpcreDAO {
 			q.setParameter("numcre", numcre);
 			Ccrpcre o = (Ccrpcre)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(numcre);
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
 			
 			return o;
 			
@@ -95,7 +93,7 @@ public class CcrpcreDAO {
 			}
 	} // fin public
 
-	public List<Ccrpcre> getUsingCrbancCrcsucCrcdivAndCrstco(DataSet ds,String crbanc, String crcsuc, String crcdiv, String crstco) throws ASException {
+	public List<Ccrpcre> getUsingCrbancCrcsucCrcdivAndCrstco(DataSet ds,Integer crbanc, String crcsuc, String crcdiv, String crstco, Range range) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -116,6 +114,11 @@ public class CcrpcreDAO {
 			q.setParameter("crcdiv", crcdiv);
 			q.setParameter("crstco", crstco);
 			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
+			
 			@SuppressWarnings("unchecked")
 			List<Ccrpcre> list = (List<Ccrpcre>)q.list();
 			
@@ -134,7 +137,7 @@ public class CcrpcreDAO {
 		}
 	}
 	
-	public List<Ccrpcre> getUsingCrntar(DataSet ds,String crntar) throws ASException {
+	public List<Ccrpcre> getUsingCrntar(DataSet ds,String crntar, Range range) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -151,6 +154,11 @@ public class CcrpcreDAO {
 			
 			Query q = session.createQuery(" FROM Ccrpcre WHERE crntar = :crntar ");
 			q.setParameter("crntar", crntar);
+			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
 			
 			@SuppressWarnings("unchecked")
 			List<Ccrpcre> list = (List<Ccrpcre>)q.list();

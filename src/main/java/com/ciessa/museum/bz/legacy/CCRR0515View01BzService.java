@@ -17,6 +17,7 @@ import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Ccrpcre;
 import com.ciessa.museum.dao.legacy.CcrpcreDAO;
 import com.ciessa.museum.model.legacy.Grmida;
+import com.ciessa.museum.tools.Range;
 import com.ciessa.museum.dao.legacy.GrmidaDAO;
 import com.ciessa.museum.model.legacy.Grmcda;
 import com.ciessa.museum.dao.legacy.GrmcdaDAO;
@@ -89,7 +90,11 @@ public static final Logger log = Logger.getLogger(CACR205View01BzService.class.g
 			ncuot = obtainStringValue("ncuot", null);
 			codre = obtainStringValue("codre", null);
 			
-			String rpta = SubRutProini(ds, npres);
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
+			
+			String rpta = SubRutProini(ds, npres, range);
 			if (rpta.equals(""))
 			{
 				log.log(Level.SEVERE, rpta, new Exception());
@@ -144,7 +149,7 @@ public static final Logger log = Logger.getLogger(CACR205View01BzService.class.g
 		
 	} //Fin @Get
 
-	private String SubRutProini(DataSet ds, String npres) {
+	private String SubRutProini(DataSet ds, String npres, Range range) {
 		try {
 			ObjCcrpcre = myDaoCcrpcre.getUsingNpres(ds, npres);
 			if (ObjCcrpcre == null) {
@@ -153,7 +158,7 @@ public static final Logger log = Logger.getLogger(CACR205View01BzService.class.g
 			else {
 				ObjGrmida = myDaoGrmida.getUsingCrnucl(ds, ObjCcrpcre.getCrnucl().toString());
 				if (ObjGrmida != null) {
-					this.WDCLIE = ObjGrmida.getRilsnm() +""+ ObjGrmida.getRifsnm();
+					this.WDCLIE = ObjGrmida.getRilsnm() +" "+ ObjGrmida.getRifsnm();
 				}
 			else {
 				ObjGrmcda = myDaoGrmcda.getUsingCrnucl(ds, ObjCcrpcre.getCrnucl().toString());
@@ -161,7 +166,7 @@ public static final Logger log = Logger.getLogger(CACR205View01BzService.class.g
 					this.WDCLIE = ObjGrmcda.getRycpcn();
 					}
 				}
-			SubRutCarsfl(ds, npres, ncuot);
+			SubRutCarsfl(ds, npres, ncuot, range);
 			}
 		}// Fin Try
 		
@@ -173,9 +178,9 @@ public static final Logger log = Logger.getLogger(CACR205View01BzService.class.g
 		return "";
 	}
 	
-	private String SubRutCarsfl(DataSet ds, String npres, String ncuot) {
+	private String SubRutCarsfl(DataSet ds, String npres, String ncuot, Range range) {
 		try {
-			listCcrpcpv = myDaoCcrpcpv.getUsingnNpresAndNcuotToList(ds, npres, ncuot);
+			listCcrpcpv = myDaoCcrpcpv.getUsingnNpresAndNcuotToList(ds, npres, ncuot, range);
 			for( Ccrpcpv o : listCcrpcpv ) {
 				adapted = new CCRR0515Adapter();
 				adapted.setWDIMPP(o.getCppuni().toString());

@@ -32,6 +32,7 @@ import com.ciessa.museum.model.legacy.Grmcda;
 import com.ciessa.museum.model.legacy.Grmida;
 import com.ciessa.museum.model.legacy.Grmria;
 import com.ciessa.museum.tools.CollectionFactory;
+import com.ciessa.museum.tools.Range;
 
 
 public class CACR210View01BzService extends RestBaseServerResource{
@@ -106,6 +107,10 @@ public class CACR210View01BzService extends RestBaseServerResource{
 			ssresu = obtainStringValue("ssresu", null); //Estado
 			ssmrec = obtainStringValue("ssmrec", null); //Motivo
 			
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
+			
 			// Get order
 			this.order = this.obtainStringValue("ORDER", null);
 			
@@ -133,7 +138,7 @@ public class CACR210View01BzService extends RestBaseServerResource{
 				log.log(Level.SEVERE, rpta, new Exception());
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
 			}
-			rpta = SubRutCarsf1(ds);
+			rpta = SubRutCarsf1(ds, range);
 			
 			// retrieve all elements
 			Map<String,String> attributes = CollectionFactory.createMap();
@@ -220,12 +225,12 @@ public class CACR210View01BzService extends RestBaseServerResource{
 		return "";
 	}
 	
-	private String SubRutCarsf1(DataSet ds) {
+	private String SubRutCarsf1(DataSet ds, Range range) {
 		try {
 			List<Cacphst> list = new ArrayList<Cacphst>();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			String fechaComoCadena = sdf.format(ssfsel);
-			list = myDaoCacphst.getUsingKey(ds, Integer.parseInt(fechaComoCadena), Integer.parseInt(ssbrch), Integer.parseInt(ssmrec), ssresu, order);
+			list = myDaoCacphst.getUsingKey(ds, Integer.parseInt(fechaComoCadena), Integer.parseInt(ssbrch), Integer.parseInt(ssmrec), ssresu, order, range);
 			listAdapted = new ArrayList<CACR210Adapter>();
 			for( Cacphst obj : list ) {
 				adapted = new CACR210Adapter();

@@ -34,7 +34,7 @@ public class RsctamDAO {
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(cuenta);
+				//throw ASExceptionHelper.notFoundException(cuenta);
 			}
 			
 			session.evict(o);

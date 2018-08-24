@@ -21,6 +21,7 @@ import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Cacphst;
 import com.ciessa.museum.model.legacy.Grmria;
 import com.ciessa.museum.tools.CollectionFactory;
+import com.ciessa.museum.tools.Range;
 import com.ciessa.museum.dao.legacy.CacphstDAO;
 import com.ciessa.museum.dao.legacy.GrmriaDAO;
 import com.ciessa.museum.model.legacy.Grmida;
@@ -84,6 +85,9 @@ public class CACR205View01BzService extends RestBaseServerResource {
 			
 			//Parametros Get
 			wsacct = obtainStringValue("wsacct", null);
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
 			
 			String rpta = SubRutVal(ds);
 			if (!rpta.equals(""))
@@ -93,7 +97,7 @@ public class CACR205View01BzService extends RestBaseServerResource {
 			}
 			if (rpta.equals(""))
 			{
-				rpta = SubRutCarsf1(ds);
+				rpta = SubRutCarsf1(ds, range);
 				if (!rpta.equals(""))
 				{
 					log.log(Level.SEVERE, rpta, new Exception());
@@ -158,9 +162,9 @@ public class CACR205View01BzService extends RestBaseServerResource {
 		return "";
 	}
 	
-	private String SubRutCarsf1(DataSet ds) {
+	private String SubRutCarsf1(DataSet ds, Range range) {
 		try {
-			listCacphst = myDaoCacphst.getUsingHiacct(ds, wsacct);
+			listCacphst = myDaoCacphst.getUsingHiacct(ds, wsacct, range);
 			for( Cacphst o : listCacphst ) {
 				adapted = new CARC205Adapter();
 				if ( o.getHitreg().equals("1")) {

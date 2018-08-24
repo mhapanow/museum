@@ -28,6 +28,7 @@ import com.ciessa.museum.model.legacy.Dtgpdes;
 import com.ciessa.museum.model.legacy.Grmcda;
 import com.ciessa.museum.model.legacy.Grmida;
 import com.ciessa.museum.model.legacy.Tablam;
+import com.ciessa.museum.tools.Range;
 
 public class CCRR0500View02BzService extends RestBaseServerResource {
 	public static final Logger log = Logger.getLogger(CCRR0500View02BzService.class.getName());
@@ -57,7 +58,6 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 	Tablam ObjTablam = new Tablam();
 	Dtgpdes ObjDtgpdes = new Dtgpdes();
 	Cfp001002 ObjCfp001002 = new Cfp001002();
-	Ccrpcre ObjCcrpcre = new Ccrpcre();
 	Grmida ObjGrmida = new Grmida();
 	Grmcda ObjGrmcda = new Grmcda();
 	
@@ -68,8 +68,7 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 	private String crstco = null;
 	
 	//variables _globales 
-	private String ctstco = null;
-	
+	private Integer crbanc = 1; //TODO: Analizando el algoritmo CCRR0500 se asigna el valor de 1 
 	private String dsstco = null;
 	private String cuna1 = null;
 		
@@ -96,8 +95,14 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 			crcdiv = obtainStringValue("crcdiv", null);
 			crstco = obtainStringValue("crstco", null);
 			
+			crcdiv = String.format("%03d", Integer.parseInt(crcdiv));
+			
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
+			
 			if (this.crntar.equals("")) {
-				rpta = SubRutRtn100(ds);
+				rpta = SubRutRtn100(ds, range);
 			} else {
 				if (Integer.parseInt(this.crcsuc) > 0 |	Integer.parseInt(this.crcdiv) > 0 |	Integer.parseInt(this.crstco) > 0) {
 					rpta = "ERROR FALTAN PARAMETROS";
@@ -144,7 +149,7 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 		return returnValue.toString();
 	}
 	
-	private String SubRutRtn100(DataSet ds) {
+	private String SubRutRtn100(DataSet ds, Range range) {
 		try {
 			ObjCfp001002 = myDaoCfp001002.getUsingCfnsuc(ds, this.crcsuc);
 			if (ObjCfp001002 == null) {
@@ -157,14 +162,15 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 			if (Integer.parseInt(this.crstco) < 2 | Integer.parseInt(this.crstco) > 4) {
 				return "Error. Ejecutar Rutina RTN100 - Opciones fuera de Rango";
 			}
-			ObjDtgpdes = myDaoDtgpdes.getUsingCtstco(ds, this.ctstco);//TODO: no encuentro esta variable
+			ObjDtgpdes = myDaoDtgpdes.getUsingCtstco(ds, this.crstco);
 			if (ObjDtgpdes != null) {
 				this.dsstco = ObjDtgpdes.getDsds01().toString();
 			}
-			String crbanc = null ; //TODO No encuentro esta variable
-			listCcrpcre = myDaoCcrpcre.getUsingCrbancCrcsucCrcdivAndCrstco(ds, crbanc, crcsuc, crcdiv, crstco);			
+			listCcrpcre = myDaoCcrpcre.getUsingCrbancCrcsucCrcdivAndCrstco(ds, this.crbanc, crcsuc, crcdiv, crstco, range);			
 			for (Ccrpcre o : listCcrpcre) {
+				adapted = new CCRR0500Adapter();
 				adapted.setSALDO(o.getCrisde().toString());
+				adapted.setCRNUCR(o.getCrnucr().toString());
 				ObjGrmida = myDaoGrmida.getUsingRirmcn(ds, o.getCrnucl().toString());
 				if (ObjGrmida != null) {
 					this.cuna1 = ObjGrmida.getRifsnm() + " " + ObjGrmida.getRilsnm();
@@ -174,7 +180,7 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 						this.cuna1 = ObjGrmcda.getRycpcn();
 					}
 				}
-				if (this.cuna1 =="") {
+				if (this.cuna1 =="" || this.cuna1 == null) {
 					this.cuna1 = "??????????";
 				}
 				adapted.setNOMCLI(this.cuna1);
@@ -195,9 +201,9 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 	public class CCRR0500Adapter {
 		private String CRCSUC;
 		private String CRCDIV;
-		private String CRSTCO;
+		private String CRSTCO; 
 		private String NOMCLI;
-		private String CRNUCR;
+		private String CRNUCR; //TODO: variable no retornable
 		private String CRSTCR; //TODO: variable no retornable
 		private String FECALT;
 		private String FECVTO;

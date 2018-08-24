@@ -22,6 +22,7 @@ import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Ccrpcre;
 import com.ciessa.museum.model.legacy.Grmcda;
 import com.ciessa.museum.model.legacy.Grmida;
+import com.ciessa.museum.tools.Range;
 
 public class CCRR0500View03BzService extends RestBaseServerResource {
 	public static final Logger log = Logger.getLogger(CCRR0500View03BzService.class.getName());
@@ -72,6 +73,10 @@ public class CCRR0500View03BzService extends RestBaseServerResource {
 			crcdiv = obtainStringValue("crcdiv", null);
 			crstco = obtainStringValue("crstco", null);
 			
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
+			
 			String rpta = "";
 			
 			if (this.crntar.equals("")) {
@@ -82,7 +87,7 @@ public class CCRR0500View03BzService extends RestBaseServerResource {
 					rpta = "ERROR FALTAN PARAMETROS";
 				}
 				else {
-					rpta = SubRutRtn200(ds);		
+					rpta = SubRutRtn200(ds, range);		
 				}
 			}
 				
@@ -127,10 +132,11 @@ public class CCRR0500View03BzService extends RestBaseServerResource {
 		return returnValue.toString();
 	}
 	
-	private String SubRutRtn200(DataSet ds) {
+	private String SubRutRtn200(DataSet ds, Range range) {
 		try {
-			listCcrpcre = myDaoCcrpcre.getUsingCrntar(ds, this.crntar);
+			listCcrpcre = myDaoCcrpcre.getUsingCrntar(ds, this.crntar, range);
 			for (Ccrpcre o : listCcrpcre) {
+				adapted = new CCRR0500Adapter();
 				adapted.setSALDO(o.getCrisde().toString());
 				ObjGrmida = myDaoGrmida.getUsingRirmcn(ds, o.getCrnucl().toString());
 				if (ObjGrmida != null) {

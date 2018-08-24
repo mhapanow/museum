@@ -40,14 +40,13 @@ public class CcrpproDAO {
 			
 			Ccrppro o = (Ccrppro)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+			if( o != null ) {
+				//tx.rollback();
+				//throw ASExceptionHelper.notFoundException();
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
-			
+
 			return o;
 			
 				

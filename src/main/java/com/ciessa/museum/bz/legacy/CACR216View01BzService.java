@@ -19,6 +19,7 @@ import com.ciessa.museum.model.User;
 
 import com.ciessa.museum.model.legacy.Cacphst;
 import com.ciessa.museum.tools.CollectionFactory;
+import com.ciessa.museum.tools.Range;
 import com.ciessa.museum.dao.legacy.CacphstDAO;
 
 
@@ -54,10 +55,14 @@ public class CACR216View01BzService extends RestBaseServerResource {
 			
 			Map<String,String> attributes = CollectionFactory.createMap();
 			long millisPre = new Date().getTime();
+			
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
 
 			list = new ArrayList<CARC216Adapter>();
 			
-			listCacphst = myDaoCacphst.getUsingOrderHifsel(ds);
+			listCacphst = myDaoCacphst.getUsingOrderHifsel(ds, range);
 			
 			for( Cacphst o : listCacphst ) {
 				sfeamd = new SimpleDateFormat("yyyyMMdd").parse(o.getHifsel().toString());
