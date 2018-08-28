@@ -70,6 +70,8 @@
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Ccrpscb.hbm.xml"></mapping>
 		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpsce.hbm.xml"></mapping>
+		<mapping
 			resource="com/ciessa/museum/model/legacy/Ccrpsch.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Ccrpcap.hbm.xml"></mapping>

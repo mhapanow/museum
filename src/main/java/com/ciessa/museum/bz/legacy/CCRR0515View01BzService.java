@@ -1,5 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,12 +61,29 @@ public static final Logger log = Logger.getLogger(CACR205View01BzService.class.g
 	String WDNUC1 = null;
 	String WDCLIE = null;
 	String WDCUCO = null;
-	String WTIEND = null;
-	String WTIPUN = null;
-	String WTFEEC = null;
-	String WTICOM = null;
-	String WTIIVA = null;
-	String WTSBTP = null;
+	
+	private BigDecimal WDIMPP = new BigDecimal(0);
+	private BigDecimal WDIMPC = new BigDecimal(0);
+	private BigDecimal WDIMFE = new BigDecimal(0);
+	private BigDecimal WDIMDE = new BigDecimal(0);
+	private BigDecimal WDIIVA = new BigDecimal(0);
+	private BigDecimal WDITOT = new BigDecimal(0);
+	private BigDecimal WTIPUN = new BigDecimal(0);
+	private BigDecimal WTICOM = new BigDecimal(0);
+	private BigDecimal WTFEEC = new BigDecimal(0);
+	private BigDecimal WTIEND = new BigDecimal(0);
+	private BigDecimal WTIIVA = new BigDecimal(0);
+	String WTSBTP = "";
+	Integer WDCUOT = 0;
+	String WDCFEZ = "";
+	Long WDDIAT = new Long(0);
+	private BigDecimal WDTACR = new BigDecimal(0);
+	private BigDecimal WDIMP1 = new BigDecimal(0);
+	private BigDecimal WDIMC1 = new BigDecimal(0);
+	private BigDecimal WDIMF1 = new BigDecimal(0);
+	private BigDecimal WDIMD1 = new BigDecimal(0);
+	private BigDecimal WDIIV1 = new BigDecimal(0);
+	private BigDecimal WDITO1 = new BigDecimal(0);
 	
 	List<Ccrpcpv> listCcrpcpv  = null;
 
@@ -93,9 +111,10 @@ public static final Logger log = Logger.getLogger(CACR205View01BzService.class.g
 			// get range, if not defined use default value
 			// Range range = this.obtainRange();
 			Range range = null;
-			
+			this.WDNUC1 = npres;
+			this.WDCUCO = ncuot;
 			String rpta = SubRutProini(ds, npres, range);
-			if (rpta.equals(""))
+			if (!rpta.equals(""))
 			{
 				log.log(Level.SEVERE, rpta, new Exception());
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
@@ -182,29 +201,46 @@ public static final Logger log = Logger.getLogger(CACR205View01BzService.class.g
 		try {
 			listCcrpcpv = myDaoCcrpcpv.getUsingnNpresAndNcuotToList(ds, npres, ncuot, range);
 			for( Ccrpcpv o : listCcrpcpv ) {
-				adapted = new CCRR0515Adapter();
-				adapted.setWDIMPP(o.getCppuni().toString());
-				adapted.setWDIMPC(o.getCpcomp().toString());
-				adapted.setWDIMFE(o.getCpfeco().toString());
-				adapted.setWDIMDE(o.getCpimen().toString());
-				adapted.setWDIIVA(o.getCpiva1().toString() + o.getCpiva2().toString());
-				adapted.setWDITOT(o.getCppuni().toString() + o.getCpcomp().toString() + o.getCpfeco().toString() + o.getCpimen().toString() + adapted.getWDIIVA());
-				this.WTIPUN = this.WTIPUN + adapted.getWDIMPP();
-				this.WTICOM = this.WTICOM + adapted.getWDIMPC();
-				this.WTFEEC = this.WTFEEC + adapted.getWDIMFE();
-				this.WTIEND = this.WTIEND + adapted.getWDIMDE();
-				this.WTIIVA = this.WTIIVA + adapted.getWDIIVA();
+				this.WDIMPP = o.getCppuni();
+				this.WDIMPC = o.getCpcomp();
+				this.WDIMFE = o.getCpfeco();
+				this.WDIMDE = o.getCpimen();				
+				this.WDIIVA = o.getCpiva1().add(o.getCpiva2());
+				this.WDITOT = o.getCppuni().add(o.getCpcomp().add(o.getCpfeco().add(o.getCpimen().add(this.WDIIVA))));
+				this.WTIPUN = this.WTIPUN.add(this.WDIMPP);
+				this.WTICOM = this.WTICOM.add(this.WDIMPC);
+				this.WTFEEC = this.WTFEEC.add(this.WDIMFE);
+				this.WTIEND = this.WTIEND.add(this.WDIMDE);
+				this.WTIIVA = this.WTIIVA.add(this.WDIIVA);
 				this.WTSBTP = this.WTSBTP + o.getCpsbtp();
-				adapted.setWDCUOT(adapted.getWDCUOT() + o.getCpcuat());
-				adapted.setWDCFEZ(adapted.getWDCFEZ() + o.getCpcfez());
-				adapted.setWDDIAT(adapted.getWDDIAT() + o.getCpdiat());
-				adapted.setWDTACR(adapted.getWDTACR() + o.getCptacr());
-				adapted.setWDIMP1(adapted.getWDIMP1() + o.getCppuni());
-				adapted.setWDIMC1(adapted.getWDIMC1() + o.getCpcomp());
-				adapted.setWDIMF1(adapted.getWDIMF1() + o.getCpfeco());
-				adapted.setWDIMD1(adapted.getWDIMD1() + o.getCpimen());
-				adapted.setWDIIV1(adapted.getWDIIV1() + adapted.getWDIIVA());
-				adapted.setWDITO1(adapted.getWDITO1() + adapted.getWDITOT());
+				this.WDCUOT = this.WDCUOT + o.getCpcuat();
+				this.WDCFEZ = this.WDCFEZ + "" + o.getCpcfez();
+				this.WDDIAT = this.WDDIAT + o.getCpdiat();
+				this.WDTACR = this.WDTACR.add(o.getCptacr());
+				this.WDIMP1 = this.WDIMP1.add(o.getCppuni());
+				this.WDIMC1 = this.WDIMC1.add(o.getCpcomp());
+				this.WDIMF1 = this.WDIMF1.add(o.getCpfeco());
+				this.WDIMD1 = this.WDIMD1.add(o.getCpimen());
+				this.WDIIV1 = this.WDIIV1.add(this.WDIIVA);
+				this.WDITO1 = this.WDITO1.add(this.WDITOT);
+				
+				adapted = new CCRR0515Adapter();
+				adapted.setWDIMPP(this.WDIMPP.toString());
+				adapted.setWDIMPC(this.WDIMPC.toString());
+				adapted.setWDIMFE(this.WDIMFE.toString());
+				adapted.setWDIMDE(this.WDIMDE.toString());
+				adapted.setWDIIVA(this.WDIIVA.toString());
+				adapted.setWDITOT(this.WDITOT.toString());
+				adapted.setWDCUOT(this.WDCUOT.toString());
+				adapted.setWDCFEZ(this.WDCFEZ.toString());
+				adapted.setWDDIAT(this.WDDIAT.toString());
+				adapted.setWDTACR(this.WDTACR.toString());
+				adapted.setWDIMP1(this.WDIMP1.toString());
+				adapted.setWDIMC1(this.WDIMC1.toString());
+				adapted.setWDIMF1(this.WDIMF1.toString());
+				adapted.setWDIMD1(this.WDIMD1.toString());
+				adapted.setWDIIV1(this.WDIIV1.toString());
+				adapted.setWDITO1(this.WDITO1.toString());
 				list.add(adapted);
 			}// Fin for
 		}// Fin Try

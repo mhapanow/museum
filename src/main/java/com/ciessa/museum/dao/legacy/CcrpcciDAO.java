@@ -36,7 +36,7 @@ public List<Ccrpcci> getUsingnScbancAndScnucrAndScncuoAndScticuToList(DataSet ds
 		tx = session.beginTransaction();
 		StringBuffer sb = new StringBuffer();
 
-		sb.append(" from Ccrpcci Where cibanc = :scbanc and cinucr = :scnucr and cincuo = :scncuo and citicu = :scticu and cistco = A ");
+		sb.append(" from Ccrpcci Where cibanc = :scbanc and cinucr = :scnucr and cincuo = :scncuo and citicu = :scticu and cistco = 'A' ");
 		
 		Query q = session.createQuery(sb.toString());
 		q.setParameter("scbanc", scbanc);

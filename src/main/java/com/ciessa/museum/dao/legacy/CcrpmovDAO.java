@@ -34,13 +34,10 @@ public class CcrpmovDAO {
 			q.setParameter("crnucr", crnucr);
 			Ccrpmov o = (Ccrpmov)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
 			
 			return o;
 			

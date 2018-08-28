@@ -31,18 +31,15 @@ public class CcrpcarDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" From Ccrpcar Where rvbanc=1 and rvnucr =: crnucr and rvncuo = :scncuo");
+			Query q = session.createQuery(" From Ccrpcar Where rvbanc=1 and rvnucr = :crnucr and rvncuo = :scncuo");
 			q.setParameter("crnucr", crnucr);
 			q.setParameter("scncuo", scncuo);
 			Ccrpcar o = (Ccrpcar)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
 			
 			return o;
 			

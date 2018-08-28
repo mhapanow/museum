@@ -76,13 +76,10 @@ public class GrmidaDAO {
 			q.setParameter("crnucl", crnucl);
 			Grmida o = (Grmida)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(crnucl);
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
 			
 			return o;
 		} catch (HibernateException e) {

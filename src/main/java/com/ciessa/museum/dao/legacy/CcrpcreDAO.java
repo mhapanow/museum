@@ -37,13 +37,10 @@ public class CcrpcreDAO {
 			q.setParameter("npres", npres);
 			Ccrpcre o = (Ccrpcre)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(npres);
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
 			
 			return o;
 			

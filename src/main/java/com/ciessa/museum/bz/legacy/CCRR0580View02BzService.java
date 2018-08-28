@@ -73,28 +73,27 @@ public class CCRR0580View02BzService extends RestBaseServerResource {
 	String ppar = "";
 
 	String SCACON = "";
-	String AVIVTO = "";
 	
-	private BigDecimal SBIEN ;
-	private BigDecimal SCICCA; 
-	private BigDecimal SCICIN;
-	private BigDecimal SCIICC; 
-	private BigDecimal SCIICD;
-	private BigDecimal SCIIPC; 
-	private BigDecimal SCIIPD; 
-	private BigDecimal SCISAU; 
-	private BigDecimal SCISVI; 
-	private BigDecimal TOPTUN;
-	private BigDecimal WSIB;
-	private BigDecimal WSIVA1;
-	private BigDecimal WSIVA2;
-	private BigDecimal WSIVA3;
-	private BigDecimal WSIVA4;
-	private BigDecimal WSIVA5;
-	private BigDecimal WSIVA6;
-	private BigDecimal WSIVA7;
-	private BigDecimal WSICAC;
-	private BigDecimal TOTAL;
+	private BigDecimal SBIEN = new BigDecimal(0);
+	private BigDecimal SCICCA = new BigDecimal(0); 
+	private BigDecimal SCICIN = new BigDecimal(0);
+	private BigDecimal SCIICC = new BigDecimal(0); 
+	private BigDecimal SCIICD = new BigDecimal(0);
+	private BigDecimal SCIIPC = new BigDecimal(0);
+	private BigDecimal SCIIPD = new BigDecimal(0);
+	private BigDecimal SCISAU = new BigDecimal(0);
+	private BigDecimal SCISVI = new BigDecimal(0);
+	private BigDecimal TOPTUN = new BigDecimal(0);
+	private BigDecimal WSIB = new BigDecimal(0);
+	private BigDecimal WSIVA1 = new BigDecimal(0);
+	private BigDecimal WSIVA2 = new BigDecimal(0);
+	private BigDecimal WSIVA3 = new BigDecimal(0);
+	private BigDecimal WSIVA4 = new BigDecimal(0);
+	private BigDecimal WSIVA5 = new BigDecimal(0);
+	private BigDecimal WSIVA6 = new BigDecimal(0);
+	private BigDecimal WSIVA7 = new BigDecimal(0);
+	private BigDecimal WSICAC = new BigDecimal(0);
+	private BigDecimal TOTAL = new BigDecimal(0);
 	private Long FACCOR; 
 	
 	List<Ccrpcap> ListCcrpcap  = null;
@@ -123,64 +122,86 @@ public class CCRR0580View02BzService extends RestBaseServerResource {
 			this.crnucr  = obtainStringValue("numcre", null);
 			this.scncuo = obtainStringValue("numcuo", null);
 			
+			adapted = new CCRR0580Adapter();
+			adapted.setNUMCRE(this.crnucr);
+			adapted.setSCNCUO(this.scncuo);
 			String rpta = SubRutRtn100(ds, archiv, crnucr, scncuo);
 			
-			if (rpta.equals("")) {
+			if (!rpta.equals("")) {
 				log.log(Level.SEVERE, rpta, new Exception());
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
 			}	
 			
 			// Get the output fields
 			String[] fields = new String[] {
+					"SCIBAS",
+					"SCTICU",
+					"SCIACT",
+					"SCFPCU",
+					"SCCSUP",
+					"SCIICD",
+					"SCIIPD",
+					"SCIIPC",
+					"SCIICC",
+					"SCACON",
+					"SCSTCU",
+					"SCISAU",
+					"SCI8IN",
+					"SCI8CD",
+					"SCI8PD",
+					"SCI8PC",
+					"SCI8CC",
+					"SCI8CS",
+					"SCI8CA",
+					"SCI9IN",
+					"SCI9CD",
+					"SCI9PD",
+					"SCI9PC",
+					"SCI9CC",
+					"SCI9CS",
+					"SCI9CA",
+					"SCCAR1",
+					"SCI8C1",
+					"DSFPCU",
+					"DSTICU",
+					"WSICAC",
 					"AVIVTO",
+					"TOTAL",
+					"FACCOR",
+					"WSIVA1",
+					"WSIVA2",
+					"WSIVA3",
+					"WSIVA4",
+					"WSIVA5",
+					"WSIVA6",
+					"WSIVA7",
+					"SCICCA",
+					"SCICIN",
+					"SCISVI",
+					"TOPTUN",
+					"WSIB",
+					"SBIEN",
 					"WCAMP",
 					"WDEMP",
 					"NUMCRE",
-					"SCTICU",
-					"SCSTCU",
 					"SCNCUO",
-					"WSIB",
 					"MONEDA",
 					"SCTACR",
 					"SCIMAM",
-					"SCIBAS",
 					"SCIMBA",
-					"SCIACT",
-					"SCICIN",
-					"FACCOR",
 					"SCICAJ",
-					"WSIVA1",
-					"SCISVI",
-					"WSIVA2",
 					"SCIISE",
-					"WSIVA3",
-					"SCICCA",
-					"WSIVA4",
 					"TOTPUN",
-					"WSIVA5",
-					"SBIEN",
-					"WSIVA6",
 					"FECVTO",
-					"WSIVA7",
 					"FECPAG",
-					"TOTAL",
-					"SCCAR1",
-					"SCFPCU",
-					"SCIIPD",
-					"SCCSUP",
-					"SCIICD",
-					"SCIIPC",
-					"SCI8C1",
-					"SCIICC",
 					"FECREV",
-					"WSICAC",
-					"SCACON"
+					"SCBANC"
 
 			};
 
 			// Obtains the user JSON representation
 			returnJson = getJSONRepresentationFromObject(adapted, fields);
-				
+				//returnValue = this.getJSONRepresentationFromArrayOfObjects(list, fields);
 			long diff = new Date().getTime() - millisPre;
 			// Logs the result
 			log.info("Element found in " + diff + " millis");
@@ -259,12 +280,12 @@ public class CCRR0580View02BzService extends RestBaseServerResource {
 			if(ObjCcrpsch.getScfpcu().equals("9")) { adapted.setDSFPCU("DEBITO CRUZ/REINT'"); }
 			if(ObjCcrpsch.getScfpcu().equals("W")) { adapted.setDSFPCU("UNION'");   		  }
 			
-			if(adapted.getSCTICU().equals("A"))    {adapted.setDSTICU("CUOTA AJUSTE + INTERES");	}
-			if(adapted.getSCTICU().equals("C"))    {adapted.setDSTICU("TCUOTA TOTAL AMORT+AJ+INT.");}
-			if(adapted.getSCTICU().equals("C"))    {adapted.setDSTICU("PCANCELACION PARCIAL");		}
-			if(adapted.getSCTICU().equals("C"))    {adapted.setDSTICU("CCANCELACION TOTAL");		}
-			if(adapted.getSCTICU().equals("C"))    {adapted.setDSTICU("SCANC. PARC.- SALTEA VTO");	}
-			if(adapted.getSCTICU().equals("P"))    {adapted.setDSTICU("CCUOTA ADIC PUNIT/COMP");	}
+			if(ObjCcrpsch.getScticu().equals("A"))    {adapted.setDSTICU("CUOTA AJUSTE + INTERES");	}
+			if(ObjCcrpsch.getScticu().equals("C"))    {adapted.setDSTICU("TCUOTA TOTAL AMORT+AJ+INT.");}
+			if(ObjCcrpsch.getScticu().equals("C"))    {adapted.setDSTICU("PCANCELACION PARCIAL");		}
+			if(ObjCcrpsch.getScticu().equals("C"))    {adapted.setDSTICU("CCANCELACION TOTAL");		}
+			if(ObjCcrpsch.getScticu().equals("C"))    {adapted.setDSTICU("SCANC. PARC.- SALTEA VTO");	}
+			if(ObjCcrpsch.getScticu().equals("P"))    {adapted.setDSTICU("CCUOTA ADIC PUNIT/COMP");	}
 			
 			this.SBIEN  = ObjCcrpsch.getScisau();
 			this.SCICCA = this.SCICCA.add(ObjCcrpsch.getSci8ca().add(ObjCcrpsch.getSci9ca()));
@@ -298,18 +319,48 @@ public class CCRR0580View02BzService extends RestBaseServerResource {
 			
 			this.TOTAL = ObjCcrpsch.getScisvi().add(ObjCcrpsch.getSciise().add(ObjCcrpsch.getScimam().add(ObjCcrpsch.getScimba().add(ObjCcrpsch.getScicin().add(ObjCcrpsch.getScicaj().add(ObjCcrpsch.getScicca().add(this.TOPTUN.add(this.SBIEN.add(ObjCcrpsch.getSccar1().add(ObjCcrpsch.getSci8c1().subtract(this.WSICAC.add(this.WSIB))))))))))));
 			
+			this.FACCOR = new Long(0);
 			if(ObjCcrpsch.getScibas() > 0) {
 				this.FACCOR = ObjCcrpsch.getSciact() / ObjCcrpsch.getScibas();
 			}
 			
 			if (ObjCcrpsch.getScmaav().equals("0")) {
-				AVIVTO = "EMITIDO";
+				adapted.setAVIVTO("EMITIDO");
 			}else {
-				AVIVTO = "NO EMITIDO";
+				adapted.setAVIVTO("NO EMITIDO");
 			}
 			
+			adapted.setSCBANC(ObjCcrpsch.getScbanc().toString());
+			
+			adapted.setTOTAL(this.TOTAL.toString());
+			adapted.setFACCOR(this.FACCOR.toString());
+			
+			adapted.setWSIVA1(this.WSIVA1.toString());
+			adapted.setWSIVA2(this.WSIVA2.toString());
+			adapted.setWSIVA3(this.WSIVA3.toString());
+			adapted.setWSIVA4(this.WSIVA4.toString());
+			adapted.setWSIVA5(this.WSIVA5.toString());
+			adapted.setWSIVA6(this.WSIVA6.toString());
+			adapted.setWSIVA7(this.WSIVA7.toString());
+			adapted.setSCICCA(this.SCICCA.toString());
+			adapted.setSCICIN(this.SCICIN.toString());
+			adapted.setSCIICC(this.SCIICC.toString());
+			adapted.setSCIICD(this.SCIICD.toString());
+			adapted.setSCIIPC(this.SCIIPC.toString());
+			adapted.setSCIIPD(this.SCIIPD.toString());
+			adapted.setSCISAU(this.SCISAU.toString());
+			adapted.setSCISVI(this.SCISVI.toString());
+			
+			adapted.setTOPTUN(this.TOPTUN.toString());
+			adapted.setWSIB(this.WSIB.toString());
+			adapted.setSBIEN(this.SBIEN.toString());
+			adapted.setSCIMAM(ObjCcrpsch.getScimam().toString());
+			adapted.setSCIMBA(ObjCcrpsch.getScimba().toString());
+			adapted.setSCICAJ(ObjCcrpsch.getScicaj().toString());
+			adapted.setSCIISE(ObjCcrpsch.getSciise().toString());
+			
 		} catch (Exception e) {
-			return e.getMessage();
+			return "ERROR.:" + e.getMessage();
 			
 		}
 		return "";
@@ -404,7 +455,43 @@ public class CCRR0580View02BzService extends RestBaseServerResource {
 		String DSTICU = null;
 		String WSICAC = null;
 		
-			
+		String AVIVTO = null;
+		String TOTAL = null;
+		String FACCOR  = null;
+		String WSIVA1 = null;
+		String WSIVA2 = null;
+		String WSIVA3 = null;
+		String WSIVA4 = null;
+		String WSIVA5 = null;
+		String WSIVA6 = null;
+		String WSIVA7 = null;
+		
+		String SCICCA = null;
+		String SCICIN = null;
+		String SCISVI = null;
+		
+		String TOPTUN = null;
+		String WSIB = null;
+		String SBIEN = null;
+
+
+		String WCAMP = null;
+		String WDEMP = null;
+		String NUMCRE = null;
+		String SCNCUO = null;
+		String MONEDA = null;
+		String SCTACR = null;
+		String SCIMAM = null;
+		String SCIMBA = null;
+		String SCICAJ = null;
+		String SCIISE = null;
+		String TOTPUN = null;
+		String FECVTO = null;
+		String FECPAG = null;
+		String FECREV = null;
+		
+		String SCBANC = null;
+		
 		public CCRR0580Adapter (){ }
 		
 		
@@ -661,10 +748,317 @@ public class CCRR0580View02BzService extends RestBaseServerResource {
 		public void setWSICAC(String wSICAC) {
 			WSICAC = wSICAC;
 		}
-		
-		
-		
-		
+
+
+		public String getAVIVTO() {
+			return AVIVTO;
+		}
+
+
+		public void setAVIVTO(String aVIVTO) {
+			AVIVTO = aVIVTO;
+		}
+
+
+		public String getTOTAL() {
+			return TOTAL;
+		}
+
+
+		public void setTOTAL(String tOTAL) {
+			TOTAL = tOTAL;
+		}
+
+
+		public String getFACCOR() {
+			return FACCOR;
+		}
+
+
+		public void setFACCOR(String fACCOR) {
+			FACCOR = fACCOR;
+		}
+
+
+		public String getWSIVA1() {
+			return WSIVA1;
+		}
+
+
+		public void setWSIVA1(String wSIVA1) {
+			WSIVA1 = wSIVA1;
+		}
+
+
+		public String getWSIVA2() {
+			return WSIVA2;
+		}
+
+
+		public void setWSIVA2(String wSIVA2) {
+			WSIVA2 = wSIVA2;
+		}
+
+
+		public String getWSIVA3() {
+			return WSIVA3;
+		}
+
+
+		public void setWSIVA3(String wSIVA3) {
+			WSIVA3 = wSIVA3;
+		}
+
+
+		public String getWSIVA4() {
+			return WSIVA4;
+		}
+
+
+		public void setWSIVA4(String wSIVA4) {
+			WSIVA4 = wSIVA4;
+		}
+
+
+		public String getWSIVA5() {
+			return WSIVA5;
+		}
+
+
+		public void setWSIVA5(String wSIVA5) {
+			WSIVA5 = wSIVA5;
+		}
+
+
+		public String getWSIVA6() {
+			return WSIVA6;
+		}
+
+
+		public void setWSIVA6(String wSIVA6) {
+			WSIVA6 = wSIVA6;
+		}
+
+
+		public String getWSIVA7() {
+			return WSIVA7;
+		}
+
+
+		public void setWSIVA7(String wSIVA7) {
+			WSIVA7 = wSIVA7;
+		}
+
+
+		public String getSCICCA() {
+			return SCICCA;
+		}
+
+
+		public void setSCICCA(String sCICCA) {
+			SCICCA = sCICCA;
+		}
+
+
+		public String getSCICIN() {
+			return SCICIN;
+		}
+
+
+		public void setSCICIN(String sCICIN) {
+			SCICIN = sCICIN;
+		}
+
+
+		public String getSCISVI() {
+			return SCISVI;
+		}
+
+
+		public void setSCISVI(String sCISVI) {
+			SCISVI = sCISVI;
+		}
+
+
+		public String getTOPTUN() {
+			return TOPTUN;
+		}
+
+
+		public void setTOPTUN(String tOPTUN) {
+			TOPTUN = tOPTUN;
+		}
+
+
+		public String getWSIB() {
+			return WSIB;
+		}
+
+
+		public void setWSIB(String wSIB) {
+			WSIB = wSIB;
+		}
+
+
+		public String getSBIEN() {
+			return SBIEN;
+		}
+
+
+		public void setSBIEN(String sBIEN) {
+			SBIEN = sBIEN;
+		}
+
+
+		public String getWCAMP() {
+			return WCAMP;
+		}
+
+
+		public void setWCAMP(String wCAMP) {
+			WCAMP = wCAMP;
+		}
+
+
+		public String getWDEMP() {
+			return WDEMP;
+		}
+
+
+		public void setWDEMP(String wDEMP) {
+			WDEMP = wDEMP;
+		}
+
+
+		public String getNUMCRE() {
+			return NUMCRE;
+		}
+
+
+		public void setNUMCRE(String nUMCRE) {
+			NUMCRE = nUMCRE;
+		}
+
+
+		public String getSCNCUO() {
+			return SCNCUO;
+		}
+
+
+		public void setSCNCUO(String sCNCUO) {
+			SCNCUO = sCNCUO;
+		}
+
+
+		public String getMONEDA() {
+			return MONEDA;
+		}
+
+
+		public void setMONEDA(String mONEDA) {
+			MONEDA = mONEDA;
+		}
+
+
+		public String getSCTACR() {
+			return SCTACR;
+		}
+
+
+		public void setSCTACR(String sCTACR) {
+			SCTACR = sCTACR;
+		}
+
+
+		public String getSCIMAM() {
+			return SCIMAM;
+		}
+
+
+		public void setSCIMAM(String sCIMAM) {
+			SCIMAM = sCIMAM;
+		}
+
+
+		public String getSCIMBA() {
+			return SCIMBA;
+		}
+
+
+		public void setSCIMBA(String sCIMBA) {
+			SCIMBA = sCIMBA;
+		}
+
+
+		public String getSCICAJ() {
+			return SCICAJ;
+		}
+
+
+		public void setSCICAJ(String sCICAJ) {
+			SCICAJ = sCICAJ;
+		}
+
+
+		public String getSCIISE() {
+			return SCIISE;
+		}
+
+
+		public void setSCIISE(String sCIISE) {
+			SCIISE = sCIISE;
+		}
+
+
+		public String getTOTPUN() {
+			return TOTPUN;
+		}
+
+
+		public void setTOTPUN(String tOTPUN) {
+			TOTPUN = tOTPUN;
+		}
+
+
+		public String getFECVTO() {
+			return FECVTO;
+		}
+
+
+		public void setFECVTO(String fECVTO) {
+			FECVTO = fECVTO;
+		}
+
+
+		public String getFECPAG() {
+			return FECPAG;
+		}
+
+
+		public void setFECPAG(String fECPAG) {
+			FECPAG = fECPAG;
+		}
+
+
+		public String getFECREV() {
+			return FECREV;
+		}
+
+
+		public void setFECREV(String fECREV) {
+			FECREV = fECREV;
+		}
+
+
+		public String getSCBANC() {
+			return SCBANC;
+		}
+
+
+		public void setSCBANC(String sCBANC) {
+			SCBANC = sCBANC;
+		}
+	
 		
 		
 		
