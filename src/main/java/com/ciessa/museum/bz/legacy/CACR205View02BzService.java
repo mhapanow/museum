@@ -30,6 +30,7 @@ import com.ciessa.museum.model.legacy.Grmcda;
 import com.ciessa.museum.model.legacy.Grmida;
 import com.ciessa.museum.model.legacy.Grmria;
 import com.ciessa.museum.tools.CollectionFactory;
+import com.ciessa.museum.tools.Range;
 
 public class CACR205View02BzService extends RestBaseServerResource{
 
@@ -87,6 +88,10 @@ public class CACR205View02BzService extends RestBaseServerResource{
 			wsacct = obtainStringValue("wsacct", null);
 			clave = obtainStringValue("clave", null);
 			
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
+			
 			String rpta = SubRutVal(ds);
 			if (!rpta.equals(""))
 			{
@@ -95,7 +100,7 @@ public class CACR205View02BzService extends RestBaseServerResource{
 			}
 			if (rpta.equals(""))
 			{
-				rpta = SubRutCarsf1(ds);
+				rpta = SubRutCarsf1(ds, range);
 				if (!rpta.equals(""))
 				{
 					log.log(Level.SEVERE, rpta, new Exception());
@@ -196,9 +201,9 @@ public class CACR205View02BzService extends RestBaseServerResource{
 		return "";
 	}
 	
-	private String SubRutCarsf1(DataSet ds) {
+	private String SubRutCarsf1(DataSet ds, Range range) {
 		try {
-			listCacphst = myDaoCacphst.getUsingHiacctAndClave(ds, wsacct, clave);
+			listCacphst = myDaoCacphst.getUsingHiacctAndClave(ds, wsacct, clave, range);
 			for( Cacphst o : listCacphst ) {
 				//if (clave.equals(o.getHiacct().toString() + o.getHitodf().toString() + o.getHidate().toString() + o.getHitie().toString() + o.getHifsel())){
 					adapted = new CARC205Adapter();

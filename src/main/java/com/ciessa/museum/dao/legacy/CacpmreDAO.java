@@ -15,7 +15,7 @@ import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Cacpmre;
-
+import com.ciessa.museum.tools.Range;
 
 public class CacpmreDAO {
 
@@ -57,7 +57,7 @@ public class CacpmreDAO {
 	} 
 	
 	public List<Cacpmre> getUsing(DataSet ds, String order,
-			Map<String, String> attributes) throws ASException {
+			Map<String, String> attributes, Range range) throws ASException {
 
 		SessionFactory factory = null;
 
@@ -81,6 +81,11 @@ public class CacpmreDAO {
 				sb.append(" ORDER BY MRDESC");
 			}
 			Query q = session.createQuery(sb.toString());
+			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
 			
 			@SuppressWarnings("unchecked")
 			List<Cacpmre> list = (List<Cacpmre>)q.list();

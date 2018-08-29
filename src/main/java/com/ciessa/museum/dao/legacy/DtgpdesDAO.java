@@ -1,5 +1,7 @@
 package com.ciessa.museum.dao.legacy;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -34,8 +36,8 @@ public class DtgpdesDAO {
 			Dtgpdes o = (Dtgpdes)q.uniqueResult();
 			
 			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(ctstco);
+				//tx.rollback();
+				//throw ASExceptionHelper.notFoundException(ctstco);
 			}
 			
 			session.evict(o);
@@ -92,7 +94,41 @@ public class DtgpdesDAO {
 			}
 		}
 
-	
+	public List<Dtgpdes> getUsingDscoca(DataSet ds, String dscoca) throws ASException {
+
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery(" from Dtgpdes where DSCOCA = :dscoca ");
+			q.setParameter("dscoca", dscoca);
+			
+			@SuppressWarnings("unchecked")
+			List<Dtgpdes> list = (List<Dtgpdes>)q.list();
+			
+			for(Dtgpdes o : list) {
+				session.evict(o);
+			}
+			tx.commit();
+			
+			return list;			
+				
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+			}
+		}
 	
 
 }

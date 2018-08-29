@@ -34,6 +34,7 @@ import com.ciessa.museum.model.legacy.Grmcda;
 import com.ciessa.museum.model.legacy.Grmida;
 import com.ciessa.museum.model.legacy.Grmria;
 import com.ciessa.museum.tools.CollectionFactory;
+import com.ciessa.museum.tools.Range;
 
 public class CACR210View02BzService extends RestBaseServerResource {
 
@@ -101,6 +102,10 @@ public static final Logger log = Logger.getLogger(CACR210View01BzService.class.g
 			wsacct = obtainStringValue("wsacct", null);
 			clave = obtainStringValue("clave", null);
 			
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
+			
 			if (wsacct == null || clave == null) {
 				log.log(Level.SEVERE, "Parametros incorrectos", new Exception());
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException("Parametros incorrectos", new Exception())).toString();
@@ -127,7 +132,7 @@ public static final Logger log = Logger.getLogger(CACR210View01BzService.class.g
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
 			}
 			*/
-			rpta = SubRutCarsf1(ds);
+			rpta = SubRutCarsf1(ds, range);
 			
 			// retrieve all elements
 			Map<String,String> attributes = CollectionFactory.createMap();
@@ -244,13 +249,13 @@ public static final Logger log = Logger.getLogger(CACR210View01BzService.class.g
 		return "";
 	}
 	
-	private String SubRutCarsf1(DataSet ds) {
+	private String SubRutCarsf1(DataSet ds, Range range) {
 		try {
 			List<Cacphst> list = new ArrayList<Cacphst>();
 			//SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			//String fechaComoCadena = sdf.format(ssfsel);
 			//list = myDaoCacphst.getUsingKey(ds, Integer.parseInt(fechaComoCadena), Integer.parseInt(ssbrch), Integer.parseInt(ssmrec), ssresu);
-			list = myDaoCacphst.getUsingHiacctAndClave(ds, wsacct, clave);
+			list = myDaoCacphst.getUsingHiacctAndClave(ds, wsacct, clave, range);
 			listAdapted = new ArrayList<CACR210Adapter>();
 			for( Cacphst obj : list ) {
 				adapted = new CACR210Adapter();

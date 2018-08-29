@@ -34,6 +34,10 @@
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Cuxrf1.hbm.xml"></mapping>
 		<mapping
+			resource="com/ciessa/museum/model/legacy/Dtgpdes.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Glc001.hbm.xml"></mapping>
+		<mapping
 			resource="com/ciessa/museum/model/legacy/Grmcda.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Grmida.hbm.xml"></mapping>
@@ -65,6 +69,8 @@
 			resource="com/ciessa/museum/model/legacy/Ccrpind.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Ccrpscb.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccrpsce.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Ccrpsch.hbm.xml"></mapping>
 		<mapping

@@ -34,13 +34,10 @@ public class GrmriaDAO {
 			q.setParameter("wsacct", wsacct);
 			Grmria o = (Grmria)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				//throw ASExceptionHelper.notFoundException(wsacct);
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
-			
-			session.evict(o);
-			tx.commit();
 			
 			return o;
 		} catch (HibernateException e) {

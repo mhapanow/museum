@@ -14,12 +14,13 @@ import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Cacphst;
+import com.ciessa.museum.tools.Range;
 
 
 
 public class CacphstDAO {
 
-	public List<Cacphst> getUsingHiacct(DataSet ds, String wsacct) throws ASException {
+	public List<Cacphst> getUsingHiacct(DataSet ds, String wsacct, Range range) throws ASException {
 
 		SessionFactory factory = null;
 		try {
@@ -40,6 +41,11 @@ public class CacphstDAO {
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("wsacct", wsacct);
 			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
+			
 			@SuppressWarnings("unchecked")
 			List<Cacphst> list = (List<Cacphst>)q.list();
 			
@@ -58,7 +64,7 @@ public class CacphstDAO {
 		}
 	}
 	
-	public List<Cacphst> getUsingHiacctAndClave(DataSet ds, String wsacct, String clave) throws ASException {
+	public List<Cacphst> getUsingHiacctAndClave(DataSet ds, String wsacct, String clave, Range range) throws ASException {
 
 		SessionFactory factory = null;
 		try {
@@ -88,6 +94,11 @@ public class CacphstDAO {
 			q.setParameter("hitie", obj.getHitie());
 			q.setParameter("hifsel", obj.getHifsel());
 			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
+			
 			@SuppressWarnings("unchecked")
 			List<Cacphst> list = (List<Cacphst>)q.list();
 			
@@ -106,7 +117,7 @@ public class CacphstDAO {
 		}
 	}
 	
-	public List<Cacphst> getUsingOrderHifsel(DataSet ds) throws ASException {
+	public List<Cacphst> getUsingOrderHifsel(DataSet ds, Range range) throws ASException {
 
 		SessionFactory factory = null;
 		try {
@@ -124,6 +135,11 @@ public class CacphstDAO {
 			StringBuffer sb = new StringBuffer();
 			sb.append("select hifsel, hitreg, hifunc from Cacphst group by hifsel, hitreg, hifunc order by hifsel desc ");
 			Query q = session.createQuery(sb.toString());
+			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
 			
 			List<Cacphst> list = null;
 			Cacphst item = null;
@@ -198,7 +214,7 @@ public class CacphstDAO {
 		}
 	}
 	
-	public List<Cacphst> getUsingKey(DataSet ds, Integer Ssfsel, Integer Ssbrch, Integer Ssmrec, String Ssresu,String order) throws ASException {
+	public List<Cacphst> getUsingKey(DataSet ds, Integer Ssfsel, Integer Ssbrch, Integer Ssmrec, String Ssresu,String order, Range range) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -225,6 +241,12 @@ public class CacphstDAO {
 			Query q = session.createQuery(queryStr);
 			q.setParameter("ssresu", Ssresu);
 			q.setParameter("ssfsel", Ssfsel);
+			
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
+			}
+			
 			@SuppressWarnings("unchecked")
 			List<Cacphst> list = (List<Cacphst>)q.list();
 			

@@ -68,7 +68,7 @@ public static final Logger log = Logger.getLogger(CCRR1948View01BzService.class.
 	String dinucr = null;
 	String dincuo = null;
 	String dimodo = null;
-	BigDecimal ditota = null;
+	BigDecimal ditota = new BigDecimal(0);
 	String didmon = null;
 	
 	//Variables _Globales OUTPUT
@@ -79,70 +79,70 @@ public static final Logger log = Logger.getLogger(CCRR1948View01BzService.class.
 	String p1mone = null;
 	
 	// Variable _Globales _CCRPCAP
-	private BigDecimal p1carp;
-	private BigDecimal p1i8ca;
-	private BigDecimal p1i8gp;
-	private BigDecimal p1i8ip;
-	private BigDecimal p1i8op;
-	private BigDecimal p1i8pp;
-	private BigDecimal p1i8sp;
-	private BigDecimal p1i8sv;
-	private BigDecimal p1i9ca;
-	private BigDecimal p1i9gp;
-	private BigDecimal p1i9ip;
-	private BigDecimal p1i9op;
-	private BigDecimal p1i9pp;
-	private BigDecimal p1i9sp;
-	private BigDecimal p1i9sv;
-	private BigDecimal p1icap;
-	private BigDecimal p1iccp;
-	private BigDecimal p1icip;
-	private BigDecimal p1iicp;
-	private BigDecimal p1iipp;
-	private BigDecimal p1iisp;
-	private BigDecimal p1imap;
-	private BigDecimal p1imbp;
-	private BigDecimal p1isap;
-	private BigDecimal p1isvp;
-	private BigDecimal p1iva1;
-	private BigDecimal p1iva2;
-	private BigDecimal p1iva3;
-	private BigDecimal p1iva5;
-	private BigDecimal p1iva6;
-	private BigDecimal p1iva7;
-	private BigDecimal p1iva8;
+	private BigDecimal p1carp = new BigDecimal(0);
+	private BigDecimal p1i8ca = new BigDecimal(0);
+	private BigDecimal p1i8gp = new BigDecimal(0);
+	private BigDecimal p1i8ip = new BigDecimal(0);
+	private BigDecimal p1i8op = new BigDecimal(0);
+	private BigDecimal p1i8pp = new BigDecimal(0);
+	private BigDecimal p1i8sp = new BigDecimal(0);
+	private BigDecimal p1i8sv = new BigDecimal(0);
+	private BigDecimal p1i9ca = new BigDecimal(0);
+	private BigDecimal p1i9gp = new BigDecimal(0);
+	private BigDecimal p1i9ip = new BigDecimal(0);
+	private BigDecimal p1i9op = new BigDecimal(0);
+	private BigDecimal p1i9pp = new BigDecimal(0);
+	private BigDecimal p1i9sp = new BigDecimal(0);
+	private BigDecimal p1i9sv = new BigDecimal(0);
+	private BigDecimal p1icap = new BigDecimal(0);
+	private BigDecimal p1iccp = new BigDecimal(0);
+	private BigDecimal p1icip = new BigDecimal(0);
+	private BigDecimal p1iicp = new BigDecimal(0);
+	private BigDecimal p1iipp = new BigDecimal(0);
+	private BigDecimal p1iisp = new BigDecimal(0);
+	private BigDecimal p1imap = new BigDecimal(0);
+	private BigDecimal p1imbp = new BigDecimal(0);
+	private BigDecimal p1isap = new BigDecimal(0);
+	private BigDecimal p1isvp = new BigDecimal(0);
+	private BigDecimal p1iva1 = new BigDecimal(0);
+	private BigDecimal p1iva2 = new BigDecimal(0);
+	private BigDecimal p1iva3 = new BigDecimal(0);
+	private BigDecimal p1iva5 = new BigDecimal(0);
+	private BigDecimal p1iva6 = new BigDecimal(0);
+	private BigDecimal p1iva7 = new BigDecimal(0);
+	private BigDecimal p1iva8 = new BigDecimal(0);
 	
-	private BigDecimal p1ibp;
-	private BigDecimal p1i8ib;
-	private BigDecimal p1i9ib;
-	private BigDecimal p1iva4;
-	private BigDecimal p1tpag;
-	private BigDecimal p1tdeu;
-	private BigDecimal parout;
+	private BigDecimal p1ibp = new BigDecimal(0);
+	private BigDecimal p1i8ib = new BigDecimal(0);
+	private BigDecimal p1i9ib = new BigDecimal(0);
+	private BigDecimal p1iva4 = new BigDecimal(0);
+	private BigDecimal p1tpag = new BigDecimal(0);
+	private BigDecimal p1tdeu = new BigDecimal(0);
+	private BigDecimal parout = new BigDecimal(0);
 	
 	//Variables otro cai8vp + cai9vp
-	private BigDecimal _cai8vp;
-	private BigDecimal _cai9vp;	
+	private BigDecimal _cai8vp = new BigDecimal(0);
+	private BigDecimal _cai9vp = new BigDecimal(0);
 
 	// Variables _Globles _ObjetoCCRRCUOT
 	private String abanc;
 	private String anucr;
 	private String ancuo;
-	private Integer asbnc;
-	private Integer accon;
+	private Integer asbnc = 0;
+	private Integer accon = 0;
 	private String aschb;
-	private BigDecimal aimpor;
-	private BigDecimal aimpo8;
-	private BigDecimal aimpo9;
-	private BigDecimal aalicu;
+	private BigDecimal aimpor = new BigDecimal(0);
+	private BigDecimal aimpo8 = new BigDecimal(0);
+	private BigDecimal aimpo9 = new BigDecimal(0);
+	private BigDecimal aalicu = new BigDecimal(0);
 	private String atipp;
-	private Integer anmov;
+	private Integer anmov = 0;
 	
-	private Integer nnparm;
+	private Integer nnparm = 0;
 	
-	private BigDecimal aaimpo;
-	private BigDecimal aaimp8;
-	private BigDecimal aaimp9;
+	private BigDecimal aaimpo = new BigDecimal(0);
+	private BigDecimal aaimp8 = new BigDecimal(0);
+	private BigDecimal aaimp9 = new BigDecimal(0);
 	
 	List<Ccrpcap> listCcrpcap = null;
 	List<Ccrpcar> listCcrpcar = null; 

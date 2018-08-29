@@ -12,11 +12,12 @@ import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Ccrpsch;
+import com.ciessa.museum.tools.Range;
 
 
 public class CcrpschDAO {
 
-	public Ccrpsch getUsingCrnucr(DataSet ds, String crnucr) throws ASException	{
+	public List<Ccrpsch> getUsingCrnucr(DataSet ds, String crnucr, Range range) throws ASException	{
 		SessionFactory factory = null;
 		
 		try {
@@ -30,17 +31,21 @@ public class CcrpschDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Ccrpsch Where scbanc = 1 and scnucr = :crnucr ");
+			Query q = session.createQuery(" from Ccrpsch Where scbanc = 1 and scnucr = :crnucr ORDER BY scncuo");
 			q.setParameter("crnucr", crnucr);
-			Ccrpsch o = (Ccrpsch)q.uniqueResult();
-			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+
+			if( range != null ) {
+				q.setFirstResult(range.getFrom());
+				q.setMaxResults(range.getTo() - range.getFrom());
 			}
-			session.evict(o);
+			@SuppressWarnings("unchecked")
+			List<Ccrpsch> list = (List<Ccrpsch>)q.list();
+			for( Ccrpsch o : list ) {
+				session.evict(o);
+			}
+			
 			tx.commit();
-			return o;
+			return list;
 				
 		} catch (HibernateException e) {
 			if (tx != null)
@@ -52,7 +57,7 @@ public class CcrpschDAO {
 	} // fin public
 	
 
-	public Ccrpsch getUsingCrnucrAndScncuo (DataSet ds, String crnucr, int scncuo) throws ASException	{
+	public List<Ccrpsch> getUsingCrnucrAndScncuo (DataSet ds, String crnucr, int scncuo) throws ASException	{
 		SessionFactory factory = null;
 		
 		try {
@@ -69,15 +74,24 @@ public class CcrpschDAO {
 			Query q = session.createQuery(" from Ccrpsch Where scbanc = 1 and  scnucr = :crnucr and scncuo = :scncuo");
 			q.setParameter("crnucr", crnucr);
 			q.setParameter("scncuo", scncuo);
-			Ccrpsch o = (Ccrpsch)q.uniqueResult();
 			
+			/*
+			Ccrpsch o = (Ccrpsch)q.uniqueResult();
 			if( o == null ) {
 				tx.rollback();
 				throw ASExceptionHelper.notFoundException();
 			}
 			session.evict(o);
+			*/
+			
+			@SuppressWarnings("unchecked")
+			List<Ccrpsch> list = (List<Ccrpsch>)q.list();
+			for( Ccrpsch o : list ) {
+				session.evict(o);
+			}
+			
 			tx.commit();
-			return o;
+			return list;
 				
 		} catch (HibernateException e) {
 			if (tx != null)

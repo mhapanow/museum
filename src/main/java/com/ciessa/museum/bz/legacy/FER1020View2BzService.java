@@ -28,6 +28,7 @@ import com.ciessa.museum.model.legacy.Altnam;
 import com.ciessa.museum.model.legacy.Saldom;
 import com.ciessa.museum.model.legacy.Tap002;
 import com.ciessa.museum.model.legacy.Tap014;
+import com.ciessa.museum.tools.Range;
 
 public class FER1020View2BzService extends RestBaseServerResource{
 
@@ -52,6 +53,9 @@ public class FER1020View2BzService extends RestBaseServerResource{
 	Altnam altnam = new Altnam();
 	Saldom saldom = new Saldom();
 	Long wdias = new Long(0);
+	
+	Date fecjud = null;
+	Date fecjuh = null;
 
 	// Get the output fields
 	String[] fields = new String[] {
@@ -85,19 +89,22 @@ public class FER1020View2BzService extends RestBaseServerResource{
 			User user = this.getUserFromToken();
 			DataSet ds = dsDao.get(user.getDefaultDataSet());
 			
-			String wbas = obtainStringValue("wbas", null);
-			String wcta = obtainStringValue("wcta", null);
+			String wbas = obtainStringValue("wbas", "0");
+			String wcta = obtainStringValue("wcta", "0");
 			String waca = obtainStringValue("waca", null);
 			String wpto = obtainStringValue("wpto", null);
 			String wtod = obtainStringValue("wtod", null);
-			String wvigd = obtainStringValue("wvigd", null);
-			String wvigh = obtainStringValue("wvigh", null);
+			String wvigd = obtainStringValue("wvigd", "0");
+			String wvigh = obtainStringValue("wvigh", "0");
 			double wimp = obtainDoubleValue("wimp",0d);
 			
-			Date fecjud = null;
-			Date fecjuh = null;
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
 			
-			String rpta = SubRut001(ds, wcta, wbas, wvigd, wvigh, wtod, fecjud, fecjuh);
+			
+			
+			String rpta = SubRut001(ds, wcta, wbas, wvigd, wvigh, wtod);
 			if (!rpta.equals(""))
 			{
 				log.log(Level.SEVERE, rpta, new Exception());
@@ -105,14 +112,16 @@ public class FER1020View2BzService extends RestBaseServerResource{
 			}
 			else
 			{
-				ArrayList<Tap014> lstTap014 = SubRut007(ds, wcta, wbas, waca, wpto, wtod, fecjud, fecjuh, wimp);
+				ArrayList<Tap014> lstTap014 = SubRut007(ds, wcta, wbas, waca, wpto, wtod, fecjud, fecjuh, wimp, range);
 
 				// Obtains the user JSON representation
 				Fer1020Adapter adapter = new Fer1020Adapter(tap002, altnam, saldom, wdias);
 				ArrayList<Fer1020SFLAdapter> sflAdapter = new ArrayList<FER1020View2BzService.Fer1020SFLAdapter>();
-				for( Tap014 obj : lstTap014) {
-					sflAdapter.add(new Fer1020SFLAdapter(obj));
-				}
+				if (lstTap014 != null) {
+					for( Tap014 obj : lstTap014) {
+						sflAdapter.add(new Fer1020SFLAdapter(obj));
+					}
+				}				
 				
 				returnValue = getJSONRepresentationFromObject(adapter, fields);
 				returnValue.put("data", getJSONRepresentationFromArrayOfObjects(sflAdapter, arrayFields).get("data"));
@@ -135,7 +144,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 		return returnValue.toString();
 	}
 	
-	private String SubRut001(DataSet ds, String wcta, String wbas, String wvigd, String wvigh, String wtod, Date fecjud, Date fecjuh) throws ParseException {
+	private String SubRut001(DataSet ds, String wcta, String wbas, String wvigd, String wvigh, String wtod) throws ParseException {
 		try {
 			if (wcta != null && wbas != null) {				
 				if ((Integer.parseInt(wbas) == 0 && Integer.parseInt(wcta) == 0) || (Integer.parseInt(wbas) > 0 && Integer.parseInt(wcta) > 0)){
@@ -146,21 +155,18 @@ public class FER1020View2BzService extends RestBaseServerResource{
 				Tap002 obj = myDaoTap002.getUsingWcta(ds, wcta);
 				if (obj == null)
 					return "Cuenta Inexistente";
-				else
-					return "";
 			}
 			if (Integer.parseInt(wbas) > 0) {
 				Tap002 obj = myDaoTap002.getUsingWbas(ds, wbas);
 				if (obj == null)
 					return "Numero de Base Inexistente";
-				else
-					return "";
 			}
 			if (Integer.parseInt(wvigd) > 0) {
 				if (wtod == "X")
 					return "Parametros Incorrectos";
 				else {
-					fecjud = format.parse(wvigd);
+					//fecjud = format.parse(wvigd);
+					fecjud = new SimpleDateFormat("ddMMyyyy").parse(wvigd.toString());
 				}
 			}
 			if (Integer.parseInt(wvigh) > 0) {
@@ -168,7 +174,8 @@ public class FER1020View2BzService extends RestBaseServerResource{
 					return "Parametros Incorrectos";
 				else
 				{
-					fecjuh = format.parse(wvigh);
+					// fecjuh = format.parse(wvigh);
+					fecjuh = new SimpleDateFormat("ddMMyyyy").parse(wvigh.toString());
 				}
 			}
 		
@@ -178,7 +185,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 		return "";
 	}
 	
-	private ArrayList<Tap014> SubRut007(DataSet ds, String wcta, String wbas, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp) throws ParseException, ASException {
+	private ArrayList<Tap014> SubRut007(DataSet ds, String wcta, String wbas, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp, Range range) throws ParseException, ASException {
 		Date dexaca;
 		tap002 = myDaoTap002.getUsingWcta(ds, wcta);
 		altnam = myDaoAltnam.getUsingWcta(ds, wcta);
@@ -201,17 +208,17 @@ public class FER1020View2BzService extends RestBaseServerResource{
 		else
 			wdias = (long)0;
 		//
-		ArrayList<Tap014> lstTap014 = SubRut006(ds, wcta, wbas, waca, wpto, wtod, fecjud, fecjuh, wimp);
+		ArrayList<Tap014> lstTap014 = SubRut006(ds, wcta, wbas, waca, wpto, wtod, fecjud, fecjuh, wimp, range);
 		return lstTap014;
 	}
 	
-	private ArrayList<Tap014> SubRut006(DataSet ds, String wcta, String wbas, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp) {
+	private ArrayList<Tap014> SubRut006(DataSet ds, String wcta, String wbas, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp, Range range) {
 		ArrayList<Tap014> lstTap014 = null;
 		try {
-			if (StringUtils.hasText(wcta))
-				lstTap014 = myDaoTap014.getUsingWcta(ds, wcta, waca, wpto, wtod, fecjud, fecjuh, wimp);
-			if (StringUtils.hasText(wbas))
-				lstTap014 = myDaoTap014.getUsingWbas(ds, wbas, waca, wpto, wtod, fecjud, fecjuh, wimp);
+			if (Integer.parseInt(wcta) > 0)
+				lstTap014 = myDaoTap014.getUsingWcta(ds, wcta, waca, wpto, wtod, fecjud, fecjuh, wimp, range);
+			if (Integer.parseInt(wbas) > 0)
+				lstTap014 = myDaoTap014.getUsingWbas(ds, wbas, waca, wpto, wtod, fecjud, fecjuh, wimp, range);
 			return lstTap014;
 		}catch (ASException e) {
 			return null;
