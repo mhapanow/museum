@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 28, 2018 8:41:46 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Tgpp632" table="TGPP632" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="ceelem" type="java.lang.Integer">
+            <column name="CEELEM" />
+        </property>
+        <property name="ceintv" type="java.lang.Integer">
+            <column name="CEINTV" />
+        </property>
+        <property name="celudt" type="java.lang.Integer">
+            <column name="CELUDT" />
+        </property>
+        <property name="cetlup" type="java.lang.Integer">
+            <column name="CETLUP" />
+        </property>
+        <property name="ceolud" type="java.lang.Integer">
+            <column name="CEOLUD" />
+        </property>
+        <property name="cewlud" type="string">
+            <column name="CEWLUD" length="10" />
+        </property>
+        <property name="ceflst" type="java.lang.Integer">
+            <column name="CEFLST" />
+        </property>
+        <property name="cecode" type="string">
+            <column name="CECODE" length="5" />
+        </property>
+        <property name="celtxt" type="string">
+            <column name="CELTXT" length="16" />
+        </property>
+        <property name="cestxt" type="string">
+            <column name="CESTXT" length="8" />
+        </property>
+        <property name="cey2id" type="java.lang.Integer">
+            <column name="CEY2ID" />
+        </property>
+        <property name="cey2ty" type="string">
+            <column name="CEY2TY" length="3" />
+        </property>
+        <property name="cey2tx" type="string">
+            <column name="CEY2TX" length="50" />
+        </property>
+        <property name="cey2ev" type="string">
+            <column name="CEY2EV" length="25" />
+        </property>
+        <property name="cey2iv" type="string">
+            <column name="CEY2IV" length="25" />
+        </property>
+        <property name="cey2um" type="string">
+            <column name="CEY2UM" length="1" />
+        </property>
+        <property name="cey2vm" type="string">
+            <column name="CEY2VM" length="1" />
+        </property>
+        <property name="cegpsg" type="java.lang.Integer">
+            <column name="CEGPSG" />
+        </property>
+        <property name="cecpsg" type="java.lang.Integer">
+            <column name="CECPSG" />
+        </property>
+        <property name="ceessg" type="java.lang.Integer">
+            <column name="CEESSG" />
+        </property>
+    </class>
+</hibernate-mapping>

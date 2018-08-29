@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 28, 2018 8:41:46 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrspmlr" table="ZRSPMLR" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="mlyfac" type="java.lang.Integer">
+            <column name="MLYFAC" />
+        </property>
+        <property name="mlaafc" type="java.lang.Integer">
+            <column name="MLAAFC" />
+        </property>
+        <property name="mlcifa" type="string">
+            <column name="MLCIFA" length="2" />
+        </property>
+        <property name="mlagig" type="string">
+            <column name="MLAGIG" length="2" />
+        </property>
+        <property name="mlorg" type="java.lang.Integer">
+            <column name="MLORG" />
+        </property>
+        <property name="mllogo" type="java.lang.Integer">
+            <column name="MLLOGO" />
+        </property>
+        <property name="mlncct" type="string">
+            <column name="MLNCCT" length="19" />
+        </property>
+        <property name="mlncrd" type="string">
+            <column name="MLNCRD" length="19" />
+        </property>
+        <property name="mlcori" type="java.lang.Integer">
+            <column name="MLCORI" />
+        </property>
+        <property name="mlcmov" type="java.lang.Integer">
+            <column name="MLCMOV" />
+        </property>
+        <property name="mlcsmv" type="java.lang.Integer">
+            <column name="MLCSMV" />
+        </property>
+        <property name="mlncab" type="string">
+            <column name="MLNCAB" length="18" />
+        </property>
+        <property name="mlnsem" type="java.lang.Integer">
+            <column name="MLNSEM" />
+        </property>
+        <property name="mlscli" type="java.lang.Long">
+            <column name="MLSCLI" />
+        </property>
+        <property name="mlcacl" type="string">
+            <column name="MLCACL" length="1" />
+        </property>
+        <property name="mlncup" type="java.lang.Integer">
+            <column name="MLNCUP" />
+        </property>
+        <property name="mlzoes" type="java.lang.Integer">
+            <column name="MLZOES" />
+        </property>
+        <property name="mlrues" type="java.lang.Integer">
+            <column name="MLRUES" />
+        </property>
+        <property name="mlcoes" type="java.lang.Integer">
+            <column name="MLCOES" />
+        </property>
+        <property name="mlsues" type="java.lang.Integer">
+            <column name="MLSUES" />
+        </property>
+        <property name="mlmoes" type="java.lang.Integer">
+            <column name="MLMOES" />
+        </property>
+        <property name="mlde40" type="string">
+            <column name="MLDE40" length="40" />
+        </property>
+        <property name="mlnrpr" type="java.lang.Integer">
+            <column name="MLNRPR" />
+        </property>
+        <property name="mlrube" type="java.lang.Integer">
+            <column name="MLRUBE" />
+        </property>
+        <property name="mlncaf" type="java.lang.Integer">
+            <column name="MLNCAF" />
+        </property>
+        <property name="mlcacu" type="java.lang.Integer">
+            <column name="MLCACU" />
+        </property>
+        <property name="mlncuo" type="java.lang.Integer">
+            <column name="MLNCUO" />
+        </property>
+        <property name="mlimpo" type="big_decimal">
+            <column name="MLIMPO" precision="11" />
+        </property>
+        <property name="mltefm" type="big_decimal">
+            <column name="MLTEFM" precision="5" />
+        </property>
+        <property name="mltnoa" type="big_decimal">
+            <column name="MLTNOA" precision="5" />
+        </property>
+        <property name="mlcrcp" type="big_decimal">
+            <column name="MLCRCP" precision="11" />
+        </property>
+        <property name="mlcrc1" type="big_decimal">
+            <column name="MLCRC1" precision="11" />
+        </property>
+        <property name="mlnlcc" type="java.lang.Integer">
+            <column name="MLNLCC" />
+        </property>
+        <property name="mlypre" type="java.lang.Integer">
+            <column name="MLYPRE" />
+        </property>
+        <property name="mlapre" type="java.lang.Integer">
+            <column name="MLAPRE" />
+        </property>
+        <property name="mlmpre" type="java.lang.Integer">
+            <column name="MLMPRE" />
+        </property>
+        <property name="mldpre" type="java.lang.Integer">
+            <column name="MLDPRE" />
+        </property>
+        <property name="mlymov" type="java.lang.Integer">
+            <column name="MLYMOV" />
+        </property>
+        <property name="mlamov" type="java.lang.Integer">
+            <column name="MLAMOV" />
+        </property>
+        <property name="mlmmov" type="java.lang.Integer">
+            <column name="MLMMOV" />
+        </property>
+        <property name="mldmov" type="java.lang.Integer">
+            <column name="MLDMOV" />
+        </property>
+        <property name="mlccpm" type="java.lang.Integer">
+            <column name="MLCCPM" />
+        </property>
+        <property name="mlaapm" type="java.lang.Integer">
+            <column name="MLAAPM" />
+        </property>
+        <property name="mlmapm" type="java.lang.Integer">
+            <column name="MLMAPM" />
+        </property>
+        <property name="mldapm" type="java.lang.Integer">
+            <column name="MLDAPM" />
+        </property>
+        <property name="mlcaut" type="string">
+            <column name="MLCAUT" length="4" />
+        </property>
+        <property name="mlubir" type="string">
+            <column name="MLUBIR" length="2" />
+        </property>
+        <property name="mlmini" type="string">
+            <column name="MLMINI" length="1" />
+        </property>
+        <property name="mlfact" type="java.lang.Integer">
+            <column name="MLFACT" />
+        </property>
+        <property name="mlhact" type="java.lang.Integer">
+            <column name="MLHACT" />
+        </property>
+        <property name="mlcope" type="string">
+            <column name="MLCOPE" length="10" />
+        </property>
+        <property name="mlrefc" type="string">
+            <column name="MLREFC" length="30" />
+        </property>
+        <property name="mlxtrf" type="string">
+            <column name="MLXTRF" length="23" />
+        </property>
+        <property name="mldcod" type="string">
+            <column name="MLDCOD" length="40" />
+        </property>
+        <property name="mlpcyn" type="string">
+            <column name="MLPCYN" length="8" />
+        </property>
+        <property name="mlaend" type="string">
+            <column name="MLAEND" length="3" />
+        </property>
+        <property name="mlccyc" type="java.lang.Integer">
+            <column name="MLCCYC" />
+        </property>
+        <property name="mlxtr1" type="string">
+            <column name="MLXTR1" length="23" />
+        </property>
+        <property name="mlctrs" type="string">
+            <column name="MLCTRS" length="3" />
+        </property>
+        <property name="mlecsl" type="java.lang.Integer">
+            <column name="MLECSL" />
+        </property>
+        <property name="mlnpla" type="java.lang.Integer">
+            <column name="MLNPLA" />
+        </property>
+        <property name="mlprmi" type="string">
+            <column name="MLPRMI" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 28, 2018 8:41:46 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrspdmr" table="ZRSPDMR" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="drcmon" type="string">
+            <column name="DRCMON" length="3" />
+        </property>
+        <property name="drctrs" type="string">
+            <column name="DRCTRS" length="3" />
+        </property>
+        <property name="drecsl" type="java.lang.Integer">
+            <column name="DRECSL" />
+        </property>
+        <property name="drnpla" type="java.lang.Integer">
+            <column name="DRNPLA" />
+        </property>
+        <property name="drprmi" type="string">
+            <column name="DRPRMI" length="2" />
+        </property>
+        <property name="drcori" type="java.lang.Integer">
+            <column name="DRCORI" />
+        </property>
+        <property name="drcmov" type="java.lang.Integer">
+            <column name="DRCMOV" />
+        </property>
+        <property name="drcsmv" type="java.lang.Integer">
+            <column name="DRCSMV" />
+        </property>
+        <property name="drdesc" type="string">
+            <column name="DRDESC" length="30" />
+        </property>
+        <property name="drdimp" type="string">
+            <column name="DRDIMP" length="30" />
+        </property>
+        <property name="drmini" type="string">
+            <column name="DRMINI" length="1" />
+        </property>
+        <property name="drubir" type="string">
+            <column name="DRUBIR" length="2" />
+        </property>
+        <property name="drclmo" type="java.lang.Integer">
+            <column name="DRCLMO" />
+        </property>
+        <property name="drmmdt" type="string">
+            <column name="DRMMDT" length="1" />
+        </property>
+        <property name="drmmrr" type="string">
+            <column name="DRMMRR" length="1" />
+        </property>
+        <property name="drrega" type="java.lang.Integer">
+            <column name="DRREGA" />
+        </property>
+        <property name="drregi" type="java.lang.Integer">
+            <column name="DRREGI" />
+        </property>
+        <property name="drfact" type="java.lang.Integer">
+            <column name="DRFACT" />
+        </property>
+        <property name="drhact" type="java.lang.Integer">
+            <column name="DRHACT" />
+        </property>
+        <property name="drcope" type="string">
+            <column name="DRCOPE" length="10" />
+        </property>
+        <property name="drcidw" type="string">
+            <column name="DRCIDW" length="7" />
+        </property>
+        <property name="drcmty" type="string">
+            <column name="DRCMTY" length="1" />
+        </property>
+        <property name="drfile" type="string">
+            <column name="DRFILE" length="1" />
+        </property>
+        <property name="drpryn" type="string">
+            <column name="DRPRYN" length="1" />
+        </property>
+        <property name="dracpf" type="string">
+            <column name="DRACPF" length="3" />
+        </property>
+        <property name="drdsfc" type="string">
+            <column name="DRDSFC" length="40" />
+        </property>
+        <property name="drmgrv" type="string">
+            <column name="DRMGRV" length="1" />
+        </property>
+        <property name="drfamg" type="java.lang.Integer">
+            <column name="DRFAMG" />
+        </property>
+        <property name="droamg" type="string">
+            <column name="DROAMG" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

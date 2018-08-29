@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 28, 2018 8:41:46 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrsppir" table="ZRSPPIR" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="tiyfac" type="java.lang.Integer">
+            <column name="TIYFAC" />
+        </property>
+        <property name="tiaafc" type="java.lang.Integer">
+            <column name="TIAAFC" />
+        </property>
+        <property name="ticifa" type="string">
+            <column name="TICIFA" length="2" />
+        </property>
+        <property name="tiagig" type="string">
+            <column name="TIAGIG" length="2" />
+        </property>
+        <property name="tiorg" type="java.lang.Integer">
+            <column name="TIORG" />
+        </property>
+        <property name="tilogo" type="java.lang.Integer">
+            <column name="TILOGO" />
+        </property>
+        <property name="tincct" type="string">
+            <column name="TINCCT" length="19" />
+        </property>
+        <property name="tincrd" type="string">
+            <column name="TINCRD" length="19" />
+        </property>
+        <property name="tiptnr" type="java.lang.Integer">
+            <column name="TIPTNR" />
+        </property>
+        <property name="tincax" type="java.lang.Integer">
+            <column name="TINCAX" />
+        </property>
+        <property name="tiscax" type="java.lang.Integer">
+            <column name="TISCAX" />
+        </property>
+        <property name="tinsem" type="java.lang.Integer">
+            <column name="TINSEM" />
+        </property>
+        <property name="tiavto" type="java.lang.Integer">
+            <column name="TIAVTO" />
+        </property>
+        <property name="timvto" type="java.lang.Integer">
+            <column name="TIMVTO" />
+        </property>
+        <property name="tidvto" type="java.lang.Integer">
+            <column name="TIDVTO" />
+        </property>
+        <property name="titcco" type="java.lang.Integer">
+            <column name="TITCCO" />
+        </property>
+        <property name="ticlco" type="java.lang.Integer">
+            <column name="TICLCO" />
+        </property>
+        <property name="ticcnr" type="java.lang.Integer">
+            <column name="TICCNR" />
+        </property>
+        <property name="ticacl" type="string">
+            <column name="TICACL" length="1" />
+        </property>
+        <property name="tiscli" type="java.lang.Long">
+            <column name="TISCLI" />
+        </property>
+        <property name="ticori" type="java.lang.Integer">
+            <column name="TICORI" />
+        </property>
+        <property name="ticmov" type="java.lang.Integer">
+            <column name="TICMOV" />
+        </property>
+        <property name="ticsmv" type="java.lang.Integer">
+            <column name="TICSMV" />
+        </property>
+        <property name="ticpag" type="java.lang.Integer">
+            <column name="TICPAG" />
+        </property>
+        <property name="tiapag" type="java.lang.Integer">
+            <column name="TIAPAG" />
+        </property>
+        <property name="timpag" type="java.lang.Integer">
+            <column name="TIMPAG" />
+        </property>
+        <property name="tidpag" type="java.lang.Integer">
+            <column name="TIDPAG" />
+        </property>
+        <property name="ticrcc" type="java.lang.Integer">
+            <column name="TICRCC" />
+        </property>
+        <property name="ticraa" type="java.lang.Integer">
+            <column name="TICRAA" />
+        </property>
+        <property name="ticrmm" type="java.lang.Integer">
+            <column name="TICRMM" />
+        </property>
+        <property name="ticrdd" type="java.lang.Integer">
+            <column name="TICRDD" />
+        </property>
+        <property name="tiimpo" type="big_decimal">
+            <column name="TIIMPO" precision="11" />
+        </property>
+        <property name="ticoti" type="big_decimal">
+            <column name="TICOTI" precision="9" scale="3" />
+        </property>
+        <property name="tiubir" type="string">
+            <column name="TIUBIR" length="2" />
+        </property>
+        <property name="timini" type="string">
+            <column name="TIMINI" length="1" />
+        </property>
+        <property name="tifact" type="java.lang.Integer">
+            <column name="TIFACT" />
+        </property>
+        <property name="tihact" type="java.lang.Integer">
+            <column name="TIHACT" />
+        </property>
+        <property name="ticope" type="string">
+            <column name="TICOPE" length="10" />
+        </property>
+        <property name="tibonr" type="java.lang.Integer">
+            <column name="TIBONR" />
+        </property>
+        <property name="tinrtr" type="java.lang.Integer">
+            <column name="TINRTR" />
+        </property>
+        <property name="titetr" type="string">
+            <column name="TITETR" length="16" />
+        </property>
+        <property name="tiapdt" type="java.lang.Integer">
+            <column name="TIAPDT" />
+        </property>
+        <property name="tiadtm" type="java.lang.Integer">
+            <column name="TIADTM" />
+        </property>
+        <property name="tixtrf" type="string">
+            <column name="TIXTRF" length="23" />
+        </property>
+        <property name="ticcyc" type="java.lang.Integer">
+            <column name="TICCYC" />
+        </property>
+        <property name="tide40" type="string">
+            <column name="TIDE40" length="40" />
+        </property>
+        <property name="tictrs" type="string">
+            <column name="TICTRS" length="3" />
+        </property>
+        <property name="tiecsl" type="java.lang.Integer">
+            <column name="TIECSL" />
+        </property>
+        <property name="tinpla" type="java.lang.Integer">
+            <column name="TINPLA" />
+        </property>
+        <property name="tiprmi" type="string">
+            <column name="TIPRMI" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -16,7 +16,7 @@
 		class="com.ciessa.museum.model.SystemConfiguration" scope="singleton">
 		<property name="authTokenValidityInDays" value="2" />
 		<property name="defaultFromRange" value="0" />
-		<property name="defaultToRange" value="25" />
+		<property name="defaultToRange" value="99999" />
 	</bean>
 
 	<bean id="system.auth.helper"

@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 28, 2018 8:41:46 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrspilr" table="ZRSPILR" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="ilyfac" type="java.lang.Integer">
+            <column name="ILYFAC" />
+        </property>
+        <property name="ilaafc" type="java.lang.Integer">
+            <column name="ILAAFC" />
+        </property>
+        <property name="ilcifa" type="string">
+            <column name="ILCIFA" length="2" />
+        </property>
+        <property name="ilagig" type="string">
+            <column name="ILAGIG" length="2" />
+        </property>
+        <property name="ilorg" type="java.lang.Integer">
+            <column name="ILORG" />
+        </property>
+        <property name="illogo" type="java.lang.Integer">
+            <column name="ILLOGO" />
+        </property>
+        <property name="ilncct" type="string">
+            <column name="ILNCCT" length="19" />
+        </property>
+        <property name="ilncrd" type="string">
+            <column name="ILNCRD" length="19" />
+        </property>
+        <property name="ilptnr" type="java.lang.Integer">
+            <column name="ILPTNR" />
+        </property>
+        <property name="ilncax" type="java.lang.Integer">
+            <column name="ILNCAX" />
+        </property>
+        <property name="ilntal" type="string">
+            <column name="ILNTAL" length="3" />
+        </property>
+        <property name="ilcori" type="java.lang.Integer">
+            <column name="ILCORI" />
+        </property>
+        <property name="ilcmov" type="java.lang.Integer">
+            <column name="ILCMOV" />
+        </property>
+        <property name="ilcsmv" type="java.lang.Integer">
+            <column name="ILCSMV" />
+        </property>
+        <property name="ilnsem" type="java.lang.Integer">
+            <column name="ILNSEM" />
+        </property>
+        <property name="ilymov" type="java.lang.Integer">
+            <column name="ILYMOV" />
+        </property>
+        <property name="ilamov" type="java.lang.Integer">
+            <column name="ILAMOV" />
+        </property>
+        <property name="ilmmov" type="java.lang.Integer">
+            <column name="ILMMOV" />
+        </property>
+        <property name="ildmov" type="java.lang.Integer">
+            <column name="ILDMOV" />
+        </property>
+        <property name="ilcdin" type="java.lang.Integer">
+            <column name="ILCDIN" />
+        </property>
+        <property name="iladin" type="java.lang.Integer">
+            <column name="ILADIN" />
+        </property>
+        <property name="ilmdin" type="java.lang.Integer">
+            <column name="ILMDIN" />
+        </property>
+        <property name="ilddin" type="java.lang.Integer">
+            <column name="ILDDIN" />
+        </property>
+        <property name="ilchin" type="java.lang.Integer">
+            <column name="ILCHIN" />
+        </property>
+        <property name="ilahin" type="java.lang.Integer">
+            <column name="ILAHIN" />
+        </property>
+        <property name="ilmhin" type="java.lang.Integer">
+            <column name="ILMHIN" />
+        </property>
+        <property name="ildhin" type="java.lang.Integer">
+            <column name="ILDHIN" />
+        </property>
+        <property name="ilibci" type="big_decimal">
+            <column name="ILIBCI" precision="15" />
+        </property>
+        <property name="ildiin" type="java.lang.Integer">
+            <column name="ILDIIN" />
+        </property>
+        <property name="iltidd" type="big_decimal">
+            <column name="ILTIDD" precision="15" scale="7" />
+        </property>
+        <property name="iltidh" type="big_decimal">
+            <column name="ILTIDH" precision="15" scale="7" />
+        </property>
+        <property name="iltipr" type="big_decimal">
+            <column name="ILTIPR" precision="15" scale="7" />
+        </property>
+        <property name="ilicpm" type="big_decimal">
+            <column name="ILICPM" precision="15" />
+        </property>
+        <property name="ilubir" type="string">
+            <column name="ILUBIR" length="2" />
+        </property>
+        <property name="ilmini" type="string">
+            <column name="ILMINI" length="1" />
+        </property>
+        <property name="ilfact" type="java.lang.Integer">
+            <column name="ILFACT" />
+        </property>
+        <property name="ilhact" type="java.lang.Integer">
+            <column name="ILHACT" />
+        </property>
+        <property name="ilcope" type="string">
+            <column name="ILCOPE" length="10" />
+        </property>
+        <property name="ilxtrf" type="string">
+            <column name="ILXTRF" length="23" />
+        </property>
+        <property name="ilccyc" type="java.lang.Integer">
+            <column name="ILCCYC" />
+        </property>
+        <property name="ilctrs" type="string">
+            <column name="ILCTRS" length="3" />
+        </property>
+        <property name="ilecsl" type="java.lang.Integer">
+            <column name="ILECSL" />
+        </property>
+        <property name="ilnpla" type="java.lang.Integer">
+            <column name="ILNPLA" />
+        </property>
+        <property name="ilprmi" type="string">
+            <column name="ILPRMI" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>
