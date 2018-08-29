@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 28, 2018 8:41:46 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrspplr" table="ZRSPPLR" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="tlyfac" type="java.lang.Integer">
+            <column name="TLYFAC" />
+        </property>
+        <property name="tlaafc" type="java.lang.Integer">
+            <column name="TLAAFC" />
+        </property>
+        <property name="tlcifa" type="string">
+            <column name="TLCIFA" length="2" />
+        </property>
+        <property name="tlagig" type="string">
+            <column name="TLAGIG" length="2" />
+        </property>
+        <property name="tlorg" type="java.lang.Integer">
+            <column name="TLORG" />
+        </property>
+        <property name="tllogo" type="java.lang.Integer">
+            <column name="TLLOGO" />
+        </property>
+        <property name="tlncct" type="string">
+            <column name="TLNCCT" length="19" />
+        </property>
+        <property name="tlncrd" type="string">
+            <column name="TLNCRD" length="19" />
+        </property>
+        <property name="tlptnr" type="java.lang.Integer">
+            <column name="TLPTNR" />
+        </property>
+        <property name="tlncax" type="java.lang.Integer">
+            <column name="TLNCAX" />
+        </property>
+        <property name="tlscax" type="java.lang.Integer">
+            <column name="TLSCAX" />
+        </property>
+        <property name="tlnsem" type="java.lang.Integer">
+            <column name="TLNSEM" />
+        </property>
+        <property name="tlscli" type="java.lang.Long">
+            <column name="TLSCLI" />
+        </property>
+        <property name="tlcacl" type="string">
+            <column name="TLCACL" length="1" />
+        </property>
+        <property name="tlavto" type="java.lang.Integer">
+            <column name="TLAVTO" />
+        </property>
+        <property name="tlmvto" type="java.lang.Integer">
+            <column name="TLMVTO" />
+        </property>
+        <property name="tldvto" type="java.lang.Integer">
+            <column name="TLDVTO" />
+        </property>
+        <property name="tltcco" type="java.lang.Integer">
+            <column name="TLTCCO" />
+        </property>
+        <property name="tlclco" type="java.lang.Integer">
+            <column name="TLCLCO" />
+        </property>
+        <property name="tlcori" type="java.lang.Integer">
+            <column name="TLCORI" />
+        </property>
+        <property name="tlcmov" type="java.lang.Integer">
+            <column name="TLCMOV" />
+        </property>
+        <property name="tlcsmv" type="java.lang.Integer">
+            <column name="TLCSMV" />
+        </property>
+        <property name="tlcpag" type="java.lang.Integer">
+            <column name="TLCPAG" />
+        </property>
+        <property name="tlapag" type="java.lang.Integer">
+            <column name="TLAPAG" />
+        </property>
+        <property name="tlmpag" type="java.lang.Integer">
+            <column name="TLMPAG" />
+        </property>
+        <property name="tldpag" type="java.lang.Integer">
+            <column name="TLDPAG" />
+        </property>
+        <property name="tlcrcc" type="java.lang.Integer">
+            <column name="TLCRCC" />
+        </property>
+        <property name="tlcraa" type="java.lang.Integer">
+            <column name="TLCRAA" />
+        </property>
+        <property name="tlcrmm" type="java.lang.Integer">
+            <column name="TLCRMM" />
+        </property>
+        <property name="tlcrdd" type="java.lang.Integer">
+            <column name="TLCRDD" />
+        </property>
+        <property name="tlpmna" type="big_decimal">
+            <column name="TLPMNA" precision="15" />
+        </property>
+        <property name="tlcoti" type="big_decimal">
+            <column name="TLCOTI" precision="9" scale="3" />
+        </property>
+        <property name="tlubir" type="string">
+            <column name="TLUBIR" length="2" />
+        </property>
+        <property name="tlmini" type="string">
+            <column name="TLMINI" length="1" />
+        </property>
+        <property name="tlfact" type="java.lang.Integer">
+            <column name="TLFACT" />
+        </property>
+        <property name="tlhact" type="java.lang.Integer">
+            <column name="TLHACT" />
+        </property>
+        <property name="tlcope" type="string">
+            <column name="TLCOPE" length="10" />
+        </property>
+        <property name="tlbonr" type="java.lang.Integer">
+            <column name="TLBONR" />
+        </property>
+        <property name="tlnrtr" type="java.lang.Integer">
+            <column name="TLNRTR" />
+        </property>
+        <property name="tltetr" type="string">
+            <column name="TLTETR" length="16" />
+        </property>
+        <property name="tlapdt" type="java.lang.Integer">
+            <column name="TLAPDT" />
+        </property>
+        <property name="tladtm" type="java.lang.Integer">
+            <column name="TLADTM" />
+        </property>
+        <property name="tlxtrf" type="string">
+            <column name="TLXTRF" length="23" />
+        </property>
+        <property name="tlccyc" type="java.lang.Integer">
+            <column name="TLCCYC" />
+        </property>
+        <property name="tlde40" type="string">
+            <column name="TLDE40" length="40" />
+        </property>
+        <property name="tlctrs" type="string">
+            <column name="TLCTRS" length="3" />
+        </property>
+        <property name="tlecsl" type="java.lang.Integer">
+            <column name="TLECSL" />
+        </property>
+        <property name="tlnpla" type="java.lang.Integer">
+            <column name="TLNPLA" />
+        </property>
+        <property name="tlprmi" type="string">
+            <column name="TLPRMI" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>
