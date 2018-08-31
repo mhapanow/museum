@@ -160,43 +160,31 @@ public class TAR0030View02BzService extends RestBaseServerResource{
 	
 	
 	private String SubRutDattrk(DataSet ds)	{
-		
 	try 
 	{
-		
 		objRncptvp = myDao.getUsingNrmcap(ds, objRsctam.getNrmcap());
 		if (objRncptvp !=null )
-		{
-			
+		{		
 			wwmcap = objRncptvp.getVpdsda();
 		}
-		
-		
-		
 		objRncptvp = myDao.getUsingNrslch(ds, objRsctam.getNrslch());
 		if (objRncptvp !=null )
-		{
-			
+		{	
 			wwcvta = objRncptvp.getVpdsda();
 		}
-		
-		
-		objRncptvp = myDao.getUsingNrcofn(ds, objRsctam.getNrcofn().substring(0,1));
+		objRncptvp = null;
+		/* COMMENT: Se quita esta funcionalidad porque el filtro es "cadena" y el sql espera un entero
+		objRncptvp = myDao.getUsingNrcofn(ds, objRsctam.getNrcofn().substring(0,2));
 		if (objRncptvp !=null )
-		{
-			
+		{	
 			wwcpro = objRncptvp.getVpdsda();
 		}
-		
-		
+		*/
 		objRncppro = myDaoRncppro.getUsingNrcppr(ds, objRsctam.getNrcppr());
 		if (objRncppro !=null )
 		{
-			
 			wwprom = objRncppro.getPrappm();
 		}
-	
-	
 	} catch (ASException e) {
 		return e.getMessage();
 	}

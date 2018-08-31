@@ -120,13 +120,13 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 
 			String rpta = SubRutSR_SELECC(ds);
 			
-			if (rpta.equals("")){
+			if (!rpta.equals("")){
 				log.log(Level.SEVERE, rpta, new Exception());
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString(); }
 			
 			
 			rpta = SubRutSR_ARMASQL(ds);
-			if (rpta.equals("")){
+			if (!rpta.equals("")){
 				log.log(Level.SEVERE, rpta, new Exception());
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString(); }
 			
@@ -174,22 +174,23 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 	private String SubRutSR_SELECC(DataSet ds) {
 		
 		int ctaselecc = 0;
+		String error = "";
 			
 			if(w1afac > 0 && w1afac <1980) {
-				return "Error";
-				
+				error = "Error";
+				return error;
 			}
 			if(w1cifa > 12) {
-				return "Error";
-				
+				error = "Error";
+				return error;
 			}
 			if(w1logo > 12 && w1prcd.equals("")) {
-				return "Error";
-				
+				error = "Error";
+				return error;
 			}
 			if(!w1prcd.equals("") && !w1prcd.equals("VS") && !w1prcd.equals("MC") && !w1prcd.equals("DN")) {
-				return "Error";
-				
+				error = "Error";
+				return error;
 			}
 			if(w1afac != 0 || w1cifa != 0) {
 				
@@ -284,8 +285,12 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 				ctaselecc = ctaselecc + 1;
 			}
 			
-			ctaselecc = 0;
-			return "Eror";
+			if (error.equals("")) {
+				if (ctaselecc == 0 ) {
+					return "Error";
+				}
+			}
+			return error;
 	}
 	
 	

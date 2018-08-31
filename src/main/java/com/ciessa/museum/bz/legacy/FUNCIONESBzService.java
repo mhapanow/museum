@@ -21,6 +21,24 @@ public class FUNCIONESBzService {
 		}	
 	}
 	
+	public String ConvertCamdToAmd(String input) {
+		Long fecha = 19000000 + Long.parseLong(input); 
+		/*
+		Integer yearC = Integer.parseInt(input.substring(0, 1));
+		Integer year = 0;
+		if (yearC == 1) {
+			year = 2000 + Integer.parseInt(input.substring(1, 2));
+		}
+		if (yearC == 0) {
+			year = 1900 + Integer.parseInt(input.substring(1, 2));
+		}
+		//year = year + 1900;
+		//year = year + Integer.parseInt(input.substring(1, 2));
+		return year.toString() + input.substring(3);
+		*/
+		return fecha.toString(); 
+	}
+	
 	public String StringToArrayString(String txtInicial, Integer iniciar, String txtInput) {
 		
 		char[] txtCaracteresI = txtInicial.toCharArray();

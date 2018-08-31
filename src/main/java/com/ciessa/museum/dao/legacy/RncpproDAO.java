@@ -30,10 +30,8 @@ public class RncpproDAO {
 		
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Rncppro where prcppr = '861' ");
-			//TODO: EL CAMPO DEBE ENVIARSE EN STRING Y ERROR EN LA DATA
-			//nrcppr ="21";
-			//q.setParameter("nrcppr", nrcppr);
+			Query q = session.createQuery(" from Rncppro where prcppr = :nrcppr");
+			q.setParameter("nrcppr", nrcppr);
 			Rncppro o = (Rncppro)q.uniqueResult();
 			
 			if( o == null ) {

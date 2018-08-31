@@ -165,6 +165,10 @@
 	<bean id="legacy.ccrr0500.view3"
 		class="com.ciessa.museum.bz.legacy.CCRR0500View03BzService"
 		parent="base.rest.resource" scope="prototype" />
+		
+	<bean id="legacy.zrstonln.view2"
+		class="com.ciessa.museum.bz.legacy.ZRSTONLNView02BzService"
+		parent="base.rest.resource" scope="prototype" />
 	
 	
 </beans>

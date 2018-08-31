@@ -32,7 +32,7 @@ public class Cuxrf1DAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append("FROM Cuxrf1 WHERE cuxbk = 1 AND cux1ac = :cux1ac");
+			sb.append("FROM Cuxrf1 WHERE cuxbk = 1 AND cux1ac = :cux1ac ORDER BY cux1cs");
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("cux1ac", "0" + tipo + cuenta);
 			@SuppressWarnings("unchecked")

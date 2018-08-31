@@ -227,7 +227,7 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 			Sci9in = ObjCcrpscb.getSbi9in() == null ? "": ObjCcrpscb.getSbi9in().toString();
 			
 			int indexCcrpsch = 0;
-			if (this.ListCcrpsch != null) {
+			if (this.ListCcrpsch != null && this.ListCcrpsch.size() > 0) {
 				do {
 					Ccrpsch o = this.ListCcrpsch.get(indexCcrpsch);
 					adapted.AMORT = o.getScimba().add(o.getScimam()).toString();
