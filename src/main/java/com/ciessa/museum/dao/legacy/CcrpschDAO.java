@@ -71,7 +71,7 @@ public class CcrpschDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Ccrpsch Where scbanc = 1 and  scnucr = :crnucr and scncuo = :scncuo");
+			Query q = session.createQuery(" from Ccrpsch Where scbanc = 1 and  scnucr = :crnucr and scncuo >= :scncuo ORDER BY scncuo");
 			q.setParameter("crnucr", crnucr);
 			q.setParameter("scncuo", scncuo);
 			

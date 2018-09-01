@@ -2,6 +2,8 @@ package com.ciessa.museum.bz.legacy;
 
 import java.util.Date;
 import java.util.List;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -230,12 +232,14 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 			if (this.ListCcrpsch != null && this.ListCcrpsch.size() > 0) {
 				do {
 					Ccrpsch o = this.ListCcrpsch.get(indexCcrpsch);
+					adapted = new CCRR0580Adapter();
+					adapted.FECVTO = new SimpleDateFormat("yyyyMMdd").parse(o.getScavcu().toString() + String.format("%02d", o.getScmvcu()) + String.format("%02d", o.getScdvcu()));
 					adapted.AMORT = o.getScimba().add(o.getScimam()).toString();
-					adapted.SCICIN = adapted.SCICIN + Sci9in + Sci8in;
+					adapted.SCICIN = o.getScicin().add(o.getSci9in().add(o.getSci8in()));
 					adapted.INTERE = adapted.SCICIN;
 					adapted.AJUSTE = o.getScicaj().toString();
 					adapted.TASA = o.getSctacr().toString();
-					adapted.SCNCUO = o.getScncuo().toString();
+					adapted.SCNCUO = String.format("%03d", o.getScncuo());
 					if(ObjCcrpcre.getCrmawk().equals("0")) {
 						indexCcrpsch++;
 						if (indexCcrpsch >= this.ListCcrpsch.size()) {
@@ -385,9 +389,9 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 	
 	
 	public class CCRR0580Adapter {
-		String FECVTO = null;
+		Date FECVTO = null;
 		String AMORT  = null;
-		String INTERE = null;
+		BigDecimal INTERE = null;
 		String AJUSTE = null;
 		String TASA   = null;
 		String PPAR   = null;
@@ -396,17 +400,17 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 		String SCNCUO = null;
 		String SCSTCU = null;
 		String ARCHIV = null;
-		String SCICIN = null;
+		BigDecimal SCICIN = null;
 		
 		public CCRR0580Adapter() {
 			
 		}
 
-		public String getSCICIN() {
+		public BigDecimal getSCICIN() {
 			return SCICIN;
 		}
 
-		public void setSCICIN(String sCICIN) {
+		public void setSCICIN(BigDecimal sCICIN) {
 			SCICIN = sCICIN;
 		}
 
@@ -498,11 +502,11 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 			INCDIN = iNCDIN;
 		}
 
-		public String getFECVTO() {
+		public Date getFECVTO() {
 			return FECVTO;
 		}
 
-		public void setFECVTO(String fECVTO) {
+		public void setFECVTO(Date fECVTO) {
 			FECVTO = fECVTO;
 		}
 
@@ -514,11 +518,11 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 			AMORT = aMORT;
 		}
 
-		public String getINTERE() {
+		public BigDecimal getINTERE() {
 			return INTERE;
 		}
 
-		public void setINTERE(String iNTERE) {
+		public void setINTERE(BigDecimal iNTERE) {
 			INTERE = iNTERE;
 		}
 

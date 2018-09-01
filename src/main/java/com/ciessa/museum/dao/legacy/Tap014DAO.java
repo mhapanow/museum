@@ -36,11 +36,11 @@ public class Tap014DAO {
 		try {
 			tx = session.beginTransaction();
 			String queryStr = "FROM Tap014 WHERE dmbk = 1 AND dmtyp = 6 AND dmacct = :wcta";
-			if (waca == "X")
+			if (waca.equals("X"))
 				queryStr = queryStr + " AND dmtodf = 1 ";
-			if (wpto == "X")
+			if (wpto.equals("X"))
 				queryStr = queryStr + " AND dmtodf = 2 ";
-			if (wtod == "X")
+			if (wtod.equals("X"))
 				queryStr = queryStr + " AND dmtodf = 9 ";
 			if (null != fecjud && null != fecjuh) {
 				queryStr = queryStr + " AND (";
@@ -54,6 +54,7 @@ public class Tap014DAO {
 			if (wimp > 0)
 				queryStr = queryStr + " AND dolima >= " + wimp;
 			queryStr = queryStr + " AND (dmtodf = 1 OR dmtodf = 2 OR (DMTODF = 9 AND dotacc > 0) ) ";
+			queryStr = queryStr + " ORDER BY dmbk, dmtyp, dmacct, dmtodf, dodate, dotie ";
 			Query q = session.createQuery(queryStr);
 			q.setParameter("wcta", wcta);
 			
@@ -100,11 +101,11 @@ public class Tap014DAO {
 			tx = session.beginTransaction();
 			String queryStr = "FROM Tap014 WHERE dmbk = 1 AND dmtyp = 6 ";
 			queryStr = queryStr + " AND dmacct >= :wbas1 AND dmacct <= :wbas2 ";
-			if (waca == "X")
+			if (waca.equals("X"))
 				queryStr = queryStr + " AND dmtodf = 1 ";
-			if (wpto == "X")
+			if (wpto.equals("X"))
 				queryStr = queryStr + " AND dmtodf = 2 ";
-			if (wtod == "X")
+			if (wtod.equals("X"))
 				queryStr = queryStr + " AND dmtodf = 9 ";
 			if (null != fecjud && null != fecjuh) {
 				queryStr = queryStr + " AND (";

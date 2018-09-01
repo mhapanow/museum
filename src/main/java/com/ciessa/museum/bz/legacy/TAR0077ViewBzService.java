@@ -110,9 +110,7 @@ public class TAR0077ViewBzService extends RestBaseServerResource {
 			this.WSCITI = src.getCitit();
 			this.WSNREO = src.getNrefo();
 			this.WSCAOP = src.getCanop();
-			this.WSGENU = "Y";
-
-			// TODO: Revisar si el valor de WSGENU es correcto
+			this.WSGENU = src.getDepost().equals("Y") || src.getWithdw().equals("Y") ? "Y" : "N";
 		}
 
 		/**
