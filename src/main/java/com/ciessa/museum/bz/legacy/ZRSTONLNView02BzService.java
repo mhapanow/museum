@@ -1,5 +1,7 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,15 +45,17 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 	int w1logo  = 0;
 	int w1agig  = 0;
 	int w1orgn  = 0;
-	long w1acns  = 0;
-	int w1cans  = 0;
+	BigDecimal w1bbad  = new BigDecimal(0);
+	BigDecimal w1bbah  = new BigDecimal(0);
+	BigDecimal w1ebad  = new BigDecimal(0);
+	BigDecimal w1ebah  = new BigDecimal(0);
+	
+	String w1acns  = "";
+	String w1cans  = "";
 
 	String aux = null;
-	String w1ebah  = null;
-	String w1ebad  = null;	
 	String w1prcd  = null;
-	String w1bbah  = null;
-	String w1bbad  = null;
+	
 	String w1cydu  = null;
 	String w1obol  = null;
 	String w1estc  = null;
@@ -60,11 +64,10 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 	String w1retr  = null;
 	String w1func  = null;
 	String w1crba  = null;
-	String w1badd  = null;
 	
 	List<Zrsprer> listZrsprer  = null;
 
-	ZRSTONLNAdapter adapted = new ZRSTONLNAdapter();
+	ZRSTONLNAdapter adapted = null;
 	List<ZRSTONLNAdapter> list = new ArrayList<ZRSTONLNAdapter>();
 
 
@@ -82,41 +85,26 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 			DataSet ds = dsDao.get(user.getDefaultDataSet());
 			long millisPre = new Date().getTime();
 			
-			aux    = obtainStringValue("w1afac", null);
-			w1afac = Integer.parseInt(aux);
-			
-			aux    = obtainStringValue("w1cifa", null);
-			w1cifa = Integer.parseInt(aux);
-			
-			aux    = obtainStringValue("w1agig", null);
-			w1agig = Integer.parseInt(aux);
-			
-			aux    = obtainStringValue("w1orgn", null);
-			w1orgn = Integer.parseInt(aux);
-				
-			aux    = obtainStringValue("w1acns", null);
-			w1acns = Integer.parseInt(aux);
-					
-			aux = obtainStringValue("w1cans", null);
-			w1cans = Integer.parseInt(aux);
-				
-			aux    = obtainStringValue("w1logo", null);
-			w1logo = Integer.parseInt(aux);
-			
-			w1ebah = obtainStringValue("w1ebah", null);
-			w1ebad = obtainStringValue("w1ebad", null);			
-			w1prcd = obtainStringValue("w1prcd", null);
-			w1bbad = obtainStringValue("w1bbad", null);
-			w1bbah = obtainStringValue("w1bbah", null);
-			w1cydu = obtainStringValue("w1cydu", null);
-			w1obol = obtainStringValue("w1obol", null);
-			w1estc = obtainStringValue("w1estc", null);
-			w1cacl = obtainStringValue("w1cacl", null);
-			w1cpos = obtainStringValue("w1cpos", null);
-			w1retr = obtainStringValue("w1retr", null);
-			w1func = obtainStringValue("w1func", null);
-			w1crba = obtainStringValue("w1crba", null);
-			w1badd = obtainStringValue("w1badd", null);
+			w1afac = obtainIntegerValue("w1afac", 0);			
+			w1cifa = obtainIntegerValue("w1cifa", 0);
+			w1agig = obtainIntegerValue("w1agig", 0);
+			w1orgn = obtainIntegerValue("w1orgn", 0);
+			w1prcd = obtainStringValue("w1prcd", "");
+			w1acns = obtainStringValue("w1acns", "");
+			w1cans = obtainStringValue("w1cans", "");
+			w1bbad = new BigDecimal(obtainDoubleValue("w1bbad", 0.0));
+			w1bbah = new BigDecimal(obtainDoubleValue("w1bbah", 0.0));
+			w1ebad = new BigDecimal(obtainDoubleValue("w1bbad", 0.0));
+			w1ebah = new BigDecimal(obtainDoubleValue("w1bbah", 0.0));
+			w1cydu = obtainStringValue("w1cydu", "");
+			w1obol = obtainStringValue("w1obol", "");
+			w1estc = obtainStringValue("w1estc", "");
+			w1cacl = obtainStringValue("w1cacl", "");
+			w1cpos = obtainStringValue("w1cpos", "");
+			w1retr = obtainStringValue("w1retr", "");
+			w1func = obtainStringValue("w1func", "");
+			w1crba = obtainStringValue("w1crba", "");
+			w1logo = obtainIntegerValue("w1logo", 0);
 
 			String rpta = SubRutSR_SELECC(ds);
 			
@@ -132,10 +120,8 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 			
 		
 			String[] fields = new String[] {
-					 "TXTAVISO",
-					 "WSOP",
 					 "WSAFAC",
-					 "SCIFA",
+					 "WSCIFA",
 					 "WSAGIG",
 					 "WSORGN",
 					 "WSLOGO",
@@ -184,7 +170,7 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 				error = "Error";
 				return error;
 			}
-			if(w1logo > 12 && w1prcd.equals("")) {
+			if(w1logo == 0 && w1prcd.equals("")) {
 				error = "Error";
 				return error;
 			}
@@ -193,48 +179,37 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 				return error;
 			}
 			if(w1afac != 0 || w1cifa != 0) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(w1agig != 0) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(w1orgn != 0) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(w1logo != 0) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(!w1prcd.equals("")) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
-			if(w1acns != 0) {
-				
+			if(!w1acns.equals("0")) {
 				ctaselecc = ctaselecc + 1;
 			}
-			if(w1cans != 0) {
-				
+			if(!w1cans.equals("0") ) {
 				ctaselecc = ctaselecc + 1;
 			}
-			if(!w1bbad.equals("0")) {
-				
+			if(w1bbad.compareTo(BigDecimal.ZERO) == 0) {
 				ctaselecc = ctaselecc + 1;
 			}
-			if(!w1bbah.equals("0")) {
-				
+			if(w1bbah.compareTo(BigDecimal.ZERO) == 0) {
 				ctaselecc = ctaselecc + 1;
 			}
-			if(!w1bbah.equals("0") && w1bbad.equals("0") ) {
-				
-				w1bbad = "LOVAL";
+			if(w1bbah.compareTo(BigDecimal.ZERO) == 0 && w1bbad.compareTo(BigDecimal.ZERO) > 0) {
+				w1bbad = new BigDecimal(-99999999999.99);
 			}
-			if(!w1bbad.equals("0") && w1bbah.equals("0") ) {
-				
-				w1bbah = "HIVAL";
+			if(w1bbad.compareTo(BigDecimal.ZERO) == 0 && w1bbah.compareTo(BigDecimal.ZERO) > 0) {				
+				w1bbah = new BigDecimal(99999999999.99);
 			}
 			if(!w1ebad.equals("0")) {
 				
@@ -244,47 +219,36 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 				
 				ctaselecc = ctaselecc + 1;
 			}
-			if(!w1ebah.equals("0") && w1ebad.equals("0")) {
-				
-				w1ebad = "LOVAL";
+			if(w1ebah.compareTo(BigDecimal.ZERO) == 0 && w1ebad.compareTo(BigDecimal.ZERO) > 0) {
+				w1ebad = new BigDecimal(-99999999999.99);;
 			}
-			if(!w1ebad.equals("0")&& w1ebah.equals("0")) {
-				
-				w1ebah = "HIVAL";
+			if(w1ebad.compareTo(BigDecimal.ZERO) == 0 && w1ebah.compareTo(BigDecimal.ZERO) > 0) {
+				w1ebah = new BigDecimal(99999999999.99);
 			}
 			if(!w1cydu.equals("0")) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(!w1obol.equals("0")) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(!w1estc.equals("0")) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(!w1cacl.equals("0")) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(!w1cpos.equals("0")) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(!w1retr.equals("0")) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(!w1func.equals("0")) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
 			if(!w1crba.equals("0")) {
-				
 				ctaselecc = ctaselecc + 1;
 			}
-			
 			if (error.equals("")) {
 				if (ctaselecc == 0 ) {
 					return "Error";
@@ -296,26 +260,22 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 	
 	private String SubRutSR_ARMASQL(DataSet ds ) {
 		try {
-			if(w1cans !=0 ) {
+			if( !w1cans.equals("0") ) {
 				ObjGrmcrc= myDaoGrmcrc.getUsingW1cans(ds, w1cans);
 				if(ObjGrmcrc != null) {
-					w1acns = ObjGrmcrc.getRgactn();
-					
+					w1acns = ObjGrmcrc.getRgactn().toString();
 				}
-				
 			}
-			listZrsprer = myDaoZrsprer.getUsingW1afacW1cifaW1agigW1orgnW1logoW1acnsW1cansW1baddW1bbahW1ebadW1ebahW1cyduW1obolW1estcW1caclW1cposW1retrW1funcANDw1crbaToList(ds,  w1afac, w1cifa, w1agig, w1orgn, w1logo, w1acns, w1cans, w1badd, w1bbah, w1ebad, w1ebah, w1cydu, w1obol, w1estc, w1cacl, w1cpos, w1retr, w1func, w1crba);
-			
+			listZrsprer = myDaoZrsprer.getUsingW1afacW1cifaW1agigW1orgnW1logoW1acnsW1cansW1baddW1bbahW1ebadW1ebahW1cyduW1obolW1estcW1caclW1cposW1retrW1funcANDw1crbaToList(ds,  w1afac, w1cifa, w1agig, w1orgn, w1logo, w1acns, w1cans, w1bbad, w1bbah, w1ebad, w1ebah, w1cydu, w1obol, w1estc, w1cacl, w1cpos, w1retr, w1func, w1crba);
 			for (Zrsprer o : listZrsprer) {
-				adapted.setTXTAVISO("Aviso");
-				adapted.setWSOP("valor no referenciado");
-				adapted.setWSAFAC(o.getMeafac());
-				adapted.setSCIFA(o.getMeacif());
+				adapted = new ZRSTONLNAdapter();
+				adapted.setWSAFAC(Integer.parseInt(String.format("%02d", o.getMeyfac()) + String.format("%02d", o.getMeaafc())));
+				adapted.setWSCIFA(o.getMecifa());
 				adapted.setWSAGIG(o.getMeagig());
 				adapted.setWSORGN(o.getMeorg());
 				adapted.setWSLOGO(o.getMelogo());
-				adapted.setWSACNB("valor no referenciado");
-				adapted.setWSNAME("valor no referenciado");
+				adapted.setWSACNB(o.getMencct());
+				adapted.setWSNAME(o.getMename());
 				list.add(adapted);				
 			}
 			
@@ -331,15 +291,12 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 	public class ZRSTONLNAdapter {
 	
 		int WSAFAC  = 0;
-		int SCIFA   = 0;
-		int WSORGN  = 0;
-		int WSLOGO  = 0;
-		
-		String TXTAVISO= null;
-		String WSOP    = null;
-		String WSAGIG  = null;
-		String WSACNB  = null;
-		String WSNAME  = null;
+		String WSCIFA = "";
+		String WSAGIG  = "";
+		int WSORGN = 0;
+		int WSLOGO = 0;
+		String WSACNB = "";
+		String WSNAME = "";
 
 		public ZRSTONLNAdapter() {
 			
@@ -353,12 +310,20 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 			WSAFAC = wSAFAC;
 		}
 
-		public int getSCIFA() {
-			return SCIFA;
+		public String getWSCIFA() {
+			return WSCIFA;
 		}
 
-		public void setSCIFA(int sCIFA) {
-			SCIFA = sCIFA;
+		public void setWSCIFA(String wSCIFA) {
+			WSCIFA = wSCIFA;
+		}
+
+		public String getWSAGIG() {
+			return WSAGIG;
+		}
+
+		public void setWSAGIG(String wSAGIG) {
+			WSAGIG = wSAGIG;
 		}
 
 		public int getWSORGN() {
@@ -377,30 +342,6 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 			WSLOGO = wSLOGO;
 		}
 
-		public String getTXTAVISO() {
-			return TXTAVISO;
-		}
-
-		public void setTXTAVISO(String tXTAVISO) {
-			TXTAVISO = tXTAVISO;
-		}
-
-		public String getWSOP() {
-			return WSOP;
-		}
-
-		public void setWSOP(String wSOP) {
-			WSOP = wSOP;
-		}
-
-		public String getWSAGIG() {
-			return WSAGIG;
-		}
-
-		public void setWSAGIG(String wSAGIG) {
-			WSAGIG = wSAGIG;
-		}
-
 		public String getWSACNB() {
 			return WSACNB;
 		}
@@ -417,15 +358,6 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 			WSNAME = wSNAME;
 		}
 
-		
-		
-		
 	}// fin Adapter
 	
-	
-	
-	
-	
-	
-	
-} // Fin public class ZRSTONLNView02BzService
+}

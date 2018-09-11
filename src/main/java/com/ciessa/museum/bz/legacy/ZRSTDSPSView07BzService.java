@@ -70,17 +70,17 @@ public class ZRSTDSPSView07BzService extends RestBaseServerResource {
 			long millisPre = new Date().getTime();
 			
 			//Parametros Get
-			custompantalla = obtainIntegerValue("custompantalla", 0);
+			custompantalla = obtainIntegerValue("custompantalla", 0); //view1 o view2
 			w1desc = obtainStringValue("w1desc", null);
 			w1fmov = obtainStringValue("w1fmov", null);
 			w2desc = obtainStringValue("w2desc", null);
 			w2fmov = obtainStringValue("w2fmov", null);
 			
-			wfecnum8 = obtainStringValue("wfecnum8", null);
+			/*wfecnum8 = obtainStringValue("wfecnum8", null);
 			w1amnt = obtainStringValue("w1amnt", null);
 			w1tefm = obtainStringValue("w1tefm", null);
 			w1tnoa = obtainStringValue("w1tnoa", null);
-			w1iorg = obtainStringValue("w1iorg", null);
+			w1iorg = obtainStringValue("w1iorg", null);*/
 			
 			String rpta = SubRutDspnov(ds);
 			if (!rpta.equals(""))

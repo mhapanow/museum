@@ -1,5 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -86,6 +87,67 @@ public class FUNCIONESBzService {
 		return dateFormat.format(date);
 	}
 	
+	public Boolean BigDecimalComparar(String valor1, String valor2, String simbolo) {
+		 BigDecimal bg1 = new BigDecimal(valor1);
+		 BigDecimal bg2 = new BigDecimal(valor2);
+		 int res = bg1.compareTo(bg2); // 0 iguales, 1 el 1ero es mayor y -1 el segundo es mayor
+		 
+		 int simbo=0;
+		 if (simbolo == "=") simbo = 1;
+		 if (simbolo == "==") simbo = 2;
+		 if (simbolo == "!=") simbo = 3;
+		 if (simbolo == ">") simbo = 4;
+		 if (simbolo == "<") simbo = 5;
+		 if (simbolo == ">=") simbo = 6;
+		 if (simbolo == "<=") simbo = 7;
+		 
+		 
+		switch (simbo) {
+		case 1:
+		case 2:
+			if (res == 0) {
+				return true;
+			}
+			break;
+		case 3:
+			if (res != 0) {
+				return true;
+			}
+			break;
+		case 4:
+			if (res == 1) {
+				return true;
+			}
+			break;
+		case 5:
+			if (res == -1) {
+				return true;
+			}
+			break;
+		case 6:
+			if (res == 0) {
+				return true;
+			}
+			if (res == 1) {
+				return true;
+			}
+			break;
+		case 7:
+			if (res == 0) {
+				return true;
+			}
+			if (res == -1) {
+				return true;
+			}
+			break;
+
+		default:
+			 throw new IllegalArgumentException("Argumento Inválido en: " + simbolo);
+		}
+
+
+		return false;
+	}
 	
 	
 	

@@ -67,12 +67,26 @@
 	<bean id="Rsctam.dao.ref" class="com.ciessa.museum.dao.legacy.RsctamDAO" />
 	<bean id="Saldom.dao.ref" class="com.ciessa.museum.dao.legacy.SaldomDAO" />
 	<bean id="Tablam.dao.ref" class="com.ciessa.museum.dao.legacy.TablamDAO" />
+	<!-- bean id="Tap001.dao.ref" class="com.ciessa.museum.dao.legacy.Tap001DAO" /-->
 	<bean id="Tap002.dao.ref" class="com.ciessa.museum.dao.legacy.Tap002DAO" />
+	<!--bean id="Tap003.dao.ref" class="com.ciessa.museum.dao.legacy.Tap003DAO" />
+	<bean id="Tap005b.dao.ref" class="com.ciessa.museum.dao.legacy.Tap005bDAO" /-->
 	<bean id="Tap014.dao.ref" class="com.ciessa.museum.dao.legacy.Tap014DAO" />
+	<!--bean id="Tap03w.dao.ref" class="com.ciessa.museum.dao.legacy.Tap03wDAO" />
+	<bean id="Tap901.dao.ref" class="com.ciessa.museum.dao.legacy.Tap901DAO" /-->
 	<bean id="Tap902.dao.ref" class="com.ciessa.museum.dao.legacy.Tap902DAO" />
+	<!--bean id="Tgpp632.dao.ref" class="com.ciessa.museum.dao.legacy.Tgpp632DAO" />
+	<bean id="Tranem.dao.ref" class="com.ciessa.museum.dao.legacy.TranemDAO" />
+	<bean id="Transm.dao.ref" class="com.ciessa.museum.dao.legacy.TransmDAO" />
+	<bean id="Zrspdmr.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspdmrDAO" />
+	<bean id="Zrspilr.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspilrDAO" /-->
 	<bean id="Zrsplem.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsplemDAO" />
 	<bean id="Zrsplen.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsplenDAO" />
+	<!--bean id="Zrspmlr.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspmlrDAO" /-->
+	<bean id="Zrspmss.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspmssDAO" />
+	<!--bean id="Zrsppir.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsppirDAO" /-->
 	<bean id="Zrspple.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsppleDAO" />
+	<bean id="Zrspplr.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspplrDAO" />
 	<bean id="Zrsppma.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsppmaDAO" />
 	<bean id="Zrsprer.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsprerDAO" />
 	<bean id="Zrsprwd.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsprwdDAO" />
@@ -169,6 +183,49 @@
 	<bean id="legacy.zrstonln.view2"
 		class="com.ciessa.museum.bz.legacy.ZRSTONLNView02BzService"
 		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.zrstdsps.view3"
+		class="com.ciessa.museum.bz.legacy.ZRSTDSPSView03BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.zrstdsps.view4"
+		class="com.ciessa.museum.bz.legacy.ZRSTDSPSView04BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.zrstdsps.view5"
+		class="com.ciessa.museum.bz.legacy.ZRSTDSPSView05BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.zrstdsps.view6"
+		class="com.ciessa.museum.bz.legacy.ZRSTDSPSView06BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.zrstdsps.view7"
+		class="com.ciessa.museum.bz.legacy.ZRSTDSPSView07BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.zrstdsps.view8"
+		class="com.ciessa.museum.bz.legacy.ZRSTDSPSView08BzService"
+		parent="base.rest.resource" scope="prototype" />
+		
+	<bean id="legacy.zrstrecm.view1"
+		class="com.ciessa.museum.bz.legacy.ZRSTRECMView01BzService"
+		parent="base.rest.resource" scope="prototype" />
+		
+	<bean id="legacy.zrstrecm.view2"
+		class="com.ciessa.museum.bz.legacy.ZRSTRECMView02BzService"
+		parent="base.rest.resource" scope="prototype" />
+		
+	<bean id="legacy.zrstrecl.view1"
+		class="com.ciessa.museum.bz.legacy.ZRSTRECLView01BzService"
+		parent="base.rest.resource" scope="prototype" />
+		
+	<bean id="legacy.zrstrecl.view2"
+		class="com.ciessa.museum.bz.legacy.ZRSTRECLView02BzService"
+		parent="base.rest.resource" scope="prototype" />
+
+
+
 	
 	
 </beans>

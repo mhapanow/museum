@@ -218,7 +218,7 @@ public class CACR205View02BzService extends RestBaseServerResource{
 					if (ObjGrmria != null) {
 						ObjGrmida = myDaoGrmida.getUsingRirmcn(ds, ObjGrmria.getRqrmcn().toString());
 						if (ObjGrmida != null) {
-							adapted.setWSTITU(ObjGrmida.getRilsnm() + ObjGrmida.getRifsnm());
+							adapted.setWSTITU(ObjGrmida.getRilsnm() +" "+ ObjGrmida.getRifsnm());
 						}
 						else {
 							ObjGrmcda = myDaoGrmcda.getUsingRyrmcn(ds, ObjGrmria.getRqrmcn().toString());

@@ -43,15 +43,14 @@ public class CcrpcreDAO {
 			}
 			
 			return o;
-			
-				
+		
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-			}
+		}
 	} // fin public
 	
 	
@@ -174,5 +173,6 @@ public class CcrpcreDAO {
 			session.close();
 		}
 	}
+	
 
 } //fin public class

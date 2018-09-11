@@ -66,13 +66,13 @@ public class ZRSTRECMView01BzService extends RestBaseServerResource {
 			DataSet ds = dsDao.get(user.getDefaultDataSet());
 			long millisPre = new Date().getTime();
 			
-			this.parammeorg = obtainStringValue("parammeorg", null);
-			this.parammelogo = obtainStringValue("parammelogo", null);
-			this.parammencct = obtainStringValue("parammencct", null);
-			this.parammeyfac = obtainIntegerValue("parammeyfac", null);
-			this.parammeaafc = obtainIntegerValue("parammeaafc", null);
-			this.parammecifa = obtainStringValue("parammecifa", null);
-			this.parammeagig = obtainStringValue("parammeagig", null);
+			this.parammeorg = obtainStringValue("meorg", null);
+			this.parammelogo = obtainStringValue("melogo", null);
+			this.parammencct = obtainStringValue("mencct", null);
+			this.parammeyfac = obtainIntegerValue("meyfac", null);
+			this.parammeaafc = obtainIntegerValue("meaafc", null);
+			this.parammecifa = obtainStringValue("mecifa", null);
+			this.parammeagig = obtainStringValue("meagig", null);
 			
 			String rpta = SubProcDspmailing(ds);
 			if (!rpta.equals(""))
@@ -88,24 +88,25 @@ public class ZRSTRECMView01BzService extends RestBaseServerResource {
 			log.info("Number of elements found in " + diff + " millis");
 			
 			String[] fields = new String[] {
-					"P1ORGN",
-					"P1LOGO",
-					"P1ACNB",
-					"P1APEN",
-					"P1FEC",
-					"P1BICY",
-					"P1M",
-					"P1S",
+					"p1orgn",
+					"p1logo",
+					"p1acnb",
+					"p1apen",
+					"p1fec",
+					"p1bicy",
+					"p1m",
+					"p1s",
 			};
 
-			adapted.setP1ORGN(this.imorg);
-			adapted.setP1LOGO(this.imlogo);
-			adapted.setP1ACNB(""); //TODO::
-			adapted.setP1APEN(""); //TODO::
-			adapted.setP1FEC(this.p1fec);
-			adapted.setP1BICY(this.p1bicy);
-			adapted.setP1M(this.sm);
-			adapted.setP1S(this.ss);
+			adapted = new ZRSTRECMAdapter(); 
+			adapted.setP1orgn(this.imorg);
+			adapted.setP1logo(this.imlogo);
+			adapted.setP1acnb(""); //TODO::
+			adapted.setP1apen(""); //TODO::
+			adapted.setP1fec(this.p1fec);
+			adapted.setP1bicy(this.p1bicy);
+			adapted.setP1m(this.sm);
+			adapted.setP1s(this.ss);
 			
 			// Obtains the user JSON representation
 			returnValue = getJSONRepresentationFromObject(adapted, fields);
@@ -202,81 +203,81 @@ public class ZRSTRECMView01BzService extends RestBaseServerResource {
 	
 	public class ZRSTRECMAdapter {
 		
-		String P1ORGN = null;
-		String P1LOGO = null;
-		String P1ACNB = null;
-		String P1APEN = null;
-		String P1FEC = null;
-		String P1BICY = null;
-		String P1M = null;
-		String P1S = null;
+		String p1orgn = null;
+		String p1logo = null;
+		String p1acnb = null;
+		String p1apen = null;
+		String p1fec = null;
+		String p1bicy = null;
+		String p1m = null;
+		String p1s = null;
 		
 		public ZRSTRECMAdapter() {
 			
 		}
 
-		public String getP1ORGN() {
-			return P1ORGN;
+		public String getP1orgn() {
+			return p1orgn;
 		}
 
-		public void setP1ORGN(String p1orgn) {
-			P1ORGN = p1orgn;
+		public void setP1orgn(String p1orgn) {
+			this.p1orgn = p1orgn;
 		}
 
-		public String getP1LOGO() {
-			return P1LOGO;
+		public String getP1logo() {
+			return p1logo;
 		}
 
-		public void setP1LOGO(String p1logo) {
-			P1LOGO = p1logo;
+		public void setP1logo(String p1logo) {
+			this.p1logo = p1logo;
 		}
 
-		public String getP1ACNB() {
-			return P1ACNB;
+		public String getP1acnb() {
+			return p1acnb;
 		}
 
-		public void setP1ACNB(String p1acnb) {
-			P1ACNB = p1acnb;
+		public void setP1acnb(String p1acnb) {
+			this.p1acnb = p1acnb;
 		}
 
-		public String getP1APEN() {
-			return P1APEN;
+		public String getP1apen() {
+			return p1apen;
 		}
 
-		public void setP1APEN(String p1apen) {
-			P1APEN = p1apen;
+		public void setP1apen(String p1apen) {
+			this.p1apen = p1apen;
 		}
 
-		public String getP1FEC() {
-			return P1FEC;
+		public String getP1fec() {
+			return p1fec;
 		}
 
-		public void setP1FEC(String p1fec) {
-			P1FEC = p1fec;
+		public void setP1fec(String p1fec) {
+			this.p1fec = p1fec;
 		}
 
-		public String getP1BICY() {
-			return P1BICY;
+		public String getP1bicy() {
+			return p1bicy;
 		}
 
-		public void setP1BICY(String p1bicy) {
-			P1BICY = p1bicy;
+		public void setP1bicy(String p1bicy) {
+			this.p1bicy = p1bicy;
 		}
 
-		public String getP1M() {
-			return P1M;
+		public String getP1m() {
+			return p1m;
 		}
 
-		public void setP1M(String p1m) {
-			P1M = p1m;
+		public void setP1m(String p1m) {
+			this.p1m = p1m;
 		}
 
-		public String getP1S() {
-			return P1S;
+		public String getP1s() {
+			return p1s;
 		}
 
-		public void setP1S(String p1s) {
-			P1S = p1s;
+		public void setP1s(String p1s) {
+			this.p1s = p1s;
 		}
 		
 		

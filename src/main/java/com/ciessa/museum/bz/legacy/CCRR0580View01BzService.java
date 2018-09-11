@@ -240,6 +240,9 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 					adapted.AJUSTE = o.getScicaj().toString();
 					adapted.TASA = o.getSctacr().toString();
 					adapted.SCNCUO = String.format("%03d", o.getScncuo());
+					adapted.SCSTCU = o.getScstcu();
+					if (!o.getScaapc().equals(0))
+						adapted.FECPAG = new SimpleDateFormat("yyyyMMdd").parse(o.getScaapc().toString() + String.format("%02d", o.getScmmpc()) + String.format("%02d", o.getScddpc())); 
 					if(ObjCcrpcre.getCrmawk().equals("0")) {
 						indexCcrpsch++;
 						if (indexCcrpsch >= this.ListCcrpsch.size()) {
@@ -396,7 +399,7 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 		String TASA   = null;
 		String PPAR   = null;
 		String EXTOR  = null;
-		String FECPAG = null;
+		Date FECPAG = null;
 		String SCNCUO = null;
 		String SCSTCU = null;
 		String ARCHIV = null;
@@ -558,11 +561,11 @@ public class CCRR0580View01BzService extends RestBaseServerResource {
 			EXTOR = eXTOR;
 		}
 
-		public String getFECPAG() {
+		public Date getFECPAG() {
 			return FECPAG;
 		}
 
-		public void setFECPAG(String fECPAG) {
+		public void setFECPAG(Date fECPAG) {
 			FECPAG = fECPAG;
 		}
 

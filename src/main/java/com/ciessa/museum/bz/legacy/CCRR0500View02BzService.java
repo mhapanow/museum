@@ -1,5 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -184,8 +185,15 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 					this.cuna1 = "??????????";
 				}
 				adapted.setNOMCLI(this.cuna1);
-				adapted.setFECALT(o.getCrddoc().toString() + o.getCrmmoc().toString() + o.getCraaoc().toString());
-				adapted.setFECVTO(o.getCrddvc().toString() + o.getCrmmvc().toString() + o.getCraavc().toString());
+				try
+				{
+					adapted.setFECALT(new SimpleDateFormat("yyyyMMdd").parse(o.getCraaoc().toString() + String.format("%02d", o.getCrmmoc()) + String.format("%02d", o.getCrddoc())));
+					adapted.setFECVTO(new SimpleDateFormat("yyyyMMdd").parse(o.getCraavc().toString() + String.format("%02d", o.getCrmmvc()) + String.format("%02d", o.getCrddvc())));   
+
+				}
+				catch (Exception e) {
+				} 
+				adapted.setCRSTCR(String.format("%02d", o.getCrstcr()));
 				list.add(adapted);
 			}
 			
@@ -205,8 +213,8 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 		private String NOMCLI;
 		private String CRNUCR; //TODO: variable no retornable
 		private String CRSTCR; //TODO: variable no retornable
-		private String FECALT;
-		private String FECVTO;
+		private Date FECALT;
+		private Date FECVTO;
 		private String SALDO;
 		
 		public CCRR0500Adapter() {			
@@ -260,19 +268,19 @@ public class CCRR0500View02BzService extends RestBaseServerResource {
 			CRSTCR = cRSTCR;
 		}
 
-		public String getFECALT() {
+		public Date getFECALT() {
 			return FECALT;
 		}
 
-		public void setFECALT(String fECALT) {
+		public void setFECALT(Date fECALT) {
 			FECALT = fECALT;
 		}
 
-		public String getFECVTO() {
+		public Date getFECVTO() {
 			return FECVTO;
 		}
 
-		public void setFECVTO(String fECVTO) {
+		public void setFECVTO(Date fECVTO) {
 			FECVTO = fECVTO;
 		}
 

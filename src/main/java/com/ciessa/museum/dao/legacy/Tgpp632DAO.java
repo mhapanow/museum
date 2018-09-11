@@ -1,5 +1,7 @@
 package com.ciessa.museum.dao.legacy;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -10,12 +12,11 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Zrspple;
+import com.ciessa.museum.model.legacy.Tgpp632;
 
-public class ZrsppleDAO {
-	
-	public Zrspple getUsigRlorgAndRllogoAndRlncctAndRlaaf4AndRlcifaAndRlagigAndRltenv (DataSet ds, String rlorg, String rllogo, String rlncct, String rlaaf4, String rlcifa, String rlagig, String rltenv ) throws ASException {
-SessionFactory factory = null;
+public class Tgpp632DAO {
+	public List<Tgpp632> getUsig(DataSet ds) throws ASException{
+		SessionFactory factory = null;
 		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -28,24 +29,20 @@ SessionFactory factory = null;
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Zrspple Where Rlorg = :rlorg And Rllogo = :rllogo And Rlncct = :rlncct And Rlaaf4 = :rlaaf4 And Rlcifa = :rlcifa And Rlagig = :rlagig And Rltenv = :rltenv ");
-			q.setParameter("rlorg", rlorg);
-			q.setParameter("rllogo", rllogo);
-			q.setParameter("rlncct", rlncct);
-			q.setParameter("rlaaf4", rlaaf4);
-			q.setParameter("rlcifa", rlcifa);
-			q.setParameter("rlagig", rlagig);
-			q.setParameter("rltenv", rltenv);
-			Zrspple o = (Zrspple)q.uniqueResult();
+			StringBuffer sb = new StringBuffer();
+			sb.append(" FROM Tgpp632 Where Y2LSNO =1300000 ");
 			
-			if( o != null ) {
+			Query q = session.createQuery(sb.toString());
+			
+			@SuppressWarnings("unchecked")
+			List<Tgpp632> list = (List<Tgpp632>)q.list();
+			for ( Tgpp632 o : list ) {
 				session.evict(o);
-				tx.commit();
 			}
+			tx.commit();
 			
+			return list;
 			
-			return o;
-				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -53,6 +50,7 @@ SessionFactory factory = null;
 		} finally {
 			session.close();
 		}
+		
 	}
 
 }

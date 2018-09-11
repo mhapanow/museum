@@ -13,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
+import com.ciessa.museum.dao.legacy.ZrspmssDAO;
 import com.ciessa.museum.dao.legacy.ZrsprerDAO;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
+import com.ciessa.museum.model.legacy.Zrspmss;
 import com.ciessa.museum.model.legacy.Zrsprer;
 
 public class ZRSTDSPSView06BzService extends RestBaseServerResource {
@@ -30,12 +32,12 @@ public class ZRSTDSPSView06BzService extends RestBaseServerResource {
 	@Autowired
 	ZrsprerDAO myDaoZrsprer;
 	
-	//@Autowired
-	//ZrspmssDAO myDaoZrspmss;
+	@Autowired
+	ZrspmssDAO myDaoZrspmss;
 	
 	//Entity
-	Zrsprer ObjZrsprer = new Zrsprer();
-	//Zrspmss ObjZrspmss = new Zrspmss();
+	//Zrsprer ObjZrsprer = new Zrsprer();
+	Zrspmss ObjZrspmss = new Zrspmss();
 	
 	// Variables
 	String meorg = null;
@@ -46,7 +48,7 @@ public class ZRSTDSPSView06BzService extends RestBaseServerResource {
 	String mecifa = null;
 	String meagig = null;
 	//
-	Zrsprer stmheader  = new Zrsprer();
+	//Zrsprer stmheader  = new Zrsprer();
 	Zrsprer Objshdr2000 = new Zrsprer();
 	
 	String out5 = null;
@@ -75,7 +77,7 @@ public class ZRSTDSPSView06BzService extends RestBaseServerResource {
 	String smsgvrs = null;
 	String sauxchar = null;
 	
-	String msvrsns = null;
+	String msvrsn = null;
 	String auxdec = null;
 	
 	Integer Si = 0;
@@ -214,11 +216,11 @@ public class ZRSTDSPSView06BzService extends RestBaseServerResource {
 					if (slin[j] != "") {
 						if (flagsfl  == false) {
 							this.fechfac = this.smesres + "/" + this.sanyores; //TODO :
-							this.mebicyd = this.meccyc; // TODO :
+							this.mebicyd = Objshdr2000.getMeccyc().toString();
 							this.flagsfl = true; // TODO :
 						}
 					}
-					w5linems = this.slin[j]; // TODO :
+					w5linems = this.slin[j];
 				}
 			}
 			this.nove5sav = this.nove5;
@@ -254,9 +256,8 @@ public class ZRSTDSPSView06BzService extends RestBaseServerResource {
 			for (int i = 0; i < 20; i++) {
 				msmgcd = smsgvrs.substring(1-1, 2-1); // (i)
 				sauxchar = smsgvrs.substring(1-3, 4-1); // (i)
-				
 				if ( msmgcd != "" && StringUtils.isNumeric(sauxchar) ) {
-					msvrsns = auxdec; // TODO auxdec
+					msvrsn = auxdec; // TODO auxdec
 					String rpta = SubRutSscicloppal(ds);
 				}
 			}
@@ -269,38 +270,37 @@ public class ZRSTDSPSView06BzService extends RestBaseServerResource {
 	
 	private String SubRutSscicloppal(DataSet ds) {
 		try {
-			//implementar DAO
-			//ObjZrspmss = myDaoZrsprer.getUsingMeorgAndMelogoAndMencctAndMeyfacAndMeaafcAndMecifaAndMeagig(ds,Integer.parseInt(meorg) , Integer.parseInt(melogo), mencct, Integer.parseInt(meyac), Integer.parseInt(meaafc), mecifa, meagig);
-			// ObjZrspmss != null && ObjZrspmss.msmgds != ""
+			ObjZrspmss = myDaoZrspmss.getUsingMsyfacAndMsaafcAndMscifaAndMsccycAndMsorgAndMslogoAndMsmgcdAndMsvrsn(ds, msyfac, msaafc, mscifa, msccyc, msorg.toString(), mslogo.toString(), msmgcd, msvrsn);
 			
-			if (true) {
+			if (ObjZrspmss != null && !ObjZrspmss.getMsmgds().equals("")) {
 				J = 1;
 				while (J <= 70 && J > 0) {
 					K = J;
-					// J = getPosition(" ", ObjZrspmss.msmgds.substring( K + 1 ) );
+					//J = getPosition(" ", ObjZrspmss.getMsmgds().substring( K + 1 ) );
+					J = ObjZrspmss.getMsmgds().indexOf(" ", K +1 );
 					
 				}
 				if (K > 1) {
 					Q = Q + 1;
-					// slin[Q] = ObjZrspmss.msmgds.substring( K - 1 );
-					// R = ObjZrspmss.msmgds.length() - K;
+					slin[Q] = ObjZrspmss.getMsmgds().substring( K - 1 );
+					 R = ObjZrspmss.getMsmgds().length() - K;
 					if (R > 70) {
 						Q = Q + 1;
-						//slin[Q] = ObjZrspmss.msmgds.substring( K + 1 , K + 1 + 60 );
+						slin[Q] = ObjZrspmss.getMsmgds().substring( K + 1 , K + 1 + 60 );
 						Q = Q + 1;
-						//slin[Q] = ObjZrspmss.msmgds.substring( 60 + K + 1 );
+						slin[Q] = ObjZrspmss.getMsmgds().substring( 60 + K + 1 );
 					}else {
 						Q = Q + 1;
-						//slin[Q] = ObjZrspmss.msmgds.substring( K + 1 );
+						slin[Q] = ObjZrspmss.getMsmgds().substring( K + 1 );
 					}
 				}else {
 					Q = Q + 1;
-					//slin[Q] = ObjZrspmss.msmgds.substring( 1 - 1 , 60 - 1 );
+					slin[Q] = ObjZrspmss.getMsmgds().substring( 1 - 1 , 60 - 1 );
 					Q = Q + 1;
-					//slin[Q] = ObjZrspmss.msmgds.substring( 61 - 1 , 61 + 60 );
+					slin[Q] = ObjZrspmss.getMsmgds().substring( 61 - 1 , 61 + 60 );
 				}
 				Q = Q + 1;
-				//slin[Q] = "";
+				slin[Q] = "";
 			}
 			
 			return "";

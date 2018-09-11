@@ -12,7 +12,7 @@ import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Grmcrc;
 
 public class GrmcrcDAO {
-	public Grmcrc getUsingW1cans(DataSet ds, int w1cans) throws ASException	{
+	public Grmcrc getUsingW1cans(DataSet ds, String w1cans) throws ASException	{
 		
 		SessionFactory factory = null;
 		
@@ -31,13 +31,11 @@ public class GrmcrcDAO {
 			q.setParameter("w1cans", w1cans);
 			Grmcrc o = (Grmcrc)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
 			
-			session.evict(o);
-			tx.commit();
 			return o;
 				
 		} catch (HibernateException e) {

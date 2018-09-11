@@ -30,6 +30,8 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 	
 	@Autowired
 	ZrsppmaDAO myDAOZrsppma;
+	
+	@Autowired
 	ZrsplemDAO myDAOZrsplem;
 	
 	Zrsppma ObjZrsppma = new Zrsppma();
@@ -78,7 +80,7 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 	
 	String wley = null;
 	
-	String sm = null;
+	String sm = "";
 	
 	//
 	FUNCIONESBzService func = new FUNCIONESBzService();
@@ -96,17 +98,17 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 			DataSet ds = dsDao.get(user.getDefaultDataSet());
 			long millisPre = new Date().getTime();
 			
-			this.parammeorg = obtainStringValue("parammeorg", null);
-			this.parammelogo = obtainStringValue("parammelogo", null);
-			this.parammencct = obtainStringValue("parammencct", null);
-			this.parammeyfac = obtainIntegerValue("parammeyfac", null);
-			this.parammeaafc = obtainIntegerValue("parammeaafc", null);
-			this.parammecifa = obtainStringValue("parammecifa", null);
-			this.parammeagig = obtainStringValue("parammeagig", null);
+			this.parammeorg = obtainStringValue("meorg", null);
+			this.parammelogo = obtainStringValue("melogo", null);
+			this.parammencct = obtainStringValue("mencct", null);
+			this.parammeyfac = obtainIntegerValue("meyfac", null);
+			this.parammeaafc = obtainIntegerValue("meaafc", null);
+			this.parammecifa = obtainStringValue("mecifa", null);
+			this.parammeagig = obtainStringValue("meagig", null);
 			
 			// inicializar array de string
-			String.format("%1$-4140s",this.sm);
-			String.format("%1$-80s",this.ss);
+			this.sm = String.format("%1$-4140s",this.sm);
+			this.ss = String.format("%1$-80s",this.ss);
 			
 			String rpta = this.SubRutSinzsr(ds);
 			if (!rpta.equals(""))
@@ -131,24 +133,24 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 			log.info("Number of elements found in " + diff + " millis");
 			
 			String[] fields = new String[] {
-					"C1ORGN",
-					"C1LOGO",
-					"C1ACNB",
-					"C1APEN",
-					"C1FEC",
-					"C1BICY",
-					"C1TITU",
-					"SFLEY1",
+				"c1orgn",
+				"c1logo",
+				"c1acnb",
+				"c1apen",
+				"c1fec",
+				"c1bicy",
+				"c1titu",
+				"sfley1",
 			};
-			
-			adapted.setC1ORGN(this.c1orgn);
-			adapted.setC1LOGO(this.c1logo);
-			adapted.setC1ACNB(this.c1acnb);
-			adapted.setC1APEN(this.c1apen);
-			adapted.setC1FEC(this.c1fec.toString());
-			adapted.setC1BICY(this.c1bicy);
-			adapted.setC1TITU(this.c1titu);
-			adapted.setSFLEY1(this.sfley1);
+			adapted = new ZRSTRECMAdapter();
+			adapted.setC1orgn(this.c1orgn);
+			adapted.setC1logo(this.c1logo);
+			adapted.setC1acnb(this.c1acnb);
+			adapted.setC1apen(this.c1apen);
+			adapted.setC1fec(this.c1fec.toString());
+			adapted.setC1bicy(this.c1bicy);
+			adapted.setC1titu(this.c1titu);
+			adapted.setSfley1(this.sfley1);
 			
 			// Obtains the user JSON representation
 			returnValue = getJSONRepresentationFromObject(adapted, fields);
@@ -210,7 +212,7 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 	private String SubRutLoad1(DataSet ds) {
 		try {
 			this.sfley1 = "";
-			this.c1fec = (Integer.parseInt(this.imcifa) * 100 ) + this.imaaf4;
+			this.c1fec = (Integer.parseInt(ObjZrsppma.getImcifa()) * 100 ) + ObjZrsppma.getImaaf4();
 			this.c1orgn = this.parammeorg;
 			this.c1logo = this.parammelogo;
 			this.c1acnb = this.parammencct; 
@@ -219,20 +221,20 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 			this.c1apen = meapen; //TODO no existe
 			this.c1bicy = this.parammeagig;
 			
-			if (ObjZrsppma.getImtenv() == "M") {
+			if (ObjZrsppma.getImtenv().equals("M")) {
 				this.c1titu = "MAILING DE MARKETING";
 			}else {
 				this.c1titu = "MAILING DE SERVICIOS";
 			}
 			
-			if (ObjZrsppma.getImtenv() == "M") {
+			if (ObjZrsppma.getImtenv().equals("M")) {
 				this.amtmai = ObjZrsppma.getImtmam();
 				this.amnmai = ObjZrsppma.getImnmam();
-				this.ss = ObjZrsppma.getImvsum();
+				this.ss = func.StringToArrayString(this.ss,1, ObjZrsppma.getImvsum());
 			}else {
 				this.amtmai = ObjZrsppma.getImtmas();
 				this.amnmai = ObjZrsppma.getImnmas();
-				this.ss = ObjZrsppma.getImvsuv();
+				this.ss = func.StringToArrayString(this.ss,1, ObjZrsppma.getImvsuv());
 			}
 			
 			String rpts = SubRutCarga(ds);
@@ -365,82 +367,83 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 	
 	
 	public class ZRSTRECMAdapter {
-		String C1ORGN = null;
-		String C1LOGO = null;
-		String C1ACNB = null;
-		String C1APEN = null;
-		String C1FEC = null;
-		String C1BICY = null;
-		String C1TITU = null;
-		String SFLEY1 = null;
+		String c1orgn = null;
+		String c1logo = null;
+		String c1acnb = null;
+		String c1apen = null;
+		String c1fec = null;
+		String c1bicy = null;
+		String c1titu = null;
+		String sfley1 = null;
 		
 		public ZRSTRECMAdapter() {
 			
 		}
 
-		public String getC1ORGN() {
-			return C1ORGN;
+		public String getC1orgn() {
+			return c1orgn;
 		}
 
-		public void setC1ORGN(String c1orgn) {
-			C1ORGN = c1orgn;
+		public void setC1orgn(String c1orgn) {
+			this.c1orgn = c1orgn;
 		}
 
-		public String getC1LOGO() {
-			return C1LOGO;
+		public String getC1logo() {
+			return c1logo;
 		}
 
-		public void setC1LOGO(String c1logo) {
-			C1LOGO = c1logo;
+		public void setC1logo(String c1logo) {
+			this.c1logo = c1logo;
 		}
 
-		public String getC1ACNB() {
-			return C1ACNB;
+		public String getC1acnb() {
+			return c1acnb;
 		}
 
-		public void setC1ACNB(String c1acnb) {
-			C1ACNB = c1acnb;
+		public void setC1acnb(String c1acnb) {
+			this.c1acnb = c1acnb;
 		}
 
-		public String getC1APEN() {
-			return C1APEN;
+		public String getC1apen() {
+			return c1apen;
 		}
 
-		public void setC1APEN(String c1apen) {
-			C1APEN = c1apen;
+		public void setC1apen(String c1apen) {
+			this.c1apen = c1apen;
 		}
 
-		public String getC1FEC() {
-			return C1FEC;
+		public String getC1fec() {
+			return c1fec;
 		}
 
-		public void setC1FEC(String c1fec) {
-			C1FEC = c1fec;
+		public void setC1fec(String c1fec) {
+			this.c1fec = c1fec;
 		}
 
-		public String getC1BICY() {
-			return C1BICY;
+		public String getC1bicy() {
+			return c1bicy;
 		}
 
-		public void setC1BICY(String c1bicy) {
-			C1BICY = c1bicy;
+		public void setC1bicy(String c1bicy) {
+			this.c1bicy = c1bicy;
 		}
 
-		public String getC1TITU() {
-			return C1TITU;
+		public String getC1titu() {
+			return c1titu;
 		}
 
-		public void setC1TITU(String c1titu) {
-			C1TITU = c1titu;
+		public void setC1titu(String c1titu) {
+			this.c1titu = c1titu;
 		}
 
-		public String getSFLEY1() {
-			return SFLEY1;
+		public String getSfley1() {
+			return sfley1;
 		}
 
-		public void setSFLEY1(String sFLEY1) {
-			SFLEY1 = sFLEY1;
+		public void setSfley1(String sfley1) {
+			this.sfley1 = sfley1;
 		}
+		
 		
 		
 		
