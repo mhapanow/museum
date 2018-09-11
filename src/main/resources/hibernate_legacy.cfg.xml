@@ -5,8 +5,8 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.password">!Rootman01</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://192.168.22.133:1433;databaseName=museum</property>
+		<property name="hibernate.connection.password">123456789</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://192.168.1.20:1433;databaseName=museum</property>
 		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.default_catalog">museum</property>
 		<property name="hibernate.default_schema">dbo</property>
@@ -39,6 +39,10 @@
 			resource="com/ciessa/museum/model/legacy/Glc001.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Grmcda.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Grmcrc.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Grmcus.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Grmida.hbm.xml"></mapping>
 		<mapping
@@ -81,6 +85,32 @@
 			resource="com/ciessa/museum/model/legacy/Ccrpcar.hbm.xml"></mapping>
  		<mapping
 			resource="com/ciessa/museum/model/legacy/Ccrpcci.hbm.xml"></mapping>
+<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspdmr.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspilr.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrsplem.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrsplen.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspmlr.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspmss.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrsppir.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspple.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspplr.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrsppma.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrsprer.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrsprwd.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zvrpfrq.hbm.xml"></mapping>
 			
 	</session-factory>
 

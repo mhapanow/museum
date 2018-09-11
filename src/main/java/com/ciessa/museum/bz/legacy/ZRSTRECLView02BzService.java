@@ -109,18 +109,18 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 			DataSet ds = dsDao.get(user.getDefaultDataSet());
 			long millisPre = new Date().getTime();
 			
-			this.parammeorg = obtainStringValue("parammeorg", null);
-			this.parammelogo = obtainStringValue("parammelogo", null);
-			this.parammencct = obtainStringValue("parammencct", null);
-			this.parammeyfac = obtainIntegerValue("parammeyfac", null);
-			this.parammeaafc = obtainIntegerValue("parammeaafc", null);
-			this.parammecifa = obtainStringValue("parammecifa", null);
-			this.parammeagig = obtainStringValue("parammeagig", null);
-			this.paramcuerpo = obtainStringValue("paramcuerpo", null);
+			this.parammeorg = obtainStringValue("meorg", null);
+			this.parammelogo = obtainStringValue("melogo", null);
+			this.parammencct = obtainStringValue("mencct", null);
+			this.parammeyfac = obtainIntegerValue("meyfac", null);
+			this.parammeaafc = obtainIntegerValue("meaafc", null);
+			this.parammecifa = obtainStringValue("mecifa", null);
+			this.parammeagig = obtainStringValue("meagig", null);
+			this.paramcuerpo = obtainStringValue("cuerpo", null);
 			
 			// inicializar array de string
-			String.format("%1$-6300s",this.sm);
-			String.format("%1$-80s",this.ss);
+			this.sm = String.format("%1$-6300s",this.sm);
+			this.ss = String.format("%1$-80s",this.ss);
 			
 			String rpta = SubProcDspleyenda(ds);
 			
@@ -138,22 +138,22 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 			log.info("Number of elements found in " + diff + " millis");
 			
 			String[] fields = new String[] {
-					"C2ORGN",
-					"C2LOGO",
-					"C2ACNB",
-					"C2APEN",
-					"C2FEC",
-					"C2BICY",
-					"SFLEY2",
+					"c2orgn",
+					"c2logo",
+					"c2acnb",
+					"c2apen",
+					"c2fec",
+					"c2bicy",
+					"sfley2",
 			};
-			
-			adapted.setC2ORGN(this.c2orgn);
-			adapted.setC2LOGO(this.c2logo);
-			adapted.setC2ACNB(this.c2acnb);
-			adapted.setC2APEN(this.c2apen);
-			adapted.setC2FEC(this.c2fec.toString());
-			adapted.setC2BICY(this.c2bicy);
-			adapted.setSFLEY2(this.sfley2);
+			adapted = new ZRSTRECLAdapter();
+			adapted.setC2orgn(this.c2orgn);
+			adapted.setC2logo(this.c2logo);
+			adapted.setC2acnb(this.c2acnb);
+			adapted.setC2apen(this.c2apen);
+			adapted.setC2fec(this.c2fec.toString());
+			adapted.setC2bicy(this.c2bicy);
+			adapted.setSfley2(this.sfley2);
 			
 			// Obtains the user JSON representation
 			returnValue = getJSONRepresentationFromObject(adapted, fields);
@@ -178,8 +178,8 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 	
 	private String SubProcDspleyenda(DataSet ds) {
 		try {
-			this.sm = null;
-			this.ss = null;
+			this.sm = String.format("%1$-6300s",this.sm);
+			this.ss = String.format("%1$-80s",this.ss);
 			
 			String rpta = this.SubRutSinzsr(ds);
 			if (!rpta.equals(""))
@@ -263,8 +263,8 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				sleye = "FRENTE 1"; 
 				lrtile = ObjZrspple.getRltif1();
 				lridln = ObjZrspple.getRlidf1();
-				ss = ObjZrspple.getRlvsf1();
-				
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsf1());
+			
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
 				{
@@ -275,7 +275,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				sleye = "FRENTE 2"; 
 				lrtile = ObjZrspple.getRltif2();
 				lridln = ObjZrspple.getRlidf2();
-				ss = ObjZrspple.getRlvsf2();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsf2());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -287,7 +287,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				sleye = "FRENTE 3"; 
 				lrtile = ObjZrspple.getRltif3();
 				lridln = ObjZrspple.getRlidf3();
-				ss = ObjZrspple.getRlvsf3();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsf3());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -299,7 +299,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				sleye = "FRENTE 4"; 
 				lrtile = ObjZrspple.getRltif4();
 				lridln = ObjZrspple.getRlidf4();
-				ss = ObjZrspple.getRlvsf4();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsf4());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -311,7 +311,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				sleye = "FRENTE 5"; 
 				lrtile = ObjZrspple.getRltif5();
 				lridln = ObjZrspple.getRlidf5();
-				ss = ObjZrspple.getRlvsf5();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsf5());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -323,7 +323,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				sleye = "FRENTE 6"; 
 				lrtile = ObjZrspple.getRltif6();
 				lridln = ObjZrspple.getRlidf6();
-				ss = ObjZrspple.getRlvsf6();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsf6());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -336,7 +336,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				this.sleye = "DORSO 1";
 				this.lrtile = ObjZrspple.getRltid1();
 				this.lridln = ObjZrspple.getRlidd1();
-				this.ss = ObjZrspple.getRlvsd1();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsd1());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -348,7 +348,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				this.sleye = "DORSO 2";
 				this.lrtile = ObjZrspple.getRltid2();
 				this.lridln = ObjZrspple.getRlidd2();
-				this.ss = ObjZrspple.getRlvsd2();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsd2());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -360,7 +360,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				this.sleye = "DORSO 3";
 				this.lrtile = ObjZrspple.getRltid3();
 				this.lridln = ObjZrspple.getRlidd3();
-				this.ss = ObjZrspple.getRlvsd3();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsd3());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -372,7 +372,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				this.sleye = "DORSO 4";
 				this.lrtile = ObjZrspple.getRltid4();
 				this.lridln = ObjZrspple.getRlidd4();
-				this.ss = ObjZrspple.getRlvsd4();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsd4());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -384,7 +384,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				this.sleye = "DORSO 5";
 				this.lrtile = ObjZrspple.getRltid5();
 				this.lridln = ObjZrspple.getRlidd5();
-				this.ss = ObjZrspple.getRlvsd5();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsd5());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -396,7 +396,7 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 				this.sleye = "DORSO 6";
 				this.lrtile = ObjZrspple.getRltid6();
 				this.lridln = ObjZrspple.getRlidd6();
-				this.ss = ObjZrspple.getRlvsd6();
+				this.ss = func.StringToArrayString(this.ss, 1, ObjZrspple.getRlvsd6());
 				
 				resp = SubRutCarga(ds);
 				if (!resp.equals(""))
@@ -553,75 +553,77 @@ public class ZRSTRECLView02BzService extends RestBaseServerResource {
 	
 	public class ZRSTRECLAdapter {
 		
-		String C2ORGN = null;
-		String C2LOGO = null;
-		String C2ACNB = null;
-		String C2APEN = null;
-		String C2FEC = null;
-		String C2BICY = null;
-		String SFLEY2 = null;
+		String c2orgn = null;
+		String c2logo = null;
+		String c2acnb = null;
+		String c2apen = null;
+		String c2fec = null;
+		String c2bicy = null;
+		String sfley2 = null;
 		
 		public ZRSTRECLAdapter() {
 			
 		}
 
-		public String getC2ORGN() {
-			return C2ORGN;
+		public String getC2orgn() {
+			return c2orgn;
 		}
 
-		public void setC2ORGN(String c2orgn) {
-			C2ORGN = c2orgn;
+		public void setC2orgn(String c2orgn) {
+			this.c2orgn = c2orgn;
 		}
 
-		public String getC2LOGO() {
-			return C2LOGO;
+		public String getC2logo() {
+			return c2logo;
 		}
 
-		public void setC2LOGO(String c2logo) {
-			C2LOGO = c2logo;
+		public void setC2logo(String c2logo) {
+			this.c2logo = c2logo;
 		}
 
-		public String getC2ACNB() {
-			return C2ACNB;
+		public String getC2acnb() {
+			return c2acnb;
 		}
 
-		public void setC2ACNB(String c2acnb) {
-			C2ACNB = c2acnb;
+		public void setC2acnb(String c2acnb) {
+			this.c2acnb = c2acnb;
 		}
 
-		public String getC2APEN() {
-			return C2APEN;
+		public String getC2apen() {
+			return c2apen;
 		}
 
-		public void setC2APEN(String c2apen) {
-			C2APEN = c2apen;
+		public void setC2apen(String c2apen) {
+			this.c2apen = c2apen;
 		}
 
-		public String getC2FEC() {
-			return C2FEC;
+		public String getC2fec() {
+			return c2fec;
 		}
 
-		public void setC2FEC(String c2fec) {
-			C2FEC = c2fec;
+		public void setC2fec(String c2fec) {
+			this.c2fec = c2fec;
 		}
 
-		public String getC2BICY() {
-			return C2BICY;
+		public String getC2bicy() {
+			return c2bicy;
 		}
 
-		public void setC2BICY(String c2bicy) {
-			C2BICY = c2bicy;
+		public void setC2bicy(String c2bicy) {
+			this.c2bicy = c2bicy;
 		}
 
-		public String getSFLEY2() {
-			return SFLEY2;
+		public String getSfley2() {
+			return sfley2;
 		}
 
-		public void setSFLEY2(String sFLEY2) {
-			SFLEY2 = sFLEY2;
+		public void setSfley2(String sfley2) {
+			this.sfley2 = sfley2;
 		}
 		
-			
+		
+
+
 		
 	}
 	

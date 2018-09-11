@@ -108,7 +108,6 @@ public class RncptvpDAO {
 		try {
 			tx = session.beginTransaction();
 			Query q = session.createQuery(" from Rncptvp where vpodst=60 and vpvanr = :nrcofn ");
-			nrcofn ="21";
 			q.setParameter("nrcofn", nrcofn);
 			Rncptvp o = (Rncptvp)q.uniqueResult();
 			

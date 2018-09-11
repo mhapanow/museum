@@ -38,13 +38,12 @@ SessionFactory factory = null;
 			q.setParameter("rltenv", rltenv);
 			Zrspple o = (Zrspple)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
 			
-			session.evict(o);
-			tx.commit();
+			
 			return o;
 				
 		} catch (HibernateException e) {

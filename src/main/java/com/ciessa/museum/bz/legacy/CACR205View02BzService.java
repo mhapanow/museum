@@ -218,7 +218,7 @@ public class CACR205View02BzService extends RestBaseServerResource{
 					if (ObjGrmria != null) {
 						ObjGrmida = myDaoGrmida.getUsingRirmcn(ds, ObjGrmria.getRqrmcn().toString());
 						if (ObjGrmida != null) {
-							adapted.setWSTITU(ObjGrmida.getRilsnm() + ObjGrmida.getRifsnm());
+							adapted.setWSTITU(ObjGrmida.getRilsnm() +" "+ ObjGrmida.getRifsnm());
 						}
 						else {
 							ObjGrmcda = myDaoGrmcda.getUsingRyrmcn(ds, ObjGrmria.getRqrmcn().toString());
@@ -230,12 +230,8 @@ public class CACR205View02BzService extends RestBaseServerResource{
 					adapted.setClave(o.getHiacct().toString() + o.getHitodf().toString() + o.getHidate().toString() + o.getHitie().toString() + o.getHifsel());
 					adapted.setWSBRCH(o.getHibrch()); //TODO: ASGINACIÓN DUPLICADA EN LA LINEA 199
 					adapted.setWSSF4(o.getHisf4()); //TODO: ASGINACIÓN DUPLICADA EN LA LINEA 200
-					adapted.setSFEAMD(new SimpleDateFormat("yyyyMMdd").parse(o.getHidate().toString()));
-					//TODO: Ejecutar rutina FECHA
-					adapted.setWSDATE(adapted.getSFEAMD());
-					adapted.setSFEAMD(new SimpleDateFormat("yyyyMMdd").parse(o.getHifsel().toString()));
-					//TODO: Ejecutar rutina FECHA
-					adapted.setWSFSEL(adapted.getSFEAMD());
+					adapted.setWSDATE(new SimpleDateFormat("yyyyMMdd").parse(o.getHidate().toString()));
+					adapted.setWSFSEL(new SimpleDateFormat("yyyyMMdd").parse(o.getHifsel().toString()));
 					adapted.setWSSTAT(o.getHistat());
 					adapted.setWSAAMT(o.getHiaamt());
 					adapted.setWSCBAL(o.getHicbal().doubleValue());
@@ -243,9 +239,7 @@ public class CACR205View02BzService extends RestBaseServerResource{
 					adapted.setWSBRCH(o.getHibrch());  //TODO: ASGINACIÓN DUPLICADA EN LA LINEA 187
 					adapted.setWSSF4(o.getHisf4()); //TODO: ASGINACIÓN DUPLICADA EN LA LINEA 188
 					adapted.setWSCMCN(o.getHicmcn());
-					adapted.setSFEAMD(new SimpleDateFormat("yyyyMMdd").parse(o.getHiamnd().toString()));
-					//TODO: Ejecutar rutina FECHA
-					adapted.setWSAMND(adapted.getSFEAMD());
+					adapted.setWSAMND(new SimpleDateFormat("yyyyMMdd").parse(o.getHiamnd().toString()));
 					adapted.setWSTYPE(o.getHitype());
 					adapted.setWSRESU(o.getHiresu());
 					if(o.getHiresu().equals("")) 
@@ -257,28 +251,23 @@ public class CACR205View02BzService extends RestBaseServerResource{
 					if(o.getHiresu().equals("A"))
 						adapted.setWSDRES("APLICADO");
 					adapted.setWSMREC(o.getHimrec());
-					if (!o.getHifcan().equals(0)) adapted.setSFEAMD(new SimpleDateFormat("yyyyMMdd").parse(o.getHifcan().toString()));
-					//TODO: Ejecutar rutina FECHA
-					adapted.setWSFCAN(adapted.getSFEAMD());
-					if (!o.getHifact().equals(0)) adapted.setSFEAMD(new SimpleDateFormat("yyyyMMdd").parse(o.getHifact().toString()));
-					//TODO: Ejecutar rutina FECHA
-					adapted.setWSFACT(adapted.getSFEAMD());
+					if (!o.getHifcan().equals(0)) 
+						adapted.setWSFCAN(new SimpleDateFormat("yyyyMMdd").parse(o.getHifcan().toString()));
+					if (!o.getHifact().equals(0)) 
+						adapted.setWSFACT(new SimpleDateFormat("yyyyMMdd").parse(o.getHifact().toString()));
 					adapted.setWSSUML(o.getHisuml());
 					adapted.setWSDIEX(o.getHidiex());
 					adapted.setWSIMEX(o.getHiimex());
 					adapted.setWSMEXH(o.getHimexh());
-					if (!o.getHinvt2().equals(0)) adapted.setSFEAMD(new SimpleDateFormat("yyyyMMdd").parse(o.getHinvt2().toString()));
-					//TODO: Ejecutar rutina FECHA
-					adapted.setWSNVT2(adapted.getSFEAMD());
+					if (!o.getHinvt2().equals(0)) 
+						adapted.setWSNVT2(new SimpleDateFormat("yyyyMMdd").parse(o.getHinvt2().toString()));
 					adapted.setWSSTAN(o.getHistan());
 					adapted.setWSTYPN(o.getHitypn());
 					adapted.setWSNLIM(o.getHinlim());
-					if (!o.getHinvto().equals(0)) adapted.setSFEAMD(new SimpleDateFormat("yyyyMMdd").parse(o.getHinvto().toString()));
-					//TODO: Ejecutar rutina FECHA
-					adapted.setWSNVTO(adapted.getSFEAMD());
-					if (!o.getHisent().equals(0)) adapted.setSFEAMD(new SimpleDateFormat("yyyyMMdd").parse(o.getHisent().toString()));
-					//TODO: Ejecutar rutina FECHA
-					adapted.setWSSENT(adapted.getSFEAMD());
+					if (!o.getHinvto().equals(0)) 
+						adapted.setWSNVTO(new SimpleDateFormat("yyyyMMdd").parse(o.getHinvto().toString()));
+					if (!o.getHisent().equals(0)) 
+						adapted.setWSSENT(new SimpleDateFormat("yyyyMMdd").parse(o.getHisent().toString()));
 					adapted.setWSETAP(o.getHietap());
 					if (!o.getHiobse().equals("")) {
 						adapted.setWSOBSE(o.getHiobse());

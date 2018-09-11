@@ -41,8 +41,6 @@ public class GrmidaDAO {
 				tx.commit();
 			}
 			
-			
-			
 			return o;
 		} catch (HibernateException e) {
 			if (tx != null)
@@ -50,12 +48,8 @@ public class GrmidaDAO {
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-			}
-		
-	}	
-	
-	
-	
+		}
+	}
 	
 	public Grmida getUsingCrnucl(DataSet ds, String crnucl) throws ASException	{
 		
@@ -88,8 +82,7 @@ public class GrmidaDAO {
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-			}
-		
+		}
 	}	
 	
 }

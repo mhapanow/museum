@@ -12,13 +12,12 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Cuxrf1;
+import com.ciessa.museum.model.legacy.Zrspilr;
 
-public class Cuxrf1DAO {
-
-	public List<Cuxrf1> getUsingCux1ac(DataSet ds, String tipo, String cuenta) throws ASException {
-
-		SessionFactory factory = null;
+public class ZrspilrDAO {
+	public List<Zrspilr> getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAorgnAndMelogoAndMencct(DataSet ds, String meyfac, String meaafc, String mecifa, String meagig, String aaorgn, String melogo, String mencct) throws ASException{
+SessionFactory factory = null;
+		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -28,21 +27,30 @@ public class Cuxrf1DAO {
 		
 		Session session = factory.openSession();
 		Transaction tx = null;
-
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append("FROM Cuxrf1 WHERE cuxbk = 1 AND cux1ac = :cux1ac ORDER BY cux1cs");
+			sb.append(" FROM Zrspilr Where ILYFAC = :meyfac AND ILAAFC = :meaafc AND ILCIFA = :mecifa AND ILAGIG = :meagig AND ILORG = :aaorgn AND ILLOGO = :melogo AND ILNCCT = :mencct ");
+			
 			Query q = session.createQuery(sb.toString());
-			q.setParameter("cux1ac", "0" + tipo + cuenta);
+			q.setParameter("meyfac", meyfac);
+			q.setParameter("meaafc", meaafc);
+			q.setParameter("mecifa", mecifa);
+			q.setParameter("meagig", meagig);
+			q.setParameter("aaorgn", aaorgn);
+			q.setParameter("melogo", melogo);
+			q.setParameter("mencct", mencct);
+			
 			@SuppressWarnings("unchecked")
-			List<Cuxrf1> list = (List<Cuxrf1>)q.list();
-			for( Cuxrf1 o : list ) {
+			List<Zrspilr> list = (List<Zrspilr>)q.list();
+			for (Zrspilr o : list ) {
 				session.evict(o);
 			}
+			
 			tx.commit();
 			
 			return list;
+			
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -51,5 +59,5 @@ public class Cuxrf1DAO {
 			session.close();
 		}
 	}
-	
+
 }

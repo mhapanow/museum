@@ -80,6 +80,8 @@ public class FER1020View3BzService extends RestBaseServerResource{
 		
 	private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 	
+	String wbas;
+	
 	@Get
 	public String view() {
 		long start = markStart();
@@ -89,7 +91,7 @@ public class FER1020View3BzService extends RestBaseServerResource{
 			User user = this.getUserFromToken();
 			DataSet ds = dsDao.get(user.getDefaultDataSet());
 			
-			String wbas = obtainStringValue("wbas", null);
+			wbas = obtainStringValue("wbas", null);
 			String wcta = obtainStringValue("wcta", null);
 			String waca = obtainStringValue("waca", null);
 			String wpto = obtainStringValue("wpto", null);
@@ -234,10 +236,12 @@ public class FER1020View3BzService extends RestBaseServerResource{
 			this.DOLIMA = src.getDolima();
 			this.WCTA1 = src.getDmacct();
 			this.WSINTE = src.getDotacc();
-			try {
-				this.WSDATC = new SimpleDateFormat("yyyyMMdd").parse(src.getDodatc().toString());
-				this.WSAMND = new SimpleDateFormat("yyyyMMdd").parse(src.getDoamnd().toString());
-			} catch( Exception e ) {}
+			if (Integer.parseInt(wbas) == 0) {
+				try {
+					this.WSDATC = new SimpleDateFormat("yyyyMMdd").parse(src.getDodatc().toString());
+					this.WSAMND = new SimpleDateFormat("yyyyMMdd").parse(src.getDoamnd().toString());
+				} catch( Exception e ) {}
+			}
 			if( src.getDmtodf().equals(1)) {
 				this.DESTIP = "ACA";
 			} else if( src.getDmtodf().equals(2)) {

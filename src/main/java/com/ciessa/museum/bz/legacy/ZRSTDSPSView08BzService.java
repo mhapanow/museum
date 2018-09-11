@@ -51,7 +51,6 @@ public class ZRSTDSPSView08BzService extends RestBaseServerResource {
 	
 	ZRSTDSPSAdapter adapted = null;
 	
-	
 	@Get
 	public String view() {
 		long start = markStart();
@@ -87,16 +86,16 @@ public class ZRSTDSPSView08BzService extends RestBaseServerResource {
 			log.info("Number of elements found in " + diff + " millis");
 			
 			String[] fields = new String[] {
-					"W4RPGI",
-					"W4RBPI",
-					"W4RRRE28",
-					"W4RBEG",
-					"W4REAR",
-					"W4RPRE",
-					"W4RRED",
-					"W4RPAD",
-					"W4RAVA",
-					"W4RRMP",
+					"w4rpgi",
+					"w4rbpi",
+					"w4rrre28",
+					"w4rbeg",
+					"w4rear",
+					"w4rpre",
+					"w4rred",
+					"w4rpad",
+					"w4rava",
+					"w4rrmp",
 			};
 			
 			// Obtains the user JSON representation
@@ -135,19 +134,19 @@ public class ZRSTDSPSView08BzService extends RestBaseServerResource {
 			}else {
 				this.meaafcd = 1900 + this.meaafc;
 			}
-			String w4rrre=""; //TODO:::: NO EXISTE
-			ObjZrsprwd = myDaoZrsprwd.getUsingRwaafcAndRwcifaAndRwagigAndRwlogoAndRwncctAndW4rrreAndW4orgnAndW4rearAndW4rpre(ds, rwaafc, rwcifa, rwagig, rwlogo, rwncct, w4rrre, w4orgn, w4rear, w4rpre);
-			
-			adapted.setW4RPGI(ObjZrsprwd.getRwrpgi().toString()); 
-			adapted.setW4RBPI(ObjZrsprwd.getRwrbpi().toString()); 
-			adapted.setW4RRRE28(""); //TODO 
-			adapted.setW4RBEG(ObjZrsprwd.getRwrbeg().toString()); 
-			adapted.setW4REAR(ObjZrsprwd.getRwrear().toString()); 
-			adapted.setW4RPRE(ObjZrsprwd.getRwrpre().toString()); 
-			adapted.setW4RRED(ObjZrsprwd.getRwrred().toString()); 
-			adapted.setW4RPAD(ObjZrsprwd.getRwrpad().toString()); 
-			adapted.setW4RAVA(ObjZrsprwd.getRwrava().toString()); 
-			adapted.setW4RRMP(ObjZrsprwd.getRwrrmp().toString()); 
+			//String w4rrre=""; //TODO:::: NO EXISTE
+			ObjZrsprwd = myDaoZrsprwd.getUsingRwaafcAndRwcifaAndRwagigAndRwlogoAndRwncctAndW4rrreAndW4orgnAndW4rearAndW4rpre(ds, rwaafc, rwcifa, rwagig, rwlogo, rwncct, w4rrred, w4orgn, w4rear, w4rpre);
+			adapted = new ZRSTDSPSAdapter();
+			adapted.setW4rpgi(ObjZrsprwd.getRwrpgi().toString()); 
+			adapted.setW4rbpi(ObjZrsprwd.getRwrbpi().toString()); 
+			adapted.setW4rrre28(""); //TODO 
+			adapted.setW4rbeg(ObjZrsprwd.getRwrbeg().toString()); 
+			adapted.setW4rear(ObjZrsprwd.getRwrear().toString()); 
+			adapted.setW4rpre(ObjZrsprwd.getRwrpre().toString()); 
+			adapted.setW4rred(ObjZrsprwd.getRwrred().toString()); 
+			adapted.setW4rpad(ObjZrsprwd.getRwrpad().toString()); 
+			adapted.setW4rava(ObjZrsprwd.getRwrava().toString()); 
+			adapted.setW4rrmp(ObjZrsprwd.getRwrrmp().toString()); 
 
 			return "";
 		}
@@ -159,103 +158,124 @@ public class ZRSTDSPSView08BzService extends RestBaseServerResource {
 	
 	public class ZRSTDSPSAdapter {
 		
-		String W4RPGI = null;
-		String W4RBPI = null;
-		String W4RRRE28 = null;
-		String W4RBEG = null;
-		String W4REAR = null;
-		String W4RPRE = null;
-		String W4RRED = null;
-		String W4RPAD = null;
-		String W4RAVA = null;
-		String W4RRMP = null;
+		String w4rpgi = null;
+		String w4rbpi = null;
+		String w4rrre28 = null;
+		String w4rbeg = null;
+		String w4rear = null;
+		String w4rpre = null;
+		String w4rred = null;
+		String w4rpad = null;
+		String w4rava = null;
+		String w4rrmp = null;
+
 		
 		public ZRSTDSPSAdapter () {
 			
 		}
 
-		public String getW4RPGI() {
-			return W4RPGI;
+
+		public String getW4rpgi() {
+			return w4rpgi;
 		}
 
-		public void setW4RPGI(String w4rpgi) {
-			W4RPGI = w4rpgi;
+
+		public void setW4rpgi(String w4rpgi) {
+			this.w4rpgi = w4rpgi;
 		}
 
-		public String getW4RBPI() {
-			return W4RBPI;
+
+		public String getW4rbpi() {
+			return w4rbpi;
 		}
 
-		public void setW4RBPI(String w4rbpi) {
-			W4RBPI = w4rbpi;
+
+		public void setW4rbpi(String w4rbpi) {
+			this.w4rbpi = w4rbpi;
 		}
 
-		public String getW4RRRE28() {
-			return W4RRRE28;
+
+		public String getW4rrre28() {
+			return w4rrre28;
 		}
 
-		public void setW4RRRE28(String w4rrre28) {
-			W4RRRE28 = w4rrre28;
+
+		public void setW4rrre28(String w4rrre28) {
+			this.w4rrre28 = w4rrre28;
 		}
 
-		public String getW4RBEG() {
-			return W4RBEG;
+
+		public String getW4rbeg() {
+			return w4rbeg;
 		}
 
-		public void setW4RBEG(String w4rbeg) {
-			W4RBEG = w4rbeg;
+
+		public void setW4rbeg(String w4rbeg) {
+			this.w4rbeg = w4rbeg;
 		}
 
-		public String getW4REAR() {
-			return W4REAR;
+
+		public String getW4rear() {
+			return w4rear;
 		}
 
-		public void setW4REAR(String w4rear) {
-			W4REAR = w4rear;
+
+		public void setW4rear(String w4rear) {
+			this.w4rear = w4rear;
 		}
 
-		public String getW4RPRE() {
-			return W4RPRE;
+
+		public String getW4rpre() {
+			return w4rpre;
 		}
 
-		public void setW4RPRE(String w4rpre) {
-			W4RPRE = w4rpre;
+
+		public void setW4rpre(String w4rpre) {
+			this.w4rpre = w4rpre;
 		}
 
-		public String getW4RRED() {
-			return W4RRED;
+
+		public String getW4rred() {
+			return w4rred;
 		}
 
-		public void setW4RRED(String w4rred) {
-			W4RRED = w4rred;
+
+		public void setW4rred(String w4rred) {
+			this.w4rred = w4rred;
 		}
 
-		public String getW4RPAD() {
-			return W4RPAD;
+
+		public String getW4rpad() {
+			return w4rpad;
 		}
 
-		public void setW4RPAD(String w4rpad) {
-			W4RPAD = w4rpad;
+
+		public void setW4rpad(String w4rpad) {
+			this.w4rpad = w4rpad;
 		}
 
-		public String getW4RAVA() {
-			return W4RAVA;
+
+		public String getW4rava() {
+			return w4rava;
 		}
 
-		public void setW4RAVA(String w4rava) {
-			W4RAVA = w4rava;
+
+		public void setW4rava(String w4rava) {
+			this.w4rava = w4rava;
 		}
 
-		public String getW4RRMP() {
-			return W4RRMP;
+
+		public String getW4rrmp() {
+			return w4rrmp;
 		}
 
-		public void setW4RRMP(String w4rrmp) {
-			W4RRMP = w4rrmp;
+
+		public void setW4rrmp(String w4rrmp) {
+			this.w4rrmp = w4rrmp;
 		}
 		
 		
-		
+
 		
 	}
 

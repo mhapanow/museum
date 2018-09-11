@@ -56,5 +56,47 @@ public class ZrsplemDAO {
 			session.close();
 		}
 	}
+	
+	public List<Zrsplem> getUsinAmprcdAndAmiddpAndAmubdg(DataSet ds, String amprcd, String amiddp , String amubdg) throws ASException {
+		SessionFactory factory = null;
+		
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			
+			tx = session.beginTransaction();
+			StringBuffer sb = new StringBuffer();
+			sb.append(" FROM Zrsplem Where amprcd = :amprcd And amiddp = :amiddp And amubdg = :amubdg ");
+			
+			Query q = session.createQuery(sb.toString());
+			q.setParameter("amprcd", amprcd);
+			q.setParameter("amiddp", amiddp);
+			q.setParameter("amubdg", amubdg);
+			
+			@SuppressWarnings("unchecked")
+			List<Zrsplem> list = (List<Zrsplem>)q.list();
+			
+			for( Zrsplem o : list ) {
+				session.evict(o);
+			}
+			tx.commit();
+			
+			return list;
+			
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
 
 }

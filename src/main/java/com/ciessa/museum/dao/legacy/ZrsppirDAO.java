@@ -12,13 +12,13 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Cuxrf1;
+import com.ciessa.museum.model.legacy.Zrsppir;
 
-public class Cuxrf1DAO {
-
-	public List<Cuxrf1> getUsingCux1ac(DataSet ds, String tipo, String cuenta) throws ASException {
-
+public class ZrsppirDAO {
+	
+	public List<Zrsppir> getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencct(DataSet ds, String meyfac, String meaafc, String mecifa, String meagig, String aaorgn, String melogo, String mencct) throws ASException{
 		SessionFactory factory = null;
+		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -28,21 +28,29 @@ public class Cuxrf1DAO {
 		
 		Session session = factory.openSession();
 		Transaction tx = null;
-
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append("FROM Cuxrf1 WHERE cuxbk = 1 AND cux1ac = :cux1ac ORDER BY cux1cs");
+			sb.append(" FROM Zrsppir Where TIYFAC = :meyfac And TIAAFC = :meaafc And TICIFA = :mecifa And TIAGIG = :meagig And TIORG = :aaorgn And TILOGO = :melogo And TINCCT = :mencct ORDER BY TIYFAC, TIAAFC, TICIFA, TIAGIG, TIORG, TILOGO, TINCCT, TIUBIR, TICRCC, TICRAA, TICRMM, TICRDD, TINSEM ");
+			
 			Query q = session.createQuery(sb.toString());
-			q.setParameter("cux1ac", "0" + tipo + cuenta);
+			q.setParameter("meyfac", meyfac);
+			q.setParameter("meaafc", meaafc);
+			q.setParameter("mecifa", mecifa);
+			q.setParameter("meagig", meagig);
+			q.setParameter("aaorgn", aaorgn);
+			q.setParameter("melogo", melogo);
+			q.setParameter("mencct", mencct);
+			
 			@SuppressWarnings("unchecked")
-			List<Cuxrf1> list = (List<Cuxrf1>)q.list();
-			for( Cuxrf1 o : list ) {
+			List<Zrsppir> list = (List<Zrsppir>)q.list();
+			for ( Zrsppir o : list ) {
 				session.evict(o);
 			}
 			tx.commit();
 			
 			return list;
+			
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -50,6 +58,7 @@ public class Cuxrf1DAO {
 		} finally {
 			session.close();
 		}
+		
 	}
-	
+
 }

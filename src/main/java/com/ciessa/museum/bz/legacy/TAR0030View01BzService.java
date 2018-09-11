@@ -115,8 +115,9 @@ public class TAR0030View01BzService extends RestBaseServerResource{
     String nomct2 = null;
     String nomct3 = null;
     String domici = null;
-    String localo = null;
+    String locali = null;
     String provin = null;
+    String dmstcp = null;
     Integer codpos = null;
     String telefo = null;
     Integer segmen = null;
@@ -270,8 +271,8 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 			if (objTap002.getDmmail().equals("C")) {
 				envpos = "9";
 			}
-			fecape = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertAmdToDma(objTap002.getDmdopn().toString()) );
-			fecult = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertAmdToDma(objTap002.getDmntdt().toString()));
+			fecape = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertCamdToAmd(objTap002.getDmdopn().toString()) );
+			fecult = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertCamdToAmd(objTap002.getDmntdt().toString()));
 			if (objTap002.getDmnoac().equals("D")) {
 				exsmov = "N";
 			}
@@ -304,11 +305,12 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 				nomct2 = objAltnam.getNamel2();
 				nomct3 = objAltnam.getNamel3();
 				domici = objAltnam.getAdres1();
-				localo = objAltnam.getAdres2();
+				locali = objAltnam.getAdres2();
 				provin = objAltnam.getAdres3();
 				codpos = objAltnam.getCposta();
 				telefo = objAltnam.getCtelef();
 			}
+			dmstcp = objTap002.getDmstcp().toString();
 			objRsctam = myDaoRsctam.getUsingCuenta(ds, cuenta);
 			if (objRsctam != null) {
 				segmen = objRsctam.getCsegme();
@@ -346,13 +348,13 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 					}
 				}
 				
-				rpta = SubRutShort(ds);
-				if (!rpta.equals(""))
-				{
-					log.log(Level.SEVERE, rpta, new Exception());
-					return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
-				}
-				
+			}
+			
+			rpta = SubRutShort(ds);
+			if (!rpta.equals(""))
+			{
+				log.log(Level.SEVERE, rpta, new Exception());
+				return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
 			}
 
 			// Logs the result
@@ -470,10 +472,13 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 			else
 			{
 				try {
-					fecpna = new SimpleDateFormat("yyyyMMdd").parse(objSaldom.getDsapen().toString());
-					fecna = new SimpleDateFormat("yyyyMMdd").parse(objSaldom.getDsana().toString());
-					fecwo = new SimpleDateFormat("yyyyMMdd").parse(objSaldom.getDsawo().toString());
-					fecua = new SimpleDateFormat("yyyyMMdd").parse(objTap002.getDmfdi4().toString());
+					if (objSaldom.getDsapen() != 0)
+						fecpna = new SimpleDateFormat("yyyyMMdd").parse(objSaldom.getDsapen().toString());
+					if (objSaldom.getDsana() != 0)
+						fecna = new SimpleDateFormat("yyyyMMdd").parse(objSaldom.getDsana().toString());
+					if (objSaldom.getDsawo() != 0)
+						fecwo = new SimpleDateFormat("yyyyMMdd").parse(objSaldom.getDsawo().toString());
+					fecua = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertCamdToAmd(objTap002.getDmfdi4().toString()));
 				} catch( Exception e ) {}
 				moneda = objTap002.getDmcmcn();
 				cativa = objTap002.getDmiova();
@@ -501,6 +506,13 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 	
 	private String SubRutShort(DataSet ds) {
 		try {
+			name1 = "";
+			name2 = "";
+			name3 = "";
+			name4 = "";
+			name5 = "";
+			name6 = "";
+			Integer count = 0;
 			lstCuxrf1 = myDaoCuxrf1.getUsingCux1ac(ds, tipo, cuenta);
 			for(Cuxrf1 o : lstCuxrf1) {
 				if (o.getCuxrel().charAt(2-1) == 'O') {
@@ -511,12 +523,13 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 				}
 				objCumast = myDaoCumast.getUsingCunbr(ds, o.getCux1cs());
 				if (objCumast != null) {
-					if (name1 == null) name1 = objCumast.getCushky();
-					if (name2 == null) name2 = objCumast.getCushky();
-					if (name3 == null) name3 = objCumast.getCushky();
-					if (name4 == null) name4 = objCumast.getCushky();
-					if (name5 == null) name5 = objCumast.getCushky();
-					if (name6 == null) name6 = objCumast.getCushky();
+					count++;
+					if (count == 1) name1 = objCumast.getCushrt();
+					if (count == 2) name2 = objCumast.getCushrt();
+					if (count == 3) name3 = objCumast.getCushrt();
+					if (count == 4) name4 = objCumast.getCushrt();
+					if (count == 5) name5 = objCumast.getCushrt();
+					if (count == 6) name6 = objCumast.getCushrt();
 				}
 			}
 		} catch (ASException e) {
@@ -615,9 +628,9 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 			this.DOMICI = domici;
 			this.TELEFO = telefo;
 			this.CODPOS = codpos;
-			this.LOCALI = ""; //TODO: este campo no tiene asignacion dentro del algoritmo
+			this.LOCALI = locali;
 			this.PROVIN = provin;
-			this.DMSTCP = ""; //TODO: este campo no tiene asignacion dentro del algoritmo
+			this.DMSTCP = dmstcp;
 			this.FECPNA = fecpna;
 			this.NAME1 = name1;
 			this.NAME2 = name2;

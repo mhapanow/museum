@@ -1,5 +1,6 @@
 package com.ciessa.museum.dao.legacy;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -29,7 +30,7 @@ public class ZrsprerDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Zrsprer Where Meorg =:meorg And Melogo =:melogo And Mencct =:mencct And Meyfac =:meyfac And Meaafc =:meaafc And Mecifa =:mecifa And Meagig =:meagig ");
+			Query q = session.createQuery(" FROM Zrsprer Where Meorg = :meorg And Melogo = :melogo And Mencct = :mencct And Meyfac = :meyfac And Meaafc = :meaafc And Mecifa = :mecifa And Meagig = :meagig ");
 			q.setParameter("meorg", meorg);
 			q.setParameter("melogo", melogo);
 			q.setParameter("mencct", mencct);
@@ -58,7 +59,7 @@ public class ZrsprerDAO {
 	} // fin public
 	
 	
-	public List<Zrsprer> getUsingW1afacW1cifaW1agigW1orgnW1logoW1acnsW1cansW1baddW1bbahW1ebadW1ebahW1cyduW1obolW1estcW1caclW1cposW1retrW1funcANDw1crbaToList(DataSet ds, int w1afac, int w1cifa, int w1agig, int w1orgn, int w1logo, long w1acns, int w1cans, String w1badd, String w1bbah, String w1ebad, String w1ebah, String w1cydu, String w1obol, String w1estc, String w1cacl, String w1cpos, String w1retr, String w1func, String w1crba) throws ASException {
+	public List<Zrsprer> getUsingW1afacW1cifaW1agigW1orgnW1logoW1acnsW1cansW1baddW1bbahW1ebadW1ebahW1cyduW1obolW1estcW1caclW1cposW1retrW1funcANDw1crbaToList(DataSet ds, int w1afac, int w1cifa, int w1agig, int w1orgn, int w1logo, String w1acns, String w1cans, BigDecimal w1badd, BigDecimal w1bbah, BigDecimal w1ebad, BigDecimal w1ebah, String w1cydu, String w1obol, String w1estc, String w1cacl, String w1cpos, String w1retr, String w1func, String w1crba) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -72,31 +73,24 @@ public class ZrsprerDAO {
 		
 		try {
 			tx = session.beginTransaction();
-			String queryStr = " from Zrsprer ";
+			String queryStr = "";
+			String queryFilter = "";
 		
-			if (Integer.toString(w1afac) != null)
-				queryStr = queryStr + " Where meyfac = " + Integer.toString(w1afac).substring(0,1) + " And meaafc = " + Integer.toString(w1afac).substring(2,3);
+			if ((w1afac) != 0)
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meyfac = " + Integer.toString(w1afac).substring(0,2) + " And meaafc = " + Integer.toString(w1afac).substring(2,4);		
+			if ((w1cifa) != 0)
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mecifa = " + w1cifa;		
+			if((w1agig) != 0)
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meagig = "+ w1agig;		
+			if((w1orgn) != 0)
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meorg = "+ w1orgn;
+			if ((w1logo) != 0)
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " melogo = "+ w1logo;
+			if (!(w1acns).equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mencct = '"+ w1acns +"'";
+			if(!(w1cans).equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mencrd = '"+ w1cans+"'";
 			
-			if (Integer.toString(w1cifa) != null)
-				queryStr = queryStr + " And mecifa = " + w1cifa;
-			
-			if(Integer.toString(w1agig) != null)
-				queryStr = queryStr + " And meagig = "+ w1agig;
-			
-			if(Integer.toString(w1orgn) != null)
-				queryStr = queryStr + " And meorg = "+ w1orgn;
-			
-			if (Integer.toString(w1logo) != null)
-			queryStr = queryStr + " And melogo = "+ w1logo;
-			
-			if (Long.toString(w1acns) != null)
-			queryStr = queryStr + " And mencct = "+ w1acns;
-
-			if(Integer.toString(w1cans) != null)
-				queryStr = queryStr + " And meorg = "+ w1cans;
-			
-			if (w1badd != null ||  w1bbah != null)
-			queryStr = queryStr + " And melogo = "+ w1badd;
 			
 			//TODO: Revisar estas condiciones
 			/*
@@ -109,31 +103,29 @@ public class ZrsprerDAO {
 			 * Fin si
 			 * */
 			
-			if (w1cydu != null)
-				queryStr = queryStr + " And mecydu = "+ w1cydu;
-
-			if (w1obol != null)
-				queryStr = queryStr + " And meobol = "+ w1obol;
-	
-			if (w1estc != null)
-				queryStr = queryStr + " And meestc = "+ w1estc;
-
-			if (w1cacl != null)
-				queryStr = queryStr + " And mecacl = "+ w1cacl;
+			if (!w1cydu.equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) +  " mecydu = "+ w1cydu;
+			if (!w1obol.equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meobol = "+ w1obol;
+			if (!w1estc.equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meestc = "+ w1estc;
+			if (!w1cacl.equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mecacl = '"+ w1cacl+"'";
+			//TODO: Este campo "mecpos" no existe en la tabla del sqlserver
+			/*
+			if (!w1cpos.equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mecpos = "+ w1cpos;
+				 */
+			if (!w1retr.equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meretr = '"+ w1retr+"'";			
+			if (!w1func.equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mefunc = '"+ w1func+"'";
+			if (!w1crba.equals(""))
+				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mecrba = "+ w1crba;
 			
-			if (w1cpos != null)
-				queryStr = queryStr + " And mecpos = "+ w1cpos;
-
-			if (w1retr != null)
-				queryStr = queryStr + " And meretr = "+ w1retr;
-			
-			if (w1func != null)
-				queryStr = queryStr + " And mefunc = "+ w1func;
-			
-			if (w1crba != null)
-				queryStr = queryStr + " And meccrba = "+ w1crba;
-			
-			queryStr =  queryStr + " Order by meyfac, meaafc, mecifa, meagig, meorg, melogo, mencct, mename";
+			queryStr = " from Zrsprer " +
+						" where " + queryFilter + " " + 
+						" Order by meyfac, meaafc, mecifa, meagig, meorg, melogo, mencct, mename";
 			
 			Query q = session.createQuery(queryStr);
 			
