@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 10, 2018 9:32:04 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zpcpclr" table="ZPCPCLR" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="clco" type="java.lang.Integer">
+            <column name="CLCO" />
+        </property>
+        <property name="clno" type="string">
+            <column name="CLNO" length="30" />
+        </property>
+        <property name="clabrv" type="string">
+            <column name="CLABRV" length="7" />
+        </property>
+        <property name="clesco" type="string">
+            <column name="CLESCO" length="1" />
+        </property>
+        <property name="cluaaa" type="java.lang.Integer">
+            <column name="CLUAAA" />
+        </property>
+        <property name="cluamm" type="java.lang.Integer">
+            <column name="CLUAMM" />
+        </property>
+        <property name="cluadd" type="java.lang.Integer">
+            <column name="CLUADD" />
+        </property>
+        <property name="cluahr" type="java.lang.Integer">
+            <column name="CLUAHR" />
+        </property>
+        <property name="cluaop" type="string">
+            <column name="CLUAOP" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>
