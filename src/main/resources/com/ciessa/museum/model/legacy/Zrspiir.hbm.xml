@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 13, 2018 8:37:37 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrspiir" table="ZRSPIIR" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="iiyfac" type="java.lang.Integer">
+            <column name="IIYFAC" />
+        </property>
+        <property name="iiaafc" type="java.lang.Integer">
+            <column name="IIAAFC" />
+        </property>
+        <property name="iicifa" type="string">
+            <column name="IICIFA" length="2" />
+        </property>
+        <property name="iiagig" type="string">
+            <column name="IIAGIG" length="2" />
+        </property>
+        <property name="iiorg" type="java.lang.Integer">
+            <column name="IIORG" />
+        </property>
+        <property name="iilogo" type="java.lang.Integer">
+            <column name="IILOGO" />
+        </property>
+        <property name="iincct" type="string">
+            <column name="IINCCT" length="19" />
+        </property>
+        <property name="iincrd" type="string">
+            <column name="IINCRD" length="19" />
+        </property>
+        <property name="iiptnr" type="java.lang.Integer">
+            <column name="IIPTNR" />
+        </property>
+        <property name="iintal" type="string">
+            <column name="IINTAL" length="3" />
+        </property>
+        <property name="iincax" type="java.lang.Integer">
+            <column name="IINCAX" />
+        </property>
+        <property name="iicori" type="java.lang.Integer">
+            <column name="IICORI" />
+        </property>
+        <property name="iicmov" type="java.lang.Integer">
+            <column name="IICMOV" />
+        </property>
+        <property name="iicsmv" type="java.lang.Integer">
+            <column name="IICSMV" />
+        </property>
+        <property name="iinsem" type="java.lang.Integer">
+            <column name="IINSEM" />
+        </property>
+        <property name="iiymov" type="java.lang.Integer">
+            <column name="IIYMOV" />
+        </property>
+        <property name="iiamov" type="java.lang.Integer">
+            <column name="IIAMOV" />
+        </property>
+        <property name="iimmov" type="java.lang.Integer">
+            <column name="IIMMOV" />
+        </property>
+        <property name="iidmov" type="java.lang.Integer">
+            <column name="IIDMOV" />
+        </property>
+        <property name="iicdin" type="java.lang.Integer">
+            <column name="IICDIN" />
+        </property>
+        <property name="iiadin" type="java.lang.Integer">
+            <column name="IIADIN" />
+        </property>
+        <property name="iimdin" type="java.lang.Integer">
+            <column name="IIMDIN" />
+        </property>
+        <property name="iiddin" type="java.lang.Integer">
+            <column name="IIDDIN" />
+        </property>
+        <property name="iichin" type="java.lang.Integer">
+            <column name="IICHIN" />
+        </property>
+        <property name="iiahin" type="java.lang.Integer">
+            <column name="IIAHIN" />
+        </property>
+        <property name="iimhin" type="java.lang.Integer">
+            <column name="IIMHIN" />
+        </property>
+        <property name="iidhin" type="java.lang.Integer">
+            <column name="IIDHIN" />
+        </property>
+        <property name="iiimpo" type="big_decimal">
+            <column name="IIIMPO" precision="11" />
+        </property>
+        <property name="iidiin" type="java.lang.Integer">
+            <column name="IIDIIN" />
+        </property>
+        <property name="iitain" type="big_decimal">
+            <column name="IITAIN" precision="5" />
+        </property>
+        <property name="iiintx" type="big_decimal">
+            <column name="IIINTX" precision="11" />
+        </property>
+        <property name="iiubir" type="string">
+            <column name="IIUBIR" length="2" />
+        </property>
+        <property name="iimini" type="string">
+            <column name="IIMINI" length="1" />
+        </property>
+        <property name="iifact" type="java.lang.Integer">
+            <column name="IIFACT" />
+        </property>
+        <property name="iihact" type="java.lang.Integer">
+            <column name="IIHACT" />
+        </property>
+        <property name="iicope" type="string">
+            <column name="IICOPE" length="10" />
+        </property>
+        <property name="iixtrf" type="string">
+            <column name="IIXTRF" length="23" />
+        </property>
+        <property name="iiccyc" type="java.lang.Integer">
+            <column name="IICCYC" />
+        </property>
+        <property name="iictrs" type="string">
+            <column name="IICTRS" length="3" />
+        </property>
+        <property name="iiecsl" type="java.lang.Integer">
+            <column name="IIECSL" />
+        </property>
+        <property name="iinpla" type="java.lang.Integer">
+            <column name="IINPLA" />
+        </property>
+        <property name="iiprmi" type="string">
+            <column name="IIPRMI" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>

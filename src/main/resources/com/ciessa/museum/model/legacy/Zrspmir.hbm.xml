@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 13, 2018 8:37:37 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zrspmir" table="ZRSPMIR" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="miyfac" type="java.lang.Integer">
+            <column name="MIYFAC" />
+        </property>
+        <property name="miaafc" type="java.lang.Integer">
+            <column name="MIAAFC" />
+        </property>
+        <property name="micifa" type="string">
+            <column name="MICIFA" length="2" />
+        </property>
+        <property name="miagig" type="string">
+            <column name="MIAGIG" length="2" />
+        </property>
+        <property name="miorg" type="java.lang.Integer">
+            <column name="MIORG" />
+        </property>
+        <property name="milogo" type="java.lang.Integer">
+            <column name="MILOGO" />
+        </property>
+        <property name="mincct" type="string">
+            <column name="MINCCT" length="19" />
+        </property>
+        <property name="mincrd" type="string">
+            <column name="MINCRD" length="19" />
+        </property>
+        <property name="micori" type="java.lang.Integer">
+            <column name="MICORI" />
+        </property>
+        <property name="micmov" type="java.lang.Integer">
+            <column name="MICMOV" />
+        </property>
+        <property name="micsmv" type="java.lang.Integer">
+            <column name="MICSMV" />
+        </property>
+        <property name="mincab" type="string">
+            <column name="MINCAB" length="18" />
+        </property>
+        <property name="minsem" type="java.lang.Integer">
+            <column name="MINSEM" />
+        </property>
+        <property name="miscli" type="java.lang.Long">
+            <column name="MISCLI" />
+        </property>
+        <property name="micacl" type="string">
+            <column name="MICACL" length="1" />
+        </property>
+        <property name="mincup" type="java.lang.Integer">
+            <column name="MINCUP" />
+        </property>
+        <property name="miccup" type="java.lang.Integer">
+            <column name="MICCUP" />
+        </property>
+        <property name="miacup" type="java.lang.Integer">
+            <column name="MIACUP" />
+        </property>
+        <property name="mimcup" type="java.lang.Integer">
+            <column name="MIMCUP" />
+        </property>
+        <property name="midcup" type="java.lang.Integer">
+            <column name="MIDCUP" />
+        </property>
+        <property name="miimpo" type="big_decimal">
+            <column name="MIIMPO" precision="11" />
+        </property>
+        <property name="miiorg" type="big_decimal">
+            <column name="MIIORG" precision="11" />
+        </property>
+        <property name="micfar" type="string">
+            <column name="MICFAR" length="3" />
+        </property>
+        <property name="mimhab" type="java.lang.Integer">
+            <column name="MIMHAB" />
+        </property>
+        <property name="micaut" type="string">
+            <column name="MICAUT" length="4" />
+        </property>
+        <property name="miccpm" type="java.lang.Integer">
+            <column name="MICCPM" />
+        </property>
+        <property name="miaapm" type="java.lang.Integer">
+            <column name="MIAAPM" />
+        </property>
+        <property name="mimapm" type="java.lang.Integer">
+            <column name="MIMAPM" />
+        </property>
+        <property name="midapm" type="java.lang.Integer">
+            <column name="MIDAPM" />
+        </property>
+        <property name="minrpr" type="java.lang.Integer">
+            <column name="MINRPR" />
+        </property>
+        <property name="miypri" type="java.lang.Integer">
+            <column name="MIYPRI" />
+        </property>
+        <property name="miapri" type="java.lang.Integer">
+            <column name="MIAPRI" />
+        </property>
+        <property name="mimpri" type="java.lang.Integer">
+            <column name="MIMPRI" />
+        </property>
+        <property name="midpri" type="java.lang.Integer">
+            <column name="MIDPRI" />
+        </property>
+        <property name="mide40" type="string">
+            <column name="MIDE40" length="40" />
+        </property>
+        <property name="miubir" type="string">
+            <column name="MIUBIR" length="2" />
+        </property>
+        <property name="mimini" type="string">
+            <column name="MIMINI" length="1" />
+        </property>
+        <property name="mifact" type="java.lang.Integer">
+            <column name="MIFACT" />
+        </property>
+        <property name="mihact" type="java.lang.Integer">
+            <column name="MIHACT" />
+        </property>
+        <property name="micope" type="string">
+            <column name="MICOPE" length="10" />
+        </property>
+        <property name="mizoes" type="java.lang.Integer">
+            <column name="MIZOES" />
+        </property>
+        <property name="mirues" type="java.lang.Integer">
+            <column name="MIRUES" />
+        </property>
+        <property name="micoes" type="java.lang.Integer">
+            <column name="MICOES" />
+        </property>
+        <property name="misues" type="java.lang.Integer">
+            <column name="MISUES" />
+        </property>
+        <property name="mimoes" type="java.lang.Integer">
+            <column name="MIMOES" />
+        </property>
+        <property name="mirube" type="java.lang.Integer">
+            <column name="MIRUBE" />
+        </property>
+        <property name="mincaf" type="java.lang.Integer">
+            <column name="MINCAF" />
+        </property>
+        <property name="minbor" type="java.lang.Integer">
+            <column name="MINBOR" />
+        </property>
+        <property name="micacu" type="java.lang.Integer">
+            <column name="MICACU" />
+        </property>
+        <property name="mincuo" type="java.lang.Integer">
+            <column name="MINCUO" />
+        </property>
+        <property name="mitefm" type="big_decimal">
+            <column name="MITEFM" precision="5" />
+        </property>
+        <property name="mitnoa" type="big_decimal">
+            <column name="MITNOA" precision="5" />
+        </property>
+        <property name="micrc1" type="big_decimal">
+            <column name="MICRC1" precision="11" />
+        </property>
+        <property name="micrcp" type="big_decimal">
+            <column name="MICRCP" precision="11" />
+        </property>
+        <property name="minlcc" type="java.lang.Integer">
+            <column name="MINLCC" />
+        </property>
+        <property name="mixtr1" type="string">
+            <column name="MIXTR1" length="23" />
+        </property>
+        <property name="michrg" type="string">
+            <column name="MICHRG" length="3" />
+        </property>
+        <property name="mirefc" type="string">
+            <column name="MIREFC" length="30" />
+        </property>
+        <property name="mixtrf" type="string">
+            <column name="MIXTRF" length="23" />
+        </property>
+        <property name="midcod" type="string">
+            <column name="MIDCOD" length="40" />
+        </property>
+        <property name="mipcyn" type="string">
+            <column name="MIPCYN" length="8" />
+        </property>
+        <property name="miaend" type="string">
+            <column name="MIAEND" length="3" />
+        </property>
+        <property name="miccyc" type="java.lang.Integer">
+            <column name="MICCYC" />
+        </property>
+        <property name="mictrs" type="string">
+            <column name="MICTRS" length="3" />
+        </property>
+        <property name="miecsl" type="java.lang.Integer">
+            <column name="MIECSL" />
+        </property>
+        <property name="minpla" type="java.lang.Integer">
+            <column name="MINPLA" />
+        </property>
+        <property name="miprmi" type="string">
+            <column name="MIPRMI" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>
