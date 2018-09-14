@@ -35,7 +35,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView04BzService.class.
 	String dslogo = null;
 	String dscuenta = null;
 	String dscent = null;
-	String dsaño = null;
+	String dsano = null;
 	String dscic = null;
 	String dsag = null;
 	
@@ -62,7 +62,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView04BzService.class.
 			this.dslogo = obtainStringValue("dslogo", null);
 			this.dscuenta = obtainStringValue("dscuenta", null);
 			this.dscent = obtainStringValue("dscent", null);
-			this.dsaño = obtainStringValue("dsaño", null);
+			this.dsano = obtainStringValue("dsano", null);
 			this.dscic = obtainStringValue("dscic", null);
 			this.dsag = obtainStringValue("dsag", null);
 			
@@ -70,7 +70,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView04BzService.class.
 			this.melogo = this.dslogo;
 			this.mencct = this.dscuenta;
 			this.meyfac = this.dscent;
-			this.meaafc = this.dsaño;
+			this.meaafc = this.dsano;
 			this.mecifa = this.dscic;
 			this.meagig = this.dsag;
 			
