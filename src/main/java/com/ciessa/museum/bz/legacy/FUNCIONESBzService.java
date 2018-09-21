@@ -6,6 +6,32 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FUNCIONESBzService {
+	
+	public Boolean ValidarAammdd(String input) {
+		try {
+			if (input.length() != 6) {
+				return false;
+			}else {
+				Date valor = new SimpleDateFormat("yyMMdd").parse(input);
+				return true;			
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean ValidarDdmmAAAA(String input) {
+		try {
+			if (input.length() != 8) {
+				return false;
+			}else {
+				Date valor = new SimpleDateFormat("ddMMyyyy").parse(input);
+				return true;			
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	//Convert Fecha Año corto 810424 a 19810424
 	public String ConvertAmdToDma(String input) {
 		if (input.length() != 6) {
