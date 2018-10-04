@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
