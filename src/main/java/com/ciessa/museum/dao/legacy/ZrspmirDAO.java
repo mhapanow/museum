@@ -30,7 +30,7 @@ public class ZrspmirDAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM ZRSPMIR Where MIYFAC = :meyfac AND MIAAFC = :meaafc AND MICIFA = :mecifa AND MIAGIG = :meagig AND MIORG = :aaorgn AND MILOGO = :melogo AND MINCCT = :mencct AND MIRACT = :meract AND MIDICT = :medict AND MIMINI = :mimini ORDER BY MIYFAC, MIAAFC, MICIFA, MIAGIG, MIORG , MILOGO, MINCCT, MIMINI, MINCRD, MIUBIR, MIXTR1, MICFAR, MICMOV, MICCUP, MIACUP, MIMCUP, MIDCUP, MINSEM ");
+			sb.append(" FROM ZRSPMIR Where MIYFAC = :meyfac AND MIAAFC = :meaafc AND MICIFA = :mecifa AND MIAGIG = :meagig AND MIORG = :aaorgn AND MILOGO = :melogo AND MINCCT = :mencct AND SUBSTRING(MINCCT, 6, 15) = :meract AND SUBSTRING(MINCCT, 16, 19) = :medict AND MIMINI = :mimini ORDER BY MIYFAC, MIAAFC, MICIFA, MIAGIG, MIORG , MILOGO, MINCCT, MIMINI, MINCRD, MIUBIR, MIXTR1, MICFAR, MICMOV, MICCUP, MIACUP, MIMCUP, MIDCUP, MINSEM ");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("meyfac", meyfac);

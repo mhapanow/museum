@@ -111,6 +111,12 @@
 			resource="com/ciessa/museum/model/legacy/Zrsprwd.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Zvrpfrq.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Tgpp632.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspmir.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zpcpclr.hbm.xml"></mapping>
 			
 	</session-factory>
 

@@ -1,7 +1,5 @@
 package com.ciessa.museum.dao.legacy;
 
-import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,10 +10,11 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Tgpp632;
+import com.ciessa.museum.model.legacy.Zpcpclr;
 
-public class Tgpp632DAO {
-	public List<Tgpp632> getUsig(DataSet ds) throws ASException{
+public class ZpcpclrDAO {
+public Zpcpclr getUsingSsclo(DataSet ds, Integer ssclco) throws ASException	{
+		
 		SessionFactory factory = null;
 		
 		try {
@@ -29,28 +28,25 @@ public class Tgpp632DAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Tgpp632 Where CEY2ID =1300000 ");
+			Query q = session.createQuery(" from ZPCPCLR Where CLCO = :ssclco ");
+			q.setParameter("ssclco", ssclco);
+			Zpcpclr o = (Zpcpclr)q.uniqueResult();
 			
-			Query q = session.createQuery(sb.toString());
-			
-			@SuppressWarnings("unchecked")
-			List<Tgpp632> list = (List<Tgpp632>)q.list();
-			for ( Tgpp632 o : list ) {
-				session.evict(o);
+			if( o == null ) {
+				tx.rollback();
+				throw ASExceptionHelper.notFoundException(ssclco.toString());
 			}
+			
+			session.evict(o);
 			tx.commit();
-			
-			return list;
-			
+			return o;
+				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-		}
-		
-	}
-
+			}
+	} // fin public
 }

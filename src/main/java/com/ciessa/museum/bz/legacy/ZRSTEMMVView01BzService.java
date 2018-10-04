@@ -2,16 +2,21 @@ package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.json.JSONObject;
+import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
 import com.ciessa.museum.dao.legacy.DtgpdesDAO;
 import com.ciessa.museum.dao.legacy.Tgpp632DAO;
+import com.ciessa.museum.dao.legacy.ZpcpclrDAO;
 import com.ciessa.museum.dao.legacy.ZrspdmrDAO;
 import com.ciessa.museum.dao.legacy.ZrspiirDAO;
 import com.ciessa.museum.dao.legacy.ZrspilrDAO;
@@ -26,6 +31,7 @@ import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Dtgpdes;
 import com.ciessa.museum.model.legacy.Tgpp632;
+import com.ciessa.museum.model.legacy.Zpcpclr;
 import com.ciessa.museum.model.legacy.Zrspdmr;
 import com.ciessa.museum.model.legacy.Zrspiir;
 import com.ciessa.museum.model.legacy.Zrspilr;
@@ -35,6 +41,7 @@ import com.ciessa.museum.model.legacy.Zrsppir;
 import com.ciessa.museum.model.legacy.Zrspplr;
 import com.ciessa.museum.model.legacy.Zrsprer;
 import com.ciessa.museum.model.legacy.Zvrpfrq;
+import com.ciessa.museum.tools.Range;
 
 public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	public static final Logger log = Logger.getLogger(ZRSTEMMVView01BzService.class.getName());
@@ -72,6 +79,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	@Autowired
 	ZvrpfrqDAO myDAOZvrpfrq;
 	
+	@Autowired
+	ZpcpclrDAO myDAOZpcpclr;
+	
 	List<Dtgpdes> ListDtgpdes = null;
 	List<Tgpp632> ListTgpp632 = null;
 	List<Zrspdmr> ListZrspdmr = null;
@@ -86,11 +96,11 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	Zrspdmr ObjZrspdmr = new Zrspdmr();
 	Zvrpfrq ObjZvrpfrq = new Zvrpfrq();
 	Zrspmir ObjZrspmir = new Zrspmir();
+	Zpcpclr ObjZpcpclr = new Zpcpclr();
 	
 	Zrsprer sstmhdr = null; //3000
 	String spos = ""; //50
 	Integer smaxelem = 0;
-	String[] sfmt = new String[256];  // 256 con 200
 	Integer sind = 0;
 	
 	
@@ -100,6 +110,11 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	
 	String tl0127 = "PM N0000000000 C000 INPAGA ";
 	String ti0127 = "PM N0000000000 C000 INPAGA";
+	
+	String mlcobo = "";
+	String bocap = "166";
+	String micobo = "";
+	String bocad = "166";
 
 	BigDecimal wtctal = new BigDecimal(0);
 	BigDecimal wtctai = new BigDecimal(0);
@@ -127,22 +142,16 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	String[] mod = new String[100];//100 elemntos - 10posiciones
 	String[] mov = new String[100];//100 elemntos - 10posiciones
 	
+	String[] pai = new String[90]; //90-3
+	String[] pad = new String[90]; //90-10
+	 
+	
+	
 	String wconfi = null;
-	//String mecacl = null; // TODO.: NO EXISTE
 	String mone = null;
 	String sposic = null;
-	BigDecimal sslmcm = new BigDecimal(0); // TODO.: NO EXISTE
-	//String memlco = null; // TODO.: NO EXISTE
-	//String metcon = null; // TODO.: NO EXISTE
-	Integer aaorgn = 0; // TODO.: NO EXISTE
-	//Integer meorg = 0; // TODO.: NO EXISTE
-	
-	//String meyfac = null; // TODO.: NO EXISTE
-	//String meaafc = null; // TODO.: NO EXISTE
-	//String mecifa = null; // TODO.: NO EXISTE
-	//String meagig = null; // TODO.: NO EXISTE
-	//String melogo = null; // TODO.: NO EXISTE
-	//String mencct = null; // TODO.: NO EXISTE
+	BigDecimal sslmcm = new BigDecimal(0);
+	Integer aaorgn = 0;
 	
 	BigDecimal adolar = new BigDecimal(0);
 	Integer fecaux = 0;
@@ -191,7 +200,6 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	BigDecimal wtotin = new BigDecimal(0);
 	BigDecimal totses = new BigDecimal(0);
 	BigDecimal wimplo = new BigDecimal(0);
-	//BigDecimal mesafi = new BigDecimal(0);
 	String wdesli = "";
 	Integer fcu101 = 0;
 	Integer fcu001 = 0;
@@ -208,46 +216,30 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	String auxa30 = "";
 	String auxb30 = "";
 	
-	Integer sw0106 = 0;
+	String sw0106 = "";
 	String auxd03 = "";
 	String auxm03 = "";
 	String sw0102 = "";
 	String sw0304 = "";
+	String sw0506 = "";
 	String aux17 = "CITIPHONE BANKING";
 	
 	String wreflo = "";
 	String wrefe = "";
 	String wwdrfn = "";
-	Integer wwmrch = 0;
-	//Integer lxrefp = 0;
 	String agrefe = "Ref:";
 	
-	/*String strx = "";
-	String txfmt = "";
-	String txmini = "";
-	String txfile = "";
-	String txloin = "";
-	String txdesc = "";
-	BigDecimal tximpo = new BigDecimal(0);
-	String txrefc = "";
-	String txmrch = "";
-	Integer txcori = 0;
-	Integer txcmov = 0;
-	Integer txcsmv = 0;
-	String txcanb = "";
-	Integer txfmovc = 0;*/
+	String micfar = "";
+	
 	Integer sqmov = 0;
 	String sretpos = "";
 	
-	//String txfile2 = "";
 	String sacttl = "";
 	String sactti = "";
 	String sactil = "";
 	String sactii = "";
 	String sactml = "";
 	String sactmi = "";
-	//String txmin = "";
-	//BigDecimal txtefm = new BigDecimal(0);
 	Integer resp05 = 0;
 	
 	Boolean ain69 = false;
@@ -256,14 +248,6 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	Boolean ain74 = false;
 	Boolean ain75 = false;
 	Boolean ain79 = false;
-	//Integer whcrcp = 0;
-	//Integer whcrc2 = 0;
-	//Integer whcrc3 = 0;
-	//Integer wsttem = 0;
-	//Integer wlimpo = 0;
-	//Integer wtmoz1 = 0;
-	//Integer wtmoz2 = 0;
-	//Integer wtmoz3 = 0;
 	String[] wt1 = null; // 10 elementos
 	String[] wh1 = null; // 10 elementos entero
 	String[] wc1 = null; // 10 elemento string
@@ -293,9 +277,6 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	BigDecimal wtmoz1 = new BigDecimal(0);
 	BigDecimal whcrcp = new BigDecimal(0);
 	String wclmo1 = "";
-	//Integer txncuo = 0;
-	//Integer txcacu = 0;
-	//BigDecimal txiorg = new BigDecimal(0);
 	Boolean[] sindl = new Boolean[5];
 	Integer sssnbr = 0;
 	BigDecimal ws6000 = new BigDecimal(0);
@@ -311,12 +292,11 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	String ad82 = "";
 	BigDecimal totdes = new BigDecimal(0);
 	String desdes = "";
-	String ttfecu = "";
+	Integer ttfecu = 0;
 	BigDecimal alimpo = new BigDecimal(0);
 	BigDecimal wtimp1 = new BigDecimal(0);
 	BigDecimal wtotar = new BigDecimal(0);
 	Boolean ain15 = false;
-	Integer w1mrch = 0;
 	String wreflx = "";
 	Integer wrefly = 0;
 	Integer wreflq = 0;
@@ -359,37 +339,86 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	BigDecimal aucaol = new BigDecimal(0);
 	String mlde40 = "";
 	
-	
-	
+	String wreflz = "";
+	String wlncab = "";
+	String agpoli = "";
+	String agrama = "";
+	String agendo = "";
+	String fecpin = "";
 	
 	//Funtioness	
 	FUNCIONESBzService fc = new FUNCIONESBzService();
 	//Estrucutras
 	ZRSTEMMVSTRX strx = null;
-	//ZRSTEMMVSFMT sfmt = null;
-	ZRSTEMMVLXREFP lxrefp = null;
+	ArrayList<ZRSTEMMVSTRX> sfmt = new ArrayList<ZRSTEMMVSTRX>();
+	ZRSTEMMVLXREFP lxrefp = new ZRSTEMMVLXREFP();
+	ZRSTEMMVW1MRCH w1mrch = new ZRSTEMMVW1MRCH();
+	ZRSTEMMVWWMRCH wwmrch = new ZRSTEMMVWWMRCH();
 	
-	public String SubProcGetstmdet (Zrsprer SstmHdr, String Spos, Integer SmaxElem, String[] Sfmt, Integer Sind  ) {
+	@Get
+	public String view() {
 		long start = markStart();
+		JSONObject returnValue;
 		try {
 			// validate authToken
 			User user = this.getUserFromToken();
 			DataSet ds = dsDao.get(user.getDefaultDataSet());
 			
-			//Valores Iniciales
+			// get range, if not defined use default value
+			// Range range = this.obtainRange();
+			Range range = null;
 			
-			this.sstmhdr = SstmHdr;
-			this.spos = Spos;
-			this.smaxelem = SmaxElem;
-			this.sfmt = Sfmt;
-			this.sind = Sind;
+			String mecacl = obtainStringValue("mecacl","");
+			Zrsprer sstmHdr1 = new Zrsprer();
+			//this.sstmhdr.Mecacl = obtainStringValue("mecacl","");
+			sstmHdr1.setMecacl(mecacl);
+			sstmHdr1.setMemlco(new BigDecimal(obtainStringValue("memlco","0")));
+			sstmHdr1.setMetcon(obtainStringValue("metcon",""));
+			sstmHdr1.setMeorg(obtainIntegerValue("meorg",0));
+			sstmHdr1.setMeyfac(obtainIntegerValue("meyfac",0));
+			sstmHdr1.setMeaafc(obtainIntegerValue("meaafc",0));
+			sstmHdr1.setMecifa(obtainStringValue("mecifa",""));
+			sstmHdr1.setMeagig(obtainStringValue("meagig",""));
+			sstmHdr1.setMelogo(obtainIntegerValue("melogo",0));
+			sstmHdr1.setMencct(obtainStringValue("mencct",""));
+			sstmHdr1.setMesafi(new BigDecimal(obtainStringValue("mesafi","0")));
 			
-			this.SubRutAinit(ds);
+			String Spos = obtainStringValue("spos", "0");
+			Integer SmaxElem = obtainIntegerValue("smaxelem", 0);
+			String[] Sfmt = null;
+			Integer Sind = obtainIntegerValue("Sind", 0);
 			
-			this.syapaso = "1";
-			//this.scabecera = SstmHdr;
-			this.sind = 0;
-			this.SubRutApprde(ds, Spos);
+			
+			SubProcGetstmdet(ds, sstmHdr1,Spos,SmaxElem,Sfmt,Sind);
+			
+			
+			String[] arrayFields = new String[] {
+					"TXFMT",
+					"TXMINI",
+					"TXFILE",
+					"TXLOIN",
+					"TXDESC",
+					"TXIMPO",
+					"TXREFC",
+					"TXMRCH",
+					"TXCORI",
+					"TXCMOV",
+					"TXFMOV",
+					"TXCSMV",
+					"TXCANB",
+					"TXFMOVC",
+					"TXFILE2",
+					"TXMIN",
+					"TXTEFM",
+					"TXNCUO",
+					"TXCACU",
+					"TXIORG",
+					"TXTNOA",
+					"TXNLCC",
+					"TXCFAR",
+					"TXMHAB"
+			};
+			returnValue = getJSONRepresentationFromObject(sfmt,arrayFields);
 			
 			
 		} catch (ASException e) {
@@ -399,7 +428,48 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			} else {
 				log.log(Level.SEVERE, e.getMessage(), e);
 			}
-			//returnValue = getJSONRepresentationFromException(e);
+			returnValue = getJSONRepresentationFromException(e);
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage(), e);
+			returnValue = getJSONRepresentationFromException(ASExceptionHelper.defaultException(e.getMessage(), e));
+		} finally {
+			markEnd(start);
+		}
+		return returnValue.toString();
+	}
+	
+	public String SubProcGetstmdet (DataSet ds, Zrsprer SstmHdr, String Spos, Integer SmaxElem, String[] Sfmt, Integer Sind  ) {
+		long start = markStart();
+		try {
+			// validate authToken
+			//User user = this.getUserFromToken();
+			//DataSet ds = dsDao.get(user.getDefaultDataSet());
+			
+			//Valores Iniciales
+			
+			this.sstmhdr = SstmHdr;
+			this.spos = Spos;
+			this.smaxelem = SmaxElem;
+			//*this.sfmt = Sfmt;
+			this.sind = Sind;
+			
+			this.SubRutAinit(ds);
+			
+			this.syapaso = "1";
+			//this.scabecera = SstmHdr;
+			this.sind = 0;
+			this.ain69=false;
+			this.SubRutApprde(ds, Spos);
+			
+			
+		/*} catch (ASException e) {
+			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
+					|| e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENMISSING_CODE) {
+				log.log(Level.INFO, e.getMessage());
+			} else {
+				log.log(Level.SEVERE, e.getMessage(), e);
+			}*/
+			//returnValue = getJSONRepresentationFromException(e)*;*
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
 			//returnValue = getJSONRepresentationFromException(ASExceptionHelper.defaultException(e.getMessage(), e));
@@ -479,20 +549,18 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					if (o.getTlcori() == 3 && o.getTlcmov() == 61 && o.getTlcsmv() == 15 || o.getTlcori() == 3 && o.getTlcmov() == 61 && o.getTlcsmv() == 16 ) {
 						if (o.getTlcsmv() == 15) {
 							this.fc6101 = 0;
-							//this.ws6101 = new BigDecimal(0);
 							this.wa6101 = "";
 							this.ws6115 = this.ws6115.add(o.getTlpmna());							
 						} else {
 							this.fc6001 = 0;
-							//this.ws6001 = new BigDecimal(0);
 							this.wa6001 = "";
 							this.ws6116 = this.ws6116.add(o.getTlpmna());
 						}
 					} else {
 						this.aadrfn = o.getTlxtrf();
-						// LXREFP = Zrspplr (al registro de esta tabla)
-						lxrefp = new ZRSTEMMVLXREFP();
-						//lxrefp.setTLNPTR(o.ptr);
+
+						lxrefp = null;
+						lxrefp.setTLNPTR("000");
 						lxrefp.setTLNCAX(o.getTlncax());
 						lxrefp.setTLCRDD(o.getTlcrdd());
 						lxrefp.setTLCRMM(o.getTlcrmm());
@@ -502,9 +570,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.SubRutSlineplr(ds, o.getTlpmna(), o.getTlcori(), o.getTlcmov(), o.getTlcsmv(), o.getTlncrd());
 					}					
 				} // fin for
-				
-				//verificar (SFMT)
-				// 
+
+				buscar$FMT01(7, 70, 1, 18, 69, 0);
 				
 				this.wtotin = new BigDecimal(0);
 				this.wstpin = new BigDecimal(0);
@@ -631,14 +698,11 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 							this.wau001 = o.getTide40();	
 						}
 					}else {
-						//if (o.getTlcori() == 3 && o.getTlcmov() == 61 && o.getTlcsmv() == 28) {
-						//	this.wdesl1 = "TIDE40";
-						//} else {
 						
 						this.aadrfn = o.getTixtrf();
-						//}
-						//this.lxrefp = o.get
-						this.lxrefp = new ZRSTEMMVLXREFP();
+						
+						this.lxrefp = null;
+						lxrefp.setTINPTR("000");
 						lxrefp.setTINCAX(o.getTincax());
 						lxrefp.setTICRDD(o.getTicrdd());
 						lxrefp.setTICRMM(o.getTicrmm());
@@ -651,8 +715,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					
 				}//fin for
 				
-				// ($FMT),
-				//
+				buscar$FMT01(7, 70, 1, 18, 69, 0);
 				
 				this.wtotin = new BigDecimal(0);
 				this.wstpin = new BigDecimal(0);
@@ -697,8 +760,6 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					SubRutAprtpesii(ds, ObjZrspmir.getMixtrf(), ObjZrspmir.getMicori(), ObjZrspmir.getMicmov(), ObjZrspmir.getMicsmv());
 					SubRutAizon2(ds);
 					SubRutAizon3(ds);
-				}else {
-					//SubRutAprtpesii(ds);
 				}
 				
 				if ( fc.BigDecimalComparar(this.totseu.toString(), "0", "!=") ) {
@@ -786,13 +847,14 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	
 	private String SubRutAdeajc(DataSet ds) {
 		this.y = 1;
-		//la serie MTA
-		//si existe
-		this.wdesl1 = this.daj[this.y];
-		//sino
-		this.SubRutAdesmo(ds);
-		this.adpg = "NO";
-		
+		int a = Arrays.asList(this.mta).indexOf(this.aamoaj);
+		if (a>0) {
+			this.y = a;
+			this.wdesl1 = this.daj[this.y];
+		}else {
+			this.SubRutAdesmo(ds);
+			this.adpg = "NO";
+		}
 		return "";
 	}
 	
@@ -800,18 +862,21 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		
 		try {
 			this.y = 1;
-			//la serie WCLMOV
-			//si existe
-			this.wdeslo = this.mod[this.y]; //TODO: NO EXISTE
-			//sino		
-			ObjZrspdmr = myDAOZrspdmr.getUsigDrcmonAndDrcoriAndDrcmovAndDrcsmv(ds, drcmon, drcori.toString(), drcmov.toString(), drcsmv.toString());
-			if (ObjZrspdmr != null) {
-				this.y = 1;
-				//MOV el valor blanco 
-				//si existe
-				this.mov[this.y] = this.wclmov;
-				this.mod[this.y] = ObjZrspdmr.getDrdimp();
+			int a = Arrays.asList(this.mov).indexOf(this.wclmov);
+			if (a>0) {
+				this.y = a;
 				this.wdeslo = this.mod[this.y];
+			}else {
+				ObjZrspdmr = myDAOZrspdmr.getUsigDrcmonAndDrcoriAndDrcmovAndDrcsmv(ds, drcmon, drcori.toString(), drcmov.toString(), drcsmv.toString());
+				if (ObjZrspdmr != null) {
+					this.y = 1;
+					int b = Arrays.asList(this.mov).indexOf("");
+					if (b>0) {
+						this.mov[this.y] = this.wclmov;
+						this.mod[this.y] = ObjZrspdmr.getDrdimp();
+						this.wdeslo = this.mod[this.y];
+					}
+				}
 			}
 			
 			if (this.adpg.equals("SI")) {
@@ -836,15 +901,19 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			this.auxb30 = "";
 			this.wdesl1 = "";
 			if ( !this.sstetr.equals("") ) {
-				this.sw0106 = this.ssapdt;
-				//this.auxd03 (3 posiciones) = this.sw0506 + "/";
-				//this.auxm03 (3 posiciones) = this.sw0304 + "/";
+				this.sw0106 = this.ssapdt.toString();//string integer
+				this.sw0102 = this.sw0106.substring(1, 2);
+				this.sw0304 = this.sw0106.substring(3, 4);
+				this.sw0506 = this.sw0106.substring(5, 6);
+				
+				this.auxd03 = this.sw0506 + "/";
+				this.auxm03 = this.sw0304 + "/";
 				this.auxa08 = this.auxd03 + this.auxm03;
-				this.auxa08 = this.sw0102; // NO EXISTE sw0102
-				this.sw0106 = this.ssatdm;
+				this.auxa08 = this.sw0102;
+				this.sw0106 = this.ssatdm.toString();
 				this.auxh05 = this.sw0102 + ":";
-				this.auxh05 = this.sw0304; //NO EXISTE sw0304
-				this.sw0106 = this.ssnrtr;
+				this.auxh05 = this.sw0304;
+				this.sw0106 = this.ssnrtr.toString();
 				this.auxa30 = this.sstetr + " " + this.auxa08;
 				this.auxb30 = this.auxa30 + " " + this.auxh05;
 				this.auxa30 = "";
@@ -855,21 +924,22 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			}else {
 				if (this.ssnrtr != 0) {
 					this.auxa30 = "";
-					this.sw0106 = this.ssnrtr;
-					this.auxa30 = this.aux17 + " " + this.sw0106; //NO EXISTE aux17
+					this.sw0106 = this.ssnrtr.toString();
+					this.auxa30 = this.aux17 + " " + this.sw0106;
 					this.auxb30 = "";
 					this.auxb30 = this.wdeslo + " " + this.auxa30;
 					this.wdesl1 = this.auxb30;
 				}else {
 					if (this.ssclco != 0) {
-						//Zpcpclr 
-						//si existe
-						this.auxa30 = "";
-						this.auxb30 = "";
-						this.auxa30 = wdeslo + " CHEQUE";
-						//this.auxb30 = auxa30 + " " + obj.Clabrv();
-						this.wdesl1 = "";
-						this.wdesl1 = auxb30;
+						ObjZpcpclr = myDAOZpcpclr.getUsingSsclo(ds, ssclco);
+						if (ObjZpcpclr != null) {
+							this.auxa30 = "";
+							this.auxb30 = "";
+							this.auxa30 = wdeslo + " CHEQUE";
+							this.auxb30 = auxa30 + " " + ObjZpcpclr.getClabrv();
+							this.wdesl1 = "";
+							this.wdesl1 = auxb30;
+						}
 					}else {
 						this.wdesl1 = this.wdeslo;
 					}
@@ -888,12 +958,13 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			this.wreflo = "";
 			this.wrefe = "";
 			this.wwdrfn = "";
-			this.wwmrch = 0;
+			this.wwmrch = null;
 			this.ain69 = false;
 			if (this.drcori == 2 && this.drcmov == 70) {
 				this.wwdrfn = this.aadrfn;
 			}else {
-				this.wreflo = this.lxrefp.toString(); //NO EXISTE lxrefp 
+				this.lxrefp.ObjectToString();
+				this.wreflo = this.lxrefp.getResultado(); 
 			}
 			
 			if (drcori == 12 && drcmov == 20) {
@@ -917,7 +988,6 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		try {
 			strx = new ZRSTEMMVSTRX();
 			strx.setTXFMT("DELO02");
-			//strx.setTXFMT(strx.getTXFMT().trim() + "R");
 			if (this.ain69) {
 				strx.setTXFMT(strx.getTXFMT().trim() + "R");
 			}
@@ -927,7 +997,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXDESC(this.wdesl1);
 			strx.setTXIMPO(TLPMNA);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(TLCORI);
 			strx.setTXCMOV(TLCMOV);
 			strx.setTXCSMV(TLCSMV);
@@ -949,10 +1020,10 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	
 	private String SubRutAnewentry(DataSet ds) {
 		try {
-			if ( (this.sind + this.sqmov ) < this.sfmt.length && (this.sind + this.sqmov ) < this.smaxelem ) {
+			if ( (this.sind + this.sqmov ) < this.sfmt.size() && (this.sind + this.sqmov ) < this.smaxelem ) {
 				this.sind = this.sind +1;
-				this.sfmt[this.sind] = this.strx;
-				if (this.sind == this.sfmt.length || this.sind == this.smaxelem) {
+				this.sfmt.set(this.sind, strx);
+				if (this.sind == this.sfmt.size() || this.sind == this.smaxelem) {
 					SubRutAexit(ds);
 				}
 			} else {
@@ -1006,12 +1077,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXCMOV(ILCMOV);
 			strx.setTXCSMV(ILCSMV);
 			strx.setTXCANB(ILNCRD);
-			
-			/*if ( fc.ValidarAammdd(this.resp05.toString()) ) {
-				strx.setTXFMOVC(Integer.parseInt(fc.ConvertAmdToDma(this.resp05.toString())));
-			} else {*/
-				strx.setTXFMOVC(0);
-			//}
+			strx.setTXFMOVC(0);
 			SubRutAnewentry(ds);
 			
 		} catch (Exception e) {
@@ -1025,14 +1091,27 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		try {
 			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "1"); 
 			
-			if (ListZrspmlr != null) {
+			if (ListZrspmlr != null && ListZrspmlr.size() > 0) {
 				this.ain73 = false;
 				this.ain74 = false;
 				this.ain75 = false;
 				this.whcrcp = new BigDecimal(0);
 				this.whcrc2 = new BigDecimal(0);
 				this.whcrc3 = new BigDecimal(0);
-				for (Zrspmlr o : ListZrspmlr) {//Por cada registro seleccionado
+				
+				Integer _mlncuo = 0;
+				Integer _mlcacu = 0;
+				String _mlxtrf = "";
+				Integer _mlcori = 0;
+				Integer _mlcmov = 0;
+				Integer _mlcsmv = 0;
+				String _mlncrd = "";
+				BigDecimal _mlcrcp = new BigDecimal(0);
+				
+				int indice = 0;
+				int indiceNext = 0;			
+				while (indice <= ListZrspmlr.size()) {
+					indiceNext = indice;
 					this.wsttem = new BigDecimal(0);
 					this.wlimpo = new BigDecimal(0);
 					this.wtmoz1 = new BigDecimal(0);
@@ -1041,81 +1120,83 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.wt1[0] = "0";
 					this.wh1[0] = "0";
 					this.wc1[0] = "0";
-					this.digant = o.getMlncrd().substring(16, 18); //Mldita(); 
-					this.mxmota = o.getMlncrd().substring(19, 19); //Mlmota(); 
-					this.ordant = o.getMlubir();
-					this.aacanb = o.getMlncrd();
-					for (int j = 0; j < EMPTY_STRING_ARRAY.length; j++) {//Por cada registro seleccionado y MLDITA = DIGANT y MLUBIR = ORDANT
+					String mldita = ListZrspmlr.get(indice).getMlncrd().substring(16, 18);
+					this.digant = mldita; //Mldita(); 
+					this.mxmota = ListZrspmlr.get(indice).getMlncrd().substring(19, 19); //Mlmota(); 
+					this.ordant = ListZrspmlr.get(indice).getMlubir();
+					this.aacanb = ListZrspmlr.get(indice).getMlncrd();
+					
+					while (indice <= ListZrspmlr.size() && mldita.equals(this.digant) && ListZrspmlr.get(indice).getMlubir().equals(this.ordant)  ) {
 						this.soldmlr = this.sactml;
 						this.wreflo = "";
 						this.wrefe = "";
 						this.wwdrfn = "";
-						this.wwmrch = 0;
+						this.wwmrch = null;
 						this.ain69 = false;
 						this.wdeslo = "";
 						this.drcmon = "001";
-						this.drcori = o.getMlcori();
-						this.drcmov = o.getMlcmov();
-						this.drcsmv = o.getMlcsmv();
+						this.drcori = ListZrspmlr.get(indice).getMlcori();
+						this.drcmov = ListZrspmlr.get(indice).getMlcmov();
+						this.drcsmv = ListZrspmlr.get(indice).getMlcsmv();
 						
 						if (Arrays.asList(mos).contains(this.wclmov)) {
-							if ( o.getMlcsmv() >= 90) {
-								this.wtmoz2 = this.wtmoz2.add(o.getMlimpo());
-								this.whcrc2 = this.whcrc2.add(o.getMlcrcp());
+							if ( ListZrspmlr.get(indice).getMlcsmv() >= 90) {
+								this.wtmoz2 = this.wtmoz2.add(ListZrspmlr.get(indice).getMlimpo());
+								this.whcrc2 = this.whcrc2.add(ListZrspmlr.get(indice).getMlcrcp());
 								this.wclmo2 = this.wclmov;
 							}else {
-								if (o.getMlcori() == 11 && o.getMlcmov() == 31 && o.getMlcsmv() == 1) {
-									this.wlimpo = this.wlimpo.add(o.getMlimpo());
+								if (ListZrspmlr.get(indice).getMlcori() == 11 && ListZrspmlr.get(indice).getMlcmov() == 31 && ListZrspmlr.get(indice).getMlcsmv() == 1) {
+									this.wlimpo = this.wlimpo.add(ListZrspmlr.get(indice).getMlimpo());
 									this.wsinfi = this.mlde40;
-									if ( fc.BigDecimalComparar(o.getMltefm().toString(), "0", "!=") ) {
-										this.wsttem = o.getMltefm();
+									if ( fc.BigDecimalComparar(ListZrspmlr.get(indice).getMltefm().toString(), "0", "!=") ) {
+										this.wsttem = ListZrspmlr.get(indice).getMltefm();
 									}
 								}else {
-									if (o.getMlcori() == 9 && o.getMlcmov() == 5 && o.getMlcsmv() == 1) {
-										this.wtmoz3 = this.wtmoz3.add(o.getMlimpo());
-										this.whcrc3 = this.whcrc3.add(o.getMlcrcp());
+									if (ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 5 && ListZrspmlr.get(indice).getMlcsmv() == 1) {
+										this.wtmoz3 = this.wtmoz3.add(ListZrspmlr.get(indice).getMlimpo());
+										this.whcrc3 = this.whcrc3.add(ListZrspmlr.get(indice).getMlcrcp());
 										this.wclmo3 = this.wclmov;
 									}else {
-										if (o.getMlcori() == 9 && o.getMlcmov() == 5) {
-											if (o.getMlcsmv() == 10)
+										if (ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 5) {
+											if (ListZrspmlr.get(indice).getMlcsmv() == 10)
 												this.z1 = 1;
-											else if (o.getMlcsmv() == 11) 
+											else if (ListZrspmlr.get(indice).getMlcsmv() == 11) 
 												this.z1 = 2;
-											else if (o.getMlcsmv() == 12) 
+											else if (ListZrspmlr.get(indice).getMlcsmv() == 12) 
 												this.z1 = 3;
-											else if (o.getMlcsmv() == 13) 
+											else if (ListZrspmlr.get(indice).getMlcsmv() == 13) 
 												this.z1 = 4;
-											else if (o.getMlcsmv() == 14) 
+											else if (ListZrspmlr.get(indice).getMlcsmv() == 14) 
 												this.z1 = 5;
-											else if (o.getMlcsmv() == 15) 
+											else if (ListZrspmlr.get(indice).getMlcsmv() == 15) 
 												this.z1 = 7;
 											else
 												this.z1 = 8;
 											
-											this.wt1[this.z1] = (new BigDecimal(wt1[this.z1]).add(o.getMlimpo())).toString();
-											this.wh1[this.z1] = (new BigDecimal(wh1[this.z1]).add(o.getMlcrcp())).toString();
+											this.wt1[this.z1] = (new BigDecimal(wt1[this.z1]).add(ListZrspmlr.get(indice).getMlimpo())).toString();
+											this.wh1[this.z1] = (new BigDecimal(wh1[this.z1]).add(ListZrspmlr.get(indice).getMlcrcp())).toString();
 											this.wc1[this.z1] = this.wclmov;
 										}
 									}
 								}
 							}
 							this.aama12 = "";
-							if (o.getMlncuo() != 0) {
+							if (ListZrspmlr.get(indice).getMlncuo() != 0) {
 								this.aama12 = " CUOTA";
-								this.aancuo = o.getMlncuo();
-								this.aacacu = o.getMlcacu();
+								this.aancuo = ListZrspmlr.get(indice).getMlncuo();
+								this.aacacu = ListZrspmlr.get(indice).getMlcacu();
 								this.aama12 = this.aama12 + " " + this.aancuo + "/" + this.aacacu;
 								this.mlde40 = this.aama12;
 							}
-							if (o.getMlcori() == 9 && o.getMlcmov() == 5) {
-								if (o.getMlcsmv() == 11 || o.getMlcsmv() == 12 || o.getMlcsmv() == 13 || o.getMlcsmv() == 14 || o.getMlcsmv() == 91 || o.getMlcsmv() == 92 || o.getMlcsmv() == 93 || o.getMlcsmv() == 94) {
+							if (ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 5) {
+								if (ListZrspmlr.get(indice).getMlcsmv() == 11 || ListZrspmlr.get(indice).getMlcsmv() == 12 || ListZrspmlr.get(indice).getMlcsmv() == 13 || ListZrspmlr.get(indice).getMlcsmv() == 14 || ListZrspmlr.get(indice).getMlcsmv() == 91 || ListZrspmlr.get(indice).getMlcsmv() == 92 || ListZrspmlr.get(indice).getMlcsmv() == 93 || ListZrspmlr.get(indice).getMlcsmv() == 94) {
 									this.ain75 = true;
 								}
 							}
 						}else {
-							this.wimplo = o.getMlimpo();
-							this.wtctal = this.wtctal.add(o.getMlimpo());
-							if (o.getMlcmov() == 60 && o.getMlcsmv() != 0) {
+							this.wimplo = ListZrspmlr.get(indice).getMlimpo();
+							this.wtctal = this.wtctal.add(ListZrspmlr.get(indice).getMlimpo());
+							if (ListZrspmlr.get(indice).getMlcmov() == 60 && ListZrspmlr.get(indice).getMlcsmv() != 0) {
 								this.wdeslo = "";
 								SubRutAdesmo(ds);
 								this.mlfecu = "";
@@ -1123,32 +1204,41 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 								this.wdeslo = this.mlde40;
 								this.mlfecu = "";
 							}
-							if (o.getMlcori() == 9 && o.getMlcmov() == 5) {
-								if (o.getMlcsmv() == 11 || o.getMlcsmv() == 12 || o.getMlcsmv() == 13 || o.getMlcsmv() == 14 || o.getMlcsmv() == 91 || o.getMlcsmv() == 92 || o.getMlcsmv() == 93 || o.getMlcsmv() == 94) {
+							if (ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 5) {
+								if (ListZrspmlr.get(indice).getMlcsmv() == 11 || ListZrspmlr.get(indice).getMlcsmv() == 12 || ListZrspmlr.get(indice).getMlcsmv() == 13 || ListZrspmlr.get(indice).getMlcsmv() == 14 || ListZrspmlr.get(indice).getMlcsmv() == 91 || ListZrspmlr.get(indice).getMlcsmv() == 92 || ListZrspmlr.get(indice).getMlcsmv() == 93 || ListZrspmlr.get(indice).getMlcsmv() == 94) {
 									this.ain75 = true;
 								}
 							}
-							if (o.getMlcori() == 8) {
+							if (ListZrspmlr.get(indice).getMlcori() == 8) {
 								this.mlfecu = "";
 							}
 							this.fecaux = 0;
-							if (o.getMlcori() == 3 && o.getMlcmov() == 60 && o.getMlcsmv() == 15 || o.getMlcori() == 3 && o.getMlcmov() == 60 && o.getMlcsmv() == 16) {
-								if (o.getMlcsmv() == 15) {
-									this.ws6d15 = this.ws6d15.add(o.getMlimpo());
+							if (ListZrspmlr.get(indice).getMlcori() == 3 && ListZrspmlr.get(indice).getMlcmov() == 60 && ListZrspmlr.get(indice).getMlcsmv() == 15 || ListZrspmlr.get(indice).getMlcori() == 3 && ListZrspmlr.get(indice).getMlcmov() == 60 && ListZrspmlr.get(indice).getMlcsmv() == 16) {
+								if (ListZrspmlr.get(indice).getMlcsmv() == 15) {
+									this.ws6d15 = this.ws6d15.add(ListZrspmlr.get(indice).getMlimpo());
 								}else {
-									this.ws6d16 = this.ws6d16.add(o.getMlimpo());
+									this.ws6d16 = this.ws6d16.add(ListZrspmlr.get(indice).getMlimpo());
 								}
 							}else {
 								if (this.wdeslo == "") {
 									this.wdeslo = this.mlde40;
 								}
 								this.mamini = "1";
-								SubRutSlinel04(ds, o.getMlncuo(), o.getMlcacu(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+								SubRutSlinel04(ds, ListZrspmlr.get(indice).getMlncuo(), ListZrspmlr.get(indice).getMlcacu(), ListZrspmlr.get(indice).getMlxtrf(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 								this.ain75 = true;
 								this.whcrcp = new BigDecimal(0);
 							}
 						}
-					}
+						_mlncuo = ListZrspmlr.get(indice).getMlncuo();
+						_mlcacu = ListZrspmlr.get(indice).getMlcacu();
+						_mlxtrf = ListZrspmlr.get(indice).getMlxtrf();
+						_mlcori = ListZrspmlr.get(indice).getMlcori();
+						_mlcmov = ListZrspmlr.get(indice).getMlcmov();
+						_mlcsmv = ListZrspmlr.get(indice).getMlcsmv();
+						_mlncrd = ListZrspmlr.get(indice).getMlncrd();
+						_mlcrcp = ListZrspmlr.get(indice).getMlcrcp();
+						indice +=1;
+					}//FIN 1er while
 					for (int z1 = 1; z1 < 10; z1++) {
 						this.wtmoz1 = new BigDecimal(this.wt1[z1]);
 						this.whcrcp = new BigDecimal(this.wh1[z1]);
@@ -1157,7 +1247,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 							this.wreflo = "";
 							this.wrefe = "";
 							this.wwdrfn = "";
-							this.wwmrch = 0;
+							this.wwmrch = null;
 							this.ain69 = false;
 							this.wimplo = this.wtmoz1;
 							this.wtctal = this.wtctal.add(this.wtmoz1);
@@ -1166,19 +1256,19 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 							SubRutAdesmo(ds);
 							this.fecaux = 0;
 							this.mamini = "1";
-							SubRutSlinel04s(ds,o.getMlncuo(), o.getMlcacu(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel04s(ds,_mlncuo, _mlcacu, _mlxtrf, _mlcori, _mlcmov, _mlcsmv, _mlncrd);
 							if ( fc.BigDecimalComparar(this.wtmoz2.toString(), "0", "=")) {
 								this.ain75 = false;
 							}
 							this.whcrcp = BigDecimal.ZERO;
 							this.wtmoz1 = BigDecimal.ZERO;
 						}
-					}
+					}//FIN FOR
 					if (fc.BigDecimalComparar(this.wtmoz2.toString(), "0", "!=")) {
 						this.wreflo = "";
 						this.wrefe = "";
 						this.wwdrfn = "";
-						this.wwmrch = 0;
+						this.wwmrch = null;
 						this.ain69 = false;
 						this.wimplo = this.wtmoz2;
 						this.wtctal = this.wtctal.add(this.wtmoz2);
@@ -1188,17 +1278,17 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						SubRutAdesmo(ds);
 						this.fecaux = 0;
 						this.mamini = "1";
-						SubRutSlinel04s(ds, o.getMlncuo(), o.getMlcacu(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+						SubRutSlinel04s(ds, _mlncuo, _mlcacu, _mlxtrf, _mlcori, _mlcmov, _mlcsmv, _mlncrd);
 						this.ain75 = false;
 						this.whcrcp = BigDecimal.ZERO;
 						this.whcrc2 = BigDecimal.ZERO;
 						this.wtmoz2 = BigDecimal.ZERO;
-					}
+					}//FIN IF
 					if (fc.BigDecimalComparar(this.wtmoz3.toString(), "0", "!=")) {
 						this.wreflo = "";
 						this.wrefe = "";
 						this.wwdrfn = "";
-						this.wwmrch = 0;
+						this.wwmrch = null;
 						this.ain69 = false;
 						this.wimplo = this.wtmoz3;
 						this.wtctal = this.wtctal.add(this.wtmoz3);
@@ -1208,18 +1298,21 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						SubRutAdesmo(ds);
 						this.fecaux = 0;
 						this.mamini = "1";
-						SubRutSlinel04s(ds, o.getMlncuo(), o.getMlcacu(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+						SubRutSlinel04s(ds, _mlncuo, _mlcacu, _mlxtrf, _mlcori, _mlcmov, _mlcsmv, _mlncrd);
 						this.wtmoz3 = BigDecimal.ZERO;
-					}
+					}//FIN IF
 					if (fc.BigDecimalComparar(this.wlimpo.toString(), "0", "!=")) {
 						this.ain79 = false;
 						this.wtctal = this.wtctal.add(this.wlimpo);
 						this.mamini = "1";
-						SubRutSlinel41(ds, o.getMlcrcp(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlncrd());
+						SubRutSlinel41(ds, _mlcrcp, _mlxtrf, _mlcori, _mlcmov, _mlncrd);
 						this.wlimpo = BigDecimal.ZERO;
+					}//FIN IF
+					if (indice == indiceNext) {
+						indice += 1;
 					}
-				}
-			}
+				}//FIN WHILE X/REGISTRO
+			}//FIN IF EXISTE REGISTRO
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
 			return e.getMessage();
@@ -1243,7 +1336,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			sindl[4] = this.ain75;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXMINI(this.mamini);
 			strx.setTXFILE("M");
 			strx.setTXLOIN("L");
@@ -1256,7 +1351,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXNCUO(MLNCUO);
 			strx.setTXCACU(MLCACU);
 			strx.setTXIORG(this.whcrcp);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXREFC(MLXTRF);
 			strx.setTXCORI(MLCORI);
 			strx.setTXCMOV(MLCMOV);
@@ -1292,7 +1388,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			sindl[4] = this.ain75;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXMINI(this.mamini);
 			strx.setTXFILE("M");
 			strx.setTXLOIN("L");
@@ -1305,7 +1403,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXNCUO(MLNCUO);
 			strx.setTXCACU(MLCACU);
 			strx.setTXIORG(this.whcrcp);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXREFC(MLXTRF);
 			strx.setTXCORI(MLCORI);
 			strx.setTXCMOV(MLCMOV);
@@ -1576,31 +1675,42 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	
 	private String SubRutAlzon2(DataSet ds) {
 		try {
+			String _mlxtrf = "";
+			Integer _mlcori = 0;
+			Integer _mlcmov = 0;
+			Integer _mlcsmv = 0;
+			String _mlncrd = "";
+			Integer _mlncuo = 0;
+			Integer _mlcacu = 0;
+			
 			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "2");
-			for (Zrspmlr o : ListZrspmlr) {//Por cada registro seleccionado
+			int indice = 0;
+			int indiceNext = 0;
+			while (indice <= ListZrspmlr.size()) {
+				indiceNext = indice;
 				this.ad81 = "";
 				this.ad82 = "";
 				this.totdes = BigDecimal.ZERO;
 				this.desdes = "";
-				this.ttfecu = "";
+				this.ttfecu = 0;
 				this.alimpo = BigDecimal.ZERO;
 				this.wtotar = BigDecimal.ZERO;
-				this.digant = o.getMlncrd().substring(16, 18);
-				this.mxmota = o.getMlncrd().substring(19, 19);
-				this.aacanb = o.getMlncrd();
-				for (int i = 0; i < EMPTY_STRING_ARRAY.length; i++) {
+				String mldita = ListZrspmlr.get(indice).getMlncrd().substring(16, 18);
+				this.digant = mldita; //Mldita();
+				this.mxmota = ListZrspmlr.get(indice).getMlncrd().substring(19, 19);
+				this.aacanb = ListZrspmlr.get(indice).getMlncrd();
+				while (indice <= ListZrspmlr.size() && mldita.equals(this.digant) && ListZrspmlr.get(indice).getMlncrd().equals(this.aacanb)  ) {
 					this.ain73 = false;
 					this.ain74 = false;
 					this.ain75 = false;
-					if (o.getMlcori() == 1 && o.getMlcmov() == 37 || o.getMlcori() == 9 && o.getMlcmov() == 37 || o.getMlcori() == 9 && o.getMlcmov() == 39 || o.getMlcori() == 9 && o.getMlcmov() == 23 || o.getMlcori() == 24 && o.getMlcmov() == 37) {
-						//($FMT) 
-						
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 37 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 37 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 39 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 23 || ListZrspmlr.get(indice).getMlcori() == 24 && ListZrspmlr.get(indice).getMlcmov() == 37) {
+						buscar$FMT02(1, 36, 9, 36, 9, 22, 9, 38, 24, 36);
 					}
-					if (o.getMlncuo() != 0) {
+					if (ListZrspmlr.get(indice).getMlncuo() != 0) {
 						this.aama12 = "";
 						this.aama12 = " CUOTA";
-						this.aancuo = o.getMlncuo();
-						this.aacacu = o.getMlcacu();
+						this.aancuo = ListZrspmlr.get(indice).getMlncuo();
+						this.aacacu = ListZrspmlr.get(indice).getMlcacu();
 						this.aama12 = this.aama12 + " " + this.aancuo + "/" + this.aacacu;
 						this.mlde40 = this.aama12;
 					}
@@ -1608,310 +1718,342 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.wreflo = "";
 					this.wrefe = "";
 					this.wwdrfn = "";
-					this.wwmrch = 0;
+					this.wwmrch = null;
 					this.ain69 = false;
-					this.wwdrfn = o.getMlxtrf();
-					this.w1mrch = o.getmlru
-					if (this.w1mrch != 0 && this.w1mrch != null) {
-						this.wwmrch = this.w1mrch;
+					this.wwdrfn = ListZrspmlr.get(indice).getMlxtrf();
+
+					w1mrch = null;
+					w1mrch.setMLZOES(ListZrspmlr.get(indice).getMlzoes());
+					w1mrch.setMLRUES(ListZrspmlr.get(indice).getMlrues());
+					w1mrch.setMLCOES(ListZrspmlr.get(indice).getMlcoes());
+					w1mrch.setMLSUES(ListZrspmlr.get(indice).getMlsues());
+					w1mrch.setMLMOES(ListZrspmlr.get(indice).getMlmoes());
+					
+					if (w1mrch.getMLZOES() != 0 && w1mrch.getMLRUES() != 0 && w1mrch.getMLCOES() != 0 && w1mrch.getMLSUES() != 0 && w1mrch.getMLMOES() != 0 ) {
+						wwmrch.setMLZOES(w1mrch.getMLZOES());
+						wwmrch.setMLRUES(w1mrch.getMLRUES());
+						wwmrch.setMLCOES(w1mrch.getMLCOES());
+						wwmrch.setMLSUES(w1mrch.getMLSUES());
+						wwmrch.setMLMOES(w1mrch.getMLMOES());
 					}
 					this.wdeslo = "";
-					if (o.getMlncup() != 0) {
-						this.wreflo = o.getMlncup().toString();
+					if (ListZrspmlr.get(indice).getMlncup() != 0) {
+						this.wreflo = ListZrspmlr.get(indice).getMlncup().toString();
 					}
-					if (o.getMlcori() == 3) {
-						this.wreflx = o.getMlncab() + o.getMldmov();
-						this.wrefly = o.getMlmmov() + o.getMlamov();
+					if (ListZrspmlr.get(indice).getMlcori() == 3) {
+						this.wreflx = ListZrspmlr.get(indice).getMlncab() + ListZrspmlr.get(indice).getMldmov();
+						this.wrefly = ListZrspmlr.get(indice).getMlmmov() + ListZrspmlr.get(indice).getMlamov();
 					}
-					if (o.getMlcori() == 23 && o.getMlcmov() == 35) {
+					if (ListZrspmlr.get(indice).getMlcori() == 23 && ListZrspmlr.get(indice).getMlcmov() == 35) {
 						this.wreflo = "";
-						this.wreflo = o.getMlncab();
+						this.wreflo = ListZrspmlr.get(indice).getMlncab();
 					}
-					if (o.getMlcori() == 1 || o.getMlcori() == 4 || o.getMlcori() == 5 || o.getMlcori() == 9 || o.getMlcori() == 24) {
-						this.wreflo = o.getMlzoes().toString();
-						this.wreflq = o.getMlrues() + o.getMlcoes();
-						if ( !o.getMlncab().equals("")) {//MLCOBO es un substring (primeras dos posiciones) del MLNCAB
-							if (true) {//MLCOBO  = BOCAP 
-								this.wreflw = o.getMlsues() + o.getMlmoes();
-								//this.wreflv = o.getMlfecu();//NO EXISTE
-								//MLFECU = MLDMOV(2) + MLMMOV(2) + MLAMOV(2) Estos campos son del Zrspmlr
+					if (ListZrspmlr.get(indice).getMlcori() == 1 || ListZrspmlr.get(indice).getMlcori() == 4 || ListZrspmlr.get(indice).getMlcori() == 5 || ListZrspmlr.get(indice).getMlcori() == 9 || ListZrspmlr.get(indice).getMlcori() == 24) {
+						this.wreflo = ListZrspmlr.get(indice).getMlzoes().toString();
+						this.wreflq = ListZrspmlr.get(indice).getMlrues() + ListZrspmlr.get(indice).getMlcoes();
+						if ( !ListZrspmlr.get(indice).getMlncab().equals("")) {
+							this.mlcobo = ListZrspmlr.get(indice).getMlncab().substring(0, 3);
+							if (this.mlcobo.equals(this.bocap)) { 
+								this.wreflw = ListZrspmlr.get(indice).getMlsues() + ListZrspmlr.get(indice).getMlmoes();
+								this.mlfecu = ListZrspmlr.get(indice).getMldmov().toString().substring(0, 2) + ListZrspmlr.get(indice).getMlmmov().toString().substring(0, 2) + ListZrspmlr.get(indice).getMlamov().toString().substring(0, 2);
+								this.wreflv = Integer.parseInt(this.mlfecu);
 
 							}else {
-								//this.wreflz = this.wlncab; //NO EXISTE Es un substring (posicion 12 a la 16) del campo MLNCAB
-								if (o.getMlcori() == 1 && o.getMlcmov() == 20 && o.getMlzoes() == 1 && o.getMlrues() == 18) {
-									if (o.getMlrefc().equals("") || o.getMlrefc().equals("0")) {
-										this.wreflr = o.getMlncaf();
+								this.wlncab = ListZrspmlr.get(indice).getMlncab().substring(12, 16);
+								this.wreflz = this.wlncab;
+								if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 20 && ListZrspmlr.get(indice).getMlzoes() == 1 && ListZrspmlr.get(indice).getMlrues() == 18) {
+									if (ListZrspmlr.get(indice).getMlrefc().equals("") || ListZrspmlr.get(indice).getMlrefc().equals("0")) {
+										this.wreflr = ListZrspmlr.get(indice).getMlncaf();
 									} else {
 										this.wreflo="";
-										if (o.getMlncuo() != 0) {
+										if (ListZrspmlr.get(indice).getMlncuo() != 0) {
 											this.ain73 = true;
 										}
-										//this.wreflo = this.wreflo + " " + this.agpoli + " " + this.agrama + " " + this.agendo;
-										//poli Es un substring (de 1 a 8) de MLREFC
-										//grma Es un substring (de 12 a 14) de MLREFC
-										//gedo Es un substring (de 17 a 19) de MLREFC
+										
+										this.agpoli = ListZrspmlr.get(indice).getMlrefc().substring(1, 8);
+										this.agrama = ListZrspmlr.get(indice).getMlrefc().substring(12, 14);
+										this.agendo = ListZrspmlr.get(indice).getMlrefc().substring(17, 19);
+										
+										this.wreflo = this.wreflo + " " + this.agpoli + " " + this.agrama + " " + this.agendo;
 									}
 								}else {
-									this.wreflr = o.getMlncaf();
+									this.wreflr = ListZrspmlr.get(indice).getMlncaf();
 								}
 							}
 						}
-						if (o.getMlcmov() == 22 && o.getMlcori() == 9 || o.getMlcmov() == 22 && o.getMlcori() == 5 || o.getMlcmov() == 22 && o.getMlcori() == 8 || o.getMlcmov() == 22 && o.getMlcori() == 1) {
+						if (ListZrspmlr.get(indice).getMlcmov() == 22 && ListZrspmlr.get(indice).getMlcori() == 9 || ListZrspmlr.get(indice).getMlcmov() == 22 && ListZrspmlr.get(indice).getMlcori() == 5 || ListZrspmlr.get(indice).getMlcmov() == 22 && ListZrspmlr.get(indice).getMlcori() == 8 || ListZrspmlr.get(indice).getMlcmov() == 22 && ListZrspmlr.get(indice).getMlcori() == 1) {
 							this.ain73 = true;
 						}
-						if (o.getMlcori() == 5 && o.getMlcmov() == 22 && o.getMlcsmv() == 9) {
+						if (ListZrspmlr.get(indice).getMlcori() == 5 && ListZrspmlr.get(indice).getMlcmov() == 22 && ListZrspmlr.get(indice).getMlcsmv() == 9) {
 							this.ain73 = false;
 							this.ain74 = true;
 						}
 					}
-					if (o.getMlcori() == 8 && o.getMlcmov() == 20 || o.getMlcori() == 8 && o.getMlcmov() == 22 || o.getMlcori() == 8 && o.getMlcmov() == 25) {
-						this.wreflo = o.getMlzoes().toString();
-						this.wreflq = o.getMlrues();
-						this.wreflq = o.getMlcoes();
-						if (!o.getMlncab().equals("")) {
-							if (true) { // o.mlcobo == bocap
-								this.wreflw = o.getMlsues();
-								this.wreflw = o.getMlmoes();
-								//this.wreflv = o.getMlfecu();//NO EXISTE
+					if (ListZrspmlr.get(indice).getMlcori() == 8 && ListZrspmlr.get(indice).getMlcmov() == 20 || ListZrspmlr.get(indice).getMlcori() == 8 && ListZrspmlr.get(indice).getMlcmov() == 22 || ListZrspmlr.get(indice).getMlcori() == 8 && ListZrspmlr.get(indice).getMlcmov() == 25) {
+						this.wreflo = ListZrspmlr.get(indice).getMlzoes().toString();
+						this.wreflq = ListZrspmlr.get(indice).getMlrues();
+						this.wreflq = ListZrspmlr.get(indice).getMlcoes();
+						if (!ListZrspmlr.get(indice).getMlncab().equals("")) {
+							this.mlcobo = ListZrspmlr.get(indice).getMlncab().substring(0, 3);
+							if (this.mlcobo.equals(this.bocap)) { 
+								this.wreflw = ListZrspmlr.get(indice).getMlsues();
+								this.wreflw = ListZrspmlr.get(indice).getMlmoes();
+								this.mlfecu = ListZrspmlr.get(indice).getMldmov().toString().substring(0, 2) + ListZrspmlr.get(indice).getMlmmov().toString().substring(0, 2) + ListZrspmlr.get(indice).getMlamov().toString().substring(0, 2);
+								this.wreflv = Integer.parseInt(this.mlfecu);
 							}else {
-								//this.wreflz = this.wlncab;
-								this.wreflr = o.getMlncaf();
+								this.wlncab = ListZrspmlr.get(indice).getMlncab().substring(12, 16);
+								this.wreflz = this.wlncab;
+								this.wreflr = ListZrspmlr.get(indice).getMlncaf();
 							}
 						}
 					}
-					if (o.getMlcori() == 12 && o.getMlcmov() == 20) {
-						this.wreflo = ""; //BLANCOS
+					if (ListZrspmlr.get(indice).getMlcori() == 12 && ListZrspmlr.get(indice).getMlcmov() == 20) {
+						this.wreflo = "";
 					}
 					if (!this.wwdrfn.equals("")) {
-						if (o.getMlcori() == 1 || o.getMlcori() == 24 || o.getMlcori() == 5 || o.getMlcori() == 6 || o.getMlcori() == 9 && o.getMlcmov() == 38 || o.getMlcori() == 9 && o.getMlcmov() == 39 || o.getMlcori() == 9 && o.getMlcmov() == 36 || o.getMlcori() == 9 && o.getMlcmov() == 37 || o.getMlcori() == 9 && o.getMlcmov() == 58 || o.getMlcori() == 9 && o.getMlcmov() == 59 || o.getMlcori() == 9 && o.getMlcmov() == 56 || o.getMlcori() == 9 && o.getMlcmov() == 57 || o.getMlcori() == 12) {
+						if (ListZrspmlr.get(indice).getMlcori() == 1 || ListZrspmlr.get(indice).getMlcori() == 24 || ListZrspmlr.get(indice).getMlcori() == 5 || ListZrspmlr.get(indice).getMlcori() == 6 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 38 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 39 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 36 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 37 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 58 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 59 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 56 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 57 || ListZrspmlr.get(indice).getMlcori() == 12) {
+							this.ain69 = true;
 							this.wrefe = this.agrefe;
 						}
 					}
-					if (o.getMlcori() == 1 && o.getMlcmov() == 25) {
-						this.wtimp1 = o.getMlcrcp().add(o.getMlimpo());
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 25) {
+						this.wtimp1 = ListZrspmlr.get(indice).getMlcrcp().add(ListZrspmlr.get(indice).getMlimpo());
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
 						if (!this.wconfi.equals("B")) {
-							this.totcuo = o.getMlimpo();
+							this.totcuo = ListZrspmlr.get(indice).getMlimpo();
 							this.w1desc = this.mlde40;
-							this.w1ncuo = o.getMlncuo();
-							this.w1cacu = o.getMlcacu();
-							if (true) { //o.getMlfecu()!=""
-								this.fecadd = o.getMldmov();
-								this.fecamm = o.getMlmmov();
-								this.fecaa1 = o.getMlymov();
-								this.fecaa2 = o.getMlamov();
+							this.w1ncuo = ListZrspmlr.get(indice).getMlncuo();
+							this.w1cacu = ListZrspmlr.get(indice).getMlcacu();
+							if (!this.mlfecu.equals("") && !this.mlfecu.equals("0")) {
+								this.fecadd = ListZrspmlr.get(indice).getMldmov();
+								this.fecamm = ListZrspmlr.get(indice).getMlmmov();
+								this.fecaa1 = ListZrspmlr.get(indice).getMlymov();
+								this.fecaa2 = ListZrspmlr.get(indice).getMlamov();
 							}else {
 								this.fecaux = 0;
 							}
-							SubRutSlinel27(ds, o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
-							SubRutSlinel25(ds, o.getMlcrcp(), o.getMlxtrf(),o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel27(ds, ListZrspmlr.get(indice).getMlxtrf(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
+							SubRutSlinel25(ds, ListZrspmlr.get(indice).getMlcrcp(), ListZrspmlr.get(indice).getMlxtrf(),ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 							
 						}
 					}
-					if (o.getMlcori() == 1 && o.getMlcmov() == 26) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 26) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
 						if (!this.wconfi.equals("B")) {
-							SubRutSlinel26(ds, o.getMlimpo(), "o.getMlpifg()", o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel26(ds, ListZrspmlr.get(indice).getMlimpo(), ListZrspmlr.get(indice).getMlxtrf(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 						}
 					}
-					if (o.getMlcori() == 1 && o.getMlcmov() == 27 || o.getMlcori() == 4 && o.getMlcmov() == 27) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
-						this.wlcrcp = o.getMlcrcp().add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 27 || ListZrspmlr.get(indice).getMlcori() == 4 && ListZrspmlr.get(indice).getMlcmov() == 27) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
+						this.wlcrcp = ListZrspmlr.get(indice).getMlcrcp().add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
 						if (!sstmhdr.getMecacl().equals("B")) {
-							this.totcuo = o.getMlimpo();
-							this.mlcap = o.getMlimpo();
+							this.totcuo = ListZrspmlr.get(indice).getMlimpo();
+							this.mlcap = ListZrspmlr.get(indice).getMlimpo();
 							this.w1desc = this.mlde40;
-							this.w1ncuo = o.getMlncuo();
-							this.w1cacu = o.getMlcacu();
+							this.w1ncuo = ListZrspmlr.get(indice).getMlncuo();
+							this.w1cacu = ListZrspmlr.get(indice).getMlcacu();
 						}
 					}
-					if (o.getMlcori() == 1 && o.getMlcmov() == 28 || o.getMlcori() == 4 && o.getMlcmov() == 28) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
-						this.totcuo = this.totcuo.add(o.getMlimpo());
-						this.mlinte = o.getMlimpo();
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 28 || ListZrspmlr.get(indice).getMlcori() == 4 && ListZrspmlr.get(indice).getMlcmov() == 28) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
+						this.totcuo = this.totcuo.add(ListZrspmlr.get(indice).getMlimpo());
+						this.mlinte = ListZrspmlr.get(indice).getMlimpo();
 						this.ain15 = true;
 						if (!this.wconfi.equals("B")) {
-							if (true) { //o.getMlfecu()!=""
-								this.fecadd = o.getMldmov();
-								this.fecamm = o.getMlmmov();
-								this.fecaa1 = o.getMlymov();
-								this.fecaa2 = o.getMlamov();
+							if (!this.mlfecu.equals("") && !this.mlfecu.equals("0")) {
+								this.fecadd = ListZrspmlr.get(indice).getMldmov();
+								this.fecamm = ListZrspmlr.get(indice).getMlmmov();
+								this.fecaa1 = ListZrspmlr.get(indice).getMlymov();
+								this.fecaa2 = ListZrspmlr.get(indice).getMlamov();
 							}else {
 								this.fecaux = 0;
 							}
-							SubRutSlinel27(ds, o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
-							SubRutSlinel28(ds, this.mlcap, this.mlinte, o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel27(ds, ListZrspmlr.get(indice).getMlxtrf(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
+							SubRutSlinel28(ds, this.mlcap, this.mlinte, ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd(), this.mlde40);
 						}
 					}
-					if (o.getMlcori() == 4 && o.getMlcmov() == 29) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 4 && ListZrspmlr.get(indice).getMlcmov() == 29) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
 						if (!this.wconfi.equals("B")) {
-							SubRutSlinel29(ds, o.getMlimpo(), o.getMlmini(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel29(ds, ListZrspmlr.get(indice).getMlimpo(), ListZrspmlr.get(indice).getMlmini(), ListZrspmlr.get(indice).getMlxtrf(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 						}
 					}
-					if (o.getMlcori() == 1 && o.getMlcmov() == 23) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 23) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
 						if (!this.wconfi.equals("B")) {
-							if (true) { //o.getMlfecu()!=""
-								this.fecadd = o.getMldmov();
-								this.fecamm = o.getMlmmov();
-								this.fecaa1 = o.getMlymov();
-								this.fecaa2 = o.getMlamov();
+							if (!this.mlfecu.equals("") && !this.mlfecu.equals("0")) {
+								this.fecadd = ListZrspmlr.get(indice).getMldmov();
+								this.fecamm = ListZrspmlr.get(indice).getMlmmov();
+								this.fecaa1 = ListZrspmlr.get(indice).getMlymov();
+								this.fecaa2 = ListZrspmlr.get(indice).getMlamov();
 							}else {
 								this.fecaux = 0;
 							}
-							SubRutSlinel23(ds, o.getMlde40(), o.getMlimpo(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel23(ds, ListZrspmlr.get(indice).getMlde40(), ListZrspmlr.get(indice).getMlimpo(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 						}
 					}
-					if (o.getMlcori() == 1 && o.getMlcmov() == 24) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 24) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
 						if (!sstmhdr.getMecacl().equals("B")) {
-							if (true) { //o.getMlfecu()!=""
-								this.fecadd = o.getMldmov();
-								this.fecamm = o.getMlmmov();
-								this.fecaa1 = o.getMlymov();
-								this.fecaa2 = o.getMlamov();
+							if (!this.mlfecu.equals("") && !this.mlfecu.equals("0")) {
+								this.fecadd = ListZrspmlr.get(indice).getMldmov();
+								this.fecamm = ListZrspmlr.get(indice).getMlmmov();
+								this.fecaa1 = ListZrspmlr.get(indice).getMlymov();
+								this.fecaa2 = ListZrspmlr.get(indice).getMlamov();
 							}else {
 								this.fecaux = 0;
 							}
-							SubRutSlinel23(ds, o.getMlde40(), o.getMlimpo(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel23(ds, ListZrspmlr.get(indice).getMlde40(), ListZrspmlr.get(indice).getMlimpo(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 						}
 					}
-					if (o.getMlcori() == 1 && o.getMlcmov() == 36 || o.getMlcori() == 9 && o.getMlcmov() == 36 || o.getMlcori() == 9 && o.getMlcmov() == 22 || o.getMlcori() == 9 && o.getMlcmov() == 38 || o.getMlcori() == 24 && o.getMlcmov() == 36) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 36 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 36 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 22 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 38 || ListZrspmlr.get(indice).getMlcori() == 24 && ListZrspmlr.get(indice).getMlcmov() == 36) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
 						if (!sstmhdr.getMecacl().equals("B")) {
-							this.totcu2 = o.getMlimpo();
-							this.w1desc = o.getMlde40();
-							this.w1ncuo = o.getMlncuo();
-							this.w1cacu = o.getMlcacu();
+							this.totcu2 = ListZrspmlr.get(indice).getMlimpo();
+							this.w1desc = ListZrspmlr.get(indice).getMlde40();
+							this.w1ncuo = ListZrspmlr.get(indice).getMlncuo();
+							this.w1cacu = ListZrspmlr.get(indice).getMlcacu();
 							this.ain15 = true;
-							if (o.getMlcori() == 9 && o.getMlcmov() == 36 && o.getMlcsmv() == 0 || o.getMlcori() == 9 && o.getMlcmov() == 38 && o.getMlcsmv() == 0 || o.getMlcori() == 9 && o.getMlcmov() == 22 && o.getMlcsmv() == 0 ) {
+							if (ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 36 && ListZrspmlr.get(indice).getMlcsmv() == 0 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 38 && ListZrspmlr.get(indice).getMlcsmv() == 0 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 22 && ListZrspmlr.get(indice).getMlcsmv() == 0 ) {
 								this.ain73 = false;
 								this.ain74 = true;
 							}
-							if (o.getMlcori() == 24 && o.getMlcmov() == 36 && o.getMlcsmv() == 9) {
+							if (ListZrspmlr.get(indice).getMlcori() == 24 && ListZrspmlr.get(indice).getMlcmov() == 36 && ListZrspmlr.get(indice).getMlcsmv() == 9) {
 								this.ain73 = false;
 								this.ain74 = true;
 							}else {
 								this.ain73 = true;
 							}
 							if (!this.wconfi.equals("B")) {
-								if (true) { //o.getMlfecu()!=""
-									this.fecadd = o.getMldmov();
-									this.fecamm = o.getMlmmov();
-									this.fecaa1 = o.getMlymov();
-									this.fecaa2 = o.getMlamov();
+								if (!this.mlfecu.equals("") && !this.mlfecu.equals("0")) {
+									this.fecadd = ListZrspmlr.get(indice).getMldmov();
+									this.fecamm = ListZrspmlr.get(indice).getMlmmov();
+									this.fecaa1 = ListZrspmlr.get(indice).getMlymov();
+									this.fecaa2 = ListZrspmlr.get(indice).getMlamov();
 								}else {
 									this.fecaux = 0;
 								}
-								SubRutSlinel36(ds, o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+								SubRutSlinel36(ds, ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 								this.totcu2 = BigDecimal.ZERO;
 							}
 						}
 					}
-					if (o.getMlcori() == 1 && o.getMlcmov() == 37 || o.getMlcori() == 9 && o.getMlcmov() == 37 || o.getMlcori() == 24 && o.getMlcmov() == 37) {
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 37 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 37 || ListZrspmlr.get(indice).getMlcori() == 24 && ListZrspmlr.get(indice).getMlcmov() == 37) {
 						if (this.w1desc.equals("")) {
-							this.w1desc = o.getMlde40();
+							this.w1desc = ListZrspmlr.get(indice).getMlde40();
 						}
-						this.wtotar = this.wtotar.add(o.getMlimpo());
-						this.totcu2 = this.totcu2.add(o.getMlimpo());
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
+						this.totcu2 = this.totcu2.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
-						if (o.getMlcori() == 9 && o.getMlcmov() == 37 && o.getMlcsmv() == 0) {
+						if (ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 37 && ListZrspmlr.get(indice).getMlcsmv() == 0) {
 							this.ain73 = false;
 							this.ain74 = true;
 						}
-						if (o.getMlcori() == 24 && o.getMlcmov() == 37 && o.getMlcsmv() == 9) {
+						if (ListZrspmlr.get(indice).getMlcori() == 24 && ListZrspmlr.get(indice).getMlcmov() == 37 && ListZrspmlr.get(indice).getMlcsmv() == 9) {
 							this.ain73 = false;
 							this.ain74 = true;
 						}else {
 							this.ain73 = true;
 						}
 						if (!this.wconfi.equals("B")) {
-							if (true) { //o.getMlfecu()!=""
-								this.fecadd = o.getMldmov();
-								this.fecamm = o.getMlmmov();
-								this.fecaa1 = o.getMlymov();
-								this.fecaa2 = o.getMlamov();
+							if (!this.mlfecu.equals("") && !this.mlfecu.equals("0")) {
+								this.fecadd = ListZrspmlr.get(indice).getMldmov();
+								this.fecamm = ListZrspmlr.get(indice).getMlmmov();
+								this.fecaa1 = ListZrspmlr.get(indice).getMlymov();
+								this.fecaa2 = ListZrspmlr.get(indice).getMlamov();
 							}else {
 								this.fecaux = 0;
 							}
-							SubRutSlinel36(ds, o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel36(ds, ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 							this.totcu2 = BigDecimal.ZERO;
 						}
 					}
-					if (o.getMlcori() == 17 && o.getMlcmov() == 26) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 17 && ListZrspmlr.get(indice).getMlcmov() == 26) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
-						this.wsadef = o.getMlde40();
+						this.wsadef = ListZrspmlr.get(indice).getMlde40();
 						if (!this.wconfi.equals("B")) {
-							if (o.getMldmov() != 0) {
-								this.agamov = o.getMlymov() * 100;
-								this.agamov = this.agamov + o.getMlamov();
+							if (ListZrspmlr.get(indice).getMldmov() != 0) {
+								this.agamov = ListZrspmlr.get(indice).getMlymov() * 100;
+								this.agamov = this.agamov + ListZrspmlr.get(indice).getMlamov();
 							}
-							SubRutSlinel37(ds, o.getMlimpo(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel37(ds, ListZrspmlr.get(indice).getMlimpo(), ListZrspmlr.get(indice).getMlxtrf(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 						}
 					}
-					if (o.getMlcori() == 17 && o.getMlcmov() == 27) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 17 && ListZrspmlr.get(indice).getMlcmov() == 27) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
-						this.wsinef = o.getMlde40();
+						this.wsinef = ListZrspmlr.get(indice).getMlde40();
 						if (!this.wconfi.equals("B")) {
-							SubRutSlinel38(ds, o.getMlimpo(), o.getMltefm(), o.getMltnoa(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel38(ds, ListZrspmlr.get(indice).getMlimpo(), ListZrspmlr.get(indice).getMltefm(), ListZrspmlr.get(indice).getMltnoa(), ListZrspmlr.get(indice).getMlxtrf(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 						}
 					}
-					if (o.getMlcori() == 17 && o.getMlcmov() == 28) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 17 && ListZrspmlr.get(indice).getMlcmov() == 28) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
 						if (!this.wconfi.equals("B")) {
-							SubRutSlinel29(ds, o.getMlimpo(), o.getMlmini(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel29(ds, ListZrspmlr.get(indice).getMlimpo(), ListZrspmlr.get(indice).getMlmini(), ListZrspmlr.get(indice).getMlxtrf(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 						}
 					}
-					if (o.getMlcori() == 17 && o.getMlcmov() == 29) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 17 && ListZrspmlr.get(indice).getMlcmov() == 29) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
-						this.alimpo = this.alimpo.add(o.getMlimpo());
+						this.alimpo = this.alimpo.add(ListZrspmlr.get(indice).getMlimpo());
 					}
-					if (o.getMlcori() == 12 && o.getMlcmov() == 50 && o.getMlcsmv() == 0) {
+					if (ListZrspmlr.get(indice).getMlcori() == 12 && ListZrspmlr.get(indice).getMlcmov() == 50 && ListZrspmlr.get(indice).getMlcsmv() == 0) {
 						this.ain73 = true;
 						this.ain74 = false;
 					}
-					if (o.getMlcori() == 1 && o.getMlcmov() == 20 && o.getMlcsmv() == 66) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
+					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 20 && ListZrspmlr.get(indice).getMlcsmv() == 66) {
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.ain15 = true;
-						this.totdes = this.totdes.add(o.getMlimpo());
-						this.desdes = o.getMlde40();
-						//this.ttfecu = o.getmlfecu(); //NO EXISTE
+						this.totdes = this.totdes.add(ListZrspmlr.get(indice).getMlimpo());
+						this.desdes = ListZrspmlr.get(indice).getMlde40();
+						this.mlfecu = ListZrspmlr.get(indice).getMldmov().toString().substring(0, 2) + ListZrspmlr.get(indice).getMlmmov().toString().substring(0, 2) + ListZrspmlr.get(indice).getMlamov().toString().substring(0, 2);
+						this.ttfecu = Integer.parseInt(this.mlfecu);
 					}
 					if (!this.ain15) {
-						this.wtotar = this.wtotar.add(o.getMlimpo());
-						this.wimplo = o.getMlimpo();
-						this.wdeslo = o.getMlde40();
+						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
+						this.wimplo = ListZrspmlr.get(indice).getMlimpo();
+						this.wdeslo = ListZrspmlr.get(indice).getMlde40();
 						if (!this.wconfi.equals("B")) {
 							this.ain75 = false;
-							if (true) { //o.getMlfecu()!=""
-								this.fecadd = o.getMldmov();
-								this.fecamm = o.getMlmmov();
-								this.fecaa1 = o.getMlymov();
-								this.fecaa2 = o.getMlamov();
+							if (!this.mlfecu.equals("") && !this.mlfecu.equals("0")) {
+								this.fecadd = ListZrspmlr.get(indice).getMldmov();
+								this.fecamm = ListZrspmlr.get(indice).getMlmmov();
+								this.fecaa1 = ListZrspmlr.get(indice).getMlymov();
+								this.fecaa2 = ListZrspmlr.get(indice).getMlamov();
 							}else {
 								this.fecaux = 0;
 							}
+							this.ain69 = false;
 							this.mamini = "2";
-							SubRutSlinel04(ds, o.getMlncuo(), o.getMlcacu(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
+							SubRutSlinel04(ds, ListZrspmlr.get(indice).getMlncuo(), ListZrspmlr.get(indice).getMlcacu(), ListZrspmlr.get(indice).getMlxtrf(), ListZrspmlr.get(indice).getMlcori(), ListZrspmlr.get(indice).getMlcmov(), ListZrspmlr.get(indice).getMlcsmv(), ListZrspmlr.get(indice).getMlncrd());
 						}
 					}
+					_mlxtrf = ListZrspmlr.get(indice).getMlxtrf();
+					_mlcori = ListZrspmlr.get(indice).getMlcori();
+					_mlcmov = ListZrspmlr.get(indice).getMlcmov();
+					_mlcsmv = ListZrspmlr.get(indice).getMlcsmv();
+					_mlncrd = ListZrspmlr.get(indice).getMlncrd();
+					_mlncuo = ListZrspmlr.get(indice).getMlncuo();
+					_mlcacu = ListZrspmlr.get(indice).getMlcacu();
+					indice +=1;
+				} // FIN IF
+				if (indice == indiceNext) {
+					indice += 1;
 				}
-			}
+			}//FIN WHILE
 			if (fc.BigDecimalComparar(this.alimpo.toString(), "0", "!=")) {
 				if (!this.wconfi.equals("B")) {
-					//SubRutSlinel30(ds, o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd()); // faltan parametros de Zrspmlr
+					SubRutSlinel30(ds, _mlxtrf, _mlcori, _mlcmov, _mlcsmv, _mlncrd);
 				}
 			}
 			if (fc.BigDecimalComparar(this.totdes.toString(), "0", "!=")) {
@@ -1920,7 +2062,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.ain75 = false;
 				this.fecaux = 0;
 				this.mamini = "2";
-				//SubRutSlinel04(ds); faltan parametros de Zrspmlr
+				SubRutSlinel04(ds, _mlncuo, _mlcacu, _mlxtrf, _mlcori, _mlcmov, _mlcsmv, _mlncrd);
 			}
 			this.wtctal = this.wtctal.add(this.wtotar);
 			this.wmone = "PES";
@@ -1942,7 +2084,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("2");
 			strx.setTXFILE("M");
 			strx.setTXLOIN("L");
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(this.w1desc);
 			strx.setTXIMPO(this.totcuo);
 			strx.setTXNCUO(this.w1ncuo);
@@ -2002,7 +2146,6 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	}
 	
 	private String SubRutSlinel26(DataSet ds, BigDecimal MLIMPO,
-			String MLPIFG,
 			String MLXTRF,
 			Integer MLCORI,
 			Integer MLCMOV,
@@ -2016,7 +2159,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXLOIN("L");
 			strx.setTXDESC(" GS. OTORGAMIENTO (");
 			strx.setTXIMPO(MLIMPO);
-			//strx.setTXTEFM(MLPIFG); //NO EXISTE EN TABLA
+			strx.setTXTEFM(BigDecimal.ZERO); //MLPIFG
 			strx.setTXREFC(MLXTRF);
 			strx.setTXCORI(MLCORI);
 			strx.setTXCMOV(MLCMOV);
@@ -2041,7 +2184,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			Integer MLCORI,
 			Integer MLCMOV,
 			Integer MLCSMV,
-			String MLNCRD) {
+			String MLNCRD,
+			String MLDE40) {
 		try {
 			strx = new ZRSTEMMVSTRX();
 			strx.setTXFMT("DELO28");
@@ -2051,7 +2195,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXDESC(" (*)CITIBANK CAPITAL ");
 			strx.setTXIMPO(MLCAP);
 			strx.setTXIORG(MLINTE);
-			//strx.setTXREFC(DESCPC);//NO EXISTE CAMPO
+			strx.setTXREFC(MLDE40.substring(19, 40));//DESCPC
 			strx.setTXCORI(MLCORI);
 			strx.setTXCMOV(MLCMOV);
 			strx.setTXCSMV(MLCSMV);
@@ -2115,11 +2259,14 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("2");
 			strx.setTXFILE("M");
 			strx.setTXLOIN("L");
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(MLDE40);
 			strx.setTXIMPO(MLIMPO);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(MLCORI);
 			strx.setTXCMOV(MLCMOV);
 			strx.setTXCSMV(MLCSMV);
@@ -2153,7 +2300,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			sindl[3] = this.ain74;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(this.w1desc);
 			
 			if (this.ain74 == true) {
@@ -2163,7 +2312,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXNCUO(this.w1ncuo);
 			strx.setTXCACU(this.w1cacu);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(MLCORI);
 			strx.setTXCMOV(MLCMOV);
 			strx.setTXCSMV(MLCSMV);
@@ -2195,7 +2345,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("2");
 			strx.setTXFILE("M");
 			strx.setTXLOIN("L");
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			if (!this.wsadef.equals("")) {
 				strx.setTXDESC(this.wsadef);
 			}else {
@@ -2297,11 +2449,10 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	private String SubRutAlzon3(DataSet ds) {
 		try {
 			this.wlimpo = BigDecimal.ZERO;
-			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), "MERACT", "MEDICT", "3");
-			for (Zrspmlr o : ListZrspmlr) {//Por cada registro seleccionado
+			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "3");
+			for (Zrspmlr o : ListZrspmlr) {
 				if (o.getMlcori() == 24 && o.getMlcmov() == 39 || o.getMlcori() == 9 && o.getMlcmov() == 39 ) {
-					//SFMT
-					//ELIMINAR
+					buscar$FMT03(24, 38, 9, 38);
 				}
 				if (o.getMlncuo() != 0) {
 					this.aama12 = "";
@@ -2309,7 +2460,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.aancuo = o.getMlncuo();
 					this.aacacu = o.getMlcacu();
 					this.aama12 = this.aama12 +" " + this.aancuo.toString() +"/" + this.aacacu.toString();
-					// this.mlde40 = this.aama12;
+					this.mlde40 = this.aama12;
 				}
 				if (o.getMlcori() == 11 && o.getMlcmov() == 30) {
 					this.wtctal = this.wtctal.add(o.getMlimpo());
@@ -2361,7 +2512,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.ain15 = true;
 					SubRutSlinel29(ds, o.getMlimpo(), o.getMlmini(), o.getMlxtrf(), o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
 				}
-				if (true) { //o.getMlfecu() != "" && o.getMlfecu() != ""
+				if (!this.mlfecu.equals("") && !this.mlfecu.equals("0")) {
 					this.fecadd = o.getMldmov();
 					this.fecamm = o.getMlmmov();
 					this.fecaa1 = o.getMlymov();
@@ -2374,14 +2525,24 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.wreflo = "";
 				this.wrefe = "";
 				this.wwdrfn = "";
-				this.wwmrch = 0;
+				this.wwmrch = null;
 				this.wmone = "";
 				this.wreflo = o.getMlncab() + o.getMlnlcc().toString();
 				this.wrefe = this.agrefe;
 				this.wwdrfn = o.getMlxtrf();
-				//this.w1mrch = registro ZRSPMLR
-				if (this.w1mrch != 0 && this.w1mrch != null) {
-					this.wwmrch = this.w1mrch;
+
+				w1mrch = null;
+				w1mrch.setMLZOES(o.getMlzoes());
+				w1mrch.setMLRUES(o.getMlrues());
+				w1mrch.setMLCOES(o.getMlcoes());
+				w1mrch.setMLSUES(o.getMlsues());
+				w1mrch.setMLMOES(o.getMlmoes());
+				if (w1mrch.getMLZOES() != 0 && w1mrch.getMLRUES() != 0 && w1mrch.getMLCOES() != 0 && w1mrch.getMLSUES() != 0 && w1mrch.getMLMOES() != 0) {
+					wwmrch.setMLZOES(w1mrch.getMLZOES());
+					wwmrch.setMLRUES(w1mrch.getMLRUES());
+					wwmrch.setMLCOES(w1mrch.getMLCOES());
+					wwmrch.setMLSUES(w1mrch.getMLSUES());
+					wwmrch.setMLMOES(w1mrch.getMLMOES());
 				}
 				if (o.getMlcori() == 24 && o.getMlcmov() == 38 || o.getMlcori() == 9 && o.getMlcmov() == 38) {
 					this.wtotar = this.wtotar.add(o.getMlimpo());
@@ -2391,7 +2552,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.ascaol = o.getMlimpo().add(o.getMlcrcp());
 					}
 					this.agsini = "";
-					if (this.sstmhdr.getMecacl() == "B" ) {//////////////////////////////////////// > B
+					if (this.sstmhdr.getMecacl().compareTo("B") == 1 ) {
 						this.totcu2 = o.getMlimpo();
 						this.w1desc = o.getMlde40();
 						this.w1ncuo = o.getMlncuo();
@@ -2415,7 +2576,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					}else {
 						this.ain73 = true;
 					}
-					if (this.wconfi =="B") { // this.wconfi > 'B'
+					if (this.wconfi.compareTo("B") == 1) {
 						SubRutSlinel39(ds, o.getMlcori(), o.getMlcmov(), o.getMlcsmv(), o.getMlncrd());
 					}
 				}
@@ -2556,7 +2717,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			sindl[3] = this.ain74;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(this.w1desc);
 			
 			if (this.ain74) {
@@ -2566,7 +2729,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXNCUO(this.w1ncuo);
 			strx.setTXCACU(this.w1cacu);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(MLCORI);
 			strx.setTXCMOV(MLCMOV);
 			strx.setTXCSMV(MLCSMV);
@@ -2630,14 +2794,14 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("1");
 			strx.setTXFILE("P");
 			strx.setTXLOIN("I");
-			//strx.setTXFMT(strx.getTXFMT().trim() + "R");
 			if (this.ain69) {
 				strx.setTXFMT(strx.getTXFMT().trim() + "R");
 			}
 			strx.setTXDESC(this.wdesli);
 			strx.setTXIMPO(TIIMPO);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(TICORI);
 			strx.setTXCMOV(TICMOV);
 			strx.setTXCSMV(TICSMV);
@@ -2692,99 +2856,119 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	public String SubRutAizon1(DataSet ds) {
 		try {
 			this.ain75 = false;
-			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), "MERACT", "MEDICT", "1");
-			for (Zrspmir o : ListZrspmir) {
+			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "1");
+			int indice = 0;
+			int indiceNext = 0;
+			String _mimini = "";
+			Integer _micori = 0;
+			Integer _micmov = 0;
+			Integer _micsmv = 0;
+			String _mincrd = "";
+			BigDecimal _micrcp = new BigDecimal(0);
+			String _mixtrf = "";
+			while (indice <= ListZrspmir.size()) {
+				indiceNext = indice;
 				this.wtmoz1 = BigDecimal.ZERO;
 				this.wtmoz3 = BigDecimal.ZERO;
 				this.whcrc3 = BigDecimal.ZERO;
 				this.wiimpo = BigDecimal.ZERO;
-				//this.digant = o.getMidita();
-				//this.mxmota = o.getMimota();
-				//this.ordant = o.getMiubir();
-				//this.aacanb = o.getMincrd();
+				String midita = ListZrspmir.get(indice).getMincrd().substring(16, 18);
+				this.digant = midita; //Mldita();
+				this.mxmota = ListZrspmir.get(indice).getMincrd().substring(19, 19);
+				this.ordant = ListZrspmir.get(indice).getMiubir();
+				this.aacanb = ListZrspmir.get(indice).getMincrd();
 				this.wsttem = BigDecimal.ZERO;
-				for (int j = 0; j < EMPTY_STRING_ARRAY.length; j++) {
+				while (indice <= ListZrspmir.size() && midita.equals(this.digant) && ListZrspmir.get(indice).getMiubir().equals(this.ordant) && ListZrspmir.get(indice).getMincrd().equals(this.aacanb)  ) {  
 					this.soldmir = this.sactmi;
 					this.wreflo = "";
 					this.wrefe = "";
 					this.wwdrfn = "";
+					this.ain69 = false;
 					this.wdeslo = "";
 					this.drcmon = "002";
-					//this.drcori = o.getMicori();
-					//this.drcmov = o.getMicmov();
-					//this.drcsmv = o.getMicsmv();
+					this.drcori = ListZrspmir.get(indice).getMicori();
+					this.drcmov = ListZrspmir.get(indice).getMicmov();
+					this.drcsmv = ListZrspmir.get(indice).getMicsmv();
 					if (Arrays.asList(mos).contains(this.wclmov)) {
-						if (o.getMicori() == 9 && o.getMicmov() == 5 && o.getMicsmv() == 1) {
-							this.wtmoz3 = this.wtmoz3.add(o.getMiimpo());
-							this.whcrc3 = this.whcrc3.add(o.getMiiorg());
+						if (ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 5 && ListZrspmir.get(indice).getMicsmv() == 1) {
+							this.wtmoz3 = this.wtmoz3.add(ListZrspmir.get(indice).getMiimpo());
+							this.whcrc3 = this.whcrc3.add(ListZrspmir.get(indice).getMiiorg());
 							this.wclmo3 = this.wclmov;
 						}else {
-							if (o.getMicori() == 11 && o.getMicmov() == 31 && o.getMicsmv() == 1) {
-								this.wiimpo = this.wiimpo.add(o.getMiimpo());
-								this.wsinfi = o.getMide40();
-								if ( fc.BigDecimalComparar(o.getMitefm().toString(), "0", "!=") ) {
-									this.wsttem = o.getMitefm();
+							if (ListZrspmir.get(indice).getMicori() == 11 && ListZrspmir.get(indice).getMicmov() == 31 && ListZrspmir.get(indice).getMicsmv() == 1) {
+								this.wiimpo = this.wiimpo.add(ListZrspmir.get(indice).getMiimpo());
+								this.wsinfi = ListZrspmir.get(indice).getMide40();
+								if ( fc.BigDecimalComparar(ListZrspmir.get(indice).getMitefm().toString(), "0", "!=") ) {
+									this.wsttem = ListZrspmir.get(indice).getMitefm();
 								}
 							}else {
-								if (o.getMicori() == 9 && o.getMicmov() == 5) {
-									if (o.getMicsmv() == 10)
+								if (ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 5) {
+									if (ListZrspmir.get(indice).getMicsmv() == 10)
 										this.z1 = 1;
-									else if (o.getMicsmv() == 11) 
+									else if (ListZrspmir.get(indice).getMicsmv() == 11) 
 										this.z1 = 2;
-									else if (o.getMicsmv() == 12) 
+									else if (ListZrspmir.get(indice).getMicsmv() == 12) 
 										this.z1 = 3;
-									else if (o.getMicsmv() == 13) 
+									else if (ListZrspmir.get(indice).getMicsmv() == 13) 
 										this.z1 = 4;
-									else if (o.getMicsmv() == 14) 
+									else if (ListZrspmir.get(indice).getMicsmv() == 14) 
 										this.z1 = 5;
-									else if (o.getMicsmv() == 15) 
+									else if (ListZrspmir.get(indice).getMicsmv() == 15) 
 										this.z1 = 7;
 									else
 										this.z1 = 8;
 									
-									this.wt1[this.z1] = (new BigDecimal(wt1[this.z1]).add(o.getMiimpo())).toString();
-									this.wh1[this.z1] = (new BigDecimal(wh1[this.z1]).add(o.getMicrcp())).toString();
+									this.wt1[this.z1] = (new BigDecimal(wt1[this.z1]).add(ListZrspmir.get(indice).getMiimpo())).toString();
+									this.wh1[this.z1] = (new BigDecimal(wh1[this.z1]).add(ListZrspmir.get(indice).getMicrcp())).toString();
 									this.wc1[this.z1] = this.wclmov;
 								}
 							}
 						}
 						
-						if (o.getMincuo() != 0) {
+						if (ListZrspmir.get(indice).getMincuo() != 0) {
 							this.aama12 = "";
 							this.aama12 = "CUOTA";
-							this.aancuo = o.getMincuo();
-							this.aacacu = o.getMicacu();
+							this.aancuo = ListZrspmir.get(indice).getMincuo();
+							this.aacacu = ListZrspmir.get(indice).getMicacu();
 							this.aama12 = this.aama12 + " " + this.aancuo + "/" + this.aacacu;
 							this.mide40 = this.aama12;
 						}
-						if (o.getMicori() == 9 && o.getMicmov() == 5) {
-							if (o.getMicsmv() == 11 || o.getMicsmv() == 12 || o.getMicsmv() == 13 || o.getMicsmv() == 14 || o.getMicsmv() == 91 || o.getMicsmv() == 92 || o.getMicsmv() == 93 || o.getMicsmv() == 94) {
+						if (ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 5) {
+							if (ListZrspmir.get(indice).getMicsmv() == 11 || ListZrspmir.get(indice).getMicsmv() == 12 || ListZrspmir.get(indice).getMicsmv() == 13 || ListZrspmir.get(indice).getMicsmv() == 14 || ListZrspmir.get(indice).getMicsmv() == 91 || ListZrspmir.get(indice).getMicsmv() == 92 || ListZrspmir.get(indice).getMicsmv() == 93 || ListZrspmir.get(indice).getMicsmv() == 94) {
 								this.ain75 = true;
 							}
 						}
 					}else {
 						
-						if (o.getMicmov() == 60 && o.getMicsmv() != 0) {
+						if (ListZrspmir.get(indice).getMicmov() == 60 && ListZrspmir.get(indice).getMicsmv() != 0) {
 							this.wdeslo = "";
 							SubRutAdesmo(ds);
 							this.mifecu = "";
 						}else {
-							this.wdeslo = o.getMide40();
+							this.wdeslo = ListZrspmir.get(indice).getMide40();
 							this.mifecu = "";
 						}
-						this.wimplo = o.getMiimpo();
-						this.wtctai = this.wtctai.add(o.getMiimpo());
-						if (o.getMicori() == 9 && o.getMicmov() == 5) {
-							if (o.getMicsmv() == 11 || o.getMicsmv() == 12 || o.getMicsmv() == 13 || o.getMicsmv() == 14 || o.getMicsmv() == 91 || o.getMicsmv() == 92 || o.getMicsmv() == 93 || o.getMicsmv() == 94) {
+						this.wimplo = ListZrspmir.get(indice).getMiimpo();
+						this.wtctai = this.wtctai.add(ListZrspmir.get(indice).getMiimpo());
+						if (ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 5) {
+							if (ListZrspmir.get(indice).getMicsmv() == 11 || ListZrspmir.get(indice).getMicsmv() == 12 || ListZrspmir.get(indice).getMicsmv() == 13 || ListZrspmir.get(indice).getMicsmv() == 14 || ListZrspmir.get(indice).getMicsmv() == 91 || ListZrspmir.get(indice).getMicsmv() == 92 || ListZrspmir.get(indice).getMicsmv() == 93 || ListZrspmir.get(indice).getMicsmv() == 94) {
 								this.ain75 = true;
 							}
 						}
 						this.fecaux = 0;
-						SubRutSlinei04(ds, o.getMimini(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
+						SubRutSlinei04(ds, ListZrspmir.get(indice).getMimini(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd());
 						this.ain75 = false;
 						this.wicrcp = BigDecimal.ZERO;
 					}
-				}
+					_mimini = ListZrspmir.get(indice).getMimini();
+					_micori = ListZrspmir.get(indice).getMicori();
+					_micmov = ListZrspmir.get(indice).getMicmov();
+					_micsmv = ListZrspmir.get(indice).getMicsmv();
+					_mincrd = ListZrspmir.get(indice).getMincrd();
+					_micrcp = ListZrspmir.get(indice).getMicrcp();
+					_mixtrf = ListZrspmir.get(indice).getMixtrf();
+					indice +=1;
+				} //FIN 1er WHILE
 				for (int z1 = 1; z1 < 10; z1++) {
 					this.wtmoz1 = new BigDecimal(this.wt1[z1]);
 					this.wicrcp = new BigDecimal(this.wh1[z1]);
@@ -2793,14 +2977,15 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.wreflo = "";
 						this.wrefe = "";
 						this.wwdrfn = "";
-						this.wwmrch = 0;
+						this.wwmrch = null;
+						this.ain69 = false;
 						this.wimplo = this.wtmoz1;
 						this.wtctai = this.wtctai.add(this.wtmoz1);
 						this.wdeslo = "";
 						this.wclmov = wclmo1;
 						SubRutAdesmo(ds);
 						this.fecaux = 0;
-						SubRutSlinei04s(ds, o.getMimini(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
+						SubRutSlinei04s(ds, _mimini, _micori, _micmov, _micsmv, _mincrd);
 						this.ain75 = false;
 						this.wicrcp = BigDecimal.ZERO;
 						this.wtmoz1 = BigDecimal.ZERO;
@@ -2810,7 +2995,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.wreflo = "";
 					this.wrefe = "";
 					this.wwdrfn = "";
-					this.wwmrch = 0;
+					this.wwmrch = null;
+					this.ain69 = false;
 					this.wimplo = this.wtmoz3;
 					this.whcrcp = this.whcrc3;
 					this.wtctai = this.wtctai.add(this.wtmoz3);
@@ -2819,7 +3005,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					SubRutAdesmo(ds);
 					this.fecaux = 0;
 					this.mamini = "1";
-					SubRutSlinei04s(ds, o.getMimini(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
+					SubRutSlinei04s(ds, _mimini, _micori, _micmov, _micsmv, _mincrd);
 					this.ain75 = false;
 					this.whcrc3 = BigDecimal.ZERO;
 					this.wicrcp = BigDecimal.ZERO;
@@ -2828,10 +3014,13 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				if (fc.BigDecimalComparar(this.wiimpo.toString(), "0", "==")) {
 					this.ain79 = false;
 					this.wtctai = this.wtctai.add(this.wiimpo);
-					SubRutSlinei41(ds, o.getMicrcp(), o.getMixtrf(), o.getMicori(), o.getMicmov(), o.getMincrd());
+					SubRutSlinei41(ds, _micrcp, _mixtrf, _micori, _micmov, _mincrd);
 					this.wiimpo = BigDecimal.ZERO;
 				}
-			}
+				if (indice == indiceNext) {
+					indice += 1;
+				}
+			}//FIN WHILE
 			
 			
 		} catch (Exception e) {
@@ -2855,12 +3044,15 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			sindl[4] = this.ain75;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(this.wdeslo);
 			strx.setTXIMPO(this.wimplo);
 			strx.setTXIORG(this.wicrcp);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(MICORI);
 			strx.setTXCMOV(MICMOV);
 			strx.setTXCSMV(MICSMV);
@@ -2895,12 +3087,15 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			sindl[4] = this.ain75;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(this.wdeslo);
 			strx.setTXIMPO(this.wimplo);
 			strx.setTXIORG(this.wicrcp);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(MICORI);
 			strx.setTXCMOV(MICMOV);
 			strx.setTXCSMV(MICSMV);
@@ -2963,7 +3158,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXCORI(MICORI);
 			strx.setTXCMOV(MICMOV);
 			strx.setTXCSMV(MICSMV);
-			//strx.setTXFMOV(0);
+			strx.setTXFMOV(0);
 			this.sqmov = 2;
 			SubRutAnewentry(ds);
 		} catch (Exception e) {
@@ -2975,30 +3170,41 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 
 	private String SubRutAizon2(DataSet ds) {
 		try {
-			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), "MERACT", "MEDICT", "2");
-			for (Zrspmir o : ListZrspmir) {
+			Integer _mincuo = 0;
+			Integer _micacu = 0;
+			Integer _micori = 0;
+			Integer _micmov = 0;
+			Integer _micsmv = 0;
+			String _mincrd = "";
+			Integer _mimhab = 0;
+			String _micfar = "";
+			
+			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "2");
+			int indice = 0;
+			int indiceNext = 0;					
+			while (indice <= ListZrspmir.size()) {
+				indiceNext = indice;
 				this.wtotar = BigDecimal.ZERO;
 				this.micant = "";
-				//this.digant = o.getMidita(); //no existe
-				//this.mxmota = o.getMimota(); //no existe
-				this.aacanb = o.getMincrd();
+				this.digant = ListZrspmir.get(indice).getMincrd().substring(16, 18);
+				this.mxmota = ListZrspmir.get(indice).getMincrd().substring(19, 19);
+				this.aacanb = ListZrspmir.get(indice).getMincrd();
 				this.totdes = BigDecimal.ZERO;        
 				this.desdes = "";        
-				this.ttfecu = "";
-				for (int i = 0; i < EMPTY_STRING_ARRAY.length; i++) {//Por cada registro seleccionado y MINCRD = @@CANB
+				this.ttfecu = 0;
+				while (indice <= ListZrspmlr.size() && ListZrspmir.get(indice).getMincrd().equals(this.aacanb)  ) {
 					this.ain75 = false;
 					this.ain74 = false;
 					this.ain73 = false;
 					this.ain71= false;
-					if (o.getMicori() == 0 && o.getMicmov() == 57 || o.getMicori() == 9 && o.getMicmov() == 57 || o.getMicori() == 9 && o.getMicmov() == 59 || o.getMicori() == 9 && o.getMicmov() == 53 || o.getMicori() == 24 && o.getMicmov() == 57) {
-						//FMT
-						//FIN FMT
+					if (ListZrspmir.get(indice).getMicori() == 0 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 59 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 53 || ListZrspmir.get(indice).getMicori() == 24 && ListZrspmir.get(indice).getMicmov() == 57) {
+						buscar$FMT02(1, 56, 9, 56, 9, 58, 9, 52, 24, 56);
 					}
-					if (o.getMincuo() != 0) {
+					if (ListZrspmir.get(indice).getMincuo() != 0) {
 						this.aama12 = "";        
 						this.aama12 = " CUOTA";
-						this.aancuo = o.getMincuo();
-						this.aacacu = o.getMicacu();
+						this.aancuo = ListZrspmir.get(indice).getMincuo();
+						this.aacacu = ListZrspmir.get(indice).getMicacu();
 						this.aama12 = this.aama12 + "  " + this.aancuo + "/" + this.aacacu;
 						this.mide40 = this.aama12;
 					}
@@ -3006,52 +3212,68 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.wreflo = "";
 					this.wrefe = "";
 					this.wwdrfn = "";
-					this.wwmrch = 0;
+					this.wwmrch = null;
+					this.ain69 = false;
 					this.wdeslo = "";
 					this.kyfr00 = "";
 					this.wreflo = this.winca1.toString() + " ";
-					this.wwdrfn = o.getMixtrf();
-					//W1MRCH = registro actual de ZRSPMIR
-					if (true && o.getMicori() != 6) {//this.w1mrch  != 0 && this.w1mrch != Blancos && o.getMicori != 6
-						this.wwmrch = this.w1mrch;
+					this.wwdrfn = ListZrspmir.get(indice).getMixtrf();
+					w1mrch = null;
+					w1mrch.setMIZOES(ListZrspmir.get(indice).getMizoes());
+					w1mrch.setMIRUES(ListZrspmir.get(indice).getMirues());
+					w1mrch.setMICOES(ListZrspmir.get(indice).getMicoes());
+					w1mrch.setMISUES(ListZrspmir.get(indice).getMisues());
+					w1mrch.setMIMOES(ListZrspmir.get(indice).getMimoes());
+					if (w1mrch.getMIZOES() != 0 && w1mrch.getMIRUES() != 0 && w1mrch.getMICOES() != 0 && w1mrch.getMISUES() != 0 && w1mrch.getMIMOES() != 0 && ListZrspmir.get(indice).getMicori() != 6) {
+						wwmrch.setMIZOES(w1mrch.getMIZOES());
+						wwmrch.setMIRUES(w1mrch.getMIRUES());
+						wwmrch.setMICOES(w1mrch.getMICOES());
+						wwmrch.setMISUES(w1mrch.getMISUES());
+						wwmrch.setMIMOES(w1mrch.getMIMOES());
 					}
 					if (!this.wwdrfn.equals("")) {
-						if (o.getMicori() == 1 || o.getMicori() == 24 || o.getMicori() == 5 || o.getMicori() == 6 || o.getMicori() == 9 && o.getMicmov() == 38 || o.getMicori() == 9 && o.getMicmov() == 39 || o.getMicori() == 9 && o.getMicmov() == 36 || o.getMicori() == 9 && o.getMicmov() == 37 || o.getMicori() == 9 && o.getMicmov() == 58 || o.getMicori() == 9 && o.getMicmov() == 59 || o.getMicori() == 9 && o.getMicmov() == 56 || o.getMicori() == 9 && o.getMicmov() == 57 || o.getMicori() == 12) {
+						if (ListZrspmir.get(indice).getMicori() == 1 || ListZrspmir.get(indice).getMicori() == 24 || ListZrspmir.get(indice).getMicori() == 5 || ListZrspmir.get(indice).getMicori() == 6 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 38 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 39 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 36 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 37 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 58 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 59 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 56 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 12) {
+							this.ain69 = true;
 							this.wrefe = this.agrefe;
 						}
 					}
-					this.wtotar = this.wtotar.add(o.getMiimpo());
-					this.wimplo = o.getMiimpo();
+					this.wtotar = this.wtotar.add(ListZrspmir.get(indice).getMiimpo());
+					this.wimplo = ListZrspmir.get(indice).getMiimpo();
 					this.wdeslo = this.mide40;
-					if (o.getMicmov() != 57) {
+					if (ListZrspmir.get(indice).getMicmov() != 57) {
 						this.wdespa = "";
 					}
-					this.wimcbo = o.getMiiorg();
+					this.wimcbo = ListZrspmir.get(indice).getMiiorg();
 					this.y = 1;
-					//Buscar el valor de MIMHAB en la serie MON, y mover el índice de dicho valor a Y
-					if (true) {//existe la serie
+					int a = Arrays.asList(this.mon).indexOf(ListZrspmir.get(indice).getMimhab().toString());
+					if (a>0) {
+						this.y = a;
 						this.wmone = this.moe[y];
 					}
 					this.wdespa = "";
-					this.aadosf = o.getMixtrf();
-					//Limpiar la variable MICFAR //NO EXISTE VERIFICAR
-					//MICFAR = AADOSF
-					//KYFR00 = MICFAR
-					if (true) {//Si MICFAR != MICANT
-						//MICANT = MICFAR
+					this.aadosf = ListZrspmir.get(indice).getMixtrf();
+					this.micfar = "";
+					this.micfar = this.aadosf;
+					this.kyfr00 = this.micfar;
+					
+					if (!this.micfar.equals(this.micant)) {
+						this.micant = this.micfar;
 						this.y = 1;
-						//Buscar el valor de MICFAR en la serie PAI, y mover el índice a la variable Y
-						if (true) { //si existe
-							//this.wdespa = this.pad[y];
+						int b = Arrays.asList(this.pai).indexOf(this.micfar);
+						
+						if (b > 0) {
+							this.y = b;
+							this.wdespa = this.pad[y];
 						}else {
 							ObjZvrpfrq = myDAOZvrpfrq.getUsingTxcfar(ds, this.kyfr00);
 							if (ObjZvrpfrq != null) {
 								this.y = 1;
-								//Buscar en valor Blanco en la serie PAI y mover índice de dicho valor a Y
-								if (true) {//si existe
-									//this.pai[y] = MICFAR;
-									//this.pad[y] = FR9969;
-									//this.wdespa = pad[y];
+								int c = Arrays.asList(this.pai).indexOf("");
+								if (c > 0) {
+									this.y = c;
+									this.pai[y] = this.micfar; 
+									this.pad[y] = ObjZvrpfrq.getFr9969();
+									this.wdespa = pad[y];
 								}
 							}
 						}
@@ -3060,301 +3282,357 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.ain73 = false;
 						this.ain74 = false;
 						this.ain75 = false;
-						this.wwdrfn = o.getMixtrf();
-						if (true && o.getMicori() != 6) {//this.w1mrch != 0 && this.w1mrch != Blancos && o.getMicori() != 6
-							this.wwmrch = this.w1mrch;
+						this.wwdrfn = ListZrspmir.get(indice).getMixtrf();
+						this.ain69 = false;
+						if (w1mrch.getMIZOES() != 0 && w1mrch.getMIRUES() != 0 && w1mrch.getMICOES() != 0 && w1mrch.getMISUES() != 0 && w1mrch.getMIMOES() != 0 && ListZrspmir.get(indice).getMicori() != 6) {
+							wwmrch.setMIZOES(w1mrch.getMIZOES());
+							wwmrch.setMIRUES(w1mrch.getMIRUES());
+							wwmrch.setMICOES(w1mrch.getMICOES());
+							wwmrch.setMISUES(w1mrch.getMISUES());
+							wwmrch.setMIMOES(w1mrch.getMIMOES());
 						}
-						if (o.getMicori() == 23 && o.getMicmov() == 35) {
+						if (ListZrspmir.get(indice).getMicori() == 23 && ListZrspmir.get(indice).getMicmov() == 35) {
 							this.wreflo = "";
 							this.wrefe = "";
 							this.wwdrfn = "";
-							this.wwmrch = 0;
-							this.wwdrfn = o.getMixtrf();
-							if (true && o.getMicori() != 6) {//this.w1mrch != 0 && this.w1mrch != Blancos && o.getMicori() != 6
-								this.wwmrch = this.w1mrch;
+							this.wwmrch = null;
+							this.wwdrfn = ListZrspmir.get(indice).getMixtrf();
+							if (w1mrch.getMIZOES() != 0 && w1mrch.getMIRUES() != 0 && w1mrch.getMICOES() != 0 && w1mrch.getMISUES() != 0 && w1mrch.getMIMOES() != 0 && ListZrspmir.get(indice).getMicori() != 6) {
+								wwmrch.setMIZOES(w1mrch.getMIZOES());
+								wwmrch.setMIRUES(w1mrch.getMIRUES());
+								wwmrch.setMICOES(w1mrch.getMICOES());
+								wwmrch.setMISUES(w1mrch.getMISUES());
+								wwmrch.setMIMOES(w1mrch.getMIMOES());
 							}
-							this.wreflo = o.getMincab();							
+							this.wreflo = ListZrspmir.get(indice).getMincab();							
 						}
-						if (o.getMicmov() == 40 && o.getMicori() == 1) {
-							this.wreflo = o.getMincup().toString() + o.getMizoes();
-							this.wreflq = o.getMirues() + o.getMicoes();
-							if (!o.getMincab().equals("")) {
-								if (true) { //MICOBO = BOCAD
-									this.wreflw = o.getMisues() + o.getMimoes();
-									//this.wreflv = o.getMifecu();
+						if (ListZrspmir.get(indice).getMicmov() == 40 && ListZrspmir.get(indice).getMicori() == 1) {
+							if (ListZrspmir.get(indice).getMicmov() == 0) {
+								this.ain69 = true;
+							}
+							this.wreflo = ListZrspmir.get(indice).getMincup().toString() + ListZrspmir.get(indice).getMizoes();
+							this.wreflq = ListZrspmir.get(indice).getMirues() + ListZrspmir.get(indice).getMicoes();
+							if (!ListZrspmir.get(indice).getMincab().equals("")) {
+								this.micobo = ListZrspmir.get(indice).getMincab().substring(0, 3); 
+								if (this.micobo.equals(this.bocad)) {
+									this.wreflw = ListZrspmir.get(indice).getMisues() + ListZrspmir.get(indice).getMimoes();
+									this.mifecu = ListZrspmir.get(indice).getMidcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMimcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMiacup().toString().substring(0, 2);
+									this.wreflv = Integer.parseInt(this.mifecu);
 								}else {
-									//this.wreflz = this.wincab;
-									this.wreflr = o.getMincaf();
+									this.wreflz = ListZrspmir.get(indice).getMincab().substring(12, 16); //WINCAB
+									this.wreflr = ListZrspmir.get(indice).getMincaf();
 								}
 							}
 						}
-						if (o.getMicori() == 1 || o.getMicori() == 5 || o.getMicori() == 8 || o.getMicori() == 9 || o.getMicori() == 24) {
-							this.wreflo = o.getMincup().toString() + o.getMizoes();
-							this.wreflq = o.getMirues() + o.getMicoes();
-							if (!o.getMincab().equals("")) {
-								if (true) { //MICOBO = BOCAD
-									this.wreflw = o.getMisues() + o.getMimoes();
-									//this.wreflv = o.getMifecu();
+						if (ListZrspmir.get(indice).getMicori() == 1 || ListZrspmir.get(indice).getMicori() == 5 || ListZrspmir.get(indice).getMicori() == 8 || ListZrspmir.get(indice).getMicori() == 9 || ListZrspmir.get(indice).getMicori() == 24) {
+							this.wreflo = ListZrspmir.get(indice).getMincup().toString() + ListZrspmir.get(indice).getMizoes();
+							this.wreflq = ListZrspmir.get(indice).getMirues() + ListZrspmir.get(indice).getMicoes();
+							if (!ListZrspmir.get(indice).getMincab().equals("")) {
+								this.micobo = ListZrspmir.get(indice).getMincab().substring(0, 3); 
+								if (this.micobo.equals(this.bocad)) {
+									this.wreflw = ListZrspmir.get(indice).getMisues() + ListZrspmir.get(indice).getMimoes();
+									this.mifecu = ListZrspmir.get(indice).getMidcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMimcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMiacup().toString().substring(0, 2);
+									this.wreflv = Integer.parseInt(this.mifecu);
 								}else {
-									//this.wreflz = this.wincab;
-									if (o.getMicori() == 1 && o.getMicmov() == 40 && o.getMizoes() == 1 && o.getMirues() == 18) {
-										if (o.getMirefc().equals("") || o.getMirefc() == "0") {
-											this.wreflr = o.getMincaf();
+									this.wreflz = ListZrspmir.get(indice).getMincab().substring(12, 16);
+									if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 40 && ListZrspmir.get(indice).getMizoes() == 1 && ListZrspmir.get(indice).getMirues() == 18) {
+										if (ListZrspmir.get(indice).getMirefc().equals("") || ListZrspmir.get(indice).getMirefc() == "0") {
+											this.wreflr = ListZrspmir.get(indice).getMincaf();
 										}else {
 											this.wreflo = " ";
 											this.wreflr = 0; 
-											if (o.getMincuo() != 0) {
+											if (ListZrspmir.get(indice).getMincuo() != 0) {
 												this.ain73 = true;
-												if (o.getMicsmv() == 66) {
+												if (ListZrspmir.get(indice).getMicsmv() == 66) {
 													this.ain71 = true;
 												}
 											}
-											//this.wreflo = this.wreflo + " " + this.agpoli + " " + this.agrama + " " + this.agendo;
+											this.agpoli = ListZrspmir.get(indice).getMirefc().substring(1, 8);
+											this.agrama = ListZrspmir.get(indice).getMirefc().substring(12, 14);
+											this.agendo = ListZrspmir.get(indice).getMirefc().substring(17, 19);
+											this.wreflo = this.wreflo + " " + this.agpoli + " " + this.agrama + " " + this.agendo;
 										}
 									}else {
-										this.wreflr = o.getMincaf();
+										this.wreflr = ListZrspmir.get(indice).getMincaf();
 									}
 								}
 							}
 						}
-						if (o.getMicmov() == 52) {
-							if (o.getMicori() == 1 || o.getMicori() == 5 || o.getMicori() == 8 || o.getMicori() == 9) {
-								this.wreflo = o.getMincup().toString() + o.getMizoes();
-								this.wreflq = o.getMirues() + o.getMicoes();
-								if (!o.getMincab().equals("")) {
-									if (true) { //MICOBO = BOCAD
-										this.wreflw = o.getMisues() + o.getMimoes();
-										//this.wreflv = o.getMifecu();
+						if (ListZrspmir.get(indice).getMicmov() == 52) {
+							if (ListZrspmir.get(indice).getMicori() == 1 || ListZrspmir.get(indice).getMicori() == 5 || ListZrspmir.get(indice).getMicori() == 8 || ListZrspmir.get(indice).getMicori() == 9) {
+								this.wreflo = ListZrspmir.get(indice).getMincup().toString() + ListZrspmir.get(indice).getMizoes();
+								this.wreflq = ListZrspmir.get(indice).getMirues() + ListZrspmir.get(indice).getMicoes();
+								if (!ListZrspmir.get(indice).getMincab().equals("")) {
+									this.micobo = ListZrspmir.get(indice).getMincab().substring(0, 3); 
+									if (this.micobo.equals(this.bocad)) {
+										this.wreflw = ListZrspmir.get(indice).getMisues() + ListZrspmir.get(indice).getMimoes();
+										this.mifecu = ListZrspmir.get(indice).getMidcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMimcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMiacup().toString().substring(0, 2);
+										this.wreflv = Integer.parseInt(this.mifecu);
 									}else {
-										//this.wreflz = this.wincab;
-										this.wreflr = o.getMincaf();
+										this.wreflz = ListZrspmir.get(indice).getMincab().substring(12, 16);
+										this.wreflr = ListZrspmir.get(indice).getMincaf();
 									}
 								}
 								this.ain73 = true;
 							}
-							if (o.getMicori() == 5 && o.getMicsmv() == 9) {
+							if (ListZrspmir.get(indice).getMicori() == 5 && ListZrspmir.get(indice).getMicsmv() == 9) {
 								this.ain73 = false;
 								this.ain74 = true;
 							}
 						}
-						if (o.getMicori() == 12 && o.getMicmov() == 20) {
+						if (ListZrspmir.get(indice).getMicori() == 12 && ListZrspmir.get(indice).getMicmov() == 20) {
 							this.wreflo = "";
 						}
 						if (!this.wwdrfn.equals("")) {
-							if (o.getMicori() == 1 || o.getMicori() == 24 || o.getMicori() == 5 || o.getMicori() == 6 || o.getMicori() == 9 && o.getMicmov() == 38 || o.getMicori() == 9 && o.getMicmov() == 39 || o.getMicori() == 9 && o.getMicmov() == 36 || o.getMicori() == 9 && o.getMicmov() == 37 || o.getMicori() == 9 && o.getMicmov() == 58 || o.getMicori() == 9 && o.getMicmov() == 59 || o.getMicori() == 9 && o.getMicmov() == 56 || o.getMicori() == 9 && o.getMicmov() == 57 || o.getMicori() == 12) {
+							if (ListZrspmir.get(indice).getMicori() == 1 || ListZrspmir.get(indice).getMicori() == 24 || ListZrspmir.get(indice).getMicori() == 5 || ListZrspmir.get(indice).getMicori() == 6 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 38 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 39 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 36 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 37 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 58 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 59 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 56 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 12) {
+								this.ain69 = true;
 								this.wrefe = this.agrefe;
 							}
 						}
-						if (o.getMicori() == 1 && o.getMicmov() == 25) {
-							this.wreflo = o.getMincup().toString() + o.getMizoes();
-							this.wreflq = o.getMirues() + o.getMicoes();
-							if (!o.getMincab().equals("")) {
-								if (true) { //MICOBO = BOCAD
-									this.wreflw = o.getMisues() + o.getMimoes();
-									//this.wreflv = o.getMifecu();
+						if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 25) {
+							this.wreflo = ListZrspmir.get(indice).getMincup().toString() + ListZrspmir.get(indice).getMizoes();
+							this.wreflq = ListZrspmir.get(indice).getMirues() + ListZrspmir.get(indice).getMicoes();
+							if (!ListZrspmir.get(indice).getMincab().equals("")) {
+								this.micobo = ListZrspmir.get(indice).getMincab().substring(0, 3); 
+								if (this.micobo.equals(this.bocad)) {
+									this.wreflw = ListZrspmir.get(indice).getMisues() + ListZrspmir.get(indice).getMimoes();
+									this.mifecu = ListZrspmir.get(indice).getMidcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMimcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMiacup().toString().substring(0, 2);
+									this.wreflv = Integer.parseInt(this.mifecu);
 								}else {
-									//this.wreflz = this.wincab;
-									this.wreflr = o.getMincaf();
+									this.wreflz = ListZrspmir.get(indice).getMincab().substring(12, 16);
+									this.wreflr = ListZrspmir.get(indice).getMincaf();
 								}
 							}
-							this.wwdrfn = o.getMixtrf();
-							if (true && o.getMicori() != 6) {//this.w1mrch != 0 && this.w1mrch != Blancos && o.getMicori() != 6
-								this.wwmrch = this.w1mrch;
+							this.wwdrfn = ListZrspmir.get(indice).getMixtrf();
+							if (w1mrch.getMIZOES() != 0 && w1mrch.getMIRUES() != 0 && w1mrch.getMICOES() != 0 && w1mrch.getMISUES() != 0 && w1mrch.getMIMOES() != 0 && ListZrspmir.get(indice).getMicori() != 6) {
+								wwmrch.setMIZOES(w1mrch.getMIZOES());
+								wwmrch.setMIRUES(w1mrch.getMIRUES());
+								wwmrch.setMICOES(w1mrch.getMICOES());
+								wwmrch.setMISUES(w1mrch.getMISUES());
+								wwmrch.setMIMOES(w1mrch.getMIMOES());
 							}
 							if (!this.wwdrfn.equals("")) {
-								if (o.getMicori() == 1 || o.getMicori() == 24 || o.getMicori() == 5 || o.getMicori() == 6 || o.getMicori() == 9 && o.getMicmov() == 38 || o.getMicori() == 9 && o.getMicmov() == 39 || o.getMicori() == 9 && o.getMicmov() == 36 || o.getMicori() == 9 && o.getMicmov() == 37 || o.getMicori() == 9 && o.getMicmov() == 58 || o.getMicori() == 9 && o.getMicmov() == 59 || o.getMicori() == 9 && o.getMicmov() == 56 || o.getMicori() == 9 && o.getMicmov() == 57 || o.getMicori() == 12) {
+								if (ListZrspmir.get(indice).getMicori() == 1 || ListZrspmir.get(indice).getMicori() == 24 || ListZrspmir.get(indice).getMicori() == 5 || ListZrspmir.get(indice).getMicori() == 6 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 38 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 39 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 36 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 37 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 58 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 59 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 56 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 12) {
+									this.ain69 = true;
 									this.wrefe = this.agrefe;
 								}
 							}
-							this.wtimp1 = o.getMicrcp().add(o.getMiimpo());
+							this.wtimp1 = ListZrspmir.get(indice).getMicrcp().add(ListZrspmir.get(indice).getMiimpo());
 							this.ain15 = true;
 							if (!this.wconfi.equals("B")) {
-								if (true) { // o.getMifecu() != Blancos y o.getMifecu() != Blancos
-									this.fecadd = o.getMidcup();
-									this.fecamm = o.getMimcup();
-									this.fecaa1 = o.getMiccup();
-									this.fecaa2 = o.getMiacup();
+								if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
+									this.fecadd = ListZrspmir.get(indice).getMidcup();
+									this.fecamm = ListZrspmir.get(indice).getMimcup();
+									this.fecaa1 = ListZrspmir.get(indice).getMiccup();
+									this.fecaa2 = ListZrspmir.get(indice).getMiacup();
 								}else {
 									this.fecaux = 0;
 								}
-								SubRutSlinei27(ds, this.mide40,o.getMiimpo(), o.getMincuo(), o.getMicacu(), o.getMixtrf(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
-								SubRutSlinei25(ds, o.getMicrcp(), o.getMixtrf(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
+								SubRutSlinei27(ds, this.mide40,ListZrspmir.get(indice).getMiimpo(), ListZrspmir.get(indice).getMincuo(), ListZrspmir.get(indice).getMicacu(), ListZrspmir.get(indice).getMixtrf(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd());
+								SubRutSlinei25(ds, ListZrspmir.get(indice).getMicrcp(), ListZrspmir.get(indice).getMixtrf(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd());
 							}
 						}
-						if (o.getMicori() == 1 && o.getMicmov() == 26) {
+						if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 26) {
 							this.ain15 = true;
 							if (!this.wconfi.equals("B")) {
-								SubRutSlinei26(ds, o.getMiimpo(), "o.getMipifg()", o.getMixtrf(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
+								SubRutSlinei26(ds, ListZrspmir.get(indice).getMiimpo(), ListZrspmir.get(indice).getMixtrf(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd());
 							}
 						}
-						if (o.getMicori() == 4 && o.getMicmov() == 27) {
-							this.wreflo = o.getMizoes().toString();
-							this.wreflq = o.getMirues() + o.getMicoes();
-							this.wwdrfn = o.getMixtrf();
-							if (true && o.getMicori() != 6) {//this.w1mrch != 0 && this.w1mrch != Blancos && o.getMicori() != 6
-								this.wwmrch = this.w1mrch;
+						if (ListZrspmir.get(indice).getMicori() == 4 && ListZrspmir.get(indice).getMicmov() == 27) {
+							this.wreflo = ListZrspmir.get(indice).getMizoes().toString();
+							this.wreflq = ListZrspmir.get(indice).getMirues() + ListZrspmir.get(indice).getMicoes();
+							this.wwdrfn = ListZrspmir.get(indice).getMixtrf();
+							if (w1mrch.getMIZOES() != 0 && w1mrch.getMIRUES() != 0 && w1mrch.getMICOES() != 0 && w1mrch.getMISUES() != 0 && w1mrch.getMIMOES() != 0 && ListZrspmir.get(indice).getMicori() != 6) {
+								wwmrch.setMIZOES(w1mrch.getMIZOES());
+								wwmrch.setMIRUES(w1mrch.getMIRUES());
+								wwmrch.setMICOES(w1mrch.getMICOES());
+								wwmrch.setMISUES(w1mrch.getMISUES());
+								wwmrch.setMIMOES(w1mrch.getMIMOES());
 							}
-							if (!o.getMincab().equals("")) {
-								if (true) { //MICOBO = BOCAD
-									this.wreflw = o.getMisues() + o.getMimoes();
-									//this.wreflv = o.getMifecu();
+							if (!ListZrspmir.get(indice).getMincab().equals("")) {
+								this.micobo = ListZrspmir.get(indice).getMincab().substring(0, 3); 
+								if (this.micobo.equals(this.bocad)) {
+									this.wreflw = ListZrspmir.get(indice).getMisues() + ListZrspmir.get(indice).getMimoes();
+									this.mifecu = ListZrspmir.get(indice).getMidcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMimcup().toString().substring(0, 2) + ListZrspmir.get(indice).getMiacup().toString().substring(0, 2);
+									this.wreflv = Integer.parseInt(this.mifecu);
 								}else {
-									//this.wreflz = this.wincab;
-									this.wreflr = o.getMincaf();
+									
+									this.wreflz = ListZrspmir.get(indice).getMincab().substring(12, 16);
+									this.wreflr = ListZrspmir.get(indice).getMincaf();
 								}
 							}
-							if (o.getMicori() == 12 && o.getMicmov() == 20) {
+							if (ListZrspmir.get(indice).getMicori() == 12 && ListZrspmir.get(indice).getMicmov() == 20) {
 								this.wreflo = "";
 							}
-							this.wwdrfn = o.getMixtrf();
-							if (true && o.getMicori() != 6) {//this.w1mrch != 0 && this.w1mrch != Blancos && o.getMicori() != 6
-								this.wwmrch = this.w1mrch;
+							this.wwdrfn = ListZrspmir.get(indice).getMixtrf();
+							if (w1mrch.getMIZOES() != 0 && w1mrch.getMIRUES() != 0 && w1mrch.getMICOES() != 0 && w1mrch.getMISUES() != 0 && w1mrch.getMIMOES() != 0 && ListZrspmir.get(indice).getMicori() != 6) {
+								wwmrch.setMIZOES(w1mrch.getMIZOES());
+								wwmrch.setMIRUES(w1mrch.getMIRUES());
+								wwmrch.setMICOES(w1mrch.getMICOES());
+								wwmrch.setMISUES(w1mrch.getMISUES());
+								wwmrch.setMIMOES(w1mrch.getMIMOES());
 							}
 							if (!this.wwdrfn.equals("")) {
-								if (o.getMicori() == 1 || o.getMicori() == 24 || o.getMicori() == 5 || o.getMicori() == 6 || o.getMicori() == 9 && o.getMicmov() == 38 || o.getMicori() == 9 && o.getMicmov() == 39 || o.getMicori() == 9 && o.getMicmov() == 36 || o.getMicori() == 9 && o.getMicmov() == 37 || o.getMicori() == 9 && o.getMicmov() == 58 || o.getMicori() == 9 && o.getMicmov() == 59 || o.getMicori() == 9 && o.getMicmov() == 56 || o.getMicori() == 9 && o.getMicmov() == 57 || o.getMicori() == 12) {
+								if (ListZrspmir.get(indice).getMicori() == 1 || ListZrspmir.get(indice).getMicori() == 24 || ListZrspmir.get(indice).getMicori() == 5 || ListZrspmir.get(indice).getMicori() == 6 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 38 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 39 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 36 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 37 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 58 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 59 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 56 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 12) {
+									this.ain69 = true;
 									this.wrefe = this.agrefe;	
 								}
 							}
 							this.ain15 = true;
 							if (!this.wconfi.equals("B")) {
-								if (true) { // o.getMifecu() != Blancos y o.getMifecu() != Blancos
-									this.fecadd = o.getMidcup();
-									this.fecamm = o.getMimcup();
-									this.fecaa1 = o.getMiccup();
-									this.fecaa2 = o.getMiacup();
+								if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
+									this.fecadd = ListZrspmir.get(indice).getMidcup();
+									this.fecamm = ListZrspmir.get(indice).getMimcup();
+									this.fecaa1 = ListZrspmir.get(indice).getMiccup();
+									this.fecaa2 = ListZrspmir.get(indice).getMiacup();
 								}else {
 									this.fecaux = 0;
 								}
-								SubRutSlinei27(ds, this.mide40,o.getMiimpo(), o.getMincuo(), o.getMicacu(), o.getMixtrf(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
-								this.wlcrcp = o.getMicrcp().add(o.getMiimpo());
+								SubRutSlinei27(ds, this.mide40,ListZrspmir.get(indice).getMiimpo(), ListZrspmir.get(indice).getMincuo(), ListZrspmir.get(indice).getMicacu(), ListZrspmir.get(indice).getMixtrf(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd());
+								this.wlcrcp = ListZrspmir.get(indice).getMicrcp().add(ListZrspmir.get(indice).getMiimpo());
 							}
 						}
-						if (o.getMicori() == 4 && o.getMicmov() == 28) {
+						if (ListZrspmir.get(indice).getMicori() == 4 && ListZrspmir.get(indice).getMicmov() == 28) {
 							this.ain15 = true;
 							if (!this.wconfi.equals("B")) {
-								SubRutSlinei28(ds, o.getMiimpo(), o.getMitnoa(), o.getMixtrf(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
+								this.fecpin = ListZrspmir.get(indice).getMidpri().toString() + ListZrspmir.get(indice).getMimpri().toString() + ListZrspmir.get(indice).getMiapri().toString();
+								SubRutSlinei28(ds, ListZrspmir.get(indice).getMiimpo(), ListZrspmir.get(indice).getMitnoa(), ListZrspmir.get(indice).getMixtrf(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd());
 							}
 						}
-						if (o.getMicori() == 4 && o.getMicmov() == 29) {
+						if (ListZrspmir.get(indice).getMicori() == 4 && ListZrspmir.get(indice).getMicmov() == 29) {
 							this.ain15 = true;
 							if (!this.wconfi.equals("B")) {
-								SubRutSlinei29(ds, o.getMiimpo(), o.getMimini(), o.getMixtrf(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
+								SubRutSlinei29(ds, ListZrspmir.get(indice).getMiimpo(), ListZrspmir.get(indice).getMimini(), ListZrspmir.get(indice).getMixtrf(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd());
 							}
 						}
-						if (o.getMicori() == 1 && o.getMicmov() == 53) {
+						if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 53) {
 							this.ain15 = true;
 							if (!this.wconfi.equals("B")) {
-								if (true) { // o.getMifecu() != Blancos y o.getMifecu() != Blancos
-									this.fecadd = o.getMidcup();
-									this.fecamm = o.getMimcup();
-									this.fecaa1 = o.getMiccup();
-									this.fecaa2 = o.getMiacup();
+								if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
+									this.fecadd = ListZrspmir.get(indice).getMidcup();
+									this.fecamm = ListZrspmir.get(indice).getMimcup();
+									this.fecaa1 = ListZrspmir.get(indice).getMiccup();
+									this.fecaa2 = ListZrspmir.get(indice).getMiacup();
 								}else {
 									this.fecaux = 0;
 								}
-								SubRutSlinei53(ds, this.mide40, o.getMiimpo(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd(), o.getMimhab(), o.getMicfar());
+								SubRutSlinei53(ds, this.mide40, ListZrspmir.get(indice).getMiimpo(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd(), ListZrspmir.get(indice).getMimhab(), ListZrspmir.get(indice).getMicfar());
 							}
 						}
-						if (o.getMicori() == 1 && o.getMicmov() == 54) {
+						if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 54) {
 							this.ain15 = true;
 							if (!this.wconfi.equals("B")) {
-								if (true) { // o.getMifecu() != Blancos y o.getMifecu() != Blancos
-									this.fecadd = o.getMidcup();
-									this.fecamm = o.getMimcup();
-									this.fecaa1 = o.getMiccup();
-									this.fecaa2 = o.getMiacup();
+								if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
+									this.fecadd = ListZrspmir.get(indice).getMidcup();
+									this.fecamm = ListZrspmir.get(indice).getMimcup();
+									this.fecaa1 = ListZrspmir.get(indice).getMiccup();
+									this.fecaa2 = ListZrspmir.get(indice).getMiacup();
 								}else {
 									this.fecaux = 0;
 								}
-								SubRutSlinei53(ds, this.mide40, o.getMiimpo(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd(), o.getMimhab(), o.getMicfar());
+								SubRutSlinei53(ds, this.mide40, ListZrspmir.get(indice).getMiimpo(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd(), ListZrspmir.get(indice).getMimhab(), ListZrspmir.get(indice).getMicfar());
 							}
 						}
-						if (o.getMicori() == 1 && o.getMicmov() == 56 || o.getMicori() == 9 && o.getMicmov() == 56 || o.getMicori() == 9 && o.getMicmov() == 58 || o.getMicori() == 9 && o.getMicmov() == 52 || o.getMicori() == 24 && o.getMicmov() == 56) {
+						if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 56 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 56 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 58 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 52 || ListZrspmir.get(indice).getMicori() == 24 && ListZrspmir.get(indice).getMicmov() == 56) {
 							this.ain15 = true;
 							if (!this.wconfi.equals("B")) {
-								this.totcu2 = o.getMiimpo();
-								this.totcui = o.getMiiorg();
+								this.totcu2 = ListZrspmir.get(indice).getMiimpo();
+								this.totcui = ListZrspmir.get(indice).getMiiorg();
 								this.w1desc = this.mide40;
-								this.w1ncuo = o.getMincuo();
-								this.w1cacu = o.getMicacu();
+								this.w1ncuo = ListZrspmir.get(indice).getMincuo();
+								this.w1cacu = ListZrspmir.get(indice).getMicacu();
 								this.ain15 = true;
-								if (o.getMicori() == 9 && o.getMicmov() == 56 && o.getMicsmv() == 0 || o.getMicori() == 9 && o.getMicmov() == 58 && o.getMicsmv() == 0 || o.getMicori() == 9 && o.getMicmov() == 52 && o.getMicsmv() == 0) {
+								if (ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 56 && ListZrspmir.get(indice).getMicsmv() == 0 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 58 && ListZrspmir.get(indice).getMicsmv() == 0 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 52 && ListZrspmir.get(indice).getMicsmv() == 0) {
 									this.ain73 = false;
 									this.ain74 = true;
 								}
-								if (o.getMicori() == 24 && o.getMicmov() == 56 && o.getMicsmv() == 9) {
+								if (ListZrspmir.get(indice).getMicori() == 24 && ListZrspmir.get(indice).getMicmov() == 56 && ListZrspmir.get(indice).getMicsmv() == 9) {
 									this.ain73 = false;
 									this.ain74 = true;
 								}else {
 									this.ain73 = false;
 								}
 								if (!this.wconfi.equals("B")) {
-									if (true) { // o.getMifecu() != Blancos y o.getMifecu() != Blancos
-										this.fecadd = o.getMidcup();
-										this.fecamm = o.getMimcup();
-										this.fecaa1 = o.getMiccup();
-										this.fecaa2 = o.getMiacup();
+									if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
+										this.fecadd = ListZrspmir.get(indice).getMidcup();
+										this.fecamm = ListZrspmir.get(indice).getMimcup();
+										this.fecaa1 = ListZrspmir.get(indice).getMiccup();
+										this.fecaa2 = ListZrspmir.get(indice).getMiacup();
 									}else {
 										this.fecaux = 0;
 									}
-									SubRutSlinei56(ds, this.mide40, o.getMincuo(), o.getMicacu(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd(), o.getMimhab(), o.getMicfar());
+									SubRutSlinei56(ds, this.mide40, ListZrspmir.get(indice).getMincuo(), ListZrspmir.get(indice).getMicacu(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd(), ListZrspmir.get(indice).getMimhab(), ListZrspmir.get(indice).getMicfar());
 									this.totcu2 = BigDecimal.ZERO;
 								}
 							}
 						}
-						if (o.getMicori() == 1 && o.getMicmov() == 57 || o.getMicori() == 9 && o.getMicmov() == 57 || o.getMicori() == 24 && o.getMicmov() == 57) {
-							this.totcu2 = this.totcu2.add(o.getMiimpo());
-							this.totcui = this.totcui.add(o.getMiiorg());
+						if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 24 && ListZrspmir.get(indice).getMicmov() == 57) {
+							this.totcu2 = this.totcu2.add(ListZrspmir.get(indice).getMiimpo());
+							this.totcui = this.totcui.add(ListZrspmir.get(indice).getMiiorg());
 							this.wimcbo = this.totcui;
 							this.ain15 = true;
-							if (o.getMicori() == 9 && o.getMicmov() == 57 && o.getMicsmv() == 0) {
+							if (ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 57 && ListZrspmir.get(indice).getMicsmv() == 0) {
 								this.ain73 = false;
 								this.ain74 = true;
 							}
-							if (o.getMicori() == 24 && o.getMicmov() == 57 && o.getMicsmv() == 9) {
+							if (ListZrspmir.get(indice).getMicori() == 24 && ListZrspmir.get(indice).getMicmov() == 57 && ListZrspmir.get(indice).getMicsmv() == 9) {
 								this.ain73 = false;
 								this.ain74 = true;
 							}else {
 								this.ain73 = false;
 							}
 							if (!this.wconfi.equals("B")) {
-								if (true) { // o.getMifecu() != Blancos y o.getMifecu() != Blancos
-									this.fecadd = o.getMidcup();
-									this.fecamm = o.getMimcup();
-									this.fecaa1 = o.getMiccup();
-									this.fecaa2 = o.getMiacup();
+								if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
+									this.fecadd = ListZrspmir.get(indice).getMidcup();
+									this.fecamm = ListZrspmir.get(indice).getMimcup();
+									this.fecaa1 = ListZrspmir.get(indice).getMiccup();
+									this.fecaa2 = ListZrspmir.get(indice).getMiacup();
 								}else {
 									this.fecaux = 0;
 								}
-								SubRutSlinei56(ds, this.mide40, o.getMincuo(), o.getMicacu(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd(), o.getMimhab(), o.getMicfar());
+								SubRutSlinei56(ds, this.mide40, ListZrspmir.get(indice).getMincuo(), ListZrspmir.get(indice).getMicacu(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd(), ListZrspmir.get(indice).getMimhab(), ListZrspmir.get(indice).getMicfar());
 								this.totcu2 = BigDecimal.ZERO;
 							}
 						}
-						if (o.getMicori() == 1 && o.getMicmov() == 40 && o.getMicsmv() == 66) {
+						if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 40 && ListZrspmir.get(indice).getMicsmv() == 66) {
 							this.ain15 = true;
-							this.totdes = this.totdes.add(o.getMiimpo());
+							this.totdes = this.totdes.add(ListZrspmir.get(indice).getMiimpo());
 							this.desdes = this.mide40;
-							//this.ttfecu = o.getMifecu();//no
+							this.ttfecu = Integer.parseInt(this.mifecu);
 						}
 						if (this.ain15 = false) {
-							if (true) { // o.getMifecu() != Blancos y o.getMifecu() != Blancos
-								this.fecadd = o.getMidcup();
-								this.fecamm = o.getMimcup();
-								this.fecaa1 = o.getMiccup();
-								this.fecaa2 = o.getMiacup();
+							if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
+								this.fecadd = ListZrspmir.get(indice).getMidcup();
+								this.fecamm = ListZrspmir.get(indice).getMimcup();
+								this.fecaa1 = ListZrspmir.get(indice).getMiccup();
+								this.fecaa2 = ListZrspmir.get(indice).getMiacup();
 							}else {
 								this.fecaux = 0;
 							}
-							SubRutSlinei05(ds, o.getMincuo(), o.getMicacu(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd(), o.getMimhab(), o.getMicfar());
+							SubRutSlinei05(ds, ListZrspmir.get(indice).getMincuo(), ListZrspmir.get(indice).getMicacu(), ListZrspmir.get(indice).getMicori(), ListZrspmir.get(indice).getMicmov(), ListZrspmir.get(indice).getMicsmv(), ListZrspmir.get(indice).getMincrd(), ListZrspmir.get(indice).getMimhab(), ListZrspmir.get(indice).getMicfar());
 						}
 					}
+					_mincuo = ListZrspmir.get(indice).getMincuo();
+					_micacu = ListZrspmir.get(indice).getMicacu();
+					_micori = ListZrspmir.get(indice).getMicori();
+					_micmov = ListZrspmir.get(indice).getMicmov();
+					_micsmv = ListZrspmir.get(indice).getMicsmv();
+					_mincrd = ListZrspmir.get(indice).getMincrd();
+					_mimhab = ListZrspmir.get(indice).getMimhab();
+					_micfar = ListZrspmir.get(indice).getMicfar();
+					indice +=1;
+				}//FIN IF
+				
+				if (indice == indiceNext) {
+					indice += 1;
 				}
-			}
+			}//fin WHILE
 			if (fc.BigDecimalComparar(this.totdes.toString(), "0", "!=")) {
 				this.wimplo = this.totdes;
 				this.wdeslo = this.desdes;
 				this.fecaux = 0;
-				//SubRutSlinei05(ds, o.getMincuo(), o.getMicacu(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd(), o.getMimhab(), o.getMicfar());	
+				this.ain69 = false;
+				SubRutSlinei05(ds, _mincuo, _micacu, _micori, _micmov, _micsmv, _mincrd, _mimhab, _micfar);	
 			}
 			this.wtctai = this.wtctai.add(this.wtotar);
 			this.wmone = "USD";
@@ -3381,13 +3659,16 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("2");
 			strx.setTXFILE("M");
 			strx.setTXLOIN("I");
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(MIDE40);
 			strx.setTXIMPO(MIIMPO);
 			strx.setTXNCUO(MINCUO);
 			strx.setTXCACU(MICACU);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(MICORI);
 			strx.setTXCMOV(MICMOV);
 			strx.setTXCSMV(MICSMV);
@@ -3477,7 +3758,6 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	}
 		
 	private String SubRutSlinei26(DataSet ds, BigDecimal MIIMPO,
-			String MIPIFG,
 			String MIXTRF,
 			Integer MICORI,
 			Integer MICMOV,
@@ -3491,7 +3771,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXLOIN("I");
 			strx.setTXDESC(" GS. OTORGAMIENTO (");
 			strx.setTXIMPO(MIIMPO);
-			//strx.setTXTEFM(MIPIFG); //NO EXISTE EN TABLA
+			strx.setTXTEFM(BigDecimal.ZERO); //MIPIFG
 			strx.setTXREFC(MIXTRF);
 			strx.setTXCORI(MICORI);
 			strx.setTXCMOV(MICMOV);
@@ -3533,8 +3813,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXCMOV(MICMOV);
 			strx.setTXCSMV(MICSMV);
 			strx.setTXCANB(MINCRD);
-			if ( fc.ValidarDdmmAAAA(this.fecaux.toString()) ) { // fecpin
-				strx.setTXFMOVC(Integer.parseInt((new SimpleDateFormat("yyyyMMdd").parse(fecaux.toString())).toString()));
+			
+			if ( fc.ValidarDdmmAAAA(this.fecpin.toString()) ) {
+				strx.setTXFMOVC(Integer.parseInt((new SimpleDateFormat("yyyyMMdd").parse(fecpin.toString())).toString()));
 			} else {
 				strx.setTXFMOVC(0);
 			}
@@ -3561,11 +3842,14 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("2");
 			strx.setTXFILE("M");
 			strx.setTXLOIN("I");
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(MIDE40);
 			strx.setTXIMPO(MIIMPO);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(MICORI);
 			strx.setTXCMOV(MICMOV);
 			strx.setTXCSMV(MICSMV);
@@ -3609,7 +3893,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			sindl[3] = this.ain74;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(MIDE40);
 			
 			if (this.ain74 == true) {
@@ -3619,7 +3905,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXNCUO(MINCUO);
 			strx.setTXCACU(MICACU);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(MICORI);
 			strx.setTXCMOV(MICMOV);
 			strx.setTXCSMV(MICSMV);
@@ -3663,7 +3950,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			sindl[4] = this.ain75;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
-			strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			if (this.ain69) {
+				strx.setTXFMT(strx.getTXFMT().trim() + "R");
+			}
 			strx.setTXDESC(this.wdeslo);
 			
 			if (this.ain74 == true) {
@@ -3673,7 +3962,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXNCUO(MINCUO);
 			strx.setTXCACU(MICACU);
 			strx.setTXREFC(this.wwdrfn);
-			strx.setTXMRCH(this.wwmrch);
+			this.wwmrch.ObjectToString();
+			strx.setTXMRCH(this.wwmrch.getResultado());
 			strx.setTXCORI(MICORI);
 			strx.setTXCMOV(MICMOV);
 			strx.setTXCSMV(MICSMV);
@@ -3699,7 +3989,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	private String SubRutAizon3(DataSet ds) {
 		try {
 			this.wiimpo = BigDecimal.ZERO;
-			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), "MERACT", "MEDICT", "3");
+			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "3");
 			
 			for ( Zrspmir o : ListZrspmir) {
 				if (o.getMincuo() != 0) {
@@ -3760,7 +4050,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.ain15 = true;
 					SubRutSlinei29(ds, o.getMiimpo(), o.getMimini(), o.getMixtrf(), o.getMicori(), o.getMicmov(), o.getMicsmv(), o.getMincrd());
 				}
-				if (true) { // o.getMifecu() != Blancos y o.getMifecu() != Blancos
+				if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
 					this.fecadd = o.getMidcup();
 					this.fecamm = o.getMimcup();
 					this.fecaa1 = o.getMiccup();
@@ -3773,15 +4063,25 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.wreflo = "";
 				this.wrefe = "";
 				this.wwdrfn = "";
-				this.wwmrch = 0;
+				this.wwmrch = null;
 				this.wmone = "";
 				this.wreflo = o.getMincab();
 				this.wreflo = o.getMinlcc().toString();
 				this.wrefe = this.agrefe;
 				this.wwdrfn = o.getMixtrf();
-				//W1MRCH = registro actual de ZRSPMIR
-				if (true && o.getMicori() != 6) {//this.w1mrch != 0 && this.w1mrch != Blancos && o.getMicori() != 6
-					this.wwmrch = this.w1mrch;
+				
+				w1mrch = null;
+				w1mrch.setMIZOES(o.getMizoes());
+				w1mrch.setMIRUES(o.getMirues());
+				w1mrch.setMICOES(o.getMicoes());
+				w1mrch.setMISUES(o.getMisues());
+				w1mrch.setMIMOES(o.getMimoes());
+				if (w1mrch.getMIZOES() != 0 && w1mrch.getMIRUES() != 0 && w1mrch.getMICOES() != 0 && w1mrch.getMISUES() != 0 && w1mrch.getMIMOES() != 0 && o.getMicori() != 6) {
+					wwmrch.setMIZOES(w1mrch.getMIZOES());
+					wwmrch.setMIRUES(w1mrch.getMIRUES());
+					wwmrch.setMICOES(w1mrch.getMICOES());
+					wwmrch.setMISUES(w1mrch.getMISUES());
+					wwmrch.setMIMOES(w1mrch.getMIMOES());
 				}
 				this.wmone = "USD";
 				if (o.getMicori() == 24 && o.getMicmov() == 58 || o.getMicori() == 9 && o.getMicmov() == 58) {
@@ -3791,7 +4091,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.aucuol = o.getMicacu();
 						this.aucaol = o.getMiimpo().add(o.getMicrcp());
 					}
-					if (this.sstmhdr.getMecacl() == "B" ) {////////////////////////////////////////
+					if (this.sstmhdr.getMecacl().compareTo("B") == 1 ) {
 						this.totcu2 = o.getMiimpo();
 						this.w1desc = this.mide40;
 						this.w1ncuo = o.getMincuo();
@@ -3838,7 +4138,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	
 	
 	private String SubRutSlinei40(DataSet ds, BigDecimal MIIMPO,
-			BigDecimal MIIOR,
+			BigDecimal MIIORG,
 			Integer MINLCC,
 			String MIXTRF,
 			Integer MICORI,
@@ -3852,7 +4152,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXFILE("M");
 			strx.setTXLOIN("I");
 			strx.setTXDESC("- CAPITAL FINANCIADO AL CIERRE");
-			if (fc.BigDecimalComparar(MIIMPO.toString(), MIIOR.toString(), "==")) {
+			if (fc.BigDecimalComparar(MIIMPO.toString(), MIIORG.toString(), "==")) {
 				strx.setTXDESC(strx.getTXDESC().trim() + " CONVERSIÓN PESOS *");
 			}
 			strx.setTXIMPO(MIIMPO);
@@ -4036,10 +4336,45 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	}
 	
 	
+	//Funcion $FMT
+	public void buscar$FMT01(Integer TXCORI1, Integer TXCMOV1, Integer TXCSMV1, Integer TXCORI2, Integer TXCMOV2, Integer TXCSMV2){
+	    int bound = this.sfmt.size();
+	    int next = 0;
+		for (int Ind = 0; Ind < bound; Ind++) {
+	        if (this.sfmt.get(Ind).TXCORI == TXCORI1 && this.sfmt.get(Ind).TXCMOV == TXCMOV1 && this.sfmt.get(Ind).TXCSMV == TXCSMV1) {
+	        	next = Ind + 1;
+	        	if (this.sfmt.get(next).TXCORI == TXCORI2 && this.sfmt.get(next).TXCMOV == TXCMOV2 && this.sfmt.get(next).TXCSMV == TXCSMV2 && this.sfmt.get(Ind).TXIMPO == this.sfmt.get(next).TXIMPO.negate()) {
+	        		this.sfmt.remove(this.sfmt.get(next));
+	        		this.sfmt.remove(this.sfmt.get(Ind));
+	        		this.sind = this.sind - 2; 
+				}
+	        }
+		 }
+	}
+	
+	public void buscar$FMT02(Integer TXCORI1, Integer TXCMOV1, Integer TXCORI2, Integer TXCMOV2, Integer TXCORI3, Integer TXCMOV3, Integer TXCORI4, Integer TXCMOV4, Integer TXCORI5, Integer TXCMOV5){
+	    int bound = this.sfmt.size() -1;
+	    if (this.sfmt.get(bound).TXCORI == TXCORI1 && this.sfmt.get(bound).TXCMOV == TXCMOV1 ||
+	    		this.sfmt.get(bound).TXCORI == TXCORI2 && this.sfmt.get(bound).TXCMOV == TXCMOV2 ||
+	    		this.sfmt.get(bound).TXCORI == TXCORI3 && this.sfmt.get(bound).TXCMOV == TXCMOV3 ||
+	    		this.sfmt.get(bound).TXCORI == TXCORI4 && this.sfmt.get(bound).TXCMOV == TXCMOV4 ||
+	    		this.sfmt.get(bound).TXCORI == TXCORI5 && this.sfmt.get(bound).TXCMOV == TXCMOV5) {
+	    	this.sfmt.remove(this.sfmt.get(bound));
+    		this.sind = this.sind - 1;
+	    }
+	}
+	
+	public void buscar$FMT03(Integer TXCORI1, Integer TXCMOV1, Integer TXCORI2, Integer TXCMOV2){
+	    int bound = this.sfmt.size() -1;
+	    if (this.sfmt.get(bound).TXCORI == TXCORI1 && this.sfmt.get(bound).TXCMOV == TXCMOV1 ||
+	    		this.sfmt.get(bound).TXCORI == TXCORI2 && this.sfmt.get(bound).TXCMOV == TXCMOV2 ) {
+	    	this.sfmt.remove(this.sfmt.get(bound));
+    		this.sind = this.sind - 1;
+	    }
+	}
 	
 	
-	
-	private class ZRSTEMMVSTRX {
+	public class ZRSTEMMVSTRX {
 		String TXFMT = "";
 		String TXMINI = "";
 		String TXFILE = "";
@@ -4047,9 +4382,10 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		String TXDESC = "";
 		BigDecimal TXIMPO = new BigDecimal(0);
 		String TXREFC = "";
-		Integer TXMRCH = 0;
+		String TXMRCH = "";
 		Integer TXCORI = 0;
 		Integer TXCMOV = 0;
+		Integer TXFMOV = 0;
 		Integer TXCSMV = 0;
 		String TXCANB = "";
 		Integer TXFMOVC = 0;
@@ -4107,10 +4443,10 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		public void setTXREFC(String tXREFC) {
 			TXREFC = tXREFC;
 		}
-		public Integer getTXMRCH() {
+		public String getTXMRCH() {
 			return TXMRCH;
 		}
-		public void setTXMRCH(Integer tXMRCH) {
+		public void setTXMRCH(String tXMRCH) {
 			TXMRCH = tXMRCH;
 		}
 		public Integer getTXCORI() {
@@ -4124,6 +4460,12 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		}
 		public void setTXCMOV(Integer tXCMOV) {
 			TXCMOV = tXCMOV;
+		}
+		public Integer getTXFMOV() {
+			return TXFMOV;
+		}
+		public void setTXFMOV(Integer tXFMOV) {
+			TXFMOV = tXFMOV;
 		}
 		public Integer getTXCSMV() {
 			return TXCSMV;
@@ -4205,29 +4547,65 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		}
 		
 		
+		
+		
 	}
 	
 	private class ZRSTEMMVLXREFP {
 		
 		//para registro ZRSPPIR
-		Integer TINPTR = 0;
+		String TINPTR = "";
 		Integer TINCAX = 0;
 		Integer TICRDD = 0;
 		Integer TICRMM = 0;
 		Integer TICRAA = 0;
 		
 		//para registro ZRSPPLR
-		Integer TLNPTR = 0;
+		String TLNPTR = "";
 		Integer TLNCAX = 0;
 		Integer TLCRDD = 0;
 		Integer TLCRMM = 0;
 		Integer TLCRAA = 0;
+		String Resultado = "";
+		
+		public void ObjectToString() {
+			if (!this.TINPTR.equals("") && this.TINPTR != null) {
+				this.Resultado += TINPTR.toString();
+			}
+			if (this.TINCAX != 0 && this.TINCAX != null) {
+				this.Resultado += TINCAX.toString();
+			}
+			if (this.TICRDD != 0 && this.TICRDD != null) {
+				this.Resultado += TICRDD.toString();
+			}
+			if (this.TICRMM != 0 && this.TICRMM != null) {
+				this.Resultado += TICRMM.toString();
+			}
+			if (this.TICRAA != 0 && this.TICRAA != null) {
+				this.Resultado += TICRAA.toString();
+			}
+			if (!this.TLNPTR.equals("") && this.TLNPTR != null) {
+				this.Resultado += TLNPTR.toString();
+			}
+			if (this.TLNCAX != 0 && this.TLNCAX != null) {
+				this.Resultado += TLNCAX.toString();
+			}
+			if (this.TLCRDD != 0 && this.TLCRDD != null) {
+				this.Resultado += TLCRDD.toString();
+			}
+			if (this.TLCRMM != 0 && this.TLCRMM != null) {
+				this.Resultado += TLCRMM.toString();
+			}
+			if (this.TLCRAA != 0 && this.TLCRAA != null) {
+				this.Resultado += TLCRAA.toString();
+			}
+		}
 		
 
-		public Integer getTINPTR() {
+		public String getTINPTR() {
 			return TINPTR;
 		}
-		public void setTINPTR(Integer tINPTR) {
+		public void setTINPTR(String tINPTR) {
 			TINPTR = tINPTR;
 		}
 		public Integer getTINCAX() {
@@ -4254,10 +4632,10 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		public void setTICRAA(Integer tICRAA) {
 			TICRAA = tICRAA;
 		}
-		public Integer getTLNPTR() {
+		public String getTLNPTR() {
 			return TLNPTR;
 		}
-		public void setTLNPTR(Integer tLNPTR) {
+		public void setTLNPTR(String tLNPTR) {
 			TLNPTR = tLNPTR;
 		}
 		public Integer getTLNCAX() {
@@ -4286,162 +4664,222 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		}
 
 
+		public String getResultado() {
+			return Resultado;
+		}
+
+
+		public void setResultado(String resultado) {
+			Resultado = resultado;
+		}
+		
+		
+
+
 		
 	}
 	
-	private class ZRSTEMMVSFMT {
-		String TXMINI = "";
-		String TXCANB = "";
-		String TXFILE = "";
-		String TXLOIN = "";
-		String TXFMT = "";
-		Integer TXFMOV = 0;
-		Integer TXCORI = 0;
-		Integer TXCMOV = 0;
-		Integer TXCSMV = 0;
-		String TXDESC = "";
-		BigDecimal TXIMPO = new BigDecimal(0);
-		String TXREFC = "";
-		BigDecimal TXTEFM = new BigDecimal(0);
-		BigDecimal TXTNOA = new BigDecimal(0);
-		Integer TXCACU = 0;
-		Integer TXNCUO = 0;
-		Integer TXNLCC = 0;
-		BigDecimal TXIORG = new BigDecimal(0);
-		String TXCFAR = "";
-		Integer TXMHAB = 0;
-		Integer TXMRCH = 0;
+	private class ZRSTEMMVWWMRCH{
+		Integer MIZOES = 0;
+		Integer MIRUES = 0;
+		Integer MICOES = 0;
+		Integer MISUES = 0;
+		Integer MIMOES = 0;
 		
+		Integer MLZOES = 0;
+		Integer MLRUES = 0;
+		Integer MLCOES = 0;
+		Integer MLSUES = 0;
+		Integer MLMOES = 0;
 		
-		public String getTXMINI() {
-			return TXMINI;
+		String Resultado = "";
+		
+		public void ObjectToString() {
+			if (this.MIZOES != 0 && this.MIZOES != null) {
+				this.Resultado += MIZOES.toString();
+			}
+			if (this.MIRUES != 0 && this.MIRUES != null) {
+				this.Resultado += MIRUES.toString();
+			}
+			if (this.MICOES != 0 && this.MICOES != null) {
+				this.Resultado += MICOES.toString();
+			}
+			if (this.MISUES != 0 && this.MISUES != null) {
+				this.Resultado += MISUES.toString();
+			}
+			if (this.MIMOES != 0 && this.MIMOES != null) {
+				this.Resultado += MIMOES.toString();
+			}
+			
+			if (this.MLZOES != 0 && this.MLZOES != null) {
+				this.Resultado += MLZOES.toString();
+			}
+			if (this.MLRUES != 0 && this.MLRUES != null) {
+				this.Resultado += MLRUES.toString();
+			}
+			if (this.MLCOES != 0 && this.MLCOES != null) {
+				this.Resultado += MLCOES.toString();
+			}
+			if (this.MLSUES != 0 && this.MLSUES != null) {
+				this.Resultado += MLSUES.toString();
+			}
+			if (this.MLMOES != 0 && this.MLMOES != null) {
+				this.Resultado += MLMOES.toString();
+			}
 		}
-		public void setTXMINI(String tXMINI) {
-			TXMINI = tXMINI;
+		
+		public Integer getMIZOES() {
+			return MIZOES;
 		}
-		public String getTXCANB() {
-			return TXCANB;
+		public void setMIZOES(Integer mIZOES) {
+			MIZOES = mIZOES;
 		}
-		public void setTXCANB(String tXCANB) {
-			TXCANB = tXCANB;
+		public Integer getMIRUES() {
+			return MIRUES;
 		}
-		public String getTXFILE() {
-			return TXFILE;
+		public void setMIRUES(Integer mIRUES) {
+			MIRUES = mIRUES;
 		}
-		public void setTXFILE(String tXFILE) {
-			TXFILE = tXFILE;
+		public Integer getMICOES() {
+			return MICOES;
 		}
-		public String getTXLOIN() {
-			return TXLOIN;
+		public void setMICOES(Integer mICOES) {
+			MICOES = mICOES;
 		}
-		public void setTXLOIN(String tXLOIN) {
-			TXLOIN = tXLOIN;
+		public Integer getMISUES() {
+			return MISUES;
 		}
-		public String getTXFMT() {
-			return TXFMT;
+		public void setMISUES(Integer mISUES) {
+			MISUES = mISUES;
 		}
-		public void setTXFMT(String tXFMT) {
-			TXFMT = tXFMT;
+		public Integer getMIMOES() {
+			return MIMOES;
 		}
-		public Integer getTXFMOV() {
-			return TXFMOV;
+		public void setMIMOES(Integer mIMOES) {
+			MIMOES = mIMOES;
 		}
-		public void setTXFMOV(Integer tXFMOV) {
-			TXFMOV = tXFMOV;
+		public Integer getMLZOES() {
+			return MLZOES;
 		}
-		public Integer getTXCORI() {
-			return TXCORI;
+		public void setMLZOES(Integer mLZOES) {
+			MLZOES = mLZOES;
 		}
-		public void setTXCORI(Integer tXCORI) {
-			TXCORI = tXCORI;
+		public Integer getMLRUES() {
+			return MLRUES;
 		}
-		public Integer getTXCMOV() {
-			return TXCMOV;
+		public void setMLRUES(Integer mLRUES) {
+			MLRUES = mLRUES;
 		}
-		public void setTXCMOV(Integer tXCMOV) {
-			TXCMOV = tXCMOV;
+		public Integer getMLCOES() {
+			return MLCOES;
 		}
-		public Integer getTXCSMV() {
-			return TXCSMV;
+		public void setMLCOES(Integer mLCOES) {
+			MLCOES = mLCOES;
 		}
-		public void setTXCSMV(Integer tXCSMV) {
-			TXCSMV = tXCSMV;
+		public Integer getMLSUES() {
+			return MLSUES;
 		}
-		public String getTXDESC() {
-			return TXDESC;
+		public void setMLSUES(Integer mLSUES) {
+			MLSUES = mLSUES;
 		}
-		public void setTXDESC(String tXDESC) {
-			TXDESC = tXDESC;
+		public Integer getMLMOES() {
+			return MLMOES;
 		}
-		public BigDecimal getTXIMPO() {
-			return TXIMPO;
+		public void setMLMOES(Integer mLMOES) {
+			MLMOES = mLMOES;
 		}
-		public void setTXIMPO(BigDecimal tXIMPO) {
-			TXIMPO = tXIMPO;
+
+		public String getResultado() {
+			return Resultado;
 		}
-		public String getTXREFC() {
-			return TXREFC;
-		}
-		public void setTXREFC(String tXREFC) {
-			TXREFC = tXREFC;
-		}
-		public BigDecimal getTXTEFM() {
-			return TXTEFM;
-		}
-		public void setTXTEFM(BigDecimal tXTEFM) {
-			TXTEFM = tXTEFM;
-		}
-		public BigDecimal getTXTNOA() {
-			return TXTNOA;
-		}
-		public void setTXTNOA(BigDecimal tXTNOA) {
-			TXTNOA = tXTNOA;
-		}
-		public Integer getTXCACU() {
-			return TXCACU;
-		}
-		public void setTXCACU(Integer tXCACU) {
-			TXCACU = tXCACU;
-		}
-		public Integer getTXNCUO() {
-			return TXNCUO;
-		}
-		public void setTXNCUO(Integer tXNCUO) {
-			TXNCUO = tXNCUO;
-		}
-		public Integer getTXNLCC() {
-			return TXNLCC;
-		}
-		public void setTXNLCC(Integer tXNLCC) {
-			TXNLCC = tXNLCC;
-		}
-		public BigDecimal getTXIORG() {
-			return TXIORG;
-		}
-		public void setTXIORG(BigDecimal tXIORG) {
-			TXIORG = tXIORG;
-		}
-		public String getTXCFAR() {
-			return TXCFAR;
-		}
-		public void setTXCFAR(String tXCFAR) {
-			TXCFAR = tXCFAR;
-		}
-		public Integer getTXMHAB() {
-			return TXMHAB;
-		}
-		public void setTXMHAB(Integer tXMHAB) {
-			TXMHAB = tXMHAB;
-		}
-		public Integer getTXMRCH() {
-			return TXMRCH;
-		}
-		public void setTXMRCH(Integer tXMRCH) {
-			TXMRCH = tXMRCH;
+
+		public void setResultado(String resultado) {
+			Resultado = resultado;
 		}
 		
 		
 		
 	}
+	
+	private class ZRSTEMMVW1MRCH {
+		Integer MIZOES = 0;
+		Integer MIRUES = 0;
+		Integer MICOES = 0;
+		Integer MISUES = 0;
+		Integer MIMOES = 0;
+		
+		Integer MLZOES = 0;
+		Integer MLRUES = 0;
+		Integer MLCOES = 0;
+		Integer MLSUES = 0;
+		Integer MLMOES = 0;
+		
+		//**constructor para cada tabla MI ML BUSCAR EN FER1020 RETORNA FICHA CHEQUEAR ADAPTER TAR
+		
+		public Integer getMIZOES() {
+			return MIZOES;
+		}
+		public void setMIZOES(Integer mIZOES) {
+			MIZOES = mIZOES;
+		}
+		public Integer getMIRUES() {
+			return MIRUES;
+		}
+		public void setMIRUES(Integer mIRUES) {
+			MIRUES = mIRUES;
+		}
+		public Integer getMICOES() {
+			return MICOES;
+		}
+		public void setMICOES(Integer mICOES) {
+			MICOES = mICOES;
+		}
+		public Integer getMISUES() {
+			return MISUES;
+		}
+		public void setMISUES(Integer mISUES) {
+			MISUES = mISUES;
+		}
+		public Integer getMIMOES() {
+			return MIMOES;
+		}
+		public void setMIMOES(Integer mIMOES) {
+			MIMOES = mIMOES;
+		}
+		public Integer getMLZOES() {
+			return MLZOES;
+		}
+		public void setMLZOES(Integer mLZOES) {
+			MLZOES = mLZOES;
+		}
+		public Integer getMLRUES() {
+			return MLRUES;
+		}
+		public void setMLRUES(Integer mLRUES) {
+			MLRUES = mLRUES;
+		}
+		public Integer getMLCOES() {
+			return MLCOES;
+		}
+		public void setMLCOES(Integer mLCOES) {
+			MLCOES = mLCOES;
+		}
+		public Integer getMLSUES() {
+			return MLSUES;
+		}
+		public void setMLSUES(Integer mLSUES) {
+			MLSUES = mLSUES;
+		}
+		public Integer getMLMOES() {
+			return MLMOES;
+		}
+		public void setMLMOES(Integer mLMOES) {
+			MLMOES = mLMOES;
+		}
+		
+		
+		
+	}
+
 }
-//////////////////////////////////////////////1084-1273-1465 - 1626 - 1869 - 2377 - 2509 2657 3516 3679 3743 4158 4303
+//////////////////////////////////////////////1084-1273-1465 - 1626 - 1869 - 2377 - 2509 2657 3516 3679 3743 4158 4303 4903

@@ -20,7 +20,7 @@ import com.ciessa.museum.model.legacy.Zrsprer;
 import com.ciessa.museum.tools.CollectionFactory;
 
 public class ZRSTDSPSView03BzService extends RestBaseServerResource {
-public static final Logger log = Logger.getLogger(ZRSTDSPSView04BzService.class.getName());
+public static final Logger log = Logger.getLogger(ZRSTDSPSView03BzService.class.getName());
 	
 	@Autowired
 	DataSetDAO dsDao;
