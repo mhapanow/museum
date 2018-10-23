@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 22, 2018 9:28:04 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Feplgn" table="FEPLGN" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="lgncta" type="java.lang.Long">
+            <column name="LGNCTA" />
+        </property>
+        <property name="lgfech" type="java.lang.Integer">
+            <column name="LGFECH" />
+        </property>
+        <property name="lghora" type="java.lang.Integer">
+            <column name="LGHORA" />
+        </property>
+        <property name="lgusua" type="string">
+            <column name="LGUSUA" length="10" />
+        </property>
+        <property name="lgterm" type="string">
+            <column name="LGTERM" length="10" />
+        </property>
+        <property name="lgnjob" type="java.lang.Integer">
+            <column name="LGNJOB" />
+        </property>
+    </class>
+</hibernate-mapping>

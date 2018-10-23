@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 22, 2018 9:28:04 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Grmact" table="GRMACT" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="raprcd" type="string">
+            <column name="RAPRCD" length="2" />
+        </property>
+        <property name="raactn" type="java.lang.Long">
+            <column name="RAACTN" />
+        </property>
+        <property name="rapdcd" type="java.lang.Integer">
+            <column name="RAPDCD" />
+        </property>
+        <property name="rastrd" type="string">
+            <column name="RASTRD" length="1" />
+        </property>
+        <property name="rarlno" type="java.lang.Long">
+            <column name="RARLNO" />
+        </property>
+        <property name="rainrn" type="java.lang.Long">
+            <column name="RAINRN" />
+        </property>
+        <property name="rabscn" type="java.lang.Long">
+            <column name="RABSCN" />
+        </property>
+        <property name="rabrcd" type="java.lang.Integer">
+            <column name="RABRCD" />
+        </property>
+        <property name="raacod" type="java.lang.Integer">
+            <column name="RAACOD" />
+        </property>
+        <property name="raslri" type="java.lang.Integer">
+            <column name="RASLRI" />
+        </property>
+        <property name="rastre" type="string">
+            <column name="RASTRE" length="1" />
+        </property>
+        <property name="rarmcn" type="java.lang.Long">
+            <column name="RARMCN" />
+        </property>
+        <property name="raadty" type="string">
+            <column name="RAADTY" length="1" />
+        </property>
+        <property name="raadsn" type="java.lang.Integer">
+            <column name="RAADSN" />
+        </property>
+        <property name="rastat" type="string">
+            <column name="RASTAT" length="1" />
+        </property>
+        <property name="rastsc" type="string">
+            <column name="RASTSC" length="2" />
+        </property>
+        <property name="rastsd" type="java.lang.Integer">
+            <column name="RASTSD" />
+        </property>
+        <property name="raadte" type="java.lang.Integer">
+            <column name="RAADTE" />
+        </property>
+        <property name="raidct" type="string">
+            <column name="RAIDCT" length="3" />
+        </property>
+        <property name="radvcd" type="java.lang.Integer">
+            <column name="RADVCD" />
+        </property>
+    </class>
+</hibernate-mapping>

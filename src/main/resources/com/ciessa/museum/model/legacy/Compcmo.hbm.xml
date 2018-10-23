@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 22, 2018 9:28:04 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Compcmo" table="COMPCMO" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="huacct" type="java.lang.Long">
+            <column name="HUACCT" />
+        </property>
+        <property name="huampr" type="java.lang.Integer">
+            <column name="HUAMPR" />
+        </property>
+        <property name="hugrpp" type="string">
+            <column name="HUGRPP" length="3" />
+        </property>
+        <property name="hustat" type="string">
+            <column name="HUSTAT" length="1" />
+        </property>
+        <property name="huanmc" type="java.lang.Integer">
+            <column name="HUANMC" />
+        </property>
+        <property name="hubrch" type="java.lang.Integer">
+            <column name="HUBRCH" />
+        </property>
+        <property name="hudivi" type="java.lang.Integer">
+            <column name="HUDIVI" />
+        </property>
+        <property name="hucode" type="java.lang.Integer">
+            <column name="HUCODE" />
+        </property>
+        <property name="husafm" type="big_decimal">
+            <column name="HUSAFM" precision="15" />
+        </property>
+        <property name="husprm" type="big_decimal">
+            <column name="HUSPRM" precision="15" />
+        </property>
+        <property name="huupra" type="big_decimal">
+            <column name="HUUPRA" precision="15" />
+        </property>
+        <property name="humdbt" type="java.lang.Integer">
+            <column name="HUMDBT" />
+        </property>
+        <property name="humcrt" type="java.lang.Integer">
+            <column name="HUMCRT" />
+        </property>
+        <property name="hudexe" type="java.lang.Integer">
+            <column name="HUDEXE" />
+        </property>
+        <property name="husdbt" type="big_decimal">
+            <column name="HUSDBT" precision="15" />
+        </property>
+        <property name="huscrd" type="big_decimal">
+            <column name="HUSCRD" precision="15" />
+        </property>
+        <property name="hucace" type="java.lang.Integer">
+            <column name="HUCACE" />
+        </property>
+        <property name="husace" type="big_decimal">
+            <column name="HUSACE" precision="15" />
+        </property>
+        <property name="hucacs" type="java.lang.Integer">
+            <column name="HUCACS" />
+        </property>
+        <property name="husacs" type="big_decimal">
+            <column name="HUSACS" precision="15" />
+        </property>
+        <property name="huugac" type="big_decimal">
+            <column name="HUUGAC" precision="15" />
+        </property>
+        <property name="hudpri" type="string">
+            <column name="HUDPRI" length="1" />
+        </property>
+        <property name="huprov" type="java.lang.Integer">
+            <column name="HUPROV" />
+        </property>
+        <property name="husmes" type="java.lang.Integer">
+            <column name="HUSMES" />
+        </property>
+        <property name="huarea" type="string">
+            <column name="HUAREA" length="3" />
+        </property>
+    </class>
+</hibernate-mapping>
