@@ -53,7 +53,7 @@ public class FER1020View3BzService extends RestBaseServerResource{
 	Long wdias = new Long(0);
 	
 	Date fecjud = null;
-	Date fecjuh = null;
+	Date fecjuh = null;	
 	
 	// Get the output fields
 	String[] fields = new String[] {

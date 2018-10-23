@@ -82,12 +82,7 @@
 				<entry key="/legacy/zrstrecl/view1"
 					value-ref="spring.legacy.zrstrecl.view1" />
 				<entry key="/legacy/zrstrecl/view2"
-					value-ref="spring.legacy.zrstrecl.view2" />
-				<entry key="/legacy/zrstemmv/view1"
-					value-ref="spring.legacy.zrstemmv.view1" />
-				
-				
-					
+					value-ref="spring.legacy.zrstrecl.view2" />				
 			</map>
 		</property>
 	</bean>

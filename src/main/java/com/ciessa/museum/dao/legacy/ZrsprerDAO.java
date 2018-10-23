@@ -42,7 +42,7 @@ public class ZrsprerDAO {
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+				//throw ASExceptionHelper.notFoundException();
 			}
 			
 			session.evict(o);
@@ -77,19 +77,20 @@ public class ZrsprerDAO {
 			String queryFilter = "";
 		
 			if ((w1afac) != 0)
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meyfac = " + Integer.toString(w1afac).substring(0,2) + " And meaafc = " + Integer.toString(w1afac).substring(2,4);		
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " meyfac = " + Integer.toString(w1afac).substring(0,2) + " And meaafc = " + Integer.toString(w1afac).substring(2,4);		
 			if ((w1cifa) != 0)
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mecifa = " + w1cifa;		
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " mecifa = " + w1cifa;		
 			if((w1agig) != 0)
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meagig = "+ w1agig;		
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " meagig = "+ w1agig;		
 			if((w1orgn) != 0)
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meorg = "+ w1orgn;
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " meorg = "+ w1orgn;
 			if ((w1logo) != 0)
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " melogo = "+ w1logo;
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " melogo = "+ w1logo;
 			if (!(w1acns).equals(""))
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mencct = '"+ w1acns +"'";
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " mencct = '"+ w1acns +"'";
 			if(!(w1cans).equals(""))
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mencrd = '"+ w1cans+"'";
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " mencrd = '"+ w1cans+"'";
+			
 			
 			
 			//TODO: Revisar estas condiciones
@@ -104,11 +105,11 @@ public class ZrsprerDAO {
 			 * */
 			
 			if (!w1cydu.equals(""))
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) +  " mecydu = "+ w1cydu;
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) +  " mecydu = "+ w1cydu;
 			if (!w1obol.equals(""))
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meobol = "+ w1obol;
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " meobol = "+ w1obol;
 			if (!w1estc.equals(""))
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meestc = "+ w1estc;
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " meestc = "+ w1estc;
 			if (!w1cacl.equals(""))
 				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mecacl = '"+ w1cacl+"'";
 			//TODO: Este campo "mecpos" no existe en la tabla del sqlserver
@@ -117,15 +118,15 @@ public class ZrsprerDAO {
 				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mecpos = "+ w1cpos;
 				 */
 			if (!w1retr.equals(""))
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " meretr = '"+ w1retr+"'";			
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " meretr = '"+ w1retr+"'";			
 			if (!w1func.equals(""))
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mefunc = '"+ w1func+"'";
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " mefunc = '"+ w1func+"'";
 			if (!w1crba.equals(""))
-				queryFilter = (queryFilter.equals("") == false ? " AND " : "" ) + " mecrba = "+ w1crba;
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " mecrba = "+ w1crba;
 			
 			queryStr = " from Zrsprer " +
 						" where " + queryFilter + " " + 
-						" Order by meyfac, meaafc, mecifa, meagig, meorg, melogo, mencct, mename";
+						" Order by meyfac, meaafc, mecifa, meagig, meorg, melogo, mencct";
 			
 			Query q = session.createQuery(queryStr);
 			

@@ -94,6 +94,8 @@
 	<bean id="Zrspiir.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspiirDAO" />
 	<bean id="Zrspmir.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspmirDAO" />
 	<bean id="Zpcpclr.dao.ref" class="com.ciessa.museum.dao.legacy.ZpcpclrDAO" />
+	
+	<bean id="ZRSTEMMVView01BzService" class="com.ciessa.museum.bz.legacy.ZRSTEMMVView01BzService" />
 
 	<!-- ** REST resource ** -->
 	<bean id="base.rest.resource"
@@ -234,13 +236,5 @@
 	<bean id="legacy.zrstrecl.view2"
 		class="com.ciessa.museum.bz.legacy.ZRSTRECLView02BzService"
 		parent="base.rest.resource" scope="prototype" />
-		
-	<bean id="legacy.zrstemmv.view1"
-		class="com.ciessa.museum.bz.legacy.ZRSTEMMVView01BzService"
-		parent="base.rest.resource" scope="prototype" />
-
-
-
-	
 	
 </beans>

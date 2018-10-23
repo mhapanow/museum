@@ -12,6 +12,7 @@ import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
+import com.ciessa.museum.bz.legacy.ZRSTEMMVView01BzService.ZRSTEMMVSTRX;
 import com.ciessa.museum.dao.DataSetDAO;
 import com.ciessa.museum.dao.legacy.ZrsprerDAO;
 import com.ciessa.museum.exception.ASException;
@@ -32,8 +33,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 	Zrsprer objZrsprer = new Zrsprer();
 	   
 	Boolean out = false;
-	String strhdr = "";
-	Integer afrqloc = 0;
+	String afrqloc = "";
 	Integer meorg  = 0;
 	Integer melogo = 0;
 	String mencct = "";
@@ -44,7 +44,6 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 	
 	String sthis = "";
 	Integer smax = 0;
-	String strx = "";
 	Integer si = 0;
 	
 	Integer meorgnd = 0;
@@ -74,13 +73,16 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 	Integer medprvw = 0;
 	Integer memprvw = 0;
 	Integer meaprvw = 0;
-	Integer mefecied = 0;
-	Integer mefevtod = 0;
-	Integer mefepcied = 0;
-	Integer mefepvtod = 0;
+	String mefecied = "";
+	String mefevtod = "";
+	String mefepcied = "";
+	String mefepvtod = "";
 	String txtaviso = "";
 	Boolean smonl = false;
 	Boolean smoni = false;
+	Integer sqtarjl = 0;
+	
+	Zrsprer shdr3000 = new Zrsprer(); //3000
 	
 	BigDecimal stottarjl = new BigDecimal(0);
 	String scanbl = "";
@@ -89,10 +91,13 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 	ZRSTDSPSAdapter adapter = null;
 	
 	ZRSTDSPSSSTMHDR sstmhdr = new ZRSTDSPSSSTMHDR();
-	//ZRSTDSPSSMOV smov = null;
+	ZRSTDSPSSSTMHDR strhdr = new ZRSTDSPSSSTMHDR();
 	
-	ZRSTEMMVView01BzService ZRSTEMMV = new ZRSTEMMVView01BzService();
-	ZRSTEMMVView01BzService.ZRSTEMMVSTRX smov = null;
+	@Autowired
+	ZRSTEMMVView01BzService ZRSTEMMV;
+	ZRSTEMMVSTRX smov = null;
+	
+	ArrayList<ZRSTEMMVSTRX> strx = new ArrayList<ZRSTEMMVSTRX>();
 	
 	@Get
 	public String view() {
@@ -103,9 +108,16 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			User user = this.getUserFromToken();
 			DataSet ds = dsDao.get(user.getDefaultDataSet());
 			long millisPre = new Date().getTime();
-			//variables
 			
-			
+			//variables		
+			sstmhdr.setDSCENT(obtainIntegerValue("dscent", 0));
+			sstmhdr.setDSANO(obtainIntegerValue("dsano", 0));
+			sstmhdr.setDSCIC(obtainStringValue("dscic", ""));
+			sstmhdr.setDSAG(obtainStringValue("dsag", ""));
+			sstmhdr.setDSORG(obtainIntegerValue("dsorg", 0));
+			sstmhdr.setDSLOGO(obtainIntegerValue("dslogo", 0));
+			sstmhdr.setDSCUENTA(obtainStringValue("dscuenta", ""));
+			sstmhdr.setDSTITULAR(obtainStringValue("dstitular", ""));
 			
 			String rpta = SubProcDspstm(ds);
 			if (!rpta.equals(""))
@@ -168,25 +180,31 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 	private String SubProcDspstm(DataSet ds) {
 		try {
 			this.out = false;
-			//this.strhdr = sstmhdr;
-			this.afrqloc = 346;
-			this.meorg  = sstmhdr.getDSORG();
-			this.melogo = sstmhdr.getDSLOGO();
-			this.mencct = sstmhdr.getDSCUENTA();
-			this.meyfac = sstmhdr.getDSCENT();
-			this.meaafc = sstmhdr.getDSANO();
-			this.mecifa = sstmhdr.getDSCIC();
-			this.meagig = sstmhdr.getDSAG();
+			this.strhdr = sstmhdr;
+			this.afrqloc = "346";
+			this.meorg  = strhdr.getDSORG();
+			this.melogo = strhdr.getDSLOGO();
+			this.mencct = strhdr.getDSCUENTA();
+			this.meyfac = strhdr.getDSCENT();
+			this.meaafc = strhdr.getDSANO();
+			this.mecifa = strhdr.getDSCIC();
+			this.meagig = strhdr.getDSAG();
 			
 			objZrsprer = myDAOZrsprer.getUsingMeorgAndMelogoAndMencctAndMeyfacAndMeaafcAndMecifaAndMeagig(ds, meorg, melogo, mencct, meyfac, meaafc, mecifa, meagig);
+			this.shdr3000.setMeorg (strhdr.getDSORG());
+			this.shdr3000.setMelogo(strhdr.getDSLOGO());
+			this.shdr3000.setMencct(strhdr.getDSCUENTA());
+			this.shdr3000.setMeyfac(strhdr.getDSCENT());
+			this.shdr3000.setMeaafc(strhdr.getDSANO());
+			this.shdr3000.setMecifa(strhdr.getDSCIC());
+			this.shdr3000.setMeagig(strhdr.getDSAG());
 			
 			this.sthis = "";
 			this.smax = 256;
-			this.strx = "";
 			this.si = 0;
 			
-			//$NEXT (50) = Ejecutar procedimiento GETSTMDET   con parámetros ($HDR3000, $THIS, $MAX, $TRX , $I)
-			
+			ZRSTEMMV.SubProcGetstmdet( ds, this.shdr3000, this.sthis, this.smax, this.strx, this.si);
+						
 			this.meorgnd =  objZrsprer.getMeorg();
 			this.melogod =  objZrsprer.getMelogo();
 			this.meacnbd =  objZrsprer.getMencct();
@@ -214,15 +232,17 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			this.medprvw =  objZrsprer.getMedprv();
 			this.memprvw =  objZrsprer.getMemprv();
 			this.meaprvw =  objZrsprer.getMeaprv();
-			/*this.mefecied =  objZrsprer.getMefecie();
-			this.mefevtod =  objZrsprer.getMefevto();
-			this.mefepcied =  objZrsprer.getMefepcie();
-			this.mefepvtod =  objZrsprer.getMefepvto();*/
+			this.mefecied =  objZrsprer.getMedcif().toString() + objZrsprer.getMemcif().toString() + objZrsprer.getMeacif().toString();
+			this.mefevtod =  objZrsprer.getMedvto().toString() + objZrsprer.getMemvto().toString() + objZrsprer.getMeavto().toString();
+			this.mefepcied =  objZrsprer.getMedpci().toString() + objZrsprer.getMempci().toString() + objZrsprer.getMeapci().toString();
+			this.mefepvtod = objZrsprer.getMedprv().toString() + objZrsprer.getMemprv().toString() + objZrsprer.getMeaprv().toString();
 			this.smonl =  false;
 			this.smoni =  false;
-			for (int i = 0; i < EMPTY_STRING_ARRAY.length; i++) {
+			this.stottarjl = BigDecimal.ZERO;
+			this.sqtarjl = 0;
+			for (int i = 0; i < this.strx.size(); i++) {
 				this.smov = null;
-				this.smov = ZRSTEMMV.strx;
+				//this.smov = new ZRSTEMMVSTRX<this.strx>;
 				if (this.smov.getTXLOIN().equals("L")) {
 					if (!this.smonl) {
 						this.smonl = true;
@@ -233,7 +253,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 						adapter.setW1MRCH("");
 						list.add(adapter);
 					}
-					if ( (!this.scanbl.equals(this.smov.getTXCANB()) || !this.smov.getTXMINI().equals("2"))) {//this.sqtarjl  != 0 &&
+					if (this.sqtarjl != 0 && (!this.scanbl.equals(this.smov.getTXCANB()) || !this.smov.getTXMINI().equals("2"))) {//this.sqtarjl  != 0 &&
 						adapter = new ZRSTDSPSAdapter();
 						adapter.setW1DESC("TOTAL CARGOS TARJETA " + this.scanbl.substring(16, 20)); 
 						adapter.setW1AMNT(this.stottarjl);
@@ -246,24 +266,24 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 					adapter.setW1DESC(this.smov.getTXDESC());
 					adapter.setW1AMNT(this.smov.getTXIMPO());
 					adapter.setW1REFC(this.smov.getTXREFC());
-					/*W1TARJ  = this.smov.getTXCANB().substring(16,20);
-					W1FMOV  = this.smov.getTXFMOV();
-					W1TEFM  = this.smov.getTXTEFM();
-					W1TNOA  = this.smov.getTXTNOA();
-					W1IORG  = this.smov.getTXIORG();
-					W1FMT  = this.smov.getTXFMT();*/
+					adapter.setW1TARJ(this.smov.getTXCANB().substring(16,20));
+					adapter.setW1FMOV(this.smov.getTXFMOV());
+					adapter.setW1TEFM(this.smov.getTXTEFM());
+					adapter.setW1TNOA(this.smov.getTXTNOA());
+					adapter.setW1IORG(this.smov.getTXIORG());
+					adapter.setW1FMT(this.smov.getTXFMT());
 					adapter.setW1MRCH(this.smov.getTXMRCH());
 					list.add(adapter);
 					
 					if (this.smov.getTXFILE().equals("M") && this.smov.getTXMINI().equals("2")) {
 						this.stottarjl = this.smov.getTXIMPO().add(this.stottarjl);
-						//SQTARJL = 1 + SQTARJL;
+						this.sqtarjl = 1 + this.sqtarjl;
 						this.scanbl = this.smov.getTXCANB();
 					}
 				}//FIN IF
 			}//FIN FOR
 			if (this.smonl) {
-				if (true) {//this.sqtarjl != 0
+				if (this.sqtarjl != 0) {
 					adapter = new ZRSTDSPSAdapter();
 					adapter.setW1DESC(" TOTAL CARGOS TARJETA " + this.scanbl.substring(16, 20));
 					adapter.setW1AMNT(this.stottarjl);
@@ -293,6 +313,12 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 		BigDecimal W1AMNT = new BigDecimal(0);
 		String W1REFC = "";
 		String W1MRCH = "";
+		String W1TARJ = "";
+		Integer W1FMOV = 0;
+		BigDecimal W1TEFM = new BigDecimal(0);
+		BigDecimal W1TNOA = new BigDecimal(0);
+		BigDecimal W1IORG = new BigDecimal(0);
+		String W1FMT = "";
 		
 		public String getW1DESC() {
 			return W1DESC;
@@ -317,6 +343,42 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 		}
 		public void setW1MRCH(String w1mrch) {
 			W1MRCH = w1mrch;
+		}
+		public String getW1TARJ() {
+			return W1TARJ;
+		}
+		public void setW1TARJ(String w1tarj) {
+			W1TARJ = w1tarj;
+		}
+		public Integer getW1FMOV() {
+			return W1FMOV;
+		}
+		public void setW1FMOV(Integer w1fmov) {
+			W1FMOV = w1fmov;
+		}
+		public BigDecimal getW1TEFM() {
+			return W1TEFM;
+		}
+		public void setW1TEFM(BigDecimal w1tefm) {
+			W1TEFM = w1tefm;
+		}
+		public BigDecimal getW1TNOA() {
+			return W1TNOA;
+		}
+		public void setW1TNOA(BigDecimal w1tnoa) {
+			W1TNOA = w1tnoa;
+		}
+		public BigDecimal getW1IORG() {
+			return W1IORG;
+		}
+		public void setW1IORG(BigDecimal w1iorg) {
+			W1IORG = w1iorg;
+		}
+		public String getW1FMT() {
+			return W1FMT;
+		}
+		public void setW1FMT(String w1fmt) {
+			W1FMT = w1fmt;
 		}
 		
 		
@@ -411,6 +473,181 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 		Integer TXNLCC = 0;
 		String TXCFAR = "";
 		Integer TXMHAB = 0;
+		
+		public String getTXFMT() {
+			return TXFMT;
+		}
+		public void setTXFMT(String tXFMT) {
+			TXFMT = tXFMT;
+		}
+		public String getTXMINI() {
+			return TXMINI;
+		}
+		public void setTXMINI(String tXMINI) {
+			TXMINI = tXMINI;
+		}
+		public String getTXFILE() {
+			return TXFILE;
+		}
+		public void setTXFILE(String tXFILE) {
+			TXFILE = tXFILE;
+		}
+		public String getTXLOIN() {
+			return TXLOIN;
+		}
+		public void setTXLOIN(String tXLOIN) {
+			TXLOIN = tXLOIN;
+		}
+		public String getTXDESC() {
+			return TXDESC;
+		}
+		public void setTXDESC(String tXDESC) {
+			TXDESC = tXDESC;
+		}
+		public BigDecimal getTXIMPO() {
+			return TXIMPO;
+		}
+		public void setTXIMPO(BigDecimal tXIMPO) {
+			TXIMPO = tXIMPO;
+		}
+		public String getTXREFC() {
+			return TXREFC;
+		}
+		public void setTXREFC(String tXREFC) {
+			TXREFC = tXREFC;
+		}
+		public String getTXMRCH() {
+			return TXMRCH;
+		}
+		public void setTXMRCH(String tXMRCH) {
+			TXMRCH = tXMRCH;
+		}
+		public Integer getTXCORI() {
+			return TXCORI;
+		}
+		public void setTXCORI(Integer tXCORI) {
+			TXCORI = tXCORI;
+		}
+		public Integer getTXCMOV() {
+			return TXCMOV;
+		}
+		public void setTXCMOV(Integer tXCMOV) {
+			TXCMOV = tXCMOV;
+		}
+		public Integer getTXFMOV() {
+			return TXFMOV;
+		}
+		public void setTXFMOV(Integer tXFMOV) {
+			TXFMOV = tXFMOV;
+		}
+		public Integer getTXCSMV() {
+			return TXCSMV;
+		}
+		public void setTXCSMV(Integer tXCSMV) {
+			TXCSMV = tXCSMV;
+		}
+		public String getTXCANB() {
+			return TXCANB;
+		}
+		public void setTXCANB(String tXCANB) {
+			TXCANB = tXCANB;
+		}
+		public Integer getTXFMOVC() {
+			return TXFMOVC;
+		}
+		public void setTXFMOVC(Integer tXFMOVC) {
+			TXFMOVC = tXFMOVC;
+		}
+		public String getTXFILE2() {
+			return TXFILE2;
+		}
+		public void setTXFILE2(String tXFILE2) {
+			TXFILE2 = tXFILE2;
+		}
+		public String getTXMIN() {
+			return TXMIN;
+		}
+		public void setTXMIN(String tXMIN) {
+			TXMIN = tXMIN;
+		}
+		public BigDecimal getTXTEFM() {
+			return TXTEFM;
+		}
+		public void setTXTEFM(BigDecimal tXTEFM) {
+			TXTEFM = tXTEFM;
+		}
+		public Integer getTXNCUO() {
+			return TXNCUO;
+		}
+		public void setTXNCUO(Integer tXNCUO) {
+			TXNCUO = tXNCUO;
+		}
+		public Integer getTXCACU() {
+			return TXCACU;
+		}
+		public void setTXCACU(Integer tXCACU) {
+			TXCACU = tXCACU;
+		}
+		public BigDecimal getTXIORG() {
+			return TXIORG;
+		}
+		public void setTXIORG(BigDecimal tXIORG) {
+			TXIORG = tXIORG;
+		}
+		public BigDecimal getTXTNOA() {
+			return TXTNOA;
+		}
+		public void setTXTNOA(BigDecimal tXTNOA) {
+			TXTNOA = tXTNOA;
+		}
+		public Integer getTXNLCC() {
+			return TXNLCC;
+		}
+		public void setTXNLCC(Integer tXNLCC) {
+			TXNLCC = tXNLCC;
+		}
+		public String getTXCFAR() {
+			return TXCFAR;
+		}
+		public void setTXCFAR(String tXCFAR) {
+			TXCFAR = tXCFAR;
+		}
+		public Integer getTXMHAB() {
+			return TXMHAB;
+		}
+		public void setTXMHAB(Integer tXMHAB) {
+			TXMHAB = tXMHAB;
+		}
+		
+		
+	}
+
+	public class ZRSTEMMVSTRX {
+		String TXFMT = "";
+		String TXMINI = "";
+		String TXFILE = "";
+		String TXLOIN = "";
+		String TXDESC = "";
+		BigDecimal TXIMPO = new BigDecimal(0);
+		String TXREFC = "";
+		String TXMRCH = "";
+		Integer TXCORI = 0;
+		Integer TXCMOV = 0;
+		Integer TXFMOV = 0;
+		Integer TXCSMV = 0;
+		String TXCANB = "";
+		Integer TXFMOVC = 0;
+		String TXFILE2 = "";
+		String TXMIN = "";
+		BigDecimal TXTEFM = new BigDecimal(0);
+		Integer TXNCUO = 0;
+		Integer TXCACU = 0;
+		BigDecimal TXIORG = new BigDecimal(0);
+		BigDecimal TXTNOA = new BigDecimal(0);
+		Integer TXNLCC = 0;
+		String TXCFAR = "";
+		Integer TXMHAB = 0;
+		
 		
 		public String getTXFMT() {
 			return TXFMT;

@@ -389,7 +389,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			Integer Sind = obtainIntegerValue("Sind", 0);
 			
 			
-			SubProcGetstmdet(ds, sstmHdr1,Spos,SmaxElem,Sfmt,Sind);
+			//SubProcGetstmdet(ds, sstmHdr1,Spos,SmaxElem,Sfmt,Sind);
 			
 			
 			String[] arrayFields = new String[] {
@@ -438,7 +438,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		return returnValue.toString();
 	}
 	
-	public String SubProcGetstmdet (DataSet ds, Zrsprer SstmHdr, String Spos, Integer SmaxElem, String[] Sfmt, Integer Sind  ) {
+	public String SubProcGetstmdet (DataSet ds, Zrsprer SstmHdr, String Spos, Integer SmaxElem, ArrayList Sfmt, Integer Sind  ) {
 		long start = markStart();
 		try {
 			// validate authToken
@@ -450,7 +450,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			this.sstmhdr = SstmHdr;
 			this.spos = Spos;
 			this.smaxelem = SmaxElem;
-			//*this.sfmt = Sfmt;
+			this.sfmt = Sfmt;
 			this.sind = Sind;
 			
 			this.SubRutAinit(ds);
