@@ -1,6 +1,8 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,10 +75,10 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 	Integer medprvw = 0;
 	Integer memprvw = 0;
 	Integer meaprvw = 0;
-	String mefecied = "";
-	String mefevtod = "";
-	String mefepcied = "";
-	String mefepvtod = "";
+	Date mefecied = new Date();
+	Date mefevtod = new Date();
+	Date mefepcied = new Date();
+	Date mefepvtod = new Date();
 	String txtaviso = "";
 	Boolean smonl = false;
 	Boolean smoni = false;
@@ -95,9 +97,12 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 	
 	@Autowired
 	ZRSTEMMVView01BzService ZRSTEMMV;
+	
 	ZRSTEMMVSTRX smov = null;
 	
-	ArrayList<ZRSTEMMVSTRX> strx = new ArrayList<ZRSTEMMVSTRX>();
+	ArrayList<ZRSTEMMVSTRX> strx = null;
+	
+	FUNCIONESBzService fc = new FUNCIONESBzService();
 	
 	@Get
 	public String view() {
@@ -132,12 +137,38 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			log.info("Element found in " + diff + " millis");
 			
 			String[] fields = new String[] {
-					"W1DESC",
-					"W1AMNT",
-					"W1REFC",
-					"W1MRCH"
+					"MEORGND",
+					"MELOGOD",
+					"MEACNBD",
+					"MENAMED",
+					"MESUNSD",
+					"MESUNUD",
+					"MESTLCD",
+					"MESTICD",
+					"MEPMIND",
+					"MEPMIDD",
+					"MEMLICD",
+					"MEMLCOD",
+					"MEBICYD",
+					"MECOCOD",
+					"MECOVED",
+					"MEFECIED",
+					"MEFEVTOD",
+					"MEFEPCIED",
+					"MEFEPVTOD",
+					"TXTAVISO"
 			};
-			returnValue = this.getJSONRepresentationFromArrayOfObjects(list, fields);
+			
+			String[] arrayFields = new String[] {
+					"w1desc",
+					"w1amnt",
+					"w1refc",
+					"w1mrch"
+
+			};
+			
+			returnValue = getJSONRepresentationFromObject(adapter, fields);
+			returnValue.put("data", getJSONRepresentationFromArrayOfObjects(list, arrayFields).get("data"));
 			returnValue.put("MEORGND",this.meorgnd);
 			returnValue.put("MELOGOD",this.melogod);
 			returnValue.put("MEACNBD",this.meacnbd);
@@ -153,10 +184,10 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			returnValue.put("MEBICYD",this.mebicyd);
 			returnValue.put("MECOCOD",this.mecocod);
 			returnValue.put("MECOVED",this.mecoved);
-			returnValue.put("MEFECIED",this.mefecied);
-			returnValue.put("MEFEVTOD",this.mefevtod);
-			returnValue.put("MEFEPCIED",this.mefepcied);
-			returnValue.put("MEFEPVTOD",this.mefepvtod);
+			returnValue.put("MEFECIED",new SimpleDateFormat("dd/MM/yy").format(this.mefecied));
+			returnValue.put("MEFEVTOD",new SimpleDateFormat("dd/MM/yy").format(this.mefevtod));
+			returnValue.put("MEFEPCIED",new SimpleDateFormat("dd/MM/yy").format(this.mefepcied));
+			returnValue.put("MEFEPVTOD",new SimpleDateFormat("dd/MM/yy").format(this.mefepvtod));
 			returnValue.put("TXTAVISO",this.txtaviso);
 			
 			
@@ -179,6 +210,8 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 
 	private String SubProcDspstm(DataSet ds) {
 		try {
+			DecimalFormat df = new DecimalFormat("00");
+			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
 			this.out = false;
 			this.strhdr = sstmhdr;
 			this.afrqloc = "346";
@@ -190,20 +223,28 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			this.mecifa = strhdr.getDSCIC();
 			this.meagig = strhdr.getDSAG();
 			
+						
 			objZrsprer = myDAOZrsprer.getUsingMeorgAndMelogoAndMencctAndMeyfacAndMeaafcAndMecifaAndMeagig(ds, meorg, melogo, mencct, meyfac, meaafc, mecifa, meagig);
-			this.shdr3000.setMeorg (strhdr.getDSORG());
-			this.shdr3000.setMelogo(strhdr.getDSLOGO());
-			this.shdr3000.setMencct(strhdr.getDSCUENTA());
-			this.shdr3000.setMeyfac(strhdr.getDSCENT());
-			this.shdr3000.setMeaafc(strhdr.getDSANO());
-			this.shdr3000.setMecifa(strhdr.getDSCIC());
-			this.shdr3000.setMeagig(strhdr.getDSAG());
+			/*
+			this.shdr3000.setMeorg (objZrsprer.getMeorg());
+			this.shdr3000.setMelogo(objZrsprer.getMelogo());
+			this.shdr3000.setMencct(objZrsprer.getMencct());
+			this.shdr3000.setMeyfac(objZrsprer.getDSCENT());
+			this.shdr3000.setMeaafc(objZrsprer.getDSANO());
+			this.shdr3000.setMecifa(objZrsprer.getDSCIC());
+			this.shdr3000.setMeagig(objZrsprer.getDSAG());
+			this.shdr3000.setMetcon();
+			*/
+			this.shdr3000 = objZrsprer;
 			
 			this.sthis = "";
 			this.smax = 256;
 			this.si = 0;
 			
+			this.strx = new ArrayList<ZRSTEMMVSTRX>();
 			ZRSTEMMV.SubProcGetstmdet( ds, this.shdr3000, this.sthis, this.smax, this.strx, this.si);
+			this.strx = ZRSTEMMV.getSfmt();
+			//TODO: Lo mimso hacer con el resto de campos por referencia
 						
 			this.meorgnd =  objZrsprer.getMeorg();
 			this.melogod =  objZrsprer.getMelogo();
@@ -232,47 +273,60 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			this.medprvw =  objZrsprer.getMedprv();
 			this.memprvw =  objZrsprer.getMemprv();
 			this.meaprvw =  objZrsprer.getMeaprv();
-			this.mefecied =  objZrsprer.getMedcif().toString() + objZrsprer.getMemcif().toString() + objZrsprer.getMeacif().toString();
-			this.mefevtod =  objZrsprer.getMedvto().toString() + objZrsprer.getMemvto().toString() + objZrsprer.getMeavto().toString();
-			this.mefepcied =  objZrsprer.getMedpci().toString() + objZrsprer.getMempci().toString() + objZrsprer.getMeapci().toString();
-			this.mefepvtod = objZrsprer.getMedprv().toString() + objZrsprer.getMemprv().toString() + objZrsprer.getMeaprv().toString();
+			try {
+				this.mefecied = sdf.parse(df.format(objZrsprer.getMedcif()) + df.format(objZrsprer.getMemcif()) + df.format(objZrsprer.getMeacif()));	
+			}catch(Exception e) {
+			}
+			try {
+				this.mefevtod =  sdf.parse(df.format(objZrsprer.getMedvto()) + df.format(objZrsprer.getMemvto()) + df.format(objZrsprer.getMeavto()));		
+			}catch(Exception e) {
+			}
+			try {
+				this.mefepcied = sdf.parse(df.format(objZrsprer.getMedpci()) + df.format(objZrsprer.getMempci()) + df.format(objZrsprer.getMeapci()));	
+			}catch(Exception e) {
+			}
+			try {
+				this.mefepvtod = sdf.parse(df.format(objZrsprer.getMedprv()) + df.format(objZrsprer.getMemprv()) + df.format(objZrsprer.getMeaprv()));	
+			}catch(Exception e) {
+			}
 			this.smonl =  false;
 			this.smoni =  false;
 			this.stottarjl = BigDecimal.ZERO;
 			this.sqtarjl = 0;
-			for (int i = 0; i < this.strx.size(); i++) {
-				this.smov = null;
-				//this.smov = new ZRSTEMMVSTRX<this.strx>;
+			for (int i = 1; i < this.strx.size(); i++) {
+				
+				this.smov = this.strx.get(i);
+				
 				if (this.smov.getTXLOIN().equals("L")) {
 					if (!this.smonl) {
 						this.smonl = true;
 						adapter = new ZRSTDSPSAdapter();
-						adapter.setW1DESC("SALDO ANTERIOR PESOS");
-						adapter.setW1AMNT(objZrsprer.getMesafl());
-						adapter.setW1REFC("");
-						adapter.setW1MRCH("");
+						adapter.setW1desc("SALDO ANTERIOR PESOS");
+						adapter.setW1amnt(objZrsprer.getMesafl());
+						adapter.setW1refc("");
+						adapter.setW1mrch("");
 						list.add(adapter);
 					}
 					if (this.sqtarjl != 0 && (!this.scanbl.equals(this.smov.getTXCANB()) || !this.smov.getTXMINI().equals("2"))) {//this.sqtarjl  != 0 &&
 						adapter = new ZRSTDSPSAdapter();
-						adapter.setW1DESC("TOTAL CARGOS TARJETA " + this.scanbl.substring(16, 20)); 
-						adapter.setW1AMNT(this.stottarjl);
-						adapter.setW1REFC("");
-						adapter.setW1MRCH("");
+						adapter.setW1desc("TOTAL CARGOS TARJETA " + this.scanbl.substring(16, 20)); 
+						adapter.setW1amnt(this.stottarjl);
+						adapter.setW1refc("");
+						adapter.setW1mrch("");
 						this.scanbl = this.smov.getTXCANB();
 						list.add(adapter);
 					}
 					adapter = new ZRSTDSPSAdapter();
-					adapter.setW1DESC(this.smov.getTXDESC());
-					adapter.setW1AMNT(this.smov.getTXIMPO());
-					adapter.setW1REFC(this.smov.getTXREFC());
-					adapter.setW1TARJ(this.smov.getTXCANB().substring(16,20));
-					adapter.setW1FMOV(this.smov.getTXFMOV());
-					adapter.setW1TEFM(this.smov.getTXTEFM());
-					adapter.setW1TNOA(this.smov.getTXTNOA());
-					adapter.setW1IORG(this.smov.getTXIORG());
-					adapter.setW1FMT(this.smov.getTXFMT());
-					adapter.setW1MRCH(this.smov.getTXMRCH());
+					adapter.setW1desc(this.smov.getTXDESC());
+					adapter.setW1amnt(this.smov.getTXIMPO());
+					adapter.setW1refc(this.smov.getTXREFC());
+					adapter.setW1tarj(this.smov.getTXCANB().substring(16-1,20-1));
+					adapter.setW1fmov(this.smov.getTXFMOV());
+					adapter.setW1tefm(this.smov.getTXTEFM());
+					adapter.setW1tnoa(this.smov.getTXTNOA());
+					adapter.setW1iorg(this.smov.getTXIORG());
+					adapter.setW1fmt(this.smov.getTXFMT());
+					adapter.setW1mrch(this.smov.getTXMRCH());
 					list.add(adapter);
 					
 					if (this.smov.getTXFILE().equals("M") && this.smov.getTXMINI().equals("2")) {
@@ -285,18 +339,18 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			if (this.smonl) {
 				if (this.sqtarjl != 0) {
 					adapter = new ZRSTDSPSAdapter();
-					adapter.setW1DESC(" TOTAL CARGOS TARJETA " + this.scanbl.substring(16, 20));
-					adapter.setW1AMNT(this.stottarjl);
-					adapter.setW1REFC("");
-					adapter.setW1MRCH("");
+					adapter.setW1desc(" TOTAL CARGOS TARJETA " + this.scanbl.substring(16, 20));
+					adapter.setW1amnt(this.stottarjl);
+					adapter.setW1refc("");
+					adapter.setW1mrch("");
 					list.add(adapter);
 				}//fin if
 				
 				adapter = new ZRSTDSPSAdapter();
-				adapter.setW1DESC(" SALDOS TOTALES PESOS");
-				adapter.setW1AMNT(objZrsprer.getMestlc());
-				adapter.setW1REFC("");
-				adapter.setW1MRCH("");
+				adapter.setW1desc(" SALDOS TOTALES PESOS");
+				adapter.setW1amnt(objZrsprer.getMestlc());
+				adapter.setW1refc("");
+				adapter.setW1mrch("");
 				list.add(adapter);
 			}//fin if
 			
@@ -309,77 +363,77 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 	
 	//adapter
 	public class ZRSTDSPSAdapter {
-		String W1DESC = "";
-		BigDecimal W1AMNT = new BigDecimal(0);
-		String W1REFC = "";
-		String W1MRCH = "";
-		String W1TARJ = "";
-		Integer W1FMOV = 0;
-		BigDecimal W1TEFM = new BigDecimal(0);
-		BigDecimal W1TNOA = new BigDecimal(0);
-		BigDecimal W1IORG = new BigDecimal(0);
-		String W1FMT = "";
+		private String w1desc;
+		private BigDecimal w1amnt;
+		String w1refc;
+		String w1mrch;
+		String w1tarj;
+		Integer w1fmov;
+		BigDecimal w1tefm;
+		BigDecimal w1tnoa;
+		BigDecimal w1iorg;
+		String w1fmt;
+		public String getW1desc() {
+			return w1desc;
+		}
+		public void setW1desc(String w1desc) {
+			this.w1desc = w1desc;
+		}
+		public BigDecimal getW1amnt() {
+			return w1amnt;
+		}
+		public void setW1amnt(BigDecimal w1amnt) {
+			this.w1amnt = w1amnt;
+		}
+		public String getW1refc() {
+			return w1refc;
+		}
+		public void setW1refc(String w1refc) {
+			this.w1refc = w1refc;
+		}
+		public String getW1mrch() {
+			return w1mrch;
+		}
+		public void setW1mrch(String w1mrch) {
+			this.w1mrch = w1mrch;
+		}
+		public String getW1tarj() {
+			return w1tarj;
+		}
+		public void setW1tarj(String w1tarj) {
+			this.w1tarj = w1tarj;
+		}
+		public Integer getW1fmov() {
+			return w1fmov;
+		}
+		public void setW1fmov(Integer w1fmov) {
+			this.w1fmov = w1fmov;
+		}
+		public BigDecimal getW1tefm() {
+			return w1tefm;
+		}
+		public void setW1tefm(BigDecimal w1tefm) {
+			this.w1tefm = w1tefm;
+		}
+		public BigDecimal getW1tnoa() {
+			return w1tnoa;
+		}
+		public void setW1tnoa(BigDecimal w1tnoa) {
+			this.w1tnoa = w1tnoa;
+		}
+		public BigDecimal getW1iorg() {
+			return w1iorg;
+		}
+		public void setW1iorg(BigDecimal w1iorg) {
+			this.w1iorg = w1iorg;
+		}
+		public String getW1fmt() {
+			return w1fmt;
+		}
+		public void setW1fmt(String w1fmt) {
+			this.w1fmt = w1fmt;
+		}
 		
-		public String getW1DESC() {
-			return W1DESC;
-		}
-		public void setW1DESC(String w1desc) {
-			W1DESC = w1desc;
-		}
-		public BigDecimal getW1AMNT() {
-			return W1AMNT;
-		}
-		public void setW1AMNT(BigDecimal w1amnt) {
-			W1AMNT = w1amnt;
-		}
-		public String getW1REFC() {
-			return W1REFC;
-		}
-		public void setW1REFC(String w1refc) {
-			W1REFC = w1refc;
-		}
-		public String getW1MRCH() {
-			return W1MRCH;
-		}
-		public void setW1MRCH(String w1mrch) {
-			W1MRCH = w1mrch;
-		}
-		public String getW1TARJ() {
-			return W1TARJ;
-		}
-		public void setW1TARJ(String w1tarj) {
-			W1TARJ = w1tarj;
-		}
-		public Integer getW1FMOV() {
-			return W1FMOV;
-		}
-		public void setW1FMOV(Integer w1fmov) {
-			W1FMOV = w1fmov;
-		}
-		public BigDecimal getW1TEFM() {
-			return W1TEFM;
-		}
-		public void setW1TEFM(BigDecimal w1tefm) {
-			W1TEFM = w1tefm;
-		}
-		public BigDecimal getW1TNOA() {
-			return W1TNOA;
-		}
-		public void setW1TNOA(BigDecimal w1tnoa) {
-			W1TNOA = w1tnoa;
-		}
-		public BigDecimal getW1IORG() {
-			return W1IORG;
-		}
-		public void setW1IORG(BigDecimal w1iorg) {
-			W1IORG = w1iorg;
-		}
-		public String getW1FMT() {
-			return W1FMT;
-		}
-		public void setW1FMT(String w1fmt) {
-			W1FMT = w1fmt;
-		}
 		
 		
 		
@@ -621,7 +675,8 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 		
 		
 	}
-
+	
+	/*
 	public class ZRSTEMMVSTRX {
 		String TXFMT = "";
 		String TXMINI = "";
@@ -796,5 +851,6 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 		
 		
 	}
+	*/
 
 }

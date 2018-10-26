@@ -266,13 +266,6 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 				}
 			}
 			listZrsprer = myDaoZrsprer.getUsingW1afacW1cifaW1agigW1orgnW1logoW1acnsW1cansW1baddW1bbahW1ebadW1ebahW1cyduW1obolW1estcW1caclW1cposW1retrW1funcANDw1crbaToList(ds,  w1afac, w1cifa, w1agig, w1orgn, w1logo, w1acns, w1cans, w1bbad, w1bbah, w1ebad, w1ebah, w1cydu, w1obol, w1estc, w1cacl, w1cpos, w1retr, w1func, w1crba);
-			//filtroAdicional
-			for (Zrsprer o : listZrsprer) {
-				if (!w1bbad.equals(0) || !w1bbah.equals(0)) {
-					//TODO: Implementar estos filtros
-					
-				}
-			}
 			
 			for (Zrsprer o : listZrsprer) {
 				adapted = new ZRSTONLNAdapter();

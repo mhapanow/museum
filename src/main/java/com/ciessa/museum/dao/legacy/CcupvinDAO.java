@@ -5,15 +5,15 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
 import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Zvrpfrq;
+import com.ciessa.museum.model.legacy.Ccupvin;
 
-public class ZvrpfrqDAO {
-	
-	public Zvrpfrq getUsingTxcfar(DataSet ds, String txcfar) throws ASException	{
+public class CcupvinDAO {
+	public Ccupvin getUsingVirmcnAndVistat(DataSet ds, String virmcn, String vistat) throws ASException	{
 		
 		SessionFactory factory = null;
 		
@@ -28,26 +28,24 @@ public class ZvrpfrqDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Zvrpfrq Where fr1066 = :txcfar ");
-			q.setParameter("txcfar", txcfar);
-			Zvrpfrq o = (Zvrpfrq)q.uniqueResult();
+			Query q = session.createQuery(" FROM CCUPVIN WHERE VIRMCN = :virmcn AND VISTAT = :vistat ");
+			q.setParameter("virmcn", virmcn);
+			q.setParameter("vistat", vistat);
+			Ccupvin o = (Ccupvin)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				//--throw ASExceptionHelper.notFoundException(txcfar);
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
 			
-			session.evict(o);
-			tx.commit();
 			return o;
-				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-			}
-	} // fin public
-	
-} //fin public class
+			}				
+	}
+
+}

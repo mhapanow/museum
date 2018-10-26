@@ -117,6 +117,8 @@
 			resource="com/ciessa/museum/model/legacy/Zrspmir.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Zpcpclr.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspiir.hbm.xml"></mapping>
 			
 	</session-factory>
 

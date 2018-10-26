@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class FUNCIONESBzService {
 	
+	
 	public Boolean ValidarAammdd(String input) {
 		try {
 			if (input.length() != 6) {

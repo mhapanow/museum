@@ -87,8 +87,6 @@ public class Tap002DAO {
 		}
 	}
 	
-	
-	
 	public Tap002 getUsingTipoAndCuenta(DataSet ds, String tipo, String cuenta) throws ASException {
 		SessionFactory factory = null;
 		try {
@@ -126,7 +124,41 @@ public class Tap002DAO {
 		}
 	}
 	
-	
+	public Tap002 getUsingAcctan(DataSet ds, String acctan) throws ASException {
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery(" FROM TAP002 where DMACCT = :acctan");
+			q.setParameter("acctan", acctan);
+			Tap002 o = (Tap002)q.uniqueResult();
+			
+			if( o == null ) {
+				tx.rollback();
+				throw ASExceptionHelper.notFoundException(acctan);
+			}
+			
+			session.evict(o);
+			tx.commit();
+			
+			return o;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
 	
 	
 }

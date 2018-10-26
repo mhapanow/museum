@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.json.JSONObject;
-import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
 import com.ciessa.museum.dao.legacy.DtgpdesDAO;
@@ -25,10 +22,7 @@ import com.ciessa.museum.dao.legacy.ZrspmlrDAO;
 import com.ciessa.museum.dao.legacy.ZrsppirDAO;
 import com.ciessa.museum.dao.legacy.ZrspplrDAO;
 import com.ciessa.museum.dao.legacy.ZvrpfrqDAO;
-import com.ciessa.museum.exception.ASException;
-import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Dtgpdes;
 import com.ciessa.museum.model.legacy.Tgpp632;
 import com.ciessa.museum.model.legacy.Zpcpclr;
@@ -41,7 +35,6 @@ import com.ciessa.museum.model.legacy.Zrsppir;
 import com.ciessa.museum.model.legacy.Zrspplr;
 import com.ciessa.museum.model.legacy.Zrsprer;
 import com.ciessa.museum.model.legacy.Zvrpfrq;
-import com.ciessa.museum.tools.Range;
 
 public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	public static final Logger log = Logger.getLogger(ZRSTEMMVView01BzService.class.getName());
@@ -82,15 +75,15 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	@Autowired
 	ZpcpclrDAO myDAOZpcpclr;
 	
-	List<Dtgpdes> ListDtgpdes = null;
-	List<Tgpp632> ListTgpp632 = null;
-	List<Zrspdmr> ListZrspdmr = null;
-	List<Zrspplr> ListZrspplr = null;
-	List<Zrspilr> ListZrspilr = null;
-	List<Zrsppir> ListZrsppir = null;
-	List<Zrspmlr> ListZrspmlr = null;
-	List<Zrspiir> ListZrspiir = null;
-	List<Zrspmir> ListZrspmir = null;
+	List<Dtgpdes> ListDtgpdes = new ArrayList<Dtgpdes>();
+	List<Tgpp632> ListTgpp632 = new ArrayList<Tgpp632>();
+	List<Zrspdmr> ListZrspdmr = new ArrayList<Zrspdmr>();
+	List<Zrspplr> ListZrspplr = new ArrayList<Zrspplr>();
+	List<Zrspilr> ListZrspilr = new ArrayList<Zrspilr>();
+	List<Zrsppir> ListZrsppir = new ArrayList<Zrsppir>();
+	List<Zrspmlr> ListZrspmlr = new ArrayList<Zrspmlr>();
+	List<Zrspiir> ListZrspiir = new ArrayList<Zrspiir>();
+	List<Zrspmir> ListZrspmir = new ArrayList<Zrspmir>();
 	
 	Zrspmlr ObjZrspmlr = new Zrspmlr();
 	Zrspdmr ObjZrspdmr = new Zrspdmr();
@@ -132,13 +125,13 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	
 	String dwcoac = null;
 	String wwcoac = null;
-	String[] mon = null;
-	String[] moe = null;
+	String[] mon = new String[50]; //NO SE SABE INDICE
+	String[] moe = new String[50]; //NO SE SABE INDICE
 	String[] mta = new String[50]; //50 de 33 posiciones
 	String[] daj = new String[50]; // 50 de 28 posiciones
-	String[] civ = null;
-	String[] liv = null;
-	String[] mos = null;
+	String[] civ = new String[50]; //NO SE SABE INDICE
+	String[] liv = new String[50]; //NO SE SABE INDICE
+	String[] mos = new String[50]; //NO SE SABE INDICE
 	String[] mod = new String[100];//100 elemntos - 10posiciones
 	String[] mov = new String[100];//100 elemntos - 10posiciones
 	
@@ -355,102 +348,27 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	ZRSTEMMVW1MRCH w1mrch = new ZRSTEMMVW1MRCH();
 	ZRSTEMMVWWMRCH wwmrch = new ZRSTEMMVWWMRCH();
 	
-	@Get
-	public String view() {
-		long start = markStart();
-		JSONObject returnValue;
-		try {
-			// validate authToken
-			User user = this.getUserFromToken();
-			DataSet ds = dsDao.get(user.getDefaultDataSet());
-			
-			// get range, if not defined use default value
-			// Range range = this.obtainRange();
-			Range range = null;
-			
-			String mecacl = obtainStringValue("mecacl","");
-			Zrsprer sstmHdr1 = new Zrsprer();
-			//this.sstmhdr.Mecacl = obtainStringValue("mecacl","");
-			sstmHdr1.setMecacl(mecacl);
-			sstmHdr1.setMemlco(new BigDecimal(obtainStringValue("memlco","0")));
-			sstmHdr1.setMetcon(obtainStringValue("metcon",""));
-			sstmHdr1.setMeorg(obtainIntegerValue("meorg",0));
-			sstmHdr1.setMeyfac(obtainIntegerValue("meyfac",0));
-			sstmHdr1.setMeaafc(obtainIntegerValue("meaafc",0));
-			sstmHdr1.setMecifa(obtainStringValue("mecifa",""));
-			sstmHdr1.setMeagig(obtainStringValue("meagig",""));
-			sstmHdr1.setMelogo(obtainIntegerValue("melogo",0));
-			sstmHdr1.setMencct(obtainStringValue("mencct",""));
-			sstmHdr1.setMesafi(new BigDecimal(obtainStringValue("mesafi","0")));
-			
-			String Spos = obtainStringValue("spos", "0");
-			Integer SmaxElem = obtainIntegerValue("smaxelem", 0);
-			String[] Sfmt = null;
-			Integer Sind = obtainIntegerValue("Sind", 0);
-			
-			
-			//SubProcGetstmdet(ds, sstmHdr1,Spos,SmaxElem,Sfmt,Sind);
-			
-			
-			String[] arrayFields = new String[] {
-					"TXFMT",
-					"TXMINI",
-					"TXFILE",
-					"TXLOIN",
-					"TXDESC",
-					"TXIMPO",
-					"TXREFC",
-					"TXMRCH",
-					"TXCORI",
-					"TXCMOV",
-					"TXFMOV",
-					"TXCSMV",
-					"TXCANB",
-					"TXFMOVC",
-					"TXFILE2",
-					"TXMIN",
-					"TXTEFM",
-					"TXNCUO",
-					"TXCACU",
-					"TXIORG",
-					"TXTNOA",
-					"TXNLCC",
-					"TXCFAR",
-					"TXMHAB"
-			};
-			returnValue = getJSONRepresentationFromObject(sfmt,arrayFields);
-			
-			
-		} catch (ASException e) {
-			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
-					|| e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENMISSING_CODE) {
-				log.log(Level.INFO, e.getMessage());
-			} else {
-				log.log(Level.SEVERE, e.getMessage(), e);
-			}
-			returnValue = getJSONRepresentationFromException(e);
-		} catch (Exception e) {
-			log.log(Level.SEVERE, e.getMessage(), e);
-			returnValue = getJSONRepresentationFromException(ASExceptionHelper.defaultException(e.getMessage(), e));
-		} finally {
-			markEnd(start);
-		}
-		return returnValue.toString();
+	public ArrayList<ZRSTEMMVSTRX> getSfmt() {
+		return this.sfmt;
 	}
 	
-	public String SubProcGetstmdet (DataSet ds, Zrsprer SstmHdr, String Spos, Integer SmaxElem, ArrayList Sfmt, Integer Sind  ) {
+	
+	public void SubProcGetstmdet (DataSet ds, Zrsprer SstmHdr, String Spos, Integer SmaxElem, ArrayList<ZRSTEMMVSTRX> Sfmt, Integer Sind  ) {
 		long start = markStart();
 		try {
-			// validate authToken
-			//User user = this.getUserFromToken();
-			//DataSet ds = dsDao.get(user.getDefaultDataSet());
 			
 			//Valores Iniciales
 			
 			this.sstmhdr = SstmHdr;
 			this.spos = Spos;
 			this.smaxelem = SmaxElem;
-			this.sfmt = Sfmt;
+			//--this.sfmt = Sfmt;  //TODO: revisar esta linea
+			this.sfmt.clear();
+			for(int i = 0; i<256; i++) {
+				this.sfmt.add(new ZRSTEMMVSTRX());
+				//Sfmt.add(new ZRSTEMMVSTRX());
+			}
+		
 			this.sind = Sind;
 			
 			this.SubRutAinit(ds);
@@ -460,24 +378,12 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			this.sind = 0;
 			this.ain69=false;
 			this.SubRutApprde(ds, Spos);
-			
-			
-		/*} catch (ASException e) {
-			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
-					|| e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENMISSING_CODE) {
-				log.log(Level.INFO, e.getMessage());
-			} else {
-				log.log(Level.SEVERE, e.getMessage(), e);
-			}*/
-			//returnValue = getJSONRepresentationFromException(e)*;*
+		
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
-			//returnValue = getJSONRepresentationFromException(ASExceptionHelper.defaultException(e.getMessage(), e));
 		} finally {
 			markEnd(start);
 		}
-		
-		return "";
 	}
 	
 	private String SubRutApprde (DataSet ds, String Spos) {
@@ -488,7 +394,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			if (this.sstmhdr.getMecacl() == "c") {
 				this.sslmcm = this.sstmhdr.getMemlco();
 			}
-			if (this.sstmhdr.getMetcon() == "1" || this.sstmhdr.getMetcon() == "3") {
+			if (this.sstmhdr.getMetcon().equals("1") || this.sstmhdr.getMetcon().equals("3")) {
 				this.aaorgn = this.sstmhdr.getMeorg();
 				
 				this.ListZrspplr = myDAOZrspplr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencct(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct());
@@ -631,7 +537,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				
 			}//fin if
 			
-			if (this.sstmhdr.getMetcon() == "2" || this.sstmhdr.getMetcon() == "3") {
+			if (this.sstmhdr.getMetcon().equals("2") || this.sstmhdr.getMetcon().equals("3")) {
 				this.mone = "DOLARES";
 				this.wtctai = this.sstmhdr.getMesafi();
 				this.aaorgn = this.sstmhdr.getMeorg() -1;
@@ -780,8 +686,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 
 	private String SubRutAinit(DataSet ds) {
 		try {
-			this.wtctal = null;
-			this.wtctai = null;
+			this.wtctal = new BigDecimal(0);
+			this.wtctai = new BigDecimal(0);
 			this.sadhoc = null;
 			/*
 			this.wapr16 = this.fqdivr; // TODO.:NO EXISTE
@@ -958,7 +864,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			this.wreflo = "";
 			this.wrefe = "";
 			this.wwdrfn = "";
-			this.wwmrch = null;
+			this.wwmrch = new ZRSTEMMVWWMRCH();
 			this.ain69 = false;
 			if (this.drcori == 2 && this.drcmov == 70) {
 				this.wwdrfn = this.aadrfn;
@@ -1015,6 +921,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			log.log(Level.SEVERE, e.getMessage(), e);
 			return e.getMessage();
 		}
+		this.sqmov = 0;
 		return "";
 	}
 	
@@ -1131,7 +1038,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.wreflo = "";
 						this.wrefe = "";
 						this.wwdrfn = "";
-						this.wwmrch = null;
+						this.wwmrch = new ZRSTEMMVWWMRCH();
 						this.ain69 = false;
 						this.wdeslo = "";
 						this.drcmon = "001";
@@ -1247,7 +1154,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 							this.wreflo = "";
 							this.wrefe = "";
 							this.wwdrfn = "";
-							this.wwmrch = null;
+							this.wwmrch = new ZRSTEMMVWWMRCH();
 							this.ain69 = false;
 							this.wimplo = this.wtmoz1;
 							this.wtctal = this.wtctal.add(this.wtmoz1);
@@ -1268,7 +1175,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.wreflo = "";
 						this.wrefe = "";
 						this.wwdrfn = "";
-						this.wwmrch = null;
+						this.wwmrch = new ZRSTEMMVWWMRCH();
 						this.ain69 = false;
 						this.wimplo = this.wtmoz2;
 						this.wtctal = this.wtctal.add(this.wtmoz2);
@@ -1288,7 +1195,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.wreflo = "";
 						this.wrefe = "";
 						this.wwdrfn = "";
-						this.wwmrch = null;
+						this.wwmrch = new ZRSTEMMVWWMRCH();
 						this.ain69 = false;
 						this.wimplo = this.wtmoz3;
 						this.wtctal = this.wtctal.add(this.wtmoz3);
@@ -1718,7 +1625,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.wreflo = "";
 					this.wrefe = "";
 					this.wwdrfn = "";
-					this.wwmrch = null;
+					this.wwmrch = new ZRSTEMMVWWMRCH();
 					this.ain69 = false;
 					this.wwdrfn = ListZrspmlr.get(indice).getMlxtrf();
 
@@ -2525,7 +2432,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.wreflo = "";
 				this.wrefe = "";
 				this.wwdrfn = "";
-				this.wwmrch = null;
+				this.wwmrch = new ZRSTEMMVWWMRCH();
 				this.wmone = "";
 				this.wreflo = o.getMlncab() + o.getMlnlcc().toString();
 				this.wrefe = this.agrefe;
@@ -2856,7 +2763,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	public String SubRutAizon1(DataSet ds) {
 		try {
 			this.ain75 = false;
-			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "1");
+			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6-1, 15), this.sstmhdr.getMencct().substring(16-1, 19), "1");
 			int indice = 0;
 			int indiceNext = 0;
 			String _mimini = "";
@@ -2866,7 +2773,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			String _mincrd = "";
 			BigDecimal _micrcp = new BigDecimal(0);
 			String _mixtrf = "";
-			while (indice <= ListZrspmir.size()) {
+			while (indice < ListZrspmir.size()) {
 				indiceNext = indice;
 				this.wtmoz1 = BigDecimal.ZERO;
 				this.wtmoz3 = BigDecimal.ZERO;
@@ -2977,7 +2884,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.wreflo = "";
 						this.wrefe = "";
 						this.wwdrfn = "";
-						this.wwmrch = null;
+						this.wwmrch = new ZRSTEMMVWWMRCH();
 						this.ain69 = false;
 						this.wimplo = this.wtmoz1;
 						this.wtctai = this.wtctai.add(this.wtmoz1);
@@ -2995,7 +2902,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.wreflo = "";
 					this.wrefe = "";
 					this.wwdrfn = "";
-					this.wwmrch = null;
+					this.wwmrch = new ZRSTEMMVWWMRCH();
 					this.ain69 = false;
 					this.wimplo = this.wtmoz3;
 					this.whcrcp = this.whcrc3;
@@ -3179,10 +3086,10 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			Integer _mimhab = 0;
 			String _micfar = "";
 			
-			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "2");
+			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6-1, 15), this.sstmhdr.getMencct().substring(16-1, 19), "2");
 			int indice = 0;
 			int indiceNext = 0;					
-			while (indice <= ListZrspmir.size()) {
+			while (indice < ListZrspmir.size()) {
 				indiceNext = indice;
 				this.wtotar = BigDecimal.ZERO;
 				this.micant = "";
@@ -3192,11 +3099,12 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.totdes = BigDecimal.ZERO;        
 				this.desdes = "";        
 				this.ttfecu = 0;
-				while (indice <= ListZrspmlr.size() && ListZrspmir.get(indice).getMincrd().equals(this.aacanb)  ) {
+				while (indice < ListZrspmir.size() && ListZrspmir.get(indice).getMincrd().equals(this.aacanb)) {
 					this.ain75 = false;
 					this.ain74 = false;
 					this.ain73 = false;
 					this.ain71= false;
+					this.mide40 = ListZrspmir.get(indice).getMide40();
 					if (ListZrspmir.get(indice).getMicori() == 0 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 57 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 59 || ListZrspmir.get(indice).getMicori() == 9 && ListZrspmir.get(indice).getMicmov() == 53 || ListZrspmir.get(indice).getMicori() == 24 && ListZrspmir.get(indice).getMicmov() == 57) {
 						buscar$FMT02(1, 56, 9, 56, 9, 58, 9, 52, 24, 56);
 					}
@@ -3212,13 +3120,13 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.wreflo = "";
 					this.wrefe = "";
 					this.wwdrfn = "";
-					this.wwmrch = null;
+					this.wwmrch = new ZRSTEMMVWWMRCH();
 					this.ain69 = false;
 					this.wdeslo = "";
 					this.kyfr00 = "";
 					this.wreflo = this.winca1.toString() + " ";
 					this.wwdrfn = ListZrspmir.get(indice).getMixtrf();
-					w1mrch = null;
+					w1mrch = new ZRSTEMMVW1MRCH();
 					w1mrch.setMIZOES(ListZrspmir.get(indice).getMizoes());
 					w1mrch.setMIRUES(ListZrspmir.get(indice).getMirues());
 					w1mrch.setMICOES(ListZrspmir.get(indice).getMicoes());
@@ -3295,7 +3203,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 							this.wreflo = "";
 							this.wrefe = "";
 							this.wwdrfn = "";
-							this.wwmrch = null;
+							this.wwmrch = new ZRSTEMMVWWMRCH();
 							this.wwdrfn = ListZrspmir.get(indice).getMixtrf();
 							if (w1mrch.getMIZOES() != 0 && w1mrch.getMIRUES() != 0 && w1mrch.getMICOES() != 0 && w1mrch.getMISUES() != 0 && w1mrch.getMIMOES() != 0 && ListZrspmir.get(indice).getMicori() != 6) {
 								wwmrch.setMIZOES(w1mrch.getMIZOES());
@@ -3600,7 +3508,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 							this.desdes = this.mide40;
 							this.ttfecu = Integer.parseInt(this.mifecu);
 						}
-						if (this.ain15 = false) {
+						if (this.ain15.equals(false)) {
 							if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
 								this.fecadd = ListZrspmir.get(indice).getMidcup();
 								this.fecamm = ListZrspmir.get(indice).getMimcup();
@@ -3989,7 +3897,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	private String SubRutAizon3(DataSet ds) {
 		try {
 			this.wiimpo = BigDecimal.ZERO;
-			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "3");
+			ListZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedictAndMimini(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6-1, 15), this.sstmhdr.getMencct().substring(16-1, 19), "3");
 			
 			for ( Zrspmir o : ListZrspmir) {
 				if (o.getMincuo() != 0) {
@@ -4063,7 +3971,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.wreflo = "";
 				this.wrefe = "";
 				this.wwdrfn = "";
-				this.wwmrch = null;
+				this.wwmrch = new ZRSTEMMVWWMRCH();
 				this.wmone = "";
 				this.wreflo = o.getMincab();
 				this.wreflo = o.getMinlcc().toString();
@@ -4379,10 +4287,12 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		String TXMINI = "";
 		String TXFILE = "";
 		String TXLOIN = "";
+		//--String TXDESC = "";
 		String TXDESC = "";
 		BigDecimal TXIMPO = new BigDecimal(0);
 		String TXREFC = "";
 		String TXMRCH = "";
+		//--Integer TXCORI = 0;
 		Integer TXCORI = 0;
 		Integer TXCMOV = 0;
 		Integer TXFMOV = 0;

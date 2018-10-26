@@ -8,6 +8,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+import com.ciessa.museum.bz.legacy.FUNCIONESBzService;
 import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
@@ -15,6 +17,7 @@ import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Zrsprer;
 
 public class ZrsprerDAO {
+	FUNCIONESBzService fc = new FUNCIONESBzService();
 	public Zrsprer getUsingMeorgAndMelogoAndMencctAndMeyfacAndMeaafcAndMecifaAndMeagig(DataSet ds, int meorg, int melogo, String mencct, int meyfac, int meaafc, String mecifa, String meagig) throws ASException	{
 		
 		SessionFactory factory = null;
@@ -34,8 +37,8 @@ public class ZrsprerDAO {
 			q.setParameter("meorg", meorg);
 			q.setParameter("melogo", melogo);
 			q.setParameter("mencct", mencct);
-			q.setParameter("meyfac", meyfac);
-			q.setParameter("meaafc", meaafc);
+			q.setParameter("meyfac", meyfac); //--meyfac)  20;
+			q.setParameter("meaafc", meaafc); //--meaafc)  11;
 			q.setParameter("mecifa", mecifa);
 			q.setParameter("meagig", meagig);
 			Zrsprer o = (Zrsprer)q.uniqueResult();
@@ -59,7 +62,7 @@ public class ZrsprerDAO {
 	} // fin public
 	
 	
-	public List<Zrsprer> getUsingW1afacW1cifaW1agigW1orgnW1logoW1acnsW1cansW1baddW1bbahW1ebadW1ebahW1cyduW1obolW1estcW1caclW1cposW1retrW1funcANDw1crbaToList(DataSet ds, int w1afac, int w1cifa, int w1agig, int w1orgn, int w1logo, String w1acns, String w1cans, BigDecimal w1badd, BigDecimal w1bbah, BigDecimal w1ebad, BigDecimal w1ebah, String w1cydu, String w1obol, String w1estc, String w1cacl, String w1cpos, String w1retr, String w1func, String w1crba) throws ASException {
+	public List<Zrsprer> getUsingW1afacW1cifaW1agigW1orgnW1logoW1acnsW1cansW1baddW1bbahW1ebadW1ebahW1cyduW1obolW1estcW1caclW1cposW1retrW1funcANDw1crbaToList(DataSet ds, int w1afac, int w1cifa, int w1agig, int w1orgn, int w1logo, String w1acns, String w1cans, BigDecimal w1bbad, BigDecimal w1bbah, BigDecimal w1ebad, BigDecimal w1ebah, String w1cydu, String w1obol, String w1estc, String w1cacl, String w1cpos, String w1retr, String w1func, String w1crba) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -90,19 +93,13 @@ public class ZrsprerDAO {
 				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " mencct = '"+ w1acns +"'";
 			if(!(w1cans).equals(""))
 				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " mencrd = '"+ w1cans+"'";
-			
-			
-			
-			//TODO: Revisar estas condiciones
-			/*
-			 * si w1badd <> 0 o w1bbah <> 0
-			 * 		W1BBAD <= MESAFL + (MESAFI “, null); MEOCRT) <= W1BBAH
-			 * Fin si
-			 * 
-			 * si w1ebad <> 0 o w1ebah <> 0
-			 * 		W1EBAD <= MEENBA + (MEENBU “, null); MEOCRT) <= W1EBAH
-			 * Fin si
-			 * */
+
+			if (fc.BigDecimalComparar(w1bbad.toString(), "0", "!=") || fc.BigDecimalComparar(w1bbah.toString(), "0", "!=")) {
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) +  " MESAFL + (MESAFI * MEOCRT) BETWEEN "+ w1bbad +" AND " + w1bbah;
+			}
+			if (fc.BigDecimalComparar(w1ebad.toString(), "0", "!=") || fc.BigDecimalComparar(w1ebah.toString(), "0", "!=")) {
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) +  " MEENBA + (MEENBU * MEOCRT) BETWEEN "+ w1ebad +" AND " + w1ebah;
+			}
 			
 			if (!w1cydu.equals(""))
 				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) +  " mecydu = "+ w1cydu;
