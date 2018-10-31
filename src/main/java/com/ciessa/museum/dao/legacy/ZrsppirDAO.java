@@ -31,7 +31,7 @@ public class ZrsppirDAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrsppir Where TIYFAC = :meyfac And TIAAFC = :meaafc And TICIFA = :mecifa And TIAGIG = :meagig And TIORG = :aaorgn And TILOGO = :melogo And TINCCT = :mencct ORDER BY TIYFAC, TIAAFC, TICIFA, TIAGIG, TIORG, TILOGO, TINCCT, TIUBIR, TICRCC, TICRAA, TICRMM, TICRDD, TINSEM ");
+			sb.append(" FROM Zrsppir WHERE tiyfac = :meyfac And tiaafc = :meaafc And ticifa = :mecifa And tiagig = :meagig And tiorg = :aaorgn And tilogo = :melogo And tincct = :mencct ORDER BY tiyfac, tiaafc, ticifa, tiagig, tiorg, tilogo, tincct, tiubir, ticrcc, ticraa, ticrmm, ticrdd, tinsem ");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("meyfac", meyfac);

@@ -28,7 +28,7 @@ public Zpcpclr getUsingSsclo(DataSet ds, Integer ssclco) throws ASException	{
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from ZPCPCLR Where CLCO = :ssclco ");
+			Query q = session.createQuery(" FROM Zpcpclr WHERE clco = :ssclco ");
 			q.setParameter("ssclco", ssclco);
 			Zpcpclr o = (Zpcpclr)q.uniqueResult();
 			

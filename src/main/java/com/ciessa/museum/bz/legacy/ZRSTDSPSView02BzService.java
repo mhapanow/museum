@@ -1,6 +1,7 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -134,7 +135,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView02BzService.class.
 			sstmhdr.setDSLOGO(obtainIntegerValue("dslogo", 0));
 			sstmhdr.setDSCUENTA(obtainStringValue("dscuenta", ""));
 			sstmhdr.setDSTITULAR(obtainStringValue("dstitular", ""));
-
+			
 			String rpta = SubProcDspstm(ds);
 			if (!rpta.equals(""))
 			{
@@ -178,10 +179,10 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView02BzService.class.
 			returnValue.put("MEBICYD",this.mebicyd);
 			returnValue.put("MECOCOD",this.mecocod);
 			returnValue.put("MECOVED",this.mecoved);
-			returnValue.put("MEFECIED",this.mefecied);
-			returnValue.put("MEFEVTOD",this.mefevtod);
-			returnValue.put("MEFEPCIED",this.mefepcied);
-			returnValue.put("MEFEPVTOD",this.mefepvtod);
+			returnValue.put("MEFECIED",new SimpleDateFormat("dd/MM/yy").format(this.mefecied));
+			returnValue.put("MEFEVTOD",new SimpleDateFormat("dd/MM/yy").format(this.mefevtod));
+			returnValue.put("MEFEPCIED",new SimpleDateFormat("dd/MM/yy").format(this.mefepcied));
+			returnValue.put("MEFEPVTOD",new SimpleDateFormat("dd/MM/yy").format(this.mefepvtod));
 			
 		} catch (ASException e) {
 			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
@@ -303,12 +304,14 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView02BzService.class.
 					}//fin if
 					if (this.sqtarji != 0 && (!this.scanbi.equals(this.smov.getTXCANB()) || !this.smov.getTXMINI().equals("2"))) {
 						adapter = new ZRSTDSPSAdapter();
-						adapter.setW2desci("TOTAL CARGOS TARJETA " + this.scanbi.substring(16,20));
-						adapter.setW2desc("TOTAL CARGOS TARJETA " + this.scanbi.substring(16,20));
+						adapter.setW2desci("TOTAL CARGOS TARJETA " + this.scanbi.substring(16-1,20-1));
+						adapter.setW2desc("TOTAL CARGOS TARJETA " + this.scanbi.substring(16-1,20-1));
 						adapter.setW2pais("");
 						adapter.setW2mone("");
 						adapter.setW2iorg(BigDecimal.ZERO);
 						adapter.setW2amnt(this.stottarji);
+						this.stottarji = BigDecimal.ZERO;
+						this.sqtarji = 0;
 						adapter.setW2refc("");
 						adapter.setW2mrch("");
 						this.scanbi = this.smov.getTXCANB();
@@ -334,7 +337,8 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView02BzService.class.
 					adapter.setW2iorg(this.smov.getTXIORG());
 					adapter.setW2amnt(this.smov.getTXIMPO());
 					adapter.setW2refc(this.smov.getTXREFC());
-					adapter.setW2tarj(this.smov.getTXCANB().substring(16-1, 20-1));
+					if (!this.smov.getTXCANB().equals(""))
+						adapter.setW2tarj(this.smov.getTXCANB().substring(16-1, 20-1));
 					adapter.setW2fmov(this.smov.getTXFMOV());
 					adapter.setW2tefm(this.smov.getTXTEFM());
 					adapter.setW2tnoa(this.smov.getTXTNOA());
@@ -358,11 +362,11 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView02BzService.class.
 					adapter.setW2mone("");
 					adapter.setW2iorg(BigDecimal.ZERO);
 					adapter.setW2amnt(this.stottarji);
+					this.stottarji = BigDecimal.ZERO;
+					this.sqtarji = 0;
 					adapter.setW2refc("");
 					adapter.setW2mrch("");
 					list.add(adapter);
-					this.stottarji = BigDecimal.ZERO;
-					this.sqtarji = 0;
 				}
 				adapter = new ZRSTDSPSAdapter();
 				adapter.setW2desci(" SALDOS TOTALES DOLARES");

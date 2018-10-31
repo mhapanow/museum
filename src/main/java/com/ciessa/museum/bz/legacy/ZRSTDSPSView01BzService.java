@@ -309,8 +309,10 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 					}
 					if (this.sqtarjl != 0 && (!this.scanbl.equals(this.smov.getTXCANB()) || !this.smov.getTXMINI().equals("2"))) {//this.sqtarjl  != 0 &&
 						adapter = new ZRSTDSPSAdapter();
-						adapter.setW1desc("TOTAL CARGOS TARJETA " + this.scanbl.substring(16, 20)); 
+						adapter.setW1desc("TOTAL CARGOS TARJETA " + this.scanbl.substring(16-1, 20-1)); 
 						adapter.setW1amnt(this.stottarjl);
+						this.stottarjl = BigDecimal.ZERO;
+						this.sqtarjl = 0;
 						adapter.setW1refc("");
 						adapter.setW1mrch("");
 						this.scanbl = this.smov.getTXCANB();
@@ -339,8 +341,10 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			if (this.smonl) {
 				if (this.sqtarjl != 0) {
 					adapter = new ZRSTDSPSAdapter();
-					adapter.setW1desc(" TOTAL CARGOS TARJETA " + this.scanbl.substring(16, 20));
+					adapter.setW1desc(" TOTAL CARGOS TARJETA " + this.scanbl.substring(16-1, 20-1));
 					adapter.setW1amnt(this.stottarjl);
+					this.stottarjl = BigDecimal.ZERO;
+					this.sqtarjl = 0;
 					adapter.setW1refc("");
 					adapter.setW1mrch("");
 					list.add(adapter);

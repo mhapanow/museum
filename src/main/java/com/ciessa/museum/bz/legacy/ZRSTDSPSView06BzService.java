@@ -255,7 +255,7 @@ public class ZRSTDSPSView06BzService extends RestBaseServerResource {
 			
 			for (int i = 0; i < 20; i++) {
 				msmgcd = smsgvrs.substring(1-1, 2-1); // (i)
-				sauxchar = smsgvrs.substring(1-3, 4-1); // (i)
+				sauxchar = smsgvrs.substring(3-1, 4-1); // (i)
 				if ( msmgcd != "" && StringUtils.isNumeric(sauxchar) ) {
 					msvrsn = auxdec; // TODO auxdec
 					String rpta = SubRutSscicloppal(ds);

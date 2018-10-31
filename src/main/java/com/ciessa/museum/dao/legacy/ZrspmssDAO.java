@@ -27,7 +27,7 @@ public class ZrspmssDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Zrspmss Where  Msyfac = :msyfac And Msaafc = :msaafc And Mscifa = :mscifa And Msccyc = :msccyc And Msorg = :msorg And Mslogo = :mslogo And Msmgcd = :msmgcd And Msvrsn = :msvrsn");
+			Query q = session.createQuery(" FROM Zrspmss WHERE msyfac = :msyfac And msaafc = :msaafc And mscifa = :mscifa And msccyc = :msccyc And msorg = :msorg And mslogo = :mslogo And msmgcd = :msmgcd And msvrsn = :msvrsn ");
 			q.setParameter("msyfac", msyfac);
 			q.setParameter("msaafc", msaafc);
 			q.setParameter("mscifa", mscifa);

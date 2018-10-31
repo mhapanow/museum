@@ -30,7 +30,7 @@ public class ZrspiirDAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrspiir Where IIYFAC = :meyfac AND IIAAFC = :meaafc AND IICIFA = :mecifa AND IIAGIG = :meagig AND IIORG = :aaorgn AND IILOGO = :melogo AND IINCCT = :mencct ");
+			sb.append(" FROM Zrspiir WHERE iiyfac = :meyfac AND iiaafc = :meaafc AND iicifa = :mecifa AND iiagig = :meagig AND iiorg = :aaorgn AND iilogo = :melogo AND iincct = :mencct ");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("meyfac", meyfac);

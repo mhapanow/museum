@@ -31,7 +31,7 @@ public class DtgpdesDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Dtgpdes where DSCOCA ='038' and DSCOAC = :ctstco ");
+			Query q = session.createQuery(" from Dtgpdes where dscoca ='038' and dscoac = :ctstco ");
 			q.setParameter("ctstco", ctstco);
 			Dtgpdes o = (Dtgpdes)q.uniqueResult();
 			
@@ -108,7 +108,7 @@ public class DtgpdesDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Dtgpdes where DSCOCA = :dscoca ");
+			Query q = session.createQuery(" from Dtgpdes where dscoca = :dscoca ");
 			q.setParameter("dscoca", dscoca);
 			
 			@SuppressWarnings("unchecked")

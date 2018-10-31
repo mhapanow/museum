@@ -30,7 +30,7 @@ SessionFactory factory = null;
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrspilr Where ILYFAC = :meyfac AND ILAAFC = :meaafc AND ILCIFA = :mecifa AND ILAGIG = :meagig AND ILORG = :aaorgn AND ILLOGO = :melogo AND ILNCCT = :mencct ");
+			sb.append(" FROM Zrspilr WHERE ilyfac = :meyfac AND ilaafc = :meaafc AND ilcifa = :mecifa AND ilagig = :meagig AND ilorg = :aaorgn AND illogo = :melogo AND ilncct = :mencct ");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("meyfac", meyfac);

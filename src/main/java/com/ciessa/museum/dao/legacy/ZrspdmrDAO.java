@@ -30,7 +30,7 @@ public class ZrspdmrDAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrspdmr Where DRMMDT = 'T' ");
+			sb.append(" FROM Zrspdmr Where drmmdt = 'T' ");
 			
 			Query q = session.createQuery(sb.toString());
 			
@@ -68,11 +68,11 @@ public class ZrspdmrDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Zrspdmr WHERE DRCMON = :drcmon AND DRCORI = :drcori AND DRCMOV = :drcmov AND DRCSMV = :drcsmv ");
-			q.setParameter("DRCMON", drcmon);
-			q.setParameter("DRCORI", drcori);
-			q.setParameter("DRCMOV", drcmov);
-			q.setParameter("DRCSMV", drcsmv);
+			Query q = session.createQuery(" from Zrspdmr WHERE drcmon = :drcmon AND drcori = :drcori AND drcmov = :drcmov AND drcsmv = :drcsmv ");
+			q.setParameter("drcmon", drcmon);
+			q.setParameter("drcori", drcori);
+			q.setParameter("drcmov", drcmov);
+			q.setParameter("drcsmv", drcsmv);
 			Zrspdmr o = (Zrspdmr)q.uniqueResult();
 			
 			if( o != null ) {

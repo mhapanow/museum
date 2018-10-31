@@ -27,7 +27,7 @@ public class Tap003DAO {
 
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Tap003 where DSACCT  = :dmacct and DSSTAT  != 'D' AND DSTYPE  = '1' ");
+			Query q = session.createQuery("FROM Tap003 WHERE dsacct  = :dmacct and dsstat  != 'D' AND dstype  = '1' ");
 			q.setParameter("dmacct", dmacct);
 			Tap003 o = (Tap003)q.uniqueResult();
 			

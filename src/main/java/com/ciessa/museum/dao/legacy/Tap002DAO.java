@@ -138,7 +138,7 @@ public class Tap002DAO {
 
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM TAP002 where DMACCT = :acctan");
+			Query q = session.createQuery(" FROM TAP002 WHERE Dmacct = :acctan");
 			q.setParameter("acctan", acctan);
 			Tap002 o = (Tap002)q.uniqueResult();
 			

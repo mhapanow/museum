@@ -28,7 +28,7 @@ public class InsprefDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM INSPREF WHERE BKGNTY = :bkgnty AND BKGNCD = :bkgncd ");
+			Query q = session.createQuery(" FROM Inspref WHERE bkgnty = :bkgnty AND bkgncd = :bkgncd ");
 			q.setParameter("bkgnty", bkgnty);
 			q.setParameter("bkgncd", bkgncd);
 			Inspref o = (Inspref)q.uniqueResult();

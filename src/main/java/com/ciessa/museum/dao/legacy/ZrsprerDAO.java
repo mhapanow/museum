@@ -17,7 +17,7 @@ import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Zrsprer;
 
 public class ZrsprerDAO {
-	FUNCIONESBzService fc = new FUNCIONESBzService();
+	
 	public Zrsprer getUsingMeorgAndMelogoAndMencctAndMeyfacAndMeaafcAndMecifaAndMeagig(DataSet ds, int meorg, int melogo, String mencct, int meyfac, int meaafc, String mecifa, String meagig) throws ASException	{
 		
 		SessionFactory factory = null;
@@ -33,7 +33,7 @@ public class ZrsprerDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Zrsprer Where Meorg = :meorg And Melogo = :melogo And Mencct = :mencct And Meyfac = :meyfac And Meaafc = :meaafc And Mecifa = :mecifa And Meagig = :meagig ");
+			Query q = session.createQuery(" FROM Zrsprer WHERE meorg = :meorg and melogo = :melogo and mencct = :mencct and meyfac = :meyfac and meaafc = :meaafc and mecifa = :mecifa and meagig = :meagig ");
 			q.setParameter("meorg", meorg);
 			q.setParameter("melogo", melogo);
 			q.setParameter("mencct", mencct);
@@ -64,6 +64,7 @@ public class ZrsprerDAO {
 	
 	public List<Zrsprer> getUsingW1afacW1cifaW1agigW1orgnW1logoW1acnsW1cansW1baddW1bbahW1ebadW1ebahW1cyduW1obolW1estcW1caclW1cposW1retrW1funcANDw1crbaToList(DataSet ds, int w1afac, int w1cifa, int w1agig, int w1orgn, int w1logo, String w1acns, String w1cans, BigDecimal w1bbad, BigDecimal w1bbah, BigDecimal w1ebad, BigDecimal w1ebah, String w1cydu, String w1obol, String w1estc, String w1cacl, String w1cpos, String w1retr, String w1func, String w1crba) throws ASException {
 		SessionFactory factory = null;
+		FUNCIONESBzService fc = new FUNCIONESBzService();
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -95,10 +96,10 @@ public class ZrsprerDAO {
 				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) + " mencrd = '"+ w1cans+"'";
 
 			if (fc.BigDecimalComparar(w1bbad.toString(), "0", "!=") || fc.BigDecimalComparar(w1bbah.toString(), "0", "!=")) {
-				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) +  " MESAFL + (MESAFI * MEOCRT) BETWEEN "+ w1bbad +" AND " + w1bbah;
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) +  " mesafl + (mesafi * meocrt) BETWEEN "+ w1bbad +" AND " + w1bbah;
 			}
 			if (fc.BigDecimalComparar(w1ebad.toString(), "0", "!=") || fc.BigDecimalComparar(w1ebah.toString(), "0", "!=")) {
-				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) +  " MEENBA + (MEENBU * MEOCRT) BETWEEN "+ w1ebad +" AND " + w1ebah;
+				queryFilter += (queryFilter.equals("") == false ? " AND " : "" ) +  " meenba + (meenbu * meocrt) BETWEEN "+ w1ebad +" AND " + w1ebah;
 			}
 			
 			if (!w1cydu.equals(""))

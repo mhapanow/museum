@@ -241,8 +241,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	Boolean ain74 = false;
 	Boolean ain75 = false;
 	Boolean ain79 = false;
-	String[] wt1 = null; // 10 elementos
-	String[] wh1 = null; // 10 elementos entero
+	BigDecimal[] wt1 = null; // 10 elementos
+	Integer[] wh1 = null; // 10 elementos entero
 	String[] wc1 = null; // 10 elemento string
 	String digant = "";
 	String mxmota = "";
@@ -377,6 +377,9 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			//this.scabecera = SstmHdr;
 			this.sind = 0;
 			this.ain69=false;
+			this.adpg = "";
+			for (int i = 0; i< this.sindl.length; i++) this.sindl[i] = false;
+			
 			this.SubRutApprde(ds, Spos);
 		
 		} catch (Exception e) {
@@ -391,7 +394,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			this.wconfi = this.sstmhdr.getMecacl();
 			this.mone = "pesos ";
 			this.sposic = Spos;
-			if (this.sstmhdr.getMecacl() == "c") {
+			if (this.sstmhdr.getMecacl().equals("C")) {
 				this.sslmcm = this.sstmhdr.getMemlco();
 			}
 			if (this.sstmhdr.getMetcon().equals("1") || this.sstmhdr.getMetcon().equals("3")) {
@@ -465,7 +468,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					} else {
 						this.aadrfn = o.getTlxtrf();
 
-						lxrefp = null;
+						lxrefp = new ZRSTEMMVLXREFP();
 						lxrefp.setTLNPTR("000");
 						lxrefp.setTLNCAX(o.getTlncax());
 						lxrefp.setTLCRDD(o.getTlcrdd());
@@ -517,7 +520,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				
 				this.aaorgn = this.sstmhdr.getMeorg();
 				
-				ObjZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencct(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct());
+				List<Zrspmlr> lstZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencct(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct());
+				if (lstZrspmlr.size() > 0) ObjZrspmlr = lstZrspmlr.get(lstZrspmlr.size()-1);
 				
 				if (ObjZrspmlr != null) {					
 					SubRutAlzon1(ds);
@@ -607,7 +611,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						
 						this.aadrfn = o.getTixtrf();
 						
-						this.lxrefp = null;
+						this.lxrefp = new ZRSTEMMVLXREFP();
 						lxrefp.setTINPTR("000");
 						lxrefp.setTINCAX(o.getTincax());
 						lxrefp.setTICRDD(o.getTicrdd());
@@ -659,7 +663,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				}
 				this.aaorgn = this.sstmhdr.getMeorg() -1;
 
-				ObjZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencct(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct());
+				List<Zrspmir> lstZrspmir = myDAOZrspmir.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencct(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct());
+				if (lstZrspmir.size() > 0) ObjZrspmir = lstZrspmir.get(lstZrspmir.size()-1);
 				
 				if (ObjZrspmir != null) {
 					SubRutAizon1(ds);
@@ -719,8 +724,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			this.y = 0;
 			ListDtgpdes = myDAODtgpdes.getUsingDscoca(ds, this.dscoca.toString());
 			for(Dtgpdes o : ListDtgpdes) {
-				if (o.getDstreg() == "6") {
-					if (o.getDscoac() == "413" || o.getDscoac() == "414") {
+				if (o.getDstreg().equals("6") ) {
+					if (o.getDscoac().equals("413") || o.getDscoac().equals("414")) {
 						y = y + 1;
 						this.mta[y] = o.getDscoac();
 						this.daj[y] = o.getDsds02();
@@ -996,7 +1001,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	
 	private String SubRutAlzon1(DataSet ds) {
 		try {
-			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "1"); 
+			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6-1, 15), this.sstmhdr.getMencct().substring(16-1, 19), "1"); 
 			
 			if (ListZrspmlr != null && ListZrspmlr.size() > 0) {
 				this.ain73 = false;
@@ -1017,23 +1022,23 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				
 				int indice = 0;
 				int indiceNext = 0;			
-				while (indice <= ListZrspmlr.size()) {
+				while (indice < ListZrspmlr.size()) {
 					indiceNext = indice;
 					this.wsttem = new BigDecimal(0);
 					this.wlimpo = new BigDecimal(0);
 					this.wtmoz1 = new BigDecimal(0);
 					this.wtmoz2 = new BigDecimal(0);
 					this.wtmoz3 = new BigDecimal(0);
-					this.wt1[0] = "0";
-					this.wh1[0] = "0";
-					this.wc1[0] = "0";
-					String mldita = ListZrspmlr.get(indice).getMlncrd().substring(16, 18);
+					this.wt1 = new BigDecimal[10];for (int i = 0; i< this.wt1.length; i++) this.wt1[i] = new BigDecimal(0); 
+					this.wh1 = new Integer[10]; for (int i = 0; i< this.wh1.length; i++) this.wh1[i] = 0;
+					this.wc1 = new String[10]; for (int i = 0; i< this.wc1.length; i++) this.wc1[i] = "";
+					String mldita = ListZrspmlr.get(indice).getMlncrd().substring(16-1, 18);
 					this.digant = mldita; //Mldita(); 
-					this.mxmota = ListZrspmlr.get(indice).getMlncrd().substring(19, 19); //Mlmota(); 
+					this.mxmota = ListZrspmlr.get(indice).getMlncrd().substring(19-1, 19); //Mlmota(); 
 					this.ordant = ListZrspmlr.get(indice).getMlubir();
 					this.aacanb = ListZrspmlr.get(indice).getMlncrd();
 					
-					while (indice <= ListZrspmlr.size() && mldita.equals(this.digant) && ListZrspmlr.get(indice).getMlubir().equals(this.ordant)  ) {
+					while (indice < ListZrspmlr.size() && mldita.equals(this.digant) && ListZrspmlr.get(indice).getMlubir().equals(this.ordant)  ) {
 						this.soldmlr = this.sactml;
 						this.wreflo = "";
 						this.wrefe = "";
@@ -1045,6 +1050,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.drcori = ListZrspmlr.get(indice).getMlcori();
 						this.drcmov = ListZrspmlr.get(indice).getMlcmov();
 						this.drcsmv = ListZrspmlr.get(indice).getMlcsmv();
+						this.mlde40 = ListZrspmlr.get(indice).getMlde40();
 						
 						if (Arrays.asList(mos).contains(this.wclmov)) {
 							if ( ListZrspmlr.get(indice).getMlcsmv() >= 90) {
@@ -1080,8 +1086,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 											else
 												this.z1 = 8;
 											
-											this.wt1[this.z1] = (new BigDecimal(wt1[this.z1]).add(ListZrspmlr.get(indice).getMlimpo())).toString();
-											this.wh1[this.z1] = (new BigDecimal(wh1[this.z1]).add(ListZrspmlr.get(indice).getMlcrcp())).toString();
+											this.wt1[this.z1] = (wt1[this.z1].add(ListZrspmlr.get(indice).getMlimpo()));
+											this.wh1[this.z1] = wh1[this.z1] + ListZrspmlr.get(indice).getMlcrcp().intValue();
 											this.wc1[this.z1] = this.wclmov;
 										}
 									}
@@ -1127,7 +1133,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 									this.ws6d16 = this.ws6d16.add(ListZrspmlr.get(indice).getMlimpo());
 								}
 							}else {
-								if (this.wdeslo == "") {
+								if (this.wdeslo.equals("")) {
 									this.wdeslo = this.mlde40;
 								}
 								this.mamini = "1";
@@ -1147,7 +1153,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						indice +=1;
 					}//FIN 1er while
 					for (int z1 = 1; z1 < 10; z1++) {
-						this.wtmoz1 = new BigDecimal(this.wt1[z1]);
+						this.wtmoz1 = this.wt1[z1];
 						this.whcrcp = new BigDecimal(this.wh1[z1]);
 						this.wclmo1 = this.wc1[z1];
 						if ( fc.BigDecimalComparar(this.wtmoz1.toString(), "0", "!=")) {
@@ -1237,7 +1243,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		try {
 			strx = new ZRSTEMMVSTRX();
 			strx.setTXFMT("DELO04");
-			this.sindl = new Boolean[5];
+			for (int i = 0; i< this.sindl.length; i++) this.sindl[i] = false;
 			sindl[2] = this.ain73;
 			sindl[3] = this.ain74;
 			sindl[4] = this.ain75;
@@ -1289,7 +1295,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 		try {
 			strx = new ZRSTEMMVSTRX();
 			strx.setTXFMT("DELO04");
-			this.sindl = new Boolean[5];
+			for (int i = 0; i< this.sindl.length; i++) this.sindl[i] = false;
 			sindl[2] = this.ain73;
 			sindl[3] = this.ain74;
 			sindl[4] = this.ain75;
@@ -1590,10 +1596,10 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			Integer _mlncuo = 0;
 			Integer _mlcacu = 0;
 			
-			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "2");
+			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6-1, 15), this.sstmhdr.getMencct().substring(16-1, 19), "2");
 			int indice = 0;
 			int indiceNext = 0;
-			while (indice <= ListZrspmlr.size()) {
+			while (indice < ListZrspmlr.size()) {
 				indiceNext = indice;
 				this.ad81 = "";
 				this.ad82 = "";
@@ -1606,10 +1612,11 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.digant = mldita; //Mldita();
 				this.mxmota = ListZrspmlr.get(indice).getMlncrd().substring(19, 19);
 				this.aacanb = ListZrspmlr.get(indice).getMlncrd();
-				while (indice <= ListZrspmlr.size() && mldita.equals(this.digant) && ListZrspmlr.get(indice).getMlncrd().equals(this.aacanb)  ) {
+				while (indice < ListZrspmlr.size() && mldita.equals(this.digant) && ListZrspmlr.get(indice).getMlncrd().equals(this.aacanb)  ) {
 					this.ain73 = false;
 					this.ain74 = false;
 					this.ain75 = false;
+					this.mlde40 = ListZrspmlr.get(indice).getMlde40();
 					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 37 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 37 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 39 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 23 || ListZrspmlr.get(indice).getMlcori() == 24 && ListZrspmlr.get(indice).getMlcmov() == 37) {
 						buscar$FMT02(1, 36, 9, 36, 9, 22, 9, 38, 24, 36);
 					}
@@ -1619,7 +1626,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.aancuo = ListZrspmlr.get(indice).getMlncuo();
 						this.aacacu = ListZrspmlr.get(indice).getMlcacu();
 						this.aama12 = this.aama12 + " " + this.aancuo + "/" + this.aacacu;
-						this.mlde40 = this.aama12;
+						this.mlde40 += this.aama12;
 					}
 					this.ain15 = false;
 					this.wreflo = "";
@@ -1629,7 +1636,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					this.ain69 = false;
 					this.wwdrfn = ListZrspmlr.get(indice).getMlxtrf();
 
-					w1mrch = null;
+					w1mrch = new ZRSTEMMVW1MRCH();
 					w1mrch.setMLZOES(ListZrspmlr.get(indice).getMlzoes());
 					w1mrch.setMLRUES(ListZrspmlr.get(indice).getMlrues());
 					w1mrch.setMLCOES(ListZrspmlr.get(indice).getMlcoes());
@@ -1824,7 +1831,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 						this.ain15 = true;
 						if (!sstmhdr.getMecacl().equals("B")) {
 							this.totcu2 = ListZrspmlr.get(indice).getMlimpo();
-							this.w1desc = ListZrspmlr.get(indice).getMlde40();
+							this.w1desc = this.mlde40;
 							this.w1ncuo = ListZrspmlr.get(indice).getMlncuo();
 							this.w1cacu = ListZrspmlr.get(indice).getMlcacu();
 							this.ain15 = true;
@@ -1854,7 +1861,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					}
 					if (ListZrspmlr.get(indice).getMlcori() == 1 && ListZrspmlr.get(indice).getMlcmov() == 37 || ListZrspmlr.get(indice).getMlcori() == 9 && ListZrspmlr.get(indice).getMlcmov() == 37 || ListZrspmlr.get(indice).getMlcori() == 24 && ListZrspmlr.get(indice).getMlcmov() == 37) {
 						if (this.w1desc.equals("")) {
-							this.w1desc = ListZrspmlr.get(indice).getMlde40();
+							this.w1desc = this.mlde40;
 						}
 						this.wtotar = this.wtotar.add(ListZrspmlr.get(indice).getMlimpo());
 						this.totcu2 = this.totcu2.add(ListZrspmlr.get(indice).getMlimpo());
@@ -2202,7 +2209,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("2");
 			strx.setTXFILE("M");
 			strx.setTXLOIN("L");
-			this.sindl = new Boolean[5];
+			for (int i = 0; i< this.sindl.length; i++) this.sindl[i] = false;
 			sindl[2] = this.ain73;
 			sindl[3] = this.ain74;
 			SubRutSgetfmtnbr(ds);
@@ -2356,7 +2363,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 	private String SubRutAlzon3(DataSet ds) {
 		try {
 			this.wlimpo = BigDecimal.ZERO;
-			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6, 15), this.sstmhdr.getMencct().substring(16, 19), "3");
+			ListZrspmlr = myDAOZrspmlr.getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencctAndMeractAndMedict(ds, this.sstmhdr.getMeyfac().toString(), this.sstmhdr.getMeaafc().toString(), this.sstmhdr.getMecifa(), this.sstmhdr.getMeagig(), this.aaorgn.toString(), this.sstmhdr.getMelogo().toString(), this.sstmhdr.getMencct(), this.sstmhdr.getMencct().substring(6-1, 15), this.sstmhdr.getMencct().substring(16-1, 19), "3");
 			for (Zrspmlr o : ListZrspmlr) {
 				if (o.getMlcori() == 24 && o.getMlcmov() == 39 || o.getMlcori() == 9 && o.getMlcmov() == 39 ) {
 					buscar$FMT03(24, 38, 9, 38);
@@ -2438,7 +2445,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.wrefe = this.agrefe;
 				this.wwdrfn = o.getMlxtrf();
 
-				w1mrch = null;
+				w1mrch = new ZRSTEMMVW1MRCH();
 				w1mrch.setMLZOES(o.getMlzoes());
 				w1mrch.setMLRUES(o.getMlrues());
 				w1mrch.setMLCOES(o.getMlcoes());
@@ -2619,7 +2626,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("3");
 			strx.setTXFILE("M");
 			strx.setTXLOIN("L");
-			this.sindl = new Boolean[5];
+			for (int i = 0; i< this.sindl.length; i++) this.sindl[i] = false;
 			sindl[2] = this.ain73;
 			sindl[3] = this.ain74;
 			SubRutSgetfmtnbr(ds);
@@ -2785,7 +2792,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.ordant = ListZrspmir.get(indice).getMiubir();
 				this.aacanb = ListZrspmir.get(indice).getMincrd();
 				this.wsttem = BigDecimal.ZERO;
-				while (indice <= ListZrspmir.size() && midita.equals(this.digant) && ListZrspmir.get(indice).getMiubir().equals(this.ordant) && ListZrspmir.get(indice).getMincrd().equals(this.aacanb)  ) {  
+				while (indice < ListZrspmir.size() && midita.equals(this.digant) && ListZrspmir.get(indice).getMiubir().equals(this.ordant) && ListZrspmir.get(indice).getMincrd().equals(this.aacanb)  ) {  
 					this.soldmir = this.sactmi;
 					this.wreflo = "";
 					this.wrefe = "";
@@ -2825,8 +2832,8 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 									else
 										this.z1 = 8;
 									
-									this.wt1[this.z1] = (new BigDecimal(wt1[this.z1]).add(ListZrspmir.get(indice).getMiimpo())).toString();
-									this.wh1[this.z1] = (new BigDecimal(wh1[this.z1]).add(ListZrspmir.get(indice).getMicrcp())).toString();
+									this.wt1[this.z1] = (wt1[this.z1].add(ListZrspmir.get(indice).getMiimpo()));
+									this.wh1[this.z1] = wh1[this.z1] + ListZrspmir.get(indice).getMicrcp().intValue();
 									this.wc1[this.z1] = this.wclmov;
 								}
 							}
@@ -2877,7 +2884,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 					indice +=1;
 				} //FIN 1er WHILE
 				for (int z1 = 1; z1 < 10; z1++) {
-					this.wtmoz1 = new BigDecimal(this.wt1[z1]);
+					this.wtmoz1 = this.wt1[z1];
 					this.wicrcp = new BigDecimal(this.wh1[z1]);
 					this.wclmo1 = this.wc1[z1];
 					if ( fc.BigDecimalComparar(this.wtmoz1.toString(), "0", "!=")) {
@@ -2947,7 +2954,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI(MIMINI);
 			strx.setTXFILE("M");
 			strx.setTXLOIN("I");
-			this.sindl = new Boolean[5];
+			for (int i = 0; i< this.sindl.length; i++) this.sindl[i] = false;
 			sindl[4] = this.ain75;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
@@ -2990,7 +2997,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI(MIMINI);
 			strx.setTXFILE("M");
 			strx.setTXLOIN("I");
-			this.sindl = new Boolean[5];
+			for (int i = 0; i< this.sindl.length; i++) this.sindl[i] = false;
 			sindl[4] = this.ain75;
 			SubRutSgetfmtnbr(ds);
 			strx.setTXFMT(strx.getTXFMT().trim() + "#" + this.sssnbr);
@@ -3033,6 +3040,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 				this.fecaux = this.fcu101;
 				this.wdesl1 = this.wau101;
 				this.ws6000 = this.wsu101;
+				SubRutSlinei6a(ds, MIXTRF, MICORI, MICMOV, MICSMV);
 				this.wsu101 = BigDecimal.ZERO;
 			}
 			if (fc.BigDecimalComparar(this.wsu001.toString(), "0", "!=")) {
@@ -3244,7 +3252,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 								}else {
 									this.wreflz = ListZrspmir.get(indice).getMincab().substring(12, 16);
 									if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 40 && ListZrspmir.get(indice).getMizoes() == 1 && ListZrspmir.get(indice).getMirues() == 18) {
-										if (ListZrspmir.get(indice).getMirefc().equals("") || ListZrspmir.get(indice).getMirefc() == "0") {
+										if (ListZrspmir.get(indice).getMirefc().equals("") || ListZrspmir.get(indice).getMirefc().equals("0")) {
 											this.wreflr = ListZrspmir.get(indice).getMincaf();
 										}else {
 											this.wreflo = " ";
@@ -3502,13 +3510,13 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 								this.totcu2 = BigDecimal.ZERO;
 							}
 						}
-						if (ListZrspmir.get(indice).getMicori() == 1 && ListZrspmir.get(indice).getMicmov() == 40 && ListZrspmir.get(indice).getMicsmv() == 66) {
+						if (ListZrspmir.get(indice).getMicori().equals(1) && ListZrspmir.get(indice).getMicmov() == 40 && ListZrspmir.get(indice).getMicsmv() == 66) {
 							this.ain15 = true;
 							this.totdes = this.totdes.add(ListZrspmir.get(indice).getMiimpo());
 							this.desdes = this.mide40;
 							this.ttfecu = Integer.parseInt(this.mifecu);
 						}
-						if (this.ain15.equals(false)) {
+						if (!this.ain15) {
 							if (!this.mifecu.equals("") && !this.mifecu.equals("0")) {
 								this.fecadd = ListZrspmir.get(indice).getMidcup();
 								this.fecamm = ListZrspmir.get(indice).getMimcup();
@@ -3796,7 +3804,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("2");
 			strx.setTXFILE("M");
 			strx.setTXLOIN("I");
-			this.sindl = new Boolean[5];
+			for (int i = 0; i< this.sindl.length; i++) this.sindl[i] = false;
 			sindl[2] = this.ain73;
 			sindl[3] = this.ain74;
 			SubRutSgetfmtnbr(ds);
@@ -3851,7 +3859,7 @@ public class ZRSTEMMVView01BzService extends RestBaseServerResource {
 			strx.setTXMINI("2");
 			strx.setTXFILE("M");
 			strx.setTXLOIN("I");
-			this.sindl = new Boolean[5];
+			for (int i = 0; i< this.sindl.length; i++) this.sindl[i] = false;
 			sindl[1] = this.ain71;
 			sindl[2] = this.ain73;
 			sindl[3] = this.ain74;

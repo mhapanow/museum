@@ -29,7 +29,7 @@ public Grmcus getUsingRqrmcn(DataSet ds, String rqrmcn) throws ASException	{
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM GRMCUS where RBRMCN = :rqrmcn ");
+			Query q = session.createQuery(" FROM Grmcus WHERE rbrmcn = :rqrmcn ");
 			q.setParameter("rqrmcn", rqrmcn);
 			Grmcus o = (Grmcus)q.uniqueResult();
 			

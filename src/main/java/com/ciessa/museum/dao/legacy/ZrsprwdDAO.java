@@ -31,7 +31,7 @@ public class ZrsprwdDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Zrsprwd Where Rwaafc = :rwaafc And Rwcifa = :rwcifa And Rwagig = :rwagig And Rwlogo = :rwlogo And Rwncct = :rwncct ");
+			Query q = session.createQuery(" FROM Zrsprwd WHERE rwaafc = :rwaafc And rwcifa = :rwcifa And rwagig = :rwagig And rwlogo = :rwlogo And rwncct = :rwncct ");
 			q.setParameter("rwaafc", rwaafc);
 			q.setParameter("rwcifa", rwcifa);
 			q.setParameter("rwagig", rwagig);
@@ -74,7 +74,7 @@ public class ZrsprwdDAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrsprwd Where Rwaafc = :rwaafc And Rwcifa = :rwcifa And Rwagig = :rwagig And Rwlogo = :rwlogo And Rwncct = :rwncct ");
+			sb.append(" FROM Zrsprwd WHERE rwaafc = :rwaafc And rwcifa = :rwcifa And rwagig = :rwagig And rwlogo = :rwlogo And rwncct = :rwncct ");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("rwaafc", rwaafc);
@@ -118,7 +118,7 @@ public class ZrsprwdDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Zrsprwd Where Rwaafc = :rwaafc And Rwcifa = :rwcifa And Rwagig = :rwagig And Rwlogo = :rwlogo And Rwncct = :rwncct And Rwrrre = :w4rrre And Rworg = :w4orgn And Rwrear = :w4rear And Rwrpre = :w4rpre");
+			Query q = session.createQuery(" FROM Zrsprwd WHERE rwaafc = :rwaafc And rwcifa = :rwcifa And rwagig = :rwagig And rwlogo = :rwlogo And rwncct = :rwncct And rwrrre = :w4rrre And rworg = :w4orgn And rwrear = :w4rear And rwrpre = :w4rpre ");
 			q.setParameter("rwaafc", rwaafc);
 			q.setParameter("rwcifa", rwcifa);
 			q.setParameter("rwagig", rwagig);

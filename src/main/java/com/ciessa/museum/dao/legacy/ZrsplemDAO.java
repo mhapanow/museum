@@ -32,7 +32,7 @@ public class ZrsplemDAO {
 			
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrsplem Where Amtmai = :amtmai And Amnmai = :amnmai ");
+			sb.append(" FROM Zrsplem WHERE amtmai = :amtmai And amnmai = :amnmai ");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("amtmai", amtmai);

@@ -1,7 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +16,6 @@ import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Zrsprer;
-import com.ciessa.museum.tools.CollectionFactory;
 
 public class ZRSTDSPSView03BzService extends RestBaseServerResource {
 public static final Logger log = Logger.getLogger(ZRSTDSPSView03BzService.class.getName());
@@ -27,6 +25,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView03BzService.class.
 	
 	@Autowired
 	ZrsprerDAO myDAOZrsprer;
+
 	
 	Zrsprer objZrsprer = new Zrsprer();
 	

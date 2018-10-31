@@ -15,7 +15,7 @@ import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.legacy.Zrspmlr;
 
 public class ZrspmlrDAO {
-	public Zrspmlr getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencct(DataSet ds, String meyfac, String meaafc, String mecifa, String meagig, String aaorgn, String melogo, String mencct) throws ASException	{
+	public List<Zrspmlr> getUsigMeyfacAndMeaafcAndMecifaAndMeagigAndAaorgnAndMelogoAndMencct(DataSet ds, String meyfac, String meaafc, String mecifa, String meagig, String aaorgn, String melogo, String mencct) throws ASException	{
 			
 		SessionFactory factory = null;
 		
@@ -30,7 +30,7 @@ public class ZrspmlrDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" from Zrspmlr WHERE MLYFAC = :meyfac AND MLAAFC = :meaafc AND MLCIFA = :mecifa AND MLAGIG = :meagig AND MLORG = :aaorgn AND MLLOGO = :melogo AND MLNCCT = :mencct ");
+			Query q = session.createQuery(" from Zrspmlr WHERE mlyfac = :meyfac AND mlaafc = :meaafc AND mlcifa = :mecifa AND mlagig = :meagig AND mlorg = :aaorgn AND mllogo = :melogo AND mlncct = :mencct ");
 			q.setParameter("meyfac", meyfac);
 			q.setParameter("meaafc", meaafc);
 			q.setParameter("mecifa", mecifa);
@@ -38,14 +38,16 @@ public class ZrspmlrDAO {
 			q.setParameter("aaorgn", aaorgn);
 			q.setParameter("melogo", melogo);
 			q.setParameter("mencct", mencct);
-			Zrspmlr o = (Zrspmlr)q.uniqueResult();
 			
-			if( o != null ) {
+			
+			@SuppressWarnings("unchecked")
+			List<Zrspmlr> list = (List<Zrspmlr>)q.list();
+			for ( Zrspmlr o : list ) {
 				session.evict(o);
-				tx.commit();
 			}
+			tx.commit();
 			
-			return o;
+			return list;
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -70,7 +72,7 @@ public class ZrspmlrDAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrspmlr WHERE MLYFAC = :meyfac AND MLAAFC = :meaafc AND MLCIFA = :mecifa AND MLAGIG = :meagig AND MLORG = :aaorgn AND MLLOGO = :melogo AND MLNCCT = :mencct AND SUBSTRING(MLNCCT, 6, 15) = :meract AND SUBSTRING(MLNCCT, 16, 19) = :medict AND MLMINI = :mlmini ORDER BY MLYFAC, MLAAFC, MLCIFA, MLAGIG, MLORG, MLLOGO, MLNCCT, MLMINI, MLNCRD, MLUBIR, MLXTR1, MLCMOV, MLYMOV, MLAMOV, MLMMOV, MLDMOV, MLNSEM  ");
+			sb.append(" FROM Zrspmlr WHERE mlyfac = :meyfac AND mlaafc = :meaafc AND mlcifa = :mecifa AND mlagig = :meagig AND mlorg = :aaorgn AND mllogo = :melogo AND mlncct = :mencct AND SUBSTRING(mlncct, 6, 15-6+1) = :meract AND SUBSTRING(mlncct, 16, 19-16+1) = :medict AND mlmini = :mlmini ORDER BY mlyfac, mlaafc, mlcifa, mlagig, mlorg, mllogo, mlncct, mlmini, mlncrd, mlubir, mlxtr1, mlcmov, mlymov, mlamov, mlmmov, mldmov, mlnsem  ");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("meyfac", meyfac);

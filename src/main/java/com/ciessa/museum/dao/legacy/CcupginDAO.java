@@ -29,7 +29,7 @@ public Ccupgin getUsingViemppAndViidgiAndGistat(DataSet ds, String viempp,String
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM CCUPGIN WHERE GIEMPP = :viempp AND GIIDGI = :viidgi AND GISTAT = :gistat ");
+			Query q = session.createQuery(" FROM Ccupgin WHERE giempp = :viempp AND giidgi = :viidgi AND gistat = :gistat ");
 			q.setParameter("viempp", viempp);
 			q.setParameter("viidgi", viidgi);
 			q.setParameter("gistat", gistat);

@@ -28,7 +28,7 @@ public class CcupvinDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM CCUPVIN WHERE VIRMCN = :virmcn AND VISTAT = :vistat ");
+			Query q = session.createQuery(" FROM Ccupvin WHERE virmcn = :virmcn AND vistat = :vistat ");
 			q.setParameter("virmcn", virmcn);
 			q.setParameter("vistat", vistat);
 			Ccupvin o = (Ccupvin)q.uniqueResult();

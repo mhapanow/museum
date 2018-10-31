@@ -30,7 +30,7 @@ public class Tgpp632DAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Tgpp632 Where CEY2ID =1300000 ");
+			sb.append(" FROM Tgpp632 Where cey2id =1300000 ");
 			
 			Query q = session.createQuery(sb.toString());
 			
