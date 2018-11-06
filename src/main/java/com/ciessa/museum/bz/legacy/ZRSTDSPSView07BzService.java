@@ -71,10 +71,19 @@ public class ZRSTDSPSView07BzService extends RestBaseServerResource {
 			
 			//Parametros Get
 			custompantalla = obtainIntegerValue("custompantalla", 0); //view1 o view2
-			w1desc = obtainStringValue("w1desc", null);
-			w1fmov = obtainStringValue("w1fmov", null);
-			w2desc = obtainStringValue("w2desc", null);
-			w2fmov = obtainStringValue("w2fmov", null);
+			this.w1desc = obtainStringValue("w1desc", null);
+			this.w1fmov = obtainStringValue("w1fmov", null);
+			this.w1amnt = obtainStringValue("w1amnt", null);
+			this.w1tefm = obtainStringValue("w1tefm", null);
+			this.w1tnoa = obtainStringValue("w1tnoa", null);
+			this.w1iorg = obtainStringValue("w1iorg", null);			
+			
+			this.w2desc = obtainStringValue("w2desc", null);
+			this.w2fmov = obtainStringValue("w2fmov", null);
+			this.w2amnt = obtainStringValue("w2amnt", null);
+			this.w2tefm = obtainStringValue("w2tefm", null);
+			this.w2tnoa = obtainStringValue("w2tnoa", null);
+			this.w2iorg = obtainStringValue("w2iorg", null);
 			
 			/*wfecnum8 = obtainStringValue("wfecnum8", null);
 			w1amnt = obtainStringValue("w1amnt", null);
@@ -141,7 +150,7 @@ public class ZRSTDSPSView07BzService extends RestBaseServerResource {
 					this.wsfmovd = this.wfecnum8;
 				}else {
 					this.wsfmovd = "";
-					return "Fotmato Fecha Inválida";
+					//--return "Fotmato Fecha Inválida";
 				}
 				this.wsamntd = this.w1amnt;
 				this.wstefmd = this.w1tefm;
@@ -156,7 +165,7 @@ public class ZRSTDSPSView07BzService extends RestBaseServerResource {
 					this.wsfmovd = this.wfecnum8;
 				}else {
 					this.wsfmovd = "";
-					return "Fotmato Fecha Inválida";
+					//return "Fotmato Fecha Inválida";
 				}
 				this.wsamntd = this.w2amnt;
 				this.wstefmd = this.w2tefm;

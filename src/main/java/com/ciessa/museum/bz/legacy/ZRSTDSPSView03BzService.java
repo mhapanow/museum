@@ -70,7 +70,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView03BzService.class.
 			this.mencct = this.dscuenta;
 			this.meyfac = this.dscent;
 			this.meaafc = this.dsano;
-			this.mecifa = this.dscic;
+			this.mecifa = String.format("%02d", Integer.parseInt(this.dscic));
 			this.meagig = this.dsag;
 			
 			objZrsprer = myDAOZrsprer.getUsingMeorgAndMelogoAndMencctAndMeyfacAndMeaafcAndMecifaAndMeagig(ds, Integer.parseInt(meorg), Integer.parseInt(melogo), mencct, Integer.parseInt(meyfac), Integer.parseInt(meaafc), mecifa, meagig);

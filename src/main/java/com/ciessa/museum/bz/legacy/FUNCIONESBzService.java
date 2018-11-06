@@ -1,12 +1,24 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FUNCIONESBzService {
 	
+	public String replacerURL(String outBuffer) {
+	      String data = outBuffer.toString();
+	      try {
+	         data = data.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
+	         data = data.replaceAll("\\+", "%2B");
+	         data = URLDecoder.decode(data, "utf-8");
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return data;
+	   }
 	
 	public Boolean ValidarAammdd(String input) {
 		try {

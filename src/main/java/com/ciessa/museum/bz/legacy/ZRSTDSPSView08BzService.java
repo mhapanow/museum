@@ -50,6 +50,7 @@ public class ZRSTDSPSView08BzService extends RestBaseServerResource {
 	Integer meaafcd = null;
 	
 	ZRSTDSPSAdapter adapted = null;
+	FUNCIONESBzService fc = new FUNCIONESBzService();
 	
 	@Get
 	public String view() {
@@ -67,7 +68,7 @@ public class ZRSTDSPSView08BzService extends RestBaseServerResource {
 			this.meagig = obtainStringValue("meagig", null);
 			this.melogo = obtainIntegerValue("melogo", null);
 			this.mencct = obtainStringValue("mencct", null);
-			this.w4rrred = obtainStringValue("w4rrred", null);
+			this.w4rrred = obtainStringValue("w4rrred", "");
 			this.w4orgn = obtainStringValue("w4orgn", null);
 			this.w4rear = obtainStringValue("w4rear", null);
 			this.w4rpre = obtainStringValue("w4rpre", null);

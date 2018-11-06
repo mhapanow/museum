@@ -183,6 +183,8 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView02BzService.class.
 			returnValue.put("MEFEVTOD",new SimpleDateFormat("dd/MM/yy").format(this.mefevtod));
 			returnValue.put("MEFEPCIED",new SimpleDateFormat("dd/MM/yy").format(this.mefepcied));
 			returnValue.put("MEFEPVTOD",new SimpleDateFormat("dd/MM/yy").format(this.mefepvtod));
+			//Datos Adicionales para la vista
+			returnValue.put("MECIFA",this.mecifa);
 			
 		} catch (ASException e) {
 			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE

@@ -54,7 +54,7 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 	String imagig = null;
 	
 	String sfley1 = null;
-	Integer c1fec = null;
+	String c1fec = null;
 	String c1orgn = null;
 	String c1logo = null;
 	String c1acnb = null;
@@ -103,7 +103,7 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 			this.parammencct = obtainStringValue("mencct", null);
 			this.parammeyfac = obtainIntegerValue("meyfac", null);
 			this.parammeaafc = obtainIntegerValue("meaafc", null);
-			this.parammecifa = obtainStringValue("mecifa", null);
+			this.parammecifa = String.format("%02d", Integer.parseInt(obtainStringValue("mecifa", null)));
 			this.parammeagig = obtainStringValue("meagig", null);
 			
 			// inicializar array de string
@@ -212,7 +212,8 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 	private String SubRutLoad1(DataSet ds) {
 		try {
 			this.sfley1 = "";
-			this.c1fec = (Integer.parseInt(ObjZrsppma.getImcifa()) * 100 ) + ObjZrsppma.getImaaf4();
+			//this.c1fec = (Integer.parseInt(ObjZrsppma.getImcifa()) * 10000 ) + "/" + ObjZrsppma.getImaaf4();
+			this.c1fec = ObjZrsppma.getImcifa() + "/" + String.format("%04d", ObjZrsppma.getImaaf4());
 			this.c1orgn = this.parammeorg;
 			this.c1logo = this.parammelogo;
 			this.c1acnb = this.parammencct; 
@@ -266,6 +267,7 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 				if (o.getAmlcs1() == 0) {
 					this.sfley1 = "";
 					this.sfley1 = o.getAmltxc();
+					//TODO: sfley1 debe de ser un array donde cada item es la linea de la carta.
 				}else {
 					this.sust = "S";
 					this.s1 = o.getAmlcs1();

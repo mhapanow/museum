@@ -1,9 +1,11 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -281,6 +283,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	Integer dmkmo = 0;
 	Integer dmsctm = 0;
 	Integer dmexsc = 0;
+	Integer toaccr = 0;
 
 	
 	//Funtioness	
@@ -319,6 +322,10 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			this.bcrkey = "";
 			this.bcrkey = this.bknum;
 			//this.frjul = Fecha actual en formato Juliano (AAAADDD)
+			Date date = new Date();
+			DateFormat d = new SimpleDateFormat("yyyyD"); 
+			this.frjul = Integer.parseInt(d.format(date)); 
+			
 			this.sper = "D";
 			this.sfrq = 1;
 			this.srday = 00;
@@ -777,6 +784,10 @@ public class FER0310View01BzService extends RestBaseServerResource{
 				}
 				this.bcrkey = " ";
 				//TOACCR = Fecha del día con formato juliano AAAADDD
+				Date date = new Date();
+				DateFormat d = new SimpleDateFormat("yyyyD"); 
+				this.toaccr = Integer.parseInt(d.format(date)); 
+
 				this.accctl = "A";
 				
 				SubRutAccr01(ds, objTap002.getDmbit2(), objTap002.getDmacc5(), objTap002.getDmcbal(), objTap002.getDmcf3(), objTap002.getDmcf4(), objTap002.getDmcf5() );  

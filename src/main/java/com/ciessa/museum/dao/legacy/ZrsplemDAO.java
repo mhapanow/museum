@@ -32,7 +32,7 @@ public class ZrsplemDAO {
 			
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrsplem WHERE amtmai = :amtmai And amnmai = :amnmai ");
+			sb.append(" FROM Zrsplem WHERE amtmai = :amtmai And amnmai = :amnmai ORDER BY amnuli");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("amtmai", amtmai);
@@ -73,7 +73,7 @@ public class ZrsplemDAO {
 			
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrsplem Where amprcd = :amprcd And amiddp = :amiddp And amubdg = :amubdg ");
+			sb.append(" FROM Zrsplem Where amprcd = :amprcd And amiddp = :amiddp And amubdg = :amubdg ORDER BY amtmai, amnmai, amnuli");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("amprcd", amprcd);

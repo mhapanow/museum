@@ -163,8 +163,11 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 					"w1desc",
 					"w1amnt",
 					"w1refc",
-					"w1mrch"
-
+					"w1mrch",
+					"w1tefm",
+					"w1tnoa",
+					"w1iorg",
+					"w1fmov"
 			};
 			
 			returnValue = getJSONRepresentationFromObject(adapter, fields);
@@ -189,7 +192,8 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			returnValue.put("MEFEPCIED",new SimpleDateFormat("dd/MM/yy").format(this.mefepcied));
 			returnValue.put("MEFEPVTOD",new SimpleDateFormat("dd/MM/yy").format(this.mefepvtod));
 			returnValue.put("TXTAVISO",this.txtaviso);
-			
+			//Datos Adicionales para la vista
+			returnValue.put("MECIFA",this.mecifa);
 			
 		} catch (ASException e) {
 			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
