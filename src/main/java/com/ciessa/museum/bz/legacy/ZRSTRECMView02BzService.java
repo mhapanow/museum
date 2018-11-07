@@ -1,5 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 	Integer parammeaafc = null;
 	String parammecifa = null;
 	String parammeagig  = null;
+	String parammeapen  = null;
 	
 	String imorg = null;
 	String imlogo = null;
@@ -53,7 +55,8 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 	String imcifa = null;
 	String imagig = null;
 	
-	String sfley1 = null;
+	//String sfley1 = null;
+	List<String> sfley1 = new ArrayList<String>();
 	String c1fec = null;
 	String c1orgn = null;
 	String c1logo = null;
@@ -105,6 +108,7 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 			this.parammeaafc = obtainIntegerValue("meaafc", null);
 			this.parammecifa = String.format("%02d", Integer.parseInt(obtainStringValue("mecifa", null)));
 			this.parammeagig = obtainStringValue("meagig", null);
+			this.parammeapen = obtainStringValue("meapen", null);
 			
 			// inicializar array de string
 			this.sm = String.format("%1$-4140s",this.sm);
@@ -154,7 +158,6 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 			
 			// Obtains the user JSON representation
 			returnValue = getJSONRepresentationFromObject(adapted, fields);
-			
 			
 		} catch (ASException e) {
 			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
@@ -211,15 +214,14 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 	
 	private String SubRutLoad1(DataSet ds) {
 		try {
-			this.sfley1 = "";
+			//this.sfley1 = "";
 			//this.c1fec = (Integer.parseInt(ObjZrsppma.getImcifa()) * 10000 ) + "/" + ObjZrsppma.getImaaf4();
 			this.c1fec = ObjZrsppma.getImcifa() + "/" + String.format("%04d", ObjZrsppma.getImaaf4());
 			this.c1orgn = this.parammeorg;
 			this.c1logo = this.parammelogo;
 			this.c1acnb = this.parammencct; 
 			
-			String meapen = null; //TODO no existe
-			this.c1apen = meapen; //TODO no existe
+			this.c1apen = this.parammeapen;
 			this.c1bicy = this.parammeagig;
 			
 			if (ObjZrsppma.getImtenv().equals("M")) {
@@ -265,8 +267,8 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 			
 			for( Zrsplem o : ListZrsplem) {
 				if (o.getAmlcs1() == 0) {
-					this.sfley1 = "";
-					this.sfley1 = o.getAmltxc();
+					//this.sfley1 = "";
+					this.sfley1.add(o.getAmltxc());
 					//TODO: sfley1 debe de ser un array donde cada item es la linea de la carta.
 				}else {
 					this.sust = "S";
@@ -291,7 +293,7 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 				for (int i = 1; i < 46; i++) {
 					this.wley = this.sm.substring(i1 -1 , i1) ;//
 					if (this.wley != "") {
-						this.sfley1 = this.wley;
+						this.sfley1.add(this.wley);
 					}
 					i1 = i1 + 90;
 				}
@@ -376,7 +378,7 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 		String c1fec = null;
 		String c1bicy = null;
 		String c1titu = null;
-		String sfley1 = null;
+		List<String> sfley1 = null;
 		
 		public ZRSTRECMAdapter() {
 			
@@ -438,13 +440,14 @@ public class ZRSTRECMView02BzService extends RestBaseServerResource {
 			this.c1titu = c1titu;
 		}
 
-		public String getSfley1() {
+		public List<String> getSfley1() {
 			return sfley1;
 		}
 
-		public void setSfley1(String sfley1) {
+		public void setSfley1(List<String> sfley1) {
 			this.sfley1 = sfley1;
 		}
+
 		
 		
 		

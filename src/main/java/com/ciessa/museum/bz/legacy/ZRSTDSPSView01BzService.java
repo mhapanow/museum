@@ -83,6 +83,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 	Boolean smonl = false;
 	Boolean smoni = false;
 	Integer sqtarjl = 0;
+	String meapen = "";
 	
 	Zrsprer shdr3000 = new Zrsprer(); //3000
 	
@@ -156,6 +157,8 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 					"MEFEVTOD",
 					"MEFEPCIED",
 					"MEFEPVTOD",
+					"MECIFA",
+					"MEAPEN",
 					"TXTAVISO"
 			};
 			
@@ -194,6 +197,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			returnValue.put("TXTAVISO",this.txtaviso);
 			//Datos Adicionales para la vista
 			returnValue.put("MECIFA",this.mecifa);
+			returnValue.put("MEAPEN",this.meapen);
 			
 		} catch (ASException e) {
 			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
@@ -277,6 +281,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView01BzService.class.
 			this.medprvw =  objZrsprer.getMedprv();
 			this.memprvw =  objZrsprer.getMemprv();
 			this.meaprvw =  objZrsprer.getMeaprv();
+			this.meapen = objZrsprer.getMeapen();
 			try {
 				this.mefecied = sdf.parse(df.format(objZrsprer.getMedcif()) + df.format(objZrsprer.getMemcif()) + df.format(objZrsprer.getMeacif()));	
 			}catch(Exception e) {
