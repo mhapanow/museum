@@ -1,5 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -79,8 +80,8 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 	String lrtile = null;
 	Integer lridln = null;
 	
-	String sfley1 = null;
-	String sfley2 = null;
+	List<String> sfley1 = new ArrayList<String>();
+	List<String> sfley2 = new ArrayList<String>();
 	Integer i1 = null;
 	Integer i2 = null;
 	String sust = null;
@@ -242,8 +243,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 	private String SubRutLoad1(DataSet ds) {
 		try {
 			
-			c1fec = ObjZrspple.getRlcifa(); //TODO
-			c1fec = ObjZrspple.getRlaaf4().toString(); //TODO
+			c1fec = ObjZrspple.getRlcifa() + "/" + ObjZrspple.getRlaaf4().toString();
 			c1orgn = this.parammeorg; 
 			c1logo = this.parammelogo;
 			c1acnb = this.parammencct;
@@ -259,7 +259,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 			c1 = 0; 
 			c2 = 0;
 			String resp = null;
-			if (ObjZrspple.getRltif1() != "") {
+			if (!ObjZrspple.getRltif1().equals("")) {
 				sleye = "FRENTE 1"; 
 				lrtile = ObjZrspple.getRltif1();
 				lridln = ObjZrspple.getRlidf1();
@@ -272,7 +272,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltif2() != "") {
+			if (!ObjZrspple.getRltif2().equals("")) {
 				sleye = "FRENTE 2"; 
 				lrtile = ObjZrspple.getRltif2();
 				lridln = ObjZrspple.getRlidf2();
@@ -284,7 +284,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltif3() != "") {
+			if (!ObjZrspple.getRltif3().equals("")) {
 				sleye = "FRENTE 3"; 
 				lrtile = ObjZrspple.getRltif3();
 				lridln = ObjZrspple.getRlidf3();
@@ -296,7 +296,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltif4() != "") {
+			if (!ObjZrspple.getRltif4().equals("")) {
 				sleye = "FRENTE 4"; 
 				lrtile = ObjZrspple.getRltif4();
 				lridln = ObjZrspple.getRlidf4();
@@ -308,7 +308,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltif5() != "") {
+			if (!ObjZrspple.getRltif5().equals("")) {
 				sleye = "FRENTE 5"; 
 				lrtile = ObjZrspple.getRltif5();
 				lridln = ObjZrspple.getRlidf5();
@@ -320,7 +320,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltif6() != "") {
+			if (!ObjZrspple.getRltif6().equals("")) {
 				sleye = "FRENTE 6"; 
 				lrtile = ObjZrspple.getRltif6();
 				lridln = ObjZrspple.getRlidf6();
@@ -333,7 +333,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 				}
 			}
 			
-			if (ObjZrspple.getRltid1() != "") {
+			if (!ObjZrspple.getRltid1().equals("")) {
 				this.sleye = "DORSO 1";
 				this.lrtile = ObjZrspple.getRltid1();
 				this.lridln = ObjZrspple.getRlidd1();
@@ -345,7 +345,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltid2() != "") {
+			if (!ObjZrspple.getRltid2().equals("")) {
 				this.sleye = "DORSO 2";
 				this.lrtile = ObjZrspple.getRltid2();
 				this.lridln = ObjZrspple.getRlidd2();
@@ -357,7 +357,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltid3() != "") {
+			if (!ObjZrspple.getRltid3().equals("")) {
 				this.sleye = "DORSO 3";
 				this.lrtile = ObjZrspple.getRltid3();
 				this.lridln = ObjZrspple.getRlidd3();
@@ -369,7 +369,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltid4() != "") {
+			if (!ObjZrspple.getRltid4().equals("")) {
 				this.sleye = "DORSO 4";
 				this.lrtile = ObjZrspple.getRltid4();
 				this.lridln = ObjZrspple.getRlidd4();
@@ -381,7 +381,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltid5() != "") {
+			if (!ObjZrspple.getRltid5().equals("")) {
 				this.sleye = "DORSO 5";
 				this.lrtile = ObjZrspple.getRltid5();
 				this.lridln = ObjZrspple.getRlidd5();
@@ -393,7 +393,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 					return resp;
 				}
 			}
-			if (ObjZrspple.getRltid6() != "") {
+			if (!ObjZrspple.getRltid6().equals("")) {
 				this.sleye = "DORSO 6";
 				this.lrtile = ObjZrspple.getRltid6();
 				this.lridln = ObjZrspple.getRlidd6();
@@ -421,12 +421,12 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 	private String SubRutCarga(DataSet ds) {
 		try {
 			this.c1 = this.c1 + 1;
-			this.sfley1 = "";
-			this.sfley1 = this.sleye;
+			//--this.sfley1 = "";
+			this.sfley1.add(this.sleye);
 			
 			this.c2 = this.c2 + 1;
-			this.sfley2 = "";
-			this.sfley2 = this.sleye;
+			//--this.sfley2 = "";
+			this.sfley2.add(this.sleye);
 			
 			i1 = 1;
 			i2 = 3151;
@@ -436,12 +436,12 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 			
 			for(Zrsplen o : ListZrsplen) {
 				if (o.getLrlcs1() == 0) {
-					this.sfley1= "";
-					this.sfley1 = o.getLrlipc();
+					//--this.sfley1= "";
+					this.sfley1.add(o.getLrlipc());
 					this.c1 = this.c1 +1;
 					
-					this.sfley2 = "";
-					this.sfley2 = o.getLrlisc();
+					//--this.sfley2 = "";
+					this.sfley2.add(o.getLrlisc());
 					this.c2 = this.c2 +1;
 				}else {
 					this.sust = "S";
@@ -470,12 +470,12 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 				for (int i = 1; i <= 21; i++) {
 					this.wley = this.sm.substring(i1 -1 , i1) ;//this.wley = this.sm(i1);
 					if (this.wley != "") {
-						this.sfley1 = this.wley;
+						this.sfley1.add(this.wley);
 						this.c1 = this.c1 +1;
 					}
 					this.wley = this.sm.substring(i2 -1 , i2) ;////this.wley = this.sm(i2);
 					if (this.wley != "") {
-						this.sfley2 = this.wley;
+						this.sfley2.add(this.wley);
 						this.c2 = this.c2 +1;
 					}
 					this.i1 = this.i1 + 150;
@@ -560,7 +560,7 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 		String c1apen = null;
 		String c1fec = null;
 		String c1bicy = null;
-		String sfley1 = null;
+		List<String> sfley1 = null;
 		
 		public ZRSTRECLAdapter() {
 			
@@ -614,11 +614,11 @@ public class ZRSTRECLView01BzService extends RestBaseServerResource {
 			this.c1bicy = c1bicy;
 		}
 
-		public String getSfley1() {
+		public List<String> getSfley1() {
 			return sfley1;
 		}
 
-		public void setSfley1(String sfley1) {
+		public void setSfley1(List<String> sfley1) {
 			this.sfley1 = sfley1;
 		}
 		

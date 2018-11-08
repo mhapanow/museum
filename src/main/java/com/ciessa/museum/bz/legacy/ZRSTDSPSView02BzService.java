@@ -96,6 +96,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView02BzService.class.
 	Date mefepvtod = new Date();
 	Boolean smoni = false;
 	Integer sqtarji = 0;
+	String meapen = "";
 	
 	BigDecimal stottarji = new BigDecimal(0);
 	String scanbi = "";
@@ -185,6 +186,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView02BzService.class.
 			returnValue.put("MEFEPVTOD",new SimpleDateFormat("dd/MM/yy").format(this.mefepvtod));
 			//Datos Adicionales para la vista
 			returnValue.put("MECIFA",this.mecifa);
+			returnValue.put("MEAPEN",this.meapen);
 			
 		} catch (ASException e) {
 			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
@@ -266,6 +268,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView02BzService.class.
 			this.medprvw =  objZrsprer.getMedprv();
 			this.memprvw =  objZrsprer.getMemprv();
 			this.meaprvw =  objZrsprer.getMeaprv();
+			this.meapen = objZrsprer.getMeapen();
 			try {
 				this.mefecied = sdf.parse(df.format(objZrsprer.getMedcif()) + df.format(objZrsprer.getMemcif()) + df.format(objZrsprer.getMeacif()));	
 			}catch(Exception e) {
