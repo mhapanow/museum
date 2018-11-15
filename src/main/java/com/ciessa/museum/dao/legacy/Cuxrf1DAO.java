@@ -52,4 +52,44 @@ public class Cuxrf1DAO {
 		}
 	}
 	
+	public Cuxrf1 getUsigSwx2bkAndSwx2rtAndSwx2apAndSwx2acAndSwx2tyAndSwx2cs(DataSet ds, String swx2bk, String swx2rt, String swx2ap, String swx2ac, String swx2ty, String swx2cs ) throws ASException {
+		SessionFactory factory = null;
+				
+				try {
+					factory = FactoryManager.getInstance().getFactory(ds);
+				} catch (Throwable ex) {
+					System.err.println("Failed to create sessionFactory object." + ex);
+					throw new ExceptionInInitializerError(ex);
+				}
+				
+				Session session = factory.openSession();
+				Transaction tx = null;
+				try {
+					tx = session.beginTransaction();
+					Query q = session.createQuery(" FROM Cuxrf1 WHERE cuxbk = :swx2bk And cuxrec = :swx2rt And cux1ap = :swx2ap And cux1ac = :swx2ac And cux1ty = :swx2ty And cux1cs = :swx2cs ");
+					q.setParameter("swx2bk", swx2bk);
+					q.setParameter("swx2rt", swx2rt);
+					q.setParameter("swx2ap", swx2ap);
+					q.setParameter("swx2ac", swx2ac);
+					q.setParameter("swx2ty", swx2ty);
+					q.setParameter("swx2cs", swx2cs);
+					
+					Cuxrf1 o = (Cuxrf1)q.uniqueResult();
+					
+					if( o != null ) {
+						session.evict(o);
+						tx.commit();
+					}
+					
+					return o;
+						
+				} catch (HibernateException e) {
+					if (tx != null)
+						tx.rollback();
+					throw ASExceptionHelper.defaultException(e.getMessage(), e);
+				} finally {
+					session.close();
+				}
+			}
+	
 }

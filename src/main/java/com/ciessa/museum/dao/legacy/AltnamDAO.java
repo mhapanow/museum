@@ -68,15 +68,13 @@ public class AltnamDAO {
 			q.setParameter("cuenta", cuenta);
 			Altnam o = (Altnam)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(cuenta);
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
 			
-			session.evict(o);
-			tx.commit();
-			
 			return o;
+
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();

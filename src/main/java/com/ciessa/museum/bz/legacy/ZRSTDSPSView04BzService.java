@@ -98,13 +98,12 @@ public class ZRSTDSPSView04BzService extends RestBaseServerResource {
 			};
 			
 			returnValue = this.getJSONRepresentationFromArrayOfObjects(list, fields);
-			//returnValue.put("MEORGND", );
-			//returnValue.put("MELOGOD", );
-			//returnValue.put("MEACNBD", );
-			//returnValue.put("MENAMED", );
-			//returnValue.put("MEAAFCD", );
-			//returnValue.put("MEBICYD", );
-			
+			returnValue.put("meyfac", this.meyfac);
+			returnValue.put("meaafc", this.meaafc);
+			returnValue.put("mecifa", this.mecifa);
+			returnValue.put("meagig", this.meagig);
+			returnValue.put("melogo", this.melogo);
+			returnValue.put("mencct", this.mencct);
 			
 			if( attributes.containsKey("recordCount"))
 				returnValue.put("recordCount", Long.valueOf(attributes.get("recordCount")));

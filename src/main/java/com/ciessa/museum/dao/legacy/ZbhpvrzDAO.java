@@ -1,7 +1,5 @@
 package com.ciessa.museum.dao.legacy;
 
-import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,11 +10,11 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Zrsplen;
+import com.ciessa.museum.model.legacy.Zbhpvrz;
 
-public class ZrsplenDAO {
-	
-	public List<Zrsplen> getUsinLrtileAndLridln(DataSet ds, String lrtile, String lridln) throws ASException {
+public class ZbhpvrzDAO {
+	public Zbhpvrz getUsingRqrmcn(DataSet ds, String rqrmcn) throws ASException	{
+		
 		SessionFactory factory = null;
 		
 		try {
@@ -29,33 +27,24 @@ public class ZrsplenDAO {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
-			
 			tx = session.beginTransaction();
-			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrsplen WHERE lrtile = :lrtile And lridln = :lridln ORDER BY lrnuli");
+			Query q = session.createQuery(" FROM Zbhpvrz where vzrmcn = :rqrmcn ");
+			q.setParameter("rqrmcn", rqrmcn);
+			Zbhpvrz o = (Zbhpvrz)q.uniqueResult();
 			
-			Query q = session.createQuery(sb.toString());
-			q.setParameter("lrtile", lrtile);
-			q.setParameter("lridln", lridln);
-			
-			@SuppressWarnings("unchecked")
-			List<Zrsplen> list = (List<Zrsplen>)q.list();
-			
-			for( Zrsplen o : list ) {
+			if( o != null ) {
 				session.evict(o);
+				tx.commit();
 			}
-			tx.commit();
 			
-			return list;
-			
+			return o;
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-		}
+			}				
 	}
-
 
 }

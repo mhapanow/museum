@@ -89,5 +89,41 @@ public List<Grmria> getUsingRqprcdAndRqactn(DataSet ds, String rqprcd, String rq
 			session.close();
 			}				
 	}
+
+public Grmria getUsingRaprcdAndRaactnAndRqacrt(DataSet ds, String raprcd, String raactn, String rqacrt) throws ASException	{
+	
+	SessionFactory factory = null;
+	
+	try {
+		factory = FactoryManager.getInstance().getFactory(ds);
+	} catch (Throwable ex) {
+		System.err.println("Failed to create sessionFactory object." + ex);
+		throw new ExceptionInInitializerError(ex);
+	}
+	
+	Session session = factory.openSession();
+	Transaction tx = null;
+	try {
+		tx = session.beginTransaction();
+		Query q = session.createQuery(" FROM Grmria where rqprcd = :raprcd  AND rqactn = :raactn AND rqacrt = :rqacrt  ");
+		q.setParameter("raprcd", raprcd);
+		q.setParameter("raactn", raactn);
+		q.setParameter("rqacrt", rqacrt);
+		Grmria o = (Grmria)q.uniqueResult();
+		
+		if( o != null ) {
+			session.evict(o);
+			tx.commit();
+		}
+		
+		return o;
+	} catch (HibernateException e) {
+		if (tx != null)
+			tx.rollback();
+		throw ASExceptionHelper.defaultException(e.getMessage(), e);
+	} finally {
+		session.close();
+		}				
+}
 	
 }

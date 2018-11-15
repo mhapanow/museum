@@ -18,22 +18,28 @@ import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
 import com.ciessa.museum.dao.legacy.CcupginDAO;
 import com.ciessa.museum.dao.legacy.CcupvinDAO;
+import com.ciessa.museum.dao.legacy.CompcmoDAO;
+import com.ciessa.museum.dao.legacy.GrmactDAO;
 import com.ciessa.museum.dao.legacy.GrmcusDAO;
 import com.ciessa.museum.dao.legacy.GrmriaDAO;
 import com.ciessa.museum.dao.legacy.InsprefDAO;
 import com.ciessa.museum.dao.legacy.Tap002DAO;
 import com.ciessa.museum.dao.legacy.Tap003DAO;
+import com.ciessa.museum.dao.legacy.ZbhpvrzDAO;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Ccupgin;
 import com.ciessa.museum.model.legacy.Ccupvin;
+import com.ciessa.museum.model.legacy.Compcmo;
+import com.ciessa.museum.model.legacy.Grmact;
 import com.ciessa.museum.model.legacy.Grmcus;
 import com.ciessa.museum.model.legacy.Grmria;
 import com.ciessa.museum.model.legacy.Inspref;
 import com.ciessa.museum.model.legacy.Tap002;
 import com.ciessa.museum.model.legacy.Tap003;
+import com.ciessa.museum.model.legacy.Zbhpvrz;
 
 public class FER0310View01BzService extends RestBaseServerResource{
 
@@ -63,7 +69,17 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	@Autowired
 	Tap003DAO myDAOTap003;
 	
+	@Autowired
+	GrmactDAO myDAOGrmact;
 	
+	@Autowired
+	CompcmoDAO myDAOCompcmo;
+	
+	@Autowired
+	ZbhpvrzDAO myDAOZbhpvrz;
+	
+	
+	Grmact objGrmact = new Grmact();
 	Grmria objGrmria = new Grmria();
 	Ccupvin objCcupvin = new Ccupvin();
 	Ccupgin objCcupgin = new Ccupgin();
@@ -71,6 +87,9 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	Inspref objInspref = new Inspref();
 	Tap002 objTap002 = new Tap002();
 	Tap003 objTap003 = new Tap003();
+	
+	Compcmo objCompcmo = new Compcmo();
+	Zbhpvrz objZbhpvrz = new Zbhpvrz();
 	
 	List<Grmria> listGrmria = null;
 	
@@ -169,7 +188,6 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	String na5 = "";
 	String na6 = "";
 	String dmwhfg = "";
-	String rqrmcn = "";
 	String sflag = "";
 	Integer[] sjl5 = { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
 	String dscndt = "";
@@ -180,7 +198,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	Integer[] sdim = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	Integer sd = 0;
 	Integer raactn = 0;
-	String raidct = "";
+	
 	String rqacrt = "";
 	String vistat = "";
 	String gistat = "";
@@ -197,7 +215,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	Integer yyyy = 0;
 	String swtaky = "";
 	String swtaac = "";
-	String wshmes = "";
+	Integer wshmes = 0;
 	Integer wswavs = 0;
 	String rqprcd = "";
 	String azbh = "";
@@ -558,18 +576,21 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			this.wwidct = "";
 			this.wwnoma = "";
 			this.wwsrds = "";
-			this.rqrmcn = "";
+			//this.rqrmcn = "";
 			this.sflag = "NO";
 			this.raactn  = this.dmacct;
-			//* GRMACT
-				this.sflag = "SI";
+			objGrmact = myDAOGrmact.getUsingRaactn(ds, raactn.toString());
 			
-			this.wwidct = this.raidct;
-			if (this.sflag.equals("SI") && !this.raidct.equals("")) {
+			if (objGrmact != null) {
+				this.sflag = "SI";
+			}
+
+			this.wwidct = objGrmact.getRaidct();
+			if (this.sflag.equals("SI") && !objGrmact.getRaidct().equals("")) {
 				this.rqacrt = "T";
-				//GRMRIA
+				objGrmria = myDAOGrmria.getUsingRaprcdAndRaactnAndRqacrt(ds, objGrmact.getRaprcd(), raactn.toString(), rqacrt);
 				if (objGrmria != null) {
-					if (this.raidct.equals("PAY")) {//AAPAY
+					if (objGrmact.getRaidct().equals("PAY")) {//AAPAY
 						this.virmcn = objGrmria.getRqrmcn();
 						this.vistat = "A";
 						objCcupvin = myDAOCcupvin.getUsingVirmcnAndVistat(ds, virmcn.toString(), vistat.toString());
@@ -583,7 +604,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 							}
 						}
 					}
-					objGrmcus = myDAOGrmcus.getUsingRqrmcn(ds, this.rqrmcn);
+					objGrmcus = myDAOGrmcus.getUsingRqrmcn(ds, objGrmria.getRqrmcn().toString());
 					if (objGrmcus != null) {
 						this.bkgnty = 66;
 						this.bkgncd = objGrmcus.getRbsgcd();
@@ -709,12 +730,12 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			this.swtaac = this.swtaky.substring(5, 14); 
 			objTap002 = myDAOTap002.getUsingTipoAndCuenta(ds, this.swtaky, this.swtaac);
 			if (objTap002 != null) {
-				this.wshmes = "";
+				this.wshmes = 0;
 				if (objTap002.getDmtyp() == 6) {
-					//COMPCMO
-					if (true) {
+					objCompcmo = myDAOCompcmo.getUsingDmacctAndAaamm(ds, objTap002.getDmacct().toString(), aaamm.toString());
+					if (objCompcmo != null) {
 						this.WshmesWswavs = true;
-						//this.wshmes = HUSMES;
+						this.wshmes = objCompcmo.getHusmes();
 					}
 				}
 				
@@ -726,14 +747,12 @@ public class FER0310View01BzService extends RestBaseServerResource{
 				}
 				if (this.azbh.equals("Y")) {
 					this.rqactn = objTap002.getDmacct();
-					
 					listGrmria = myDAOGrmria.getUsingRqprcdAndRqactn(ds, this.rqprcd, this.rqactn.toString());
-					
 					for (Grmria o: listGrmria) {
-						//ZBHPVRZ
-						if (true) {
-							if (this.wswavs == 0) { //|| vzasco
-								//this.wswavs = objZbhpvrz.getVzasco();
+						objZbhpvrz = myDAOZbhpvrz.getUsingRqrmcn(ds, o.getRqrmcn().toString());
+						if (objZbhpvrz != null) {
+							if (this.wswavs == 0 || objZbhpvrz.getVzasco() > this.wswavs) {
+								this.wswavs = objZbhpvrz.getVzasco();
 							}
 						}
 					}
@@ -876,7 +895,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 		try {
 			if (!Dmbit2.substring(5).equals("1")) {
 				if (Dmacc5 == 0) {
-					//this.frjul = this.toaccr;
+					this.frjul = this.toaccr;
 					this.sper = "D";
 					this.sfrq = 1;
 					this.srday = 00;
