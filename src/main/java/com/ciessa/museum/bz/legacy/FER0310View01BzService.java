@@ -2,7 +2,6 @@ package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +22,7 @@ import com.ciessa.museum.dao.legacy.GrmactDAO;
 import com.ciessa.museum.dao.legacy.GrmcusDAO;
 import com.ciessa.museum.dao.legacy.GrmriaDAO;
 import com.ciessa.museum.dao.legacy.InsprefDAO;
-import com.ciessa.museum.dao.legacy.Tap002DAO;
+import com.ciessa.museum.dao.legacy.Tap002wDAO;
 import com.ciessa.museum.dao.legacy.Tap003DAO;
 import com.ciessa.museum.dao.legacy.ZbhpvrzDAO;
 import com.ciessa.museum.exception.ASException;
@@ -37,7 +36,7 @@ import com.ciessa.museum.model.legacy.Grmact;
 import com.ciessa.museum.model.legacy.Grmcus;
 import com.ciessa.museum.model.legacy.Grmria;
 import com.ciessa.museum.model.legacy.Inspref;
-import com.ciessa.museum.model.legacy.Tap002;
+import com.ciessa.museum.model.legacy.Tap002w;
 import com.ciessa.museum.model.legacy.Tap003;
 import com.ciessa.museum.model.legacy.Zbhpvrz;
 
@@ -64,7 +63,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	InsprefDAO myDAOInspref;
 	
 	@Autowired
-	Tap002DAO myDAOTap002;
+	Tap002wDAO myDAOTap002w;
 	
 	@Autowired
 	Tap003DAO myDAOTap003;
@@ -85,7 +84,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	Ccupgin objCcupgin = new Ccupgin();
 	Grmcus objGrmcus = new Grmcus();
 	Inspref objInspref = new Inspref();
-	Tap002 objTap002 = new Tap002();
+	Tap002w objTap002w = new Tap002w();
 	Tap003 objTap003 = new Tap003();
 	
 	Compcmo objCompcmo = new Compcmo();
@@ -399,8 +398,8 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			this.giro = "0";
 
 			this.acctan = this.acctno;
-			objTap002 = myDAOTap002.getUsingAcctan(ds, acctan.toString());
-			if (objTap002 != null) {
+			objTap002w = myDAOTap002w.getUsingAcctan(ds, acctan.toString());
+			if (objTap002w != null) {
 				this.giro = "1";
 				this.acctno = 0;
 				SubRutBorro(ds);
@@ -728,11 +727,11 @@ public class FER0310View01BzService extends RestBaseServerResource{
 		try {
 			this.swtaky = this.dsmkey;
 			this.swtaac = this.swtaky.substring(5, 14); 
-			objTap002 = myDAOTap002.getUsingTipoAndCuenta(ds, this.swtaky, this.swtaac);
-			if (objTap002 != null) {
+			objTap002w = myDAOTap002w.getUsingTipoAndCuenta(ds, this.swtaky, this.swtaac);
+			if (objTap002w != null) {
 				this.wshmes = 0;
-				if (objTap002.getDmtyp() == 6) {
-					objCompcmo = myDAOCompcmo.getUsingDmacctAndAaamm(ds, objTap002.getDmacct().toString(), aaamm.toString());
+				if (objTap002w.getDmtyp() == 6) {
+					objCompcmo = myDAOCompcmo.getUsingDmacctAndAaamm(ds, objTap002w.getDmacct().toString(), aaamm.toString());
 					if (objCompcmo != null) {
 						this.WshmesWswavs = true;
 						this.wshmes = objCompcmo.getHusmes();
@@ -740,13 +739,13 @@ public class FER0310View01BzService extends RestBaseServerResource{
 				}
 				
 				this.wswavs = 0;
-				if (objTap002.getDmtyp() == 1) {
+				if (objTap002w.getDmtyp() == 1) {
 					this.rqprcd = "IA";
 				}else {
 					this.rqprcd = "CA";
 				}
 				if (this.azbh.equals("Y")) {
-					this.rqactn = objTap002.getDmacct();
+					this.rqactn = objTap002w.getDmacct();
 					listGrmria = myDAOGrmria.getUsingRqprcdAndRqactn(ds, this.rqprcd, this.rqactn.toString());
 					for (Grmria o: listGrmria) {
 						objZbhpvrz = myDAOZbhpvrz.getUsingRqrmcn(ds, o.getRqrmcn().toString());
@@ -758,12 +757,12 @@ public class FER0310View01BzService extends RestBaseServerResource{
 					}
 				}
 
-				this.dmdopn = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(objTap002.getDmdopn().toString())) );
-				this.dmdla = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(objTap002.getDmdla().toString())) );
-				this.dmdlst = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(objTap002.getDmdlst().toString())) );
-				this.dmdld1 = objTap002.getDmdld();
-				this.codmon = objTap002.getDmcmcn();
-				this.prtacc = objTap002.getDmtacc();
+				this.dmdopn = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(objTap002w.getDmdopn().toString())) );
+				this.dmdla = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(objTap002w.getDmdla().toString())) );
+				this.dmdlst = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(objTap002w.getDmdlst().toString())) );
+				this.dmdld1 = objTap002w.getDmdld();
+				this.codmon = objTap002w.getDmcmcn();
+				this.prtacc = objTap002w.getDmtacc();
 				this.wkalt = "";
 				this.wkbank = this.bknum;
 				
@@ -780,7 +779,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 				this.dmssno = this.hssec;
 				this.dmhpnr = this.wkhmph;
 				this.dmbunr = this.wkbuph;
-				if (objTap002.getDmdint() != 0) {
+				if (objTap002w.getDmdint() != 0) {
 					//CFP001
 					if (true) {
 						this.dmdint = 0;
@@ -809,43 +808,43 @@ public class FER0310View01BzService extends RestBaseServerResource{
 
 				this.accctl = "A";
 				
-				SubRutAccr01(ds, objTap002.getDmbit2(), objTap002.getDmacc5(), objTap002.getDmcbal(), objTap002.getDmcf3(), objTap002.getDmcf4(), objTap002.getDmcf5() );  
+				SubRutAccr01(ds, null /*objTap002w.getDmbit2()*/, objTap002w.getDmacc5(), objTap002w.getDmcbal(), objTap002w.getDmcf3(), objTap002w.getDmcf4(), objTap002w.getDmcf5() );  
 				this.frjul = this.dmacc5; //variable
 				SubRutSrp003(ds);    
 				this.dmpthr = this.scal6;
-				this.wkalt = objTap002.getDmstct();
+				this.wkalt = objTap002w.getDmstct();
 				this.wkbank = this.bknum;
-				this.wkacct = objTap002.getDmacct().toString();
+				this.wkacct = objTap002w.getDmacct().toString();
 				this.wkacct = "06";
 				this.wkacct = "01";
-				this.wktitl = objTap002.getDmtitl();
+				this.wktitl = objTap002w.getDmtitl();
 				SubRutGtcust(ds);    
 				this.hssec = this.wkssno;
 				this.dmssno = this.hssec;
 				this.dmhpnr = this.wkhmph;
 				this.dmbunr = this.wkbuph;
-				this.wsbal = objTap002.getDmcbal();
-				this.float0 = objTap002.getDmcf1() + objTap002.getDmcf2() + objTap002.getDmcf3() + objTap002.getDmcf4() + objTap002.getDmcf5();
-				this.flt1   = objTap002.getDmcf1();
-				this.flt2 = objTap002.getDmcf2();
-				this.flt3 = objTap002.getDmcf3();
-				this.flt4 = objTap002.getDmcf4();
-				this.flt5 = objTap002.getDmcf5();
-				this.float1 = objTap002.getDmcf1() + objTap002.getDmcf2() + objTap002.getDmcf3() + objTap002.getDmcf4() + objTap002.getDmcf5();
-				this.dmcol0 = objTap002.getDmcbal().subtract(new BigDecimal(this.float0).subtract(new BigDecimal(objTap002.getDmhold())));
-				this.dmcol1 = objTap002.getDmcbal().subtract(new BigDecimal(this.float1).subtract(new BigDecimal(objTap002.getDmhold())));
+				this.wsbal = objTap002w.getDmcbal();
+				this.float0 = objTap002w.getDmcf1() + objTap002w.getDmcf2() + objTap002w.getDmcf3() + objTap002w.getDmcf4() + objTap002w.getDmcf5();
+				this.flt1   = objTap002w.getDmcf1();
+				this.flt2 = objTap002w.getDmcf2();
+				this.flt3 = objTap002w.getDmcf3();
+				this.flt4 = objTap002w.getDmcf4();
+				this.flt5 = objTap002w.getDmcf5();
+				this.float1 = objTap002w.getDmcf1() + objTap002w.getDmcf2() + objTap002w.getDmcf3() + objTap002w.getDmcf4() + objTap002w.getDmcf5();
+				this.dmcol0 = objTap002w.getDmcbal().subtract(new BigDecimal(this.float0).subtract(new BigDecimal(objTap002w.getDmhold())));
+				this.dmcol1 = objTap002w.getDmcbal().subtract(new BigDecimal(this.float1).subtract(new BigDecimal(objTap002w.getDmhold())));
 				
-				if (objTap002.getDmemp().equals("E") || objTap002.getDmemp().equals("O") || objTap002.getDmemp().equals("D")) {
+				if (objTap002w.getDmemp().equals("E") || objTap002w.getDmemp().equals("O") || objTap002w.getDmemp().equals("D")) {
 					this.dmald = 0;
 				}
-				if (objTap002.getDmemp().equals("E") || objTap002.getDmemp().equals("O") || objTap002.getDmemp().equals("D")) {
+				if (objTap002w.getDmemp().equals("E") || objTap002w.getDmemp().equals("O") || objTap002w.getDmemp().equals("D")) {
 					this.aacta1 = this.acctno;
 					this.aacta2 = this.aacta1;
 				}
-				this.dshbk = objTap002.getDmbk();
-				this.dshdsv = objTap002.getDmtyp();
-				this.dsacct = objTap002.getDmacct();
-				objTap003 = myDAOTap003.getUsingDmacct(ds, objTap002.getDmacct().toString());
+				this.dshbk = objTap002w.getDmbk();
+				this.dshdsv = objTap002w.getDmtyp();
+				this.dsacct = objTap002w.getDmacct();
+				objTap003 = myDAOTap003.getUsingDmacct(ds, objTap002w.getDmacct().toString());
 			}
 			
 			

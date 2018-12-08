@@ -1,5 +1,5 @@
 package com.ciessa.museum.model.legacy;
-// Generated Oct 22, 2018 9:28:33 PM by Hibernate Tools 3.2.2.GA
+// Generated Dec 8, 2018 1:27:28 AM by Hibernate Tools 3.2.2.GA
 
 
 
@@ -20,6 +20,7 @@ public class Cfp001220  implements java.io.Serializable {
      private String cfcgl;
      private String depost;
      private String withdw;
+     private String cftcpt;
      private String cfdla;
      private String citit;
      private String nrefo;
@@ -32,7 +33,7 @@ public class Cfp001220  implements java.io.Serializable {
     public Cfp001220(String pkid) {
         this.pkid = pkid;
     }
-    public Cfp001220(String pkid, String member, String cfbco, String cfreg, String cfctr, String cfcte, String cfdco, String cfcmn, String cfcgl, String depost, String withdw, String cfdla, String citit, String nrefo, String canop) {
+    public Cfp001220(String pkid, String member, String cfbco, String cfreg, String cfctr, String cfcte, String cfdco, String cfcmn, String cfcgl, String depost, String withdw, String cftcpt, String cfdla, String citit, String nrefo, String canop) {
        this.pkid = pkid;
        this.member = member;
        this.cfbco = cfbco;
@@ -44,6 +45,7 @@ public class Cfp001220  implements java.io.Serializable {
        this.cfcgl = cfcgl;
        this.depost = depost;
        this.withdw = withdw;
+       this.cftcpt = cftcpt;
        this.cfdla = cfdla;
        this.citit = citit;
        this.nrefo = nrefo;
@@ -126,6 +128,13 @@ public class Cfp001220  implements java.io.Serializable {
     
     public void setWithdw(String withdw) {
         this.withdw = withdw;
+    }
+    public String getCftcpt() {
+        return this.cftcpt;
+    }
+    
+    public void setCftcpt(String cftcpt) {
+        this.cftcpt = cftcpt;
     }
     public String getCfdla() {
         return this.cfdla;

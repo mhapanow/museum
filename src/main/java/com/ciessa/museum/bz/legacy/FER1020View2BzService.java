@@ -12,13 +12,12 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
 import com.ciessa.museum.dao.legacy.AltnamDAO;
 import com.ciessa.museum.dao.legacy.SaldomDAO;
-import com.ciessa.museum.dao.legacy.Tap002DAO;
+import com.ciessa.museum.dao.legacy.Tap002wDAO;
 import com.ciessa.museum.dao.legacy.Tap014DAO;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
@@ -26,7 +25,7 @@ import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Altnam;
 import com.ciessa.museum.model.legacy.Saldom;
-import com.ciessa.museum.model.legacy.Tap002;
+import com.ciessa.museum.model.legacy.Tap002w;
 import com.ciessa.museum.model.legacy.Tap014;
 import com.ciessa.museum.tools.Range;
 
@@ -38,7 +37,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 	DataSetDAO dsDao;
 
 	@Autowired
-	Tap002DAO myDaoTap002;
+	Tap002wDAO myDaoTap002w;
 	
 	@Autowired
 	AltnamDAO myDaoAltnam;
@@ -49,7 +48,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 	@Autowired
 	Tap014DAO myDaoTap014;
 
-	Tap002 tap002 = new Tap002();
+	Tap002w Tap002w = new Tap002w();
 	Altnam altnam = new Altnam();
 	Saldom saldom = new Saldom();
 	Long wdias = new Long(0);
@@ -115,7 +114,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 				ArrayList<Tap014> lstTap014 = SubRut007(ds, wcta, wbas, waca, wpto, wtod, fecjud, fecjuh, wimp, range);
 
 				// Obtains the user JSON representation
-				Fer1020Adapter adapter = new Fer1020Adapter(tap002, altnam, saldom, wdias);
+				Fer1020Adapter adapter = new Fer1020Adapter(Tap002w, altnam, saldom, wdias);
 				ArrayList<Fer1020SFLAdapter> sflAdapter = new ArrayList<FER1020View2BzService.Fer1020SFLAdapter>();
 				if (lstTap014 != null) {
 					for( Tap014 obj : lstTap014) {
@@ -152,12 +151,12 @@ public class FER1020View2BzService extends RestBaseServerResource{
 				}
 			}
 			if (Integer.parseInt(wcta) > 0) {
-				Tap002 obj = myDaoTap002.getUsingWcta(ds, wcta);
+				Tap002w obj = myDaoTap002w.getUsingWcta(ds, wcta);
 				if (obj == null)
 					return "Cuenta Inexistente";
 			}
 			if (Integer.parseInt(wbas) > 0) {
-				Tap002 obj = myDaoTap002.getUsingWbas(ds, wbas);
+				Tap002w obj = myDaoTap002w.getUsingWbas(ds, wbas);
 				if (obj == null)
 					return "Numero de Base Inexistente";
 			}
@@ -187,9 +186,9 @@ public class FER1020View2BzService extends RestBaseServerResource{
 	
 	private ArrayList<Tap014> SubRut007(DataSet ds, String wcta, String wbas, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp, Range range) throws ParseException, ASException {
 		Date dexaca;
-		tap002 = myDaoTap002.getUsingWcta(ds, wcta);
+		Tap002w = myDaoTap002w.getUsingWcta(ds, wcta);
 		altnam = myDaoAltnam.getUsingWcta(ds, wcta);
-		if (tap002.getDmcbal().intValue() < 0) {
+		if (Tap002w.getDmcbal().intValue() < 0) {
 			saldom = myDaoSaldom.getUsingWcta(ds, wcta);
 			if (saldom != null) {
 				if (saldom.getDexaca() > 0) {
@@ -235,7 +234,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 		private BigDecimal DMCBAL;
 		private int DMCMCN;
 		
-		public Fer1020Adapter(Tap002 src1, Altnam src2, Saldom src3, Long wdias) {
+		public Fer1020Adapter(Tap002w src1, Altnam src2, Saldom src3, Long wdias) {
 			this.WCTA1 = src1.getDmacct();
 			this.NOMBRE = src2.getNamel1();
 			this.DOMIC = src2.getAdres1();

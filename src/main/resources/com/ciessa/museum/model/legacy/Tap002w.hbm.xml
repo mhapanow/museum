@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 22, 2018 9:28:04 PM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated Dec 8, 2018 1:18:52 AM by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="com.ciessa.museum.model.legacy.Tap002" table="TAP002" schema="dbo" catalog="museum">
+    <class name="com.ciessa.museum.model.legacy.Tap002w" table="TAP002W" schema="dbo" catalog="museum">
         <id name="pkid" type="string">
             <column name="PKID" length="36" />
             <generator class="assigned" />
@@ -173,11 +173,53 @@
         <property name="dmeft" type="string">
             <column name="DMEFT" length="1" />
         </property>
-        <property name="dmbits" type="string">
-            <column name="DMBITS" length="1" />
+        <property name="dmbts0" type="string">
+            <column name="DMBTS0" length="1" />
         </property>
-        <property name="dmbit2" type="string">
-            <column name="DMBIT2" length="1" />
+        <property name="dmbts1" type="string">
+            <column name="DMBTS1" length="1" />
+        </property>
+        <property name="dmbts2" type="string">
+            <column name="DMBTS2" length="1" />
+        </property>
+        <property name="dmbts3" type="string">
+            <column name="DMBTS3" length="1" />
+        </property>
+        <property name="dmbts4" type="string">
+            <column name="DMBTS4" length="1" />
+        </property>
+        <property name="dmbts5" type="string">
+            <column name="DMBTS5" length="1" />
+        </property>
+        <property name="dmbts6" type="string">
+            <column name="DMBTS6" length="1" />
+        </property>
+        <property name="dmbts7" type="string">
+            <column name="DMBTS7" length="1" />
+        </property>
+        <property name="dmbt20" type="string">
+            <column name="DMBT20" length="1" />
+        </property>
+        <property name="dmbt21" type="string">
+            <column name="DMBT21" length="1" />
+        </property>
+        <property name="dmbt22" type="string">
+            <column name="DMBT22" length="1" />
+        </property>
+        <property name="dmbt23" type="string">
+            <column name="DMBT23" length="1" />
+        </property>
+        <property name="dmbt24" type="string">
+            <column name="DMBT24" length="1" />
+        </property>
+        <property name="dmbt25" type="string">
+            <column name="DMBT25" length="1" />
+        </property>
+        <property name="dmbt26" type="string">
+            <column name="DMBT26" length="1" />
+        </property>
+        <property name="dmbt27" type="string">
+            <column name="DMBT27" length="1" />
         </property>
         <property name="dmdla" type="java.lang.Integer">
             <column name="DMDLA" />
