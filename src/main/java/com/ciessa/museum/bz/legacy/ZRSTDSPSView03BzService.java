@@ -1,7 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,16 +16,16 @@ import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Zrsprer;
-import com.ciessa.museum.tools.CollectionFactory;
 
 public class ZRSTDSPSView03BzService extends RestBaseServerResource {
-public static final Logger log = Logger.getLogger(ZRSTDSPSView04BzService.class.getName());
+public static final Logger log = Logger.getLogger(ZRSTDSPSView03BzService.class.getName());
 	
 	@Autowired
 	DataSetDAO dsDao;
 	
 	@Autowired
 	ZrsprerDAO myDAOZrsprer;
+
 	
 	Zrsprer objZrsprer = new Zrsprer();
 	
@@ -71,7 +70,7 @@ public static final Logger log = Logger.getLogger(ZRSTDSPSView04BzService.class.
 			this.mencct = this.dscuenta;
 			this.meyfac = this.dscent;
 			this.meaafc = this.dsano;
-			this.mecifa = this.dscic;
+			this.mecifa = String.format("%02d", Integer.parseInt(this.dscic));
 			this.meagig = this.dsag;
 			
 			objZrsprer = myDAOZrsprer.getUsingMeorgAndMelogoAndMencctAndMeyfacAndMeaafcAndMecifaAndMeagig(ds, Integer.parseInt(meorg), Integer.parseInt(melogo), mencct, Integer.parseInt(meyfac), Integer.parseInt(meaafc), mecifa, meagig);

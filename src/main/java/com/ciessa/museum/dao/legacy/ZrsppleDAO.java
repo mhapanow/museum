@@ -28,7 +28,7 @@ SessionFactory factory = null;
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Zrspple Where Rlorg = :rlorg And Rllogo = :rllogo And Rlncct = :rlncct And Rlaaf4 = :rlaaf4 And Rlcifa = :rlcifa And Rlagig = :rlagig And Rltenv = :rltenv ");
+			Query q = session.createQuery(" FROM Zrspple WHERE rlorg = :rlorg And rllogo = :rllogo And rlncct = :rlncct And rlaaf4 = :rlaaf4 And rlcifa = :rlcifa And rlagig = :rlagig And rltenv = :rltenv ");
 			q.setParameter("rlorg", rlorg);
 			q.setParameter("rllogo", rllogo);
 			q.setParameter("rlncct", rlncct);
@@ -42,7 +42,6 @@ SessionFactory factory = null;
 				session.evict(o);
 				tx.commit();
 			}
-			
 			
 			return o;
 				

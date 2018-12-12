@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 11, 2018 7:50:05 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Cfp001205" table="CFP001205" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cfbco" type="string">
+            <column name="CFBCO" length="3" />
+        </property>
+        <property name="cfreg" type="string">
+            <column name="CFREG" length="3" />
+        </property>
+        <property name="cfinnr" type="string">
+            <column name="CFINNR" length="3" />
+        </property>
+        <property name="cffil3" type="string">
+            <column name="CFFIL3" length="9" />
+        </property>
+        <property name="cfindr" type="string">
+            <column name="CFINDR" length="1" />
+        </property>
+        <property name="cfstat" type="string">
+            <column name="CFSTAT" length="1" />
+        </property>
+        <property name="cfinds" type="string">
+            <column name="CFINDS" length="20" />
+        </property>
+        <property name="cfpinc" type="string">
+            <column name="CFPINC" length="1" />
+        </property>
+        <property name="cfpnty" type="string">
+            <column name="CFPNTY" length="1" />
+        </property>
+        <property name="cfpacb" type="string">
+            <column name="CFPACB" length="1" />
+        </property>
+        <property name="cfpyrb" type="string">
+            <column name="CFPYRB" length="1" />
+        </property>
+        <property name="cfpten" type="string">
+            <column name="CFPTEN" length="1" />
+        </property>
+        <property name="cfprsv" type="big_decimal">
+            <column name="CFPRSV" precision="7" scale="7" />
+        </property>
+        <property name="cfpmba" type="java.lang.Integer">
+            <column name="CFPMBA" />
+        </property>
+        <property name="cfpmbf" type="string">
+            <column name="CFPMBF" length="1" />
+        </property>
+        <property name="cfpmap" type="big_decimal">
+            <column name="CFPMAP" precision="7" />
+        </property>
+        <property name="cfpmbp" type="big_decimal">
+            <column name="CFPMBP" precision="11" />
+        </property>
+        <property name="cfpmnr" type="big_decimal">
+            <column name="CFPMNR" precision="7" scale="7" />
+        </property>
+        <property name="cfpmnb" type="java.lang.Long">
+            <column name="CFPMNB" />
+        </property>
+        <property name="cfpmna" type="java.lang.Long">
+            <column name="CFPMNA" />
+        </property>
+        <property name="cfpb1" type="java.lang.Long">
+            <column name="CFPB1" />
+        </property>
+        <property name="cfpb2" type="java.lang.Long">
+            <column name="CFPB2" />
+        </property>
+        <property name="cfpb3" type="java.lang.Long">
+            <column name="CFPB3" />
+        </property>
+        <property name="cfpb4" type="java.lang.Long">
+            <column name="CFPB4" />
+        </property>
+        <property name="cfpi" type="string">
+            <column name="CFPI" length="8" />
+        </property>
+        <property name="cftrfg" type="string">
+            <column name="CFTRFG" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

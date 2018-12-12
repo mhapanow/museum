@@ -32,15 +32,49 @@ public class CumastDAO {
 			q.setParameter("cunbr", cunbr);
 			Cumast o = (Cumast)q.uniqueResult();
 			
-			if( o == null ) {
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
+			}
+						
+			return o;
+		} catch (HibernateException e) {
+			if (tx != null)
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(cunbr);
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
+	
+	public Cumast getUsingSwcubkAndSwcunb(DataSet ds, String swcubk, String swcunb) throws ASException {
+		
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery("FROM Cumast WHERE cubk = :swcubk AND cunbr = :swcunb");
+			q.setParameter("swcubk", swcubk);
+			q.setParameter("swcunb", swcunb);
+			
+			Cumast o = (Cumast)q.uniqueResult();
+			
+			if( o != null ) {
+				session.evict(o);
+				tx.commit();
 			}
 			
-			session.evict(o);
-			tx.commit();
-			
 			return o;
+			
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();

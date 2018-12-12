@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 11, 2018 7:50:05 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Cfp001207" table="CFP001207" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="cfbco" type="string">
+            <column name="CFBCO" length="3" />
+        </property>
+        <property name="cfreg" type="string">
+            <column name="CFREG" length="3" />
+        </property>
+        <property name="cflim1" type="java.lang.Long">
+            <column name="CFLIM1" />
+        </property>
+        <property name="cflim2" type="java.lang.Long">
+            <column name="CFLIM2" />
+        </property>
+        <property name="cflim3" type="java.lang.Long">
+            <column name="CFLIM3" />
+        </property>
+        <property name="cflim4" type="java.lang.Long">
+            <column name="CFLIM4" />
+        </property>
+        <property name="cflim5" type="java.lang.Long">
+            <column name="CFLIM5" />
+        </property>
+        <property name="cflim6" type="java.lang.Long">
+            <column name="CFLIM6" />
+        </property>
+        <property name="cflim7" type="java.lang.Long">
+            <column name="CFLIM7" />
+        </property>
+        <property name="cflim8" type="java.lang.Long">
+            <column name="CFLIM8" />
+        </property>
+        <property name="cflim9" type="java.lang.Long">
+            <column name="CFLIM9" />
+        </property>
+        <property name="cfiva1" type="string">
+            <column name="CFIVA1" length="1" />
+        </property>
+        <property name="cfiva2" type="string">
+            <column name="CFIVA2" length="1" />
+        </property>
+        <property name="cfiva3" type="string">
+            <column name="CFIVA3" length="1" />
+        </property>
+        <property name="cfiva4" type="string">
+            <column name="CFIVA4" length="1" />
+        </property>
+        <property name="cfiva5" type="string">
+            <column name="CFIVA5" length="1" />
+        </property>
+        <property name="cfiva6" type="string">
+            <column name="CFIVA6" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

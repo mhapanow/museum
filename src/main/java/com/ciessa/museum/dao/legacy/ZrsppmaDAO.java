@@ -27,7 +27,7 @@ public class ZrsppmaDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery(" FROM Zrsppma Where Imorg = :imorg And Imlogo = :imlogo And Imncct = :imncct And Imaaf4 = :imaaf4 And Imcifa = :imcifa And  Imagig = :imagig ");
+			Query q = session.createQuery(" FROM Zrsppma WHERE imorg = :imorg And imlogo = :imlogo And imncct = :imncct And imaaf4 = :imaaf4 And imcifa = :imcifa And  imagig = :imagig ");
 			q.setParameter("imorg", imorg);
 			q.setParameter("imlogo", imlogo);
 			q.setParameter("imncct", imncct);
@@ -39,7 +39,7 @@ public class ZrsppmaDAO {
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+				//throw ASExceptionHelper.notFoundException();
 			}
 			
 			session.evict(o);

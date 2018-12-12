@@ -1,5 +1,5 @@
 package com.ciessa.museum.model.legacy;
-// Generated Sep 13, 2018 8:37:56 PM by Hibernate Tools 3.2.2.GA
+// Generated Dec 11, 2018 7:50:29 PM by Hibernate Tools 3.2.2.GA
 
 
 

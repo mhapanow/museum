@@ -39,35 +39,36 @@ public class ZRSTDSPSView05BzService extends RestBaseServerResource {
 	List<Zrsplem> ListZrsplem = null;
 	
 	// Variables
-	String meorg = null;
-	String melogo = null;
-	String mencct = null;
-	String meyac = null;
-	String meaafc = null;
-	String mecifa = null;
-	String meagig = null;
+	String meorg = "";
+	String melogo = "";
+	String mencct = "";
+	String meyac = "";
+	String meaafc = "";
+	String mecifa = "";
+	String meagig = "";
 	
-	String out6 = null;
-	String break6 = null;
-	String sprcd = null;
-	String sanyocic = null;
-	String subic = null;
+	String out6 = "";
+	String break6 = "";
+	String sprcd = "";
+	String sanyocic = "";
+	String subic = "";
 	String[] slin = new String[400];
 	Integer si1 = 0;
 	String[] slin1 = new String[400];
 	Integer si2 = 0;
 	String[] slin2 = new String[400];
 	Integer si = 0;
+	String[] slinGetstmmsg = new String[400];
 	String fechfac = null;
 	String mebicyd = null;
 	Boolean flagsfl = false;
 	List<String> w6linems = new ArrayList<String>();
 	
-	String amprcd = null;
-	String amiddp = null;
-	String amubdg = null;
+	String amprcd = "";
+	String amiddp = "";
+	String amubdg = "";
 	Integer sq = 0;
-	String santnum = null;
+	String santnum = "";
 	
 	ZRSTDSPSAdapter adapted = null;
 	
@@ -115,7 +116,7 @@ public class ZRSTDSPSView05BzService extends RestBaseServerResource {
 					"MENAMED",
 					"FECHFAC",
 					"MEBICYD",
-					"W6LINEMS",
+					"w6linems",
 			};
 
 			// Obtains the user JSON representation
@@ -124,12 +125,13 @@ public class ZRSTDSPSView05BzService extends RestBaseServerResource {
 			adapted.setMELOGOD(this.melogo);
 			String meacnbd = null;
 			String menamed = null;
-			adapted.setMEACNBD(meacnbd); // TODO :
-			adapted.setMENAMED(menamed); // TODO :
+			adapted.setMEACNBD(this.Objshdr2000.getMencct());
+			adapted.setMENAMED(this.Objshdr2000.getMename());
 			adapted.setFECHFAC(this.fechfac);
 			adapted.setMEBICYD(this.mebicyd);
-			String[] stringArray = this.w6linems.toArray(new String[this.w6linems.size()]);
-			adapted.setW6LINEMS( Arrays.toString(stringArray));
+			//String[] stringArray = this.w6linems.toArray(new String[this.w6linems.size()]);
+			//adapted.setW6linems( Arrays.toString(stringArray));
+			adapted.setW6linems( String.join(",", this.w6linems));
 			returnValue = getJSONRepresentationFromObject(adapted, fields);
 			
 		}
@@ -163,18 +165,23 @@ public class ZRSTDSPSView05BzService extends RestBaseServerResource {
 					this.sprcd = "VS";
 				}
 			}
-			String sfecres6 = ""; //TODO.: NO EXISTE VARIABLE
-			this.sanyocic = sfecres6;
+			
+			this.sanyocic = String.format("%02d", Objshdr2000.getMeyfac()) + String.format("%02d",Objshdr2000.getMeaafc()) + Objshdr2000.getMecifa();
 			this.subic = "Z1";
 			
 			this.si1 = 0;
 			//limpiar slin1
-			this.si1 = SubProcGetstmmsg(ds, this.sprcd, this.sanyocic, this.subic, this.slin1);
+			for (int i=0; i< this.slin1.length; i++) this.slin1[i] = "";
+			this.si1 = SubProcGetstmmsg(ds, this.sprcd, this.sanyocic, this.subic);
+			for (int i=0; i< this.slin1.length; i++)
+				this.slin1[i] = this.slinGetstmmsg[i];
 			
 			this.subic = "Z2";
 			this.si2 = 0;
-			//limpiar slin2
-			this.si2 = SubProcGetstmmsg(ds, this.sprcd, this.sanyocic, this.subic, this.slin2);
+			for (int i=0; i< this.slin2.length; i++) this.slin2[i] = "";
+			this.si2 = SubProcGetstmmsg(ds, this.sprcd, this.sanyocic, this.subic);
+			for (int i=0; i< this.slin2.length; i++)
+				this.slin2[i] = this.slinGetstmmsg[i];
 			
 			if (this.si1 > 0) {
 				this.slin = this.slin1;
@@ -188,12 +195,10 @@ public class ZRSTDSPSView05BzService extends RestBaseServerResource {
 			}
 			this.si = this.si1 + this.si2;
 			if (this.si > 0) {
-				for (int j = 1; j < this.si; j++) {
+				for (int j = 1; j <= this.si; j++) {
 					if ( !slin[j].equals("") ) {
 						if (j  == 1) {
-							String smesres = "";
-							String sanyores = "";
-							this.fechfac = smesres + "/" + sanyores; //TODO :
+							this.fechfac = this.Objshdr2000.getMecifa() + "/" + String.format("%02d", this.Objshdr2000.getMeyfac()) + String.format("%02d",this.Objshdr2000.getMeaafc());
 							this.mebicyd = Objshdr2000.getMeccyc().toString();
 							this.flagsfl = true; // TODO :
 						}
@@ -210,9 +215,9 @@ public class ZRSTDSPSView05BzService extends RestBaseServerResource {
 		}
 	}
 	
-	private Integer SubProcGetstmmsg(DataSet ds, String _sprcd, String _sanyocic,
-			String _subic, String[] _slin) {
+	private Integer SubProcGetstmmsg(DataSet ds, String _sprcd, String _sanyocic, String _subic) {
 		try {
+			for (int i = 0; i< this.slinGetstmmsg.length; i++) this.slinGetstmmsg[i] = "";
 			if (_sprcd.equals("") || _sprcd.equals("0") || _subic.equals("") ) {
 				return 0;
 			}
@@ -225,18 +230,18 @@ public class ZRSTDSPSView05BzService extends RestBaseServerResource {
 			ListZrsplem = myDAOZrsplem.getUsinAmprcdAndAmiddpAndAmubdg(ds, _sprcd, _sanyocic, _subic);
 			
 			for(Zrsplem o : ListZrsplem) {
-				if (this.sq < this.slin.length) {
+				if (this.sq < this.slinGetstmmsg.length) {
 					if (o.getAmemai().equals("A")) {
 						this.santnum = o.getAmnmai().toString();
 						if (o.getAmnuli()>0 && o.getAmemai().equals("A")) {
 							this.sq += 1;
-							this.slin[this.sq] = o.getAmltxc(); 
+							this.slinGetstmmsg[this.sq] = o.getAmltxc(); 
 						}
 					}					
 				}
-				if (this.sq < this.slin.length && !this.santnum.equals(o.getAmnmai().toString()) && !this.santnum.equals("0") && o.getAmemai().equals("A") ) {
+				if (this.sq < this.slinGetstmmsg.length && !this.santnum.equals(o.getAmnmai().toString()) && !this.santnum.equals("0") && o.getAmemai().equals("A") ) {
 					this.sq += 1;
-					this.slin[this.sq] = "";
+					this.slinGetstmmsg[this.sq] = "";
 				}
 			}
 			
@@ -254,7 +259,7 @@ public class ZRSTDSPSView05BzService extends RestBaseServerResource {
 		String MENAMED = null;
 		String FECHFAC = null;
 		String MEBICYD = null;
-		String W6LINEMS = null;
+		String w6linems = null;
 		
 		public ZRSTDSPSAdapter() {
 			
@@ -308,15 +313,16 @@ public class ZRSTDSPSView05BzService extends RestBaseServerResource {
 			MEBICYD = mEBICYD;
 		}
 
-		public String getW6LINEMS() {
-			return W6LINEMS;
+		public String getW6linems() {
+			return w6linems;
 		}
 
-		public void setW6LINEMS(String w6linems) {
-			W6LINEMS = w6linems;
+		public void setW6linems(String w6linems) {
+			this.w6linems = w6linems;
 		}
-		
-		
+
+
+
 
 	}
 	

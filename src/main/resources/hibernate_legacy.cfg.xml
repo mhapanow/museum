@@ -85,7 +85,7 @@
 			resource="com/ciessa/museum/model/legacy/Ccrpcar.hbm.xml"></mapping>
  		<mapping
 			resource="com/ciessa/museum/model/legacy/Ccrpcci.hbm.xml"></mapping>
-<mapping
+		<mapping
 			resource="com/ciessa/museum/model/legacy/Zrspdmr.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Zrspilr.hbm.xml"></mapping>
@@ -111,6 +111,14 @@
 			resource="com/ciessa/museum/model/legacy/Zrsprwd.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Zvrpfrq.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Tgpp632.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspmir.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zpcpclr.hbm.xml"></mapping>
+<mapping
+			resource="com/ciessa/museum/model/legacy/Zrspiir.hbm.xml"></mapping>
 			
 	</session-factory>
 

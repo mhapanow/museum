@@ -1,7 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -267,6 +266,7 @@ public class ZRSTONLNView02BzService extends RestBaseServerResource {
 				}
 			}
 			listZrsprer = myDaoZrsprer.getUsingW1afacW1cifaW1agigW1orgnW1logoW1acnsW1cansW1baddW1bbahW1ebadW1ebahW1cyduW1obolW1estcW1caclW1cposW1retrW1funcANDw1crbaToList(ds,  w1afac, w1cifa, w1agig, w1orgn, w1logo, w1acns, w1cans, w1bbad, w1bbah, w1ebad, w1ebah, w1cydu, w1obol, w1estc, w1cacl, w1cpos, w1retr, w1func, w1crba);
+			
 			for (Zrsprer o : listZrsprer) {
 				adapted = new ZRSTONLNAdapter();
 				adapted.setWSAFAC(Integer.parseInt(String.format("%02d", o.getMeyfac()) + String.format("%02d", o.getMeaafc())));

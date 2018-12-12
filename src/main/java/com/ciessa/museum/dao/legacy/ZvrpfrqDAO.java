@@ -34,7 +34,7 @@ public class ZvrpfrqDAO {
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(txcfar);
+				//--throw ASExceptionHelper.notFoundException(txcfar);
 			}
 			
 			session.evict(o);

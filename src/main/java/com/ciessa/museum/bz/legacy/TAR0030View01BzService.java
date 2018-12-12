@@ -1,8 +1,8 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,32 +13,31 @@ import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
-
 import com.ciessa.museum.dao.DataSetDAO;
-import com.ciessa.museum.exception.ASException;
-import com.ciessa.museum.exception.ASExceptionHelper;
-import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.User;
-import com.ciessa.museum.dao.legacy.SaldomDAO;
-import com.ciessa.museum.model.legacy.Saldom;
-import com.ciessa.museum.dao.legacy.Tap002DAO;
-import com.ciessa.museum.dao.legacy.Tap014DAO;
-import com.ciessa.museum.dao.legacy.Tap902DAO;
-import com.ciessa.museum.model.legacy.Tap002;
-import com.ciessa.museum.model.legacy.Tap014;
-import com.ciessa.museum.model.legacy.Tap902;
-import com.ciessa.museum.dao.legacy.TablamDAO;
-import com.ciessa.museum.model.legacy.Tablam;
 import com.ciessa.museum.dao.legacy.AltnamDAO;
 import com.ciessa.museum.dao.legacy.Cfp001210DAO;
 import com.ciessa.museum.dao.legacy.CumastDAO;
 import com.ciessa.museum.dao.legacy.Cuxrf1DAO;
 import com.ciessa.museum.dao.legacy.RsctamDAO;
+import com.ciessa.museum.dao.legacy.SaldomDAO;
+import com.ciessa.museum.dao.legacy.TablamDAO;
+import com.ciessa.museum.dao.legacy.Tap002wDAO;
+import com.ciessa.museum.dao.legacy.Tap014DAO;
+import com.ciessa.museum.dao.legacy.Tap902DAO;
+import com.ciessa.museum.exception.ASException;
+import com.ciessa.museum.exception.ASExceptionHelper;
+import com.ciessa.museum.model.DataSet;
+import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Altnam;
 import com.ciessa.museum.model.legacy.Cfp001210;
 import com.ciessa.museum.model.legacy.Cumast;
 import com.ciessa.museum.model.legacy.Cuxrf1;
 import com.ciessa.museum.model.legacy.Rsctam;
+import com.ciessa.museum.model.legacy.Saldom;
+import com.ciessa.museum.model.legacy.Tablam;
+import com.ciessa.museum.model.legacy.Tap002w;
+import com.ciessa.museum.model.legacy.Tap014;
+import com.ciessa.museum.model.legacy.Tap902;
 
 public class TAR0030View01BzService extends RestBaseServerResource{
 	
@@ -48,7 +47,7 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 	DataSetDAO dsDao;
 
 	@Autowired
-	Tap002DAO myDaoTap002;
+	Tap002wDAO myDaoTap002w;
 	
 	@Autowired
 	SaldomDAO myDaoSaldom;
@@ -78,7 +77,7 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 	CumastDAO myDaoCumast;
 
 	//Entity
-	Tap002 objTap002 = new Tap002();
+	Tap002w objTap002w = new Tap002w();
 	Saldom objSaldom = new Saldom();
     Tablam objTablam = new Tablam();
     Cfp001210 objCfp001210 = new Cfp001210();
@@ -181,23 +180,23 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 				log.log(Level.SEVERE, rpta, new Exception());
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
 			}
-			branch = objTap002.getDmbrch();
-			oficta = objTap002.getDmoff();
-			divisi = objTap002.getDmsf4();
-			sitfis = objTap002.getDmwhfg();
-			planca = objTap002.getDmsccd();
-			impdeb = objTap002.getDmadex();
+			branch = objTap002w.getDmbrch();
+			oficta = objTap002w.getDmoff();
+			divisi = objTap002w.getDmsf4();
+			sitfis = objTap002w.getDmwhfg();
+			planca = objTap002w.getDmsccd();
+			impdeb = objTap002w.getDmadex();
 			if (cuenta.charAt(0) == '5') {
 				tipo = "1";
 				} 
 			else {	
 				tipo = "6";
 				}
-			dmtype = objTap002.getDmtype().toString();
+			dmtype = objTap002w.getDmtype().toString();
 			objCfp001210 = myDaoCfp001210.getUsingKey(ds, tipo, dmtype);
 			typdes = objCfp001210.getCftnme();
-			ctacac = objTap002.getDmtfac();
-			estad = objTap002.getDmstat();
+			ctacac = objTap002w.getDmtfac();
+			estad = objTap002w.getDmstat();
 			if (estad.equals("1") || estad.equals("6")) {
 				estado = "0";
 				tipest = "ACTIVA";
@@ -242,46 +241,46 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 				estado = "P";
 				tipest = "PEND. N/A";
 			}
-			if (objTap002.getDmmail().equals("N")) {
-				if (objTap002.getDmntrq().equals("2")) {
+			if (objTap002w.getDmmail().equals("N")) {
+				if (objTap002w.getDmntrq().equals("2")) {
 					envpos = "5";
 				}
 				else {
 					envpos = "1";
 				}
 			}
-			if (objTap002.getDmmail().equals("Y")) {
+			if (objTap002w.getDmmail().equals("Y")) {
 				envpos = "2";
 			}
-			if (objTap002.getDmmail().equals("X")) {
+			if (objTap002w.getDmmail().equals("X")) {
 				envpos = "8";
 			}
-			if (objTap002.getDmmail().equals("D")) {
+			if (objTap002w.getDmmail().equals("D")) {
 				envpos = "3";
 			}
-			if (objTap002.getDmmail().equals("E")) {
+			if (objTap002w.getDmmail().equals("E")) {
 				envpos = "4";
 			}
-			if (objTap002.getDmmail().equals("M")) {
+			if (objTap002w.getDmmail().equals("M")) {
 				envpos = "6";
 			}
-			if (objTap002.getDmmail().equals("H")) {
+			if (objTap002w.getDmmail().equals("H")) {
 				envpos = "7";
 			}
-			if (objTap002.getDmmail().equals("C")) {
+			if (objTap002w.getDmmail().equals("C")) {
 				envpos = "9";
 			}
-			fecape = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertCamdToAmd(objTap002.getDmdopn().toString()) );
-			fecult = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertCamdToAmd(objTap002.getDmntdt().toString()));
-			if (objTap002.getDmnoac().equals("D")) {
+			fecape = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertCamdToAmd(objTap002w.getDmdopn().toString()) );
+			fecult = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertCamdToAmd(objTap002w.getDmntdt().toString()));
+			if (objTap002w.getDmnoac().equals("D")) {
 				exsmov = "N";
 			}
 			else {
 				exsmov = "S";
 			}
-			if (objTap002.getDmstsp() != 0) {
-				cicdes = objTap002.getDmstsp();
-				if (objTap002.getDmstfr() == 1) {
+			if (objTap002w.getDmstsp() != 0) {
+				cicdes = objTap002w.getDmstsp();
+				if (objTap002w.getDmstfr() == 1) {
 					frecue = "M";
 				}
 				else {
@@ -290,7 +289,7 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 				}
 			}
 			else {
-				if (objTap002.getDmstfr() == 1) {
+				if (objTap002w.getDmstfr() == 1) {
 					cicdes = 40;
 					frecue = "D";
 				}
@@ -310,7 +309,7 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 				codpos = objAltnam.getCposta();
 				telefo = objAltnam.getCtelef();
 			}
-			dmstcp = objTap002.getDmstcp().toString();
+			dmstcp = objTap002w.getDmstcp().toString();
 			objRsctam = myDaoRsctam.getUsingCuenta(ds, cuenta);
 			if (objRsctam != null) {
 				segmen = objRsctam.getCsegme();
@@ -457,8 +456,8 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 					}
 				}
 			}
-			objTap002 = myDaoTap002.getUsingTipoAndCuenta(ds, tipo, cuenta);
-			if (objTap002 == null)
+			objTap002w = myDaoTap002w.getUsingTipoAndCuenta(ds, tipo, cuenta);
+			if (objTap002w == null)
 			{
 				log.log(Level.SEVERE, "Cuenta inexistente.", new Exception());
 				return "Cuenta inexistente";
@@ -478,19 +477,19 @@ public class TAR0030View01BzService extends RestBaseServerResource{
 						fecna = new SimpleDateFormat("yyyyMMdd").parse(objSaldom.getDsana().toString());
 					if (objSaldom.getDsawo() != 0)
 						fecwo = new SimpleDateFormat("yyyyMMdd").parse(objSaldom.getDsawo().toString());
-					fecua = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertCamdToAmd(objTap002.getDmfdi4().toString()));
+					fecua = new SimpleDateFormat("yyyyMMdd").parse(this.func.ConvertCamdToAmd(objTap002w.getDmfdi4().toString()));
 				} catch( Exception e ) {}
-				moneda = objTap002.getDmcmcn();
-				cativa = objTap002.getDmiova();
-				nrruc = objTap002.getDmadde().multiply(new BigDecimal(10));
-				altaex = objTap002.getDmrest();
-				planin = objTap002.getDmdint();
-				motbaj = objTap002.getDmcf1();
-				if (objTap002.getDmtyp() == 1 && objTap002.getDmstat() == "4" && objTap002.getDmcf1() == 0) {
+				moneda = objTap002w.getDmcmcn();
+				cativa = objTap002w.getDmiova();
+				nrruc = objTap002w.getDmadde().multiply(new BigDecimal(10));
+				altaex = objTap002w.getDmrest();
+				planin = objTap002w.getDmdint();
+				motbaj = objTap002w.getDmcf1();
+				if (objTap002w.getDmtyp() == 1 && objTap002w.getDmstat() == "4" && objTap002w.getDmcf1() == 0) {
 					cvalor = "99";
 				}
 				else{			
-					cvalor = " " + new DecimalFormat("00").format(objTap002.getDmcf1());
+					cvalor = " " + new DecimalFormat("00").format(objTap002w.getDmcf1());
 				}
 				objTablam = myDaoTablam.getUsingCvalor(ds, cvalor);
 				if (objTablam != null)

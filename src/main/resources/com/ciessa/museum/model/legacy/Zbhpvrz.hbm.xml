@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 11, 2018 7:50:05 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ciessa.museum.model.legacy.Zbhpvrz" table="ZBHPVRZ" schema="dbo" catalog="museum">
+        <id name="pkid" type="string">
+            <column name="PKID" length="36" />
+            <generator class="assigned" />
+        </id>
+        <property name="member" type="string">
+            <column name="MEMBER" length="10" />
+        </property>
+        <property name="vzrmcn" type="java.lang.Long">
+            <column name="VZRMCN" />
+        </property>
+        <property name="vznrvz" type="java.lang.Long">
+            <column name="VZNRVZ" />
+        </property>
+        <property name="vzscor" type="java.lang.Integer">
+            <column name="VZSCOR" />
+        </property>
+        <property name="vzfrsc" type="java.lang.Integer">
+            <column name="VZFRSC" />
+        </property>
+        <property name="vzasco" type="java.lang.Integer">
+            <column name="VZASCO" />
+        </property>
+        <property name="vzfsco" type="java.lang.Integer">
+            <column name="VZFSCO" />
+        </property>
+        <property name="vzrgo6" type="java.lang.Integer">
+            <column name="VZRGO6" />
+        </property>
+        <property name="vzpmin" type="java.lang.Integer">
+            <column name="VZPMIN" />
+        </property>
+        <property name="vzqtar" type="java.lang.Integer">
+            <column name="VZQTAR" />
+        </property>
+        <property name="vzsatr" type="java.lang.Integer">
+            <column name="VZSATR" />
+        </property>
+        <property name="vzalcr" type="java.lang.Integer">
+            <column name="VZALCR" />
+        </property>
+        <property name="vzapmi" type="java.lang.Integer">
+            <column name="VZAPMI" />
+        </property>
+        <property name="vzpuu3" type="java.lang.Integer">
+            <column name="VZPUU3" />
+        </property>
+        <property name="vzpuu6" type="java.lang.Integer">
+            <column name="VZPUU6" />
+        </property>
+        <property name="vzlmax" type="java.lang.Integer">
+            <column name="VZLMAX" />
+        </property>
+        <property name="vzqcta" type="java.lang.Integer">
+            <column name="VZQCTA" />
+        </property>
+        <property name="vzsacc" type="java.lang.Integer">
+            <column name="VZSACC" />
+        </property>
+        <property name="vzalds" type="java.lang.Integer">
+            <column name="VZALDS" />
+        </property>
+        <property name="vzaipv" type="java.lang.Integer">
+            <column name="VZAIPV" />
+        </property>
+        <property name="vzpua3" type="java.lang.Integer">
+            <column name="VZPUA3" />
+        </property>
+        <property name="vzpua6" type="java.lang.Integer">
+            <column name="VZPUA6" />
+        </property>
+        <property name="vzlmcc" type="java.lang.Integer">
+            <column name="VZLMCC" />
+        </property>
+        <property name="vzqpsg" type="java.lang.Integer">
+            <column name="VZQPSG" />
+        </property>
+        <property name="vzassg" type="java.lang.Integer">
+            <column name="VZASSG" />
+        </property>
+        <property name="vzmpsg" type="java.lang.Integer">
+            <column name="VZMPSG" />
+        </property>
+        <property name="vzmcsg" type="java.lang.Integer">
+            <column name="VZMCSG" />
+        </property>
+        <property name="vzqpgp" type="java.lang.Integer">
+            <column name="VZQPGP" />
+        </property>
+        <property name="vzasgp" type="java.lang.Integer">
+            <column name="VZASGP" />
+        </property>
+        <property name="vzmpgp" type="java.lang.Integer">
+            <column name="VZMPGP" />
+        </property>
+        <property name="vzmcgp" type="java.lang.Integer">
+            <column name="VZMCGP" />
+        </property>
+        <property name="vzqpgh" type="java.lang.Integer">
+            <column name="VZQPGH" />
+        </property>
+        <property name="vzasgh" type="java.lang.Integer">
+            <column name="VZASGH" />
+        </property>
+        <property name="vzmngh" type="java.lang.Integer">
+            <column name="VZMNGH" />
+        </property>
+        <property name="vzscgh" type="java.lang.Integer">
+            <column name="VZSCGH" />
+        </property>
+        <property name="vzmatc" type="java.lang.Integer">
+            <column name="VZMATC" />
+        </property>
+        <property name="vzmacc" type="java.lang.Integer">
+            <column name="VZMACC" />
+        </property>
+        <property name="vzqta6" type="java.lang.Integer">
+            <column name="VZQTA6" />
+        </property>
+        <property name="vzqca6" type="java.lang.Integer">
+            <column name="VZQCA6" />
+        </property>
+        <property name="vzqsa6" type="java.lang.Integer">
+            <column name="VZQSA6" />
+        </property>
+        <property name="vzqpa6" type="java.lang.Integer">
+            <column name="VZQPA6" />
+        </property>
+        <property name="vzqha6" type="java.lang.Integer">
+            <column name="VZQHA6" />
+        </property>
+        <property name="vzmput" type="java.lang.Integer">
+            <column name="VZMPUT" />
+        </property>
+        <property name="vzmsg6" type="java.lang.Integer">
+            <column name="VZMSG6" />
+        </property>
+        <property name="vzsvtc" type="java.lang.Integer">
+            <column name="VZSVTC" />
+        </property>
+        <property name="vzsvcc" type="java.lang.Integer">
+            <column name="VZSVCC" />
+        </property>
+        <property name="vzsvsg" type="java.lang.Integer">
+            <column name="VZSVSG" />
+        </property>
+        <property name="vzsvgp" type="java.lang.Integer">
+            <column name="VZSVGP" />
+        </property>
+        <property name="vzsvgh" type="java.lang.Integer">
+            <column name="VZSVGH" />
+        </property>
+        <property name="vzclvz" type="string">
+            <column name="VZCLVZ" length="36" />
+        </property>
+        <property name="vzcltc" type="string">
+            <column name="VZCLTC" length="1" />
+        </property>
+        <property name="vzclcc" type="string">
+            <column name="VZCLCC" length="1" />
+        </property>
+        <property name="vzclgh" type="string">
+            <column name="VZCLGH" length="1" />
+        </property>
+        <property name="vzclgp" type="string">
+            <column name="VZCLGP" length="1" />
+        </property>
+        <property name="vzclsg" type="string">
+            <column name="VZCLSG" length="1" />
+        </property>
+        <property name="vzclot" type="string">
+            <column name="VZCLOT" length="1" />
+        </property>
+        <property name="vzdisa" type="string">
+            <column name="VZDISA" length="1" />
+        </property>
+        <property name="vzmhit" type="string">
+            <column name="VZMHIT" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

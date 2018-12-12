@@ -37,6 +37,7 @@ public class ZRSTRECMView01BzService extends RestBaseServerResource {
 	Integer parammeaafc = null;
 	String parammecifa = null;
 	String parammeagig  = null;
+	String parammeapen  = null;
 	
 	String sm = null;//4140 elements
 	String ss = null;//80 elements
@@ -71,8 +72,9 @@ public class ZRSTRECMView01BzService extends RestBaseServerResource {
 			this.parammencct = obtainStringValue("mencct", null);
 			this.parammeyfac = obtainIntegerValue("meyfac", null);
 			this.parammeaafc = obtainIntegerValue("meaafc", null);
-			this.parammecifa = obtainStringValue("mecifa", null);
+			this.parammecifa = String.format("%02d", Integer.parseInt(obtainStringValue("mecifa", null)));
 			this.parammeagig = obtainStringValue("meagig", null);
+			this.parammeapen = obtainStringValue("meapen", null);
 			
 			String rpta = SubProcDspmailing(ds);
 			if (!rpta.equals(""))
@@ -101,8 +103,8 @@ public class ZRSTRECMView01BzService extends RestBaseServerResource {
 			adapted = new ZRSTRECMAdapter(); 
 			adapted.setP1orgn(this.imorg);
 			adapted.setP1logo(this.imlogo);
-			adapted.setP1acnb(""); //TODO::
-			adapted.setP1apen(""); //TODO::
+			adapted.setP1acnb(this.parammencct);
+			adapted.setP1apen(this.p1apen);
 			adapted.setP1fec(this.p1fec);
 			adapted.setP1bicy(this.p1bicy);
 			adapted.setP1m(this.sm);
@@ -188,10 +190,8 @@ public class ZRSTRECMView01BzService extends RestBaseServerResource {
 	private String SubRutRmenu(DataSet ds) {
 		try {
 			this.menu = "S";
-			this.p1fec = ObjZrsppma.getImcifa();
-			this.p1fec = ObjZrsppma.getImaaf4().toString();
-			String meapen = null; //TODO::
-			this.p1apen = meapen; //TODO
+			this.p1fec = ObjZrsppma.getImcifa() + "/" + ObjZrsppma.getImaaf4().toString();
+			this.p1apen = this.parammeapen;
 			this.p1bicy = this.parammeagig;
 			
 			return "";

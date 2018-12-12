@@ -59,6 +59,10 @@
 					value-ref="spring.legacy.ccrr0500.view3" />
 				<entry key="/legacy/zrstonln/view2"
 					value-ref="spring.legacy.zrstonln.view2" />
+				<entry key="/legacy/zrstdsps/view1"
+					value-ref="spring.legacy.zrstdsps.view1" />
+				<entry key="/legacy/zrstdsps/view2"
+					value-ref="spring.legacy.zrstdsps.view2" />
 				<entry key="/legacy/zrstdsps/view3"
 					value-ref="spring.legacy.zrstdsps.view3" />
 				<entry key="/legacy/zrstdsps/view4"
@@ -78,10 +82,7 @@
 				<entry key="/legacy/zrstrecl/view1"
 					value-ref="spring.legacy.zrstrecl.view1" />
 				<entry key="/legacy/zrstrecl/view2"
-					value-ref="spring.legacy.zrstrecl.view2" />
-				
-				
-					
+					value-ref="spring.legacy.zrstrecl.view2" />				
 			</map>
 		</property>
 	</bean>
@@ -192,6 +193,16 @@
 		<lookup-method name="create"
 			bean="legacy.zrstonln.view2" />
 	</bean>
+	<bean id="spring.legacy.zrstdsps.view1"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.zrstdsps.view1" />
+	</bean>
+	<bean id="spring.legacy.zrstdsps.view2"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.zrstdsps.view2" />
+	</bean>
 	<bean id="spring.legacy.zrstdsps.view3"
 		class="org.restlet.ext.spring.SpringFinder">
 		<lookup-method name="create"
@@ -241,5 +252,10 @@
 		class="org.restlet.ext.spring.SpringFinder">
 		<lookup-method name="create"
 			bean="legacy.zrstrecl.view2" />
+	</bean>
+	<bean id="spring.legacy.zrstemmv.view1"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.zrstemmv.view1" />
 	</bean>
 </beans>

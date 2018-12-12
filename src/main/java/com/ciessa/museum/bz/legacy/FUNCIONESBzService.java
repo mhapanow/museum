@@ -1,11 +1,50 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FUNCIONESBzService {
+	
+	public String replacerURL(String outBuffer) {
+	      String data = outBuffer.toString();
+	      try {
+	         data = data.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
+	         data = data.replaceAll("\\+", "%2B");
+	         data = URLDecoder.decode(data, "utf-8");
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return data;
+	   }
+	
+	public Boolean ValidarAammdd(String input) {
+		try {
+			if (input.length() != 6) {
+				return false;
+			}else {
+				Date valor = new SimpleDateFormat("yyMMdd").parse(input);
+				return true;			
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean ValidarDdmmAAAA(String input) {
+		try {
+			if (input.length() != 8) {
+				return false;
+			}else {
+				Date valor = new SimpleDateFormat("ddMMyyyy").parse(input);
+				return true;			
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	//Convert Fecha Año corto 810424 a 19810424
 	public String ConvertAmdToDma(String input) {
 		if (input.length() != 6) {

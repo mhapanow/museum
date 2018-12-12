@@ -11,13 +11,12 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
 import com.ciessa.museum.dao.legacy.AltnamDAO;
 import com.ciessa.museum.dao.legacy.SaldomDAO;
-import com.ciessa.museum.dao.legacy.Tap002DAO;
+import com.ciessa.museum.dao.legacy.Tap002wDAO;
 import com.ciessa.museum.dao.legacy.Tap014DAO;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
@@ -25,7 +24,7 @@ import com.ciessa.museum.model.DataSet;
 import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Altnam;
 import com.ciessa.museum.model.legacy.Saldom;
-import com.ciessa.museum.model.legacy.Tap002;
+import com.ciessa.museum.model.legacy.Tap002w;
 import com.ciessa.museum.model.legacy.Tap014;
 import com.ciessa.museum.tools.Range;
 
@@ -37,7 +36,7 @@ public class FER1020View3BzService extends RestBaseServerResource{
 	DataSetDAO dsDao;
 
 	@Autowired
-	Tap002DAO myDaoTap002;
+	Tap002wDAO myDaoTap002w;
 	
 	@Autowired
 	AltnamDAO myDaoAltnam;
@@ -48,13 +47,13 @@ public class FER1020View3BzService extends RestBaseServerResource{
 	@Autowired
 	Tap014DAO myDaoTap014;
 	
-	Tap002 tap002 = new Tap002();
+	Tap002w Tap002w = new Tap002w();
 	Altnam altnam = new Altnam();
 	Saldom saldom = new Saldom();
 	Long wdias = new Long(0);
 	
 	Date fecjud = null;
-	Date fecjuh = null;
+	Date fecjuh = null;	
 	
 	// Get the output fields
 	String[] fields = new String[] {
@@ -156,14 +155,14 @@ public class FER1020View3BzService extends RestBaseServerResource{
 			if (wcta != null)
 			{
 				if (Integer.parseInt(wcta) > 0) {
-					Tap002 obj = myDaoTap002.getUsingWcta(ds, wcta);
+					Tap002w obj = myDaoTap002w.getUsingWcta(ds, wcta);
 					if (obj == null)
 						return "Cuenta Inexistente";
 				}
 			}
 			if (wbas != null) {
 				if (Integer.parseInt(wbas) > 0) {
-					Tap002 obj = myDaoTap002.getUsingWbas(ds, wbas);
+					Tap002w obj = myDaoTap002w.getUsingWbas(ds, wbas);
 					if (obj == null)
 						return "Numero de Base Inexistente";
 				}	

@@ -30,7 +30,7 @@ public class ZrspplrDAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Zrspplr Where tlyfac = :meyfac And tlaafc = :meaafc And tlcifa = :mecifa And tlagig = :meagig And tlorg = :aaorgn And tllogo = :melogo And tlncct = :mencct ORDER BY TLYFAC, TLAAFC, TLCIFA, TLAGIG, TLORG, TLLOGO, TLNCCT, TLUBIR, TLCRCC, TLCRAA, TLCRMM, TLCRDD, TLNSEM ");
+			sb.append(" FROM Zrspplr Where tlyfac = :meyfac And tlaafc = :meaafc And tlcifa = :mecifa And tlagig = :meagig And tlorg = :aaorgn And tllogo = :melogo And tlncct = :mencct ORDER BY tlyfac, tlaafc, tlcifa, tlagig, tlorg, tllogo, tlncct, tlubir, tlcrcc, tlcraa, tlcrmm, tlcrdd, tlnsem ");
 			
 			Query q = session.createQuery(sb.toString());
 			q.setParameter("meyfac", meyfac);
