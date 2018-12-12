@@ -69,8 +69,8 @@
 	<bean id="Tablam.dao.ref" class="com.ciessa.museum.dao.legacy.TablamDAO" />
 	<!-- bean id="Tap001.dao.ref" class="com.ciessa.museum.dao.legacy.Tap001DAO" /-->
 	<bean id="Tap002.dao.ref" class="com.ciessa.museum.dao.legacy.Tap002DAO" />
-	<!--bean id="Tap003.dao.ref" class="com.ciessa.museum.dao.legacy.Tap003DAO" />
-	<bean id="Tap005b.dao.ref" class="com.ciessa.museum.dao.legacy.Tap005bDAO" /-->
+	<bean id="Tap003.dao.ref" class="com.ciessa.museum.dao.legacy.Tap003DAO" />
+	<!--bean id="Tap005b.dao.ref" class="com.ciessa.museum.dao.legacy.Tap005bDAO" /-->
 	<bean id="Tap014.dao.ref" class="com.ciessa.museum.dao.legacy.Tap014DAO" />
 	<!--bean id="Tap03w.dao.ref" class="com.ciessa.museum.dao.legacy.Tap03wDAO" />
 	<bean id="Tap901.dao.ref" class="com.ciessa.museum.dao.legacy.Tap901DAO" /-->
@@ -94,8 +94,19 @@
 	<bean id="Zrspiir.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspiirDAO" />
 	<bean id="Zrspmir.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspmirDAO" />
 	<bean id="Zpcpclr.dao.ref" class="com.ciessa.museum.dao.legacy.ZpcpclrDAO" />
+	<bean id="Ccupvin.dao.ref" class="com.ciessa.museum.dao.legacy.CcupvinDAO" />
+	<bean id="Ccupgin.dao.ref" class="com.ciessa.museum.dao.legacy.CcupginDAO" />
+	<bean id="Grmcus.dao.ref" class="com.ciessa.museum.dao.legacy.GrmcusDAO" />
+	<bean id="Inspref.dao.ref" class="com.ciessa.museum.dao.legacy.InsprefDAO" />
+	<bean id="Zbhpvrz.dao.ref" class="com.ciessa.museum.dao.legacy.ZbhpvrzDAO" />
+	<bean id="Cfp001005.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001005DAO" />
+	<bean id="Cfp001205.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001205DAO" />
+	<bean id="Grmact.dao.ref" class="com.ciessa.museum.dao.legacy.GrmactDAO" />
+	<bean id="Compcmo.dao.ref" class="com.ciessa.museum.dao.legacy.CompcmoDAO" />
 	
 	<bean id="ZRSTEMMVView01BzService" class="com.ciessa.museum.bz.legacy.ZRSTEMMVView01BzService" />
+	
+	<bean id="Cus060BzService" class="com.ciessa.museum.bz.legacy.Cus060BzService" />
 
 	<!-- ** REST resource ** -->
 	<bean id="base.rest.resource"
@@ -235,6 +246,10 @@
 		
 	<bean id="legacy.zrstrecl.view2"
 		class="com.ciessa.museum.bz.legacy.ZRSTRECLView02BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.fer0310.view1"
+		class="com.ciessa.museum.bz.legacy.FER0310View01BzService"
 		parent="base.rest.resource" scope="prototype" />
 	
 </beans>

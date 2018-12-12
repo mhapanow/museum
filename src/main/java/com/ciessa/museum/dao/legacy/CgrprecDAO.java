@@ -12,10 +12,11 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Tap003;
+import com.ciessa.museum.model.legacy.Cgrprec;
 
-public class Tap003DAO {
-	public Tap003 getUsingDmacct(DataSet ds, String dmacct) throws ASException {
+public class CgrprecDAO {
+	
+	public List<Cgrprec> getUsingListNumcue(DataSet ds, String numcue) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -29,19 +30,22 @@ public class Tap003DAO {
 
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Tap003 WHERE dsacct  = :dmacct and dsstat  != 'D' AND dstype  = '1' ");
-			q.setParameter("dmacct", dmacct);
-			Tap003 o = (Tap003)q.uniqueResult();
+			StringBuffer sb = new StringBuffer();
+			sb.append(" FROM Cgrprec where cgacct = :numcue ");
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException(dmacct);
+			Query q = session.createQuery(sb.toString());
+			
+			q.setParameter("numcue", numcue);
+			
+			@SuppressWarnings("unchecked")
+			List<Cgrprec> list = (List<Cgrprec>)q.list();
+			
+			for( Cgrprec o : list ) {
+				session.evict(o);
 			}
-			
-			session.evict(o);
 			tx.commit();
 			
-			return o;
+			return list;
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -51,10 +55,8 @@ public class Tap003DAO {
 		}
 	}
 	
-public List<Tap003> getUsingListAtpctaAndAcuen1(DataSet ds, String atpcta, String acuen1) throws ASException	{
-		
+	public List<Cgrprec> getUsingListNumcueAnd(DataSet ds, String numcue) throws ASException {
 		SessionFactory factory = null;
-		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -64,32 +66,32 @@ public List<Tap003> getUsingListAtpctaAndAcuen1(DataSet ds, String atpcta, Strin
 		
 		Session session = factory.openSession();
 		Transaction tx = null;
+
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Tap003 WHERE dshdsv = :atpcta AND dsacct = :acuen1 AND dstype = '2' AND dsstat != 'D' ");
+			sb.append(" FROM Cgrprec where cgacct = :numcue AND (cgtipr = 'V' OR cgtipr ='D' OR cgtipr ='B' OR cgtipr ='L' OR cgtipr ='R' OR cgtipr ='C' OR cgtipr ='E' OR cgtipr ='S') ");
 			
 			Query q = session.createQuery(sb.toString());
-			q.setParameter("atpcta", atpcta);
-			q.setParameter("acuen1", acuen1);
+			
+			q.setParameter("numcue", numcue);
 			
 			@SuppressWarnings("unchecked")
-			List<Tap003> list = (List<Tap003>)q.list();
+			List<Cgrprec> list = (List<Cgrprec>)q.list();
 			
-			for( Tap003 o : list ) {
+			for( Cgrprec o : list ) {
 				session.evict(o);
 			}
 			tx.commit();
 			
 			return list;
-				
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-			}
-	} // fin public
+		}
+	}
 
 }

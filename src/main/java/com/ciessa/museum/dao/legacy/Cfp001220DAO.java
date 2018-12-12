@@ -87,7 +87,7 @@ public class Cfp001220DAO {
 			
 			if( o == null ) {
 				tx.rollback();
-				throw ASExceptionHelper.notFoundException(wscodi);
+				//throw ASExceptionHelper.notFoundException(wscodi);
 			}
 			
 			session.evict(o);

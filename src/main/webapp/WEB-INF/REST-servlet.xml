@@ -82,7 +82,10 @@
 				<entry key="/legacy/zrstrecl/view1"
 					value-ref="spring.legacy.zrstrecl.view1" />
 				<entry key="/legacy/zrstrecl/view2"
-					value-ref="spring.legacy.zrstrecl.view2" />				
+					value-ref="spring.legacy.zrstrecl.view2" />
+
+				<entry key="/legacy/fer0310/view1"
+					value-ref="spring.legacy.fer0310.view1" />				
 			</map>
 		</property>
 	</bean>
@@ -257,5 +260,11 @@
 		class="org.restlet.ext.spring.SpringFinder">
 		<lookup-method name="create"
 			bean="legacy.zrstemmv.view1" />
+	</bean>
+	
+	<bean id="spring.legacy.fer0310.view1"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.fer0310.view1" />
 	</bean>
 </beans>

@@ -1,13 +1,9 @@
 package com.ciessa.museum.bz.legacy;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.json.JSONObject;
-import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
@@ -15,14 +11,10 @@ import com.ciessa.museum.dao.DataSetDAO;
 import com.ciessa.museum.dao.legacy.AltnamDAO;
 import com.ciessa.museum.dao.legacy.CumastDAO;
 import com.ciessa.museum.dao.legacy.Cuxrf1DAO;
-import com.ciessa.museum.exception.ASException;
-import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.User;
 import com.ciessa.museum.model.legacy.Altnam;
 import com.ciessa.museum.model.legacy.Cumast;
 import com.ciessa.museum.model.legacy.Cuxrf1;
-import com.ciessa.museum.tools.CollectionFactory;
 
 public class Cus060BzService extends RestBaseServerResource {
 	public static final Logger log = Logger.getLogger(Cus060BzService.class.getName());
@@ -40,16 +32,16 @@ public class Cus060BzService extends RestBaseServerResource {
 	AltnamDAO myDAOAltnam;
 	
 	
-	Cuxrf1 objCuxrf1 = new Cuxrf1();
+	//Cuxrf1 objCuxrf1 = new Cuxrf1();
 	Cumast objCumast = new Cumast();
 	Altnam objAltnam = new Altnam();
-	
+	List<Cuxrf1> listCuxrf1 = null;
 	
 	String paramwkbank = "";
 	String paramwkacct = "";
 	String paramwkalt = "";
 	String paramwktitl = "";
-	String paramwkappl = "";
+	Integer paramwkappl = 0;
 	String paramna1 = "";
 	String paramna2 = "";
 	String paramna3 = "";
@@ -73,8 +65,8 @@ public class Cus060BzService extends RestBaseServerResource {
 	String na0 = "";
 	Integer z = 0;
 	Integer xnbr = 0;
-	String[] cu1 = new String[10];
-	String[] cu2 = new String[3];
+	String[] cu1 = new String[4];
+	String[] cu2 = new String[4];
 	Integer y = 0;
 	String swcubk = "";
 	String swcunb = "";
@@ -91,45 +83,38 @@ public class Cus060BzService extends RestBaseServerResource {
 	//
 	CUS060Adapter adapter = null;
 	
-	@Get
-	public String view() {
+	public CUS060Adapter ObjetoCus060(DataSet ds, String wkbank, String wkacct, String wkalt, String wktitl, Integer wkappl, String na1, String na2, String na3, String na4, String na5, String na6, Integer wkssno, Integer wkbuph, Integer wkhmph) {
 		long start = markStart();
-		JSONObject returnValue = null;
 		try {
-			// validate authToken
-			User user = this.getUserFromToken();
-			DataSet ds = dsDao.get(user.getDefaultDataSet());
-			long millisPre = new Date().getTime();
-			
-			this.paramwkbank = obtainStringValue("wkbank", null);
-			this.paramwkacct = obtainStringValue("wkacct", null);
-			this.paramwkalt = obtainStringValue("wkalt", null);
-			this.paramwktitl = obtainStringValue("wktitl", null);
-			this.paramwkappl = obtainStringValue("wkappl", null);
-			this.paramna1 = obtainStringValue("na1", null);
-			this.paramna2 = obtainStringValue("na2", null);
-			this.paramna3 = obtainStringValue("na3", null);
-			this.paramna4 = obtainStringValue("na4", null);
-			this.paramna5 = obtainStringValue("na5", null);
-			this.paramna6 = obtainStringValue("na6", null);
-			this.paramwkssno = obtainIntegerValue("wkssno", 0);
-			this.paramwkbuph = obtainIntegerValue("wkbuph", 0);
-			this.paramwkhmph = obtainIntegerValue("wkhmph", 0);
-			
+			//
+			this.paramwkbank = wkbank;
+			this.paramwkacct = wkacct;
+			this.paramwkalt = wkalt;
+			this.paramwktitl = wktitl;
+			this.paramwkappl = wkappl;
+			this.paramna1 = na1;
+			this.paramna2 = na2;
+			this.paramna3 = na3;
+			this.paramna4 = na4;
+			this.paramna5 = na5;
+			this.paramna6 = na6;
+			this.paramwkssno = wkssno;
+			this.paramwkbuph = wkbuph;
+			this.paramwkhmph = wkhmph;
 			// inicializar array de string
 			this.fld30 = String.format("%1$-30s",this.fld30);
 			this.na0 = String.format("%1$-30s",this.na0);
 			this.cur = String.format("%1$-17s",this.cur);
 			
 			//Proces
+			this.cu1[0] = this.fld30;
 			this.cu1[1] = this.fld30;
 			this.cu1[2] = this.fld30;
 			this.cu1[3] = this.fld30;
-			this.cu1[4] = this.fld30;
+			this.cu2[0] = " ";
 			this.cu2[1] = " ";
 			this.cu2[2] = " ";
 			this.cu2[3] = " ";
-			this.cu2[4] = " ";
 			paramna1 = this.fld30;
 			paramna2 = this.fld30;
 			paramna3 = this.fld30;
@@ -139,35 +124,35 @@ public class Cus060BzService extends RestBaseServerResource {
 			this.na0 = this.fld30;
 			
 			this.wkaccx = this.paramwkacct;
-			this.wkappx = this.paramwkappl;
+			this.wkappx = this.paramwkappl.toString();
 			this.swx2ky = this.paramwkbank + "1" + this.wkappx + this.paramwkacct;
 			this.swx2bk = "001";
 			this.swx2rt = "1";
-			this.swx2ap = this.paramwkappl;
+			this.swx2ap = this.paramwkappl.toString();
 			this.swx2ac = this.paramwkacct;
 			this.swx2ty = 0;
 			this.swx2cs = "";
 			
-			objCuxrf1 = myDAOCuxrf1.getUsigSwx2bkAndSwx2rtAndSwx2apAndSwx2acAndSwx2tyAndSwx2cs(ds, swx2bk, swx2rt, swx2ap, swx2ac, swx2ty.toString(), swx2cs);
+			listCuxrf1 = myDAOCuxrf1.getUsigSwx2bkAndSwx2rtAndSwx2apAndSwx2acAndSwx2tyAndSwx2cs(ds, swx2bk, swx2rt, swx2ap, swx2ac);
 			
 			//this.fld30 = "";
 			this.z = 2;
 			this.xnbr = 0;
 			
-			if (true) {//existe registro
+			for (Cuxrf1 o :listCuxrf1) {
 				this.xnbr = this.xnbr + 1;
-				if (objCuxrf1.getCuxrel().equals("SOW")) {
-					this.cu1[1] = objCuxrf1.getCux1cs();
-					this.cu2[1] = objCuxrf1.getCuxrel();
+				if (o.getCuxrel().equals("SOW")) {
+					this.cu1[1] = o.getCux1cs();
+					this.cu2[1] = o.getCuxrel();
 				}
-				if (objCuxrf1.getCuxrel().equals("JOF") || objCuxrf1.getCuxrel().equals("JAF")) {
-					this.cu1[1] = objCuxrf1.getCux1cs();
-					this.cu2[1] = objCuxrf1.getCuxrel();
+				if (o.getCuxrel().equals("JOF") || o.getCuxrel().equals("JAF")) {
+					this.cu1[1] = o.getCux1cs();
+					this.cu2[1] = o.getCuxrel();
 				}else {
-					if (!objCuxrf1.getCuxrel().equals("JOO") || !objCuxrf1.getCuxrel().equals("JAO")) {
-						if (objCuxrf1.getCux1ty() != 2 && this.z <= 4) {
-							this.cu1[z] = objCuxrf1.getCux1cs();
-							this.cu2[z] = objCuxrf1.getCuxrel();
+					if (!o.getCuxrel().equals("JOO") || !o.getCuxrel().equals("JAO")) {
+						if (o.getCux1ty() != 2 && this.z <= 4) {
+							this.cu1[z] = o.getCux1cs();
+							this.cu2[z] = o.getCuxrel();
 							this.z = this.z + 1;
 						}
 					}
@@ -262,9 +247,7 @@ public class Cus060BzService extends RestBaseServerResource {
 					paramna4 = objAltnam.getAdres1();
 					paramna5 = objAltnam.getAdres2();
 					paramna6 = objAltnam.getAdres3();
-					
 				}
-				
 			}
 			
 			if (this.wkzip != 0) {
@@ -337,30 +320,8 @@ public class Cus060BzService extends RestBaseServerResource {
 			paramwkssno = (int) (long)objCumast.getCussnr();
 			this.cur = func.StringToArrayString(this.cur, 0, paramwkbank);
 			paramwkacct = this.wkaccx;
-						
-			// retrieve all elements
-			Map<String,String> attributes = CollectionFactory.createMap();
-			long diff = new Date().getTime() - millisPre;
+
 			
-			// Logs the result
-			log.info("Number of elements found in " + diff + " millis");
-			
-			String[] fields = new String[] {
-					"WKBANK",
-					"WKACCT",
-					"WKALT",
-					"WKTITL",
-					"WKAPPL",
-					"NA1",
-					"NA2",
-					"NA3",
-					"NA4",
-					"NA5",
-					"NA6",
-					"WKSSNO",
-					"WKBUPH",
-					"WKHMPH",
-			};
 			adapter = new CUS060Adapter();
 			adapter.setWKBANK(paramwkbank);
 			adapter.setWKACCT(paramwkacct);
@@ -377,24 +338,12 @@ public class Cus060BzService extends RestBaseServerResource {
 			adapter.setWKBUPH(paramwkbuph);
 			adapter.setWKHMPH(paramwkhmph);
 			
-			// Obtains the user JSON representation
-			returnValue = getJSONRepresentationFromObject(adapter, fields);
-			
-		} catch (ASException e) {
-			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
-					|| e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENMISSING_CODE) {
-				log.log(Level.INFO, e.getMessage());
-			} else {
-				log.log(Level.SEVERE, e.getMessage(), e);
-			}
-			returnValue = getJSONRepresentationFromException(e);
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
-			returnValue = getJSONRepresentationFromException(ASExceptionHelper.defaultException(e.getMessage(), e));
 		} finally {
 			markEnd(start);
 		}
-		return returnValue.toString();
+		return adapter;
 	}
 	
 	public class CUS060Adapter {
@@ -402,7 +351,7 @@ public class Cus060BzService extends RestBaseServerResource {
 		String WKACCT = null;
 		String WKALT = null;
 		String WKTITL = null;
-		String WKAPPL = null;
+		Integer WKAPPL = 0;
 		String NA1 = null;
 		String NA2 = null;
 		String NA3 = null;
@@ -449,11 +398,11 @@ public class Cus060BzService extends RestBaseServerResource {
 			WKTITL = wKTITL;
 		}
 
-		public String getWKAPPL() {
+		public Integer getWKAPPL() {
 			return WKAPPL;
 		}
 
-		public void setWKAPPL(String wKAPPL) {
+		public void setWKAPPL(Integer wKAPPL) {
 			WKAPPL = wKAPPL;
 		}
 
@@ -528,6 +477,7 @@ public class Cus060BzService extends RestBaseServerResource {
 		public void setWKHMPH(Integer wKHMPH) {
 			WKHMPH = wKHMPH;
 		}
+
 		
 		
 		
