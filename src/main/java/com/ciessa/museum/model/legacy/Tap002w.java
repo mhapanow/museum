@@ -1,5 +1,5 @@
 package com.ciessa.museum.model.legacy;
-// Generated Dec 8, 2018 1:27:28 AM by Hibernate Tools 3.2.2.GA
+// Generated Dec 11, 2018 7:50:29 PM by Hibernate Tools 3.2.2.GA
 
 
 import java.math.BigDecimal;
@@ -333,7 +333,6 @@ public class Tap002w  implements java.io.Serializable {
     public Tap002w(String pkid) {
         this.pkid = pkid;
     }
-   
     public String getPkid() {
         return this.pkid;
     }

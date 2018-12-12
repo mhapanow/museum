@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Dec 8, 2018 1:18:52 AM by Hibernate Tools 3.2.2.GA -->
+<!-- Generated Dec 11, 2018 7:50:05 PM by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="com.ciessa.museum.model.legacy.Tranem" table="TRANEM" schema="dbo" catalog="museum">
         <id name="pkid" type="string">
