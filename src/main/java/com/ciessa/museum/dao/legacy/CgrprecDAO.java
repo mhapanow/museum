@@ -55,7 +55,7 @@ public class CgrprecDAO {
 		}
 	}
 	
-	public List<Cgrprec> getUsingListNumcueAnd(DataSet ds, String numcue) throws ASException {
+	public List<Cgrprec> getUsingListNumcueAndCgnche(DataSet ds, String numcue, String cgnche) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -70,11 +70,12 @@ public class CgrprecDAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Cgrprec where cgacct = :numcue AND (cgtipr = 'V' OR cgtipr ='D' OR cgtipr ='B' OR cgtipr ='L' OR cgtipr ='R' OR cgtipr ='C' OR cgtipr ='E' OR cgtipr ='S') ");
+			sb.append(" FROM Cgrprec where cgacct = :numcue AND cgnche = :cgnche AND (cgtipr = 'V' OR cgtipr ='D' OR cgtipr ='B' OR cgtipr ='L' OR cgtipr ='R' OR cgtipr ='C' OR cgtipr ='E' OR cgtipr ='S') ");
 			
 			Query q = session.createQuery(sb.toString());
 			
 			q.setParameter("numcue", numcue);
+			q.setParameter("cgnche", cgnche);
 			
 			@SuppressWarnings("unchecked")
 			List<Cgrprec> list = (List<Cgrprec>)q.list();

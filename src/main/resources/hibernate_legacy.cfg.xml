@@ -117,8 +117,27 @@
 			resource="com/ciessa/museum/model/legacy/Zrspmir.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Zpcpclr.hbm.xml"></mapping>
-<mapping
+		<mapping
 			resource="com/ciessa/museum/model/legacy/Zrspiir.hbm.xml"></mapping>
+			
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Grmact.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccupvin.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Ccupgin.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Inspref.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Tap003.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Compcmo.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Zbhpvrz.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cfp001205.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cfp001005.hbm.xml"></mapping>
 			
 	</session-factory>
 

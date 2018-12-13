@@ -540,7 +540,6 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			this.ldbank = 1;
 			this.fecdia = Integer.parseInt(this.fc.FormatoFechaHora("yyyyMMdd"));
 			if (!this.xxfp.equals("1")) {
-				//SubRutNewarn(ds);    
 				this.offint = " ";
 				this.xxfp = "1";
 				this.codmon = 0;
@@ -597,7 +596,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 				objCfp001220 = myDAOCfp001220.getUsingWscodi(ds, cx.toString());
 				if (objCfp001220 != null) {
 					this.amn[c] = objCfp001220.getCfcmn();
-					//this.tcpt[c] = objCfp001220.CFTCPT; /SE VERA CON MATIAS
+					this.tcpt[c] = objCfp001220.getCftcpt();
 				}else {
 					this.amn[c] = "00";
 					this.tcpt[c] = "";

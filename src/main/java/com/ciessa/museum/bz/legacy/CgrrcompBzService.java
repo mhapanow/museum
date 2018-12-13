@@ -1,6 +1,8 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +25,7 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 	CgrprecDAO myDAOCgrprec;
 	
 	List<Cgrprec> listCgrprec = null;
+	List<Cgrprec> listCgrprecRevis = null;
 	
 	String asfech = "";
 	//String addmm = "";
@@ -72,6 +75,8 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 	Integer x = 0;
 	String[] che = new String[9999];
 	String[] rev = new String[9999];
+	Integer zsdife = 0;
+	Integer afecha = 0;
 	
 	//
 	FUNCIONESBzService func = new FUNCIONESBzService();
@@ -124,6 +129,7 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 				if (error.equals("")) {
 					listCgrprec = myDAOCgrprec.getUsingListNumcue(ds, numcue);
 					for(Cgrprec o:listCgrprec) {
+						this.cgnche = o.getCgnche();
 						if (o.getCgtipr().equals("A") || o.getCgtipr().equals("M")) {
 							this.fecpag = Integer.parseInt(o.getCgapag() + String.format("%02d", o.getCgmpag()) + String.format("%02d", o.getCgdpag()));
 							this.fecmul = Integer.parseInt(o.getCgasam() + String.format("%02d", o.getCgmsam()) + String.format("%02d", o.getCgdsam()));
@@ -131,12 +137,12 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 							this.estado = o.getCgstat();
 							this.tipreg = o.getCgtipr();
 							this.motrec = o.getCgrech();
-							SubRutMulta(ds, o.getCgmult().toString(), o.getCgstat());
-							SubRutRevis(ds, numcue);
+							SubRutMulta(ds, o.getCgmult().toString(), o.getCgstat(), this.fecmul.toString(), this.fecrec);
+							SubRutRevis(ds, numcue, this.cgnche);
 							if (!this.aare.equals("X")) {
-								SubRutCompu(ds);
+								SubRutCompu(ds, motrec, estado, tipreg, this.fecrec);
 							}else {
-								SubRutCompu(ds);
+								SubRutCompu(ds, motrec, estado, tipreg, this.fecrec);
 								if (this.acompu.equals("1")) {
 									this.acompu = "0";
 								}
@@ -194,14 +200,14 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 								this.estado = o.getCgstat();
 								this.tipreg = o.getCgtipr();
 								this.motrec = o.getCgrech();
-								SubRutMulta(ds, o.getCgmult().toString(), o.getCgstat());
+								SubRutMulta(ds, o.getCgmult().toString(), o.getCgstat(), this.fecmul.toString(), this.fecrec);
 								this.x = 1;
 								int position = Arrays.asList(this.che).indexOf(this.cgnche); 
 								if (position == -1) {
 									this.v = this.v + 1;
 									this.che[this.v] = this.cgnche;
 									this.rev[this.v] = "X";
-									SubRutRevis(ds, numcue);
+									SubRutRevis(ds, numcue, this.cgnche);
 									if (!this.aare.equals("")) {
 										this.ssrevi = this.ssrevi + 1;
 									}
@@ -209,7 +215,7 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 									this.aare = this.rev[this.x];
 								}
 								if (!this.aare.equals("X")) {
-									SubRutCompu(ds);
+									SubRutCompu(ds, motrec, estado, tipreg, this.fecrec);
 								}
 							}//fin if equals
 						}//fin for list
@@ -231,9 +237,9 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 		
 	}
 	
-	private String SubRutMulta(DataSet ds, String Cgmult, String Cgstat) {
+	private String SubRutMulta(DataSet ds, String Cgmult, String Cgstat, String fecmu1, Integer fecre1) {
 		try {
-			if (this.fecmu1.equals("00000000") && Integer.parseInt(this.fecre1) <= Integer.parseInt(this.frech) && Integer.parseInt(this.fecre1) >= 20040108 && Cgmult.equals("0") && Cgstat.equals("2")) {
+			if (fecmu1.equals("00000000") && fecre1 <= this.frech && fecre1 >= 20040108 && Cgmult.equals("0") && Cgstat.equals("2")) {
 				this.ssmult = this.ssmult + 1;
 			}
 			
@@ -244,18 +250,18 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 		return "";
 	}
 	
-	private String SubRutRevis(DataSet ds, String numcue) {
+	private String SubRutRevis(DataSet ds, String numcue, String cgnche) {
 		try {
 			this.aare = " ";
-			listCgrprec = myDAOCgrprec.getUsingListNumcueAnd(ds, numcue);
-			for(Cgrprec o:listCgrprec) {
-				/*if (o.getC5tipr().equals("E") && o.getC5adbt().equals("0000")) {
-					if (o.getC5cmcn().equals("21")) {
+			listCgrprecRevis = myDAOCgrprec.getUsingListNumcueAndCgnche(ds, numcue, cgnche);
+			for(Cgrprec o:listCgrprecRevis) {
+				if (o.getCgtipr().equals("E") && o.getCgadbt().equals("0000")) {
+					if (o.getCgcmcn().equals("21")) {
 						this.aare = "X";
 					}else {
 						this.aare = "*";
 					}
-				}*/
+				}
 			}
 			
 		} catch (Exception e) {
@@ -265,7 +271,7 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 		return "";
 	}
 	
-	private String SubRutCompu(DataSet ds, String motrec, String estado, String tipreg) {
+	private String SubRutCompu(DataSet ds, String motrec, String estado, String tipreg, Integer fecre1) {
 		try {
 			this.acompu = "0";
 			if (motrec.equals("2")) {
@@ -289,8 +295,8 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 							if (this.fecpag > 0 || this.fecpag != null) {
 								this.dsfech = "";
 								this.zsfout = this.fecrec +20;
-								this.afecha = this.zsfout.toString();
-								if (this.fecre1 >= 20011203 && this.fecre1 <= 20020215 && motrec.equals("1")) {
+								this.afecha = this.zsfout;
+								if (fecre1 >= 20011203 && fecre1 <= 20020215 && motrec.equals("1")) {
 									if (this.fecpag <= 20020308) {
 										if (this.cinco < 5) {
 											this.cinco = this.cinco + 1;
@@ -316,7 +322,7 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 										this.scant2 = this.scant2 + 1;
 										this.scanti = this.scanti + 1;	
 									}
-									if (this.fecre1 < 20011203 && motrec.equals("1") || this.fecre1 > 20020215 && motrec.equals("1")) {
+									if (fecre1 < 20011203 && motrec.equals("1") || fecre1 > 20020215 && motrec.equals("1")) {
 										if (this.fecpag <= this.afecha) {
 											if (this.tres < 3) {
 												this.tres = this.tres + 1;
@@ -337,16 +343,30 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 									}
 								}
 								if (this.fecpag == 0 || this.fecpag == null) {
-									if (this.fecre1 >= 20011203 && this.fecre1 <= 20020215 && this.fecdia <= 20020308) {
+									if (fecre1 >= 20011203 && fecre1 <= 20020215 && this.fecdia <= 20020308) {
 										this.acompu = "";
 									}else {
 										this.dsfech="";
-										this.zsdife = 
+										SimpleDateFormat dateFormats = new SimpleDateFormat("yyyyMMdd");
+										Date fechaInicial = dateFormats.parse(this.fecrec.toString());
+										Date fechaFinal = dateFormats.parse(this.fecdia.toString());
+										int dias=(int) ((fechaFinal.getTime()-fechaInicial.getTime())/86400000);
+										this.zsdife = dias;
+										this.difer = this.zsdife;
+										if (this.difer > 25) {
+											this.scanti = this.scanti +1;
+											this.scant2 = this.scant2 +1;
+											this.acompu = "1";
+										}else {
+											this.acompu = "";
+										}
 									}
 								}
 							}
 						}
 					}
+				}else {
+					this.acompu="0";
 				}
 			}
 			
