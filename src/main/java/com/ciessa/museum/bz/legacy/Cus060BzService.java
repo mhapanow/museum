@@ -232,12 +232,12 @@ public class Cus060BzService extends RestBaseServerResource {
 					}
 				}
 			}else {
-				this.wcnta = paramwkacct;
+				this.wcnta = paramwkacct.substring(3-1,12);
 				this.wkfld1 = paramwkacct;
 				
 				objAltnam = myDAOAltnam.getUsingCuenta(ds, wcnta);
 				
-				if (objAltnam != null) {
+				if (objAltnam == null) {
 					this.paramna1 = "NO NAME";
 				}else {
 					paramna1 = objAltnam.getNamel1();
@@ -252,22 +252,22 @@ public class Cus060BzService extends RestBaseServerResource {
 			
 			if (this.wkzip != 0) {
 				Boolean flag = false;
-				if (!paramna6.equals(this.fld30)) {
+				if (!paramna6.equals(this.fld30) && flag.equals(false)) {
 					this.z = 6;
 					this.na0 = paramna6;
 					flag = true;
 				}
-				if (!paramna5.equals(this.fld30)) {
+				if (!paramna5.equals(this.fld30) && flag.equals(false)) {
 					this.z = 5;
 					this.na0 = paramna5;
 					flag = true;
 				}
-				if (!paramna4.equals(this.fld30)) {							
+				if (!paramna4.equals(this.fld30) && flag.equals(false)) {
 					this.na0 = paramna4;
 					this.z = 4;
 					flag = true;
 				}
-				if (!paramna3.equals(this.fld30)) {
+				if (!paramna3.equals(this.fld30) && flag.equals(false)) {
 					this.na0 = paramna3;
 					this.z = 3;
 					flag = true;
@@ -276,10 +276,15 @@ public class Cus060BzService extends RestBaseServerResource {
 					this.na0 = paramna2;
 					this.z = 2;
 				}
+				this.y = this.na0.length() + 2;
+				/*
 				this.y = 30;
-				while (this.y >= 1 && this.na0.substring(this.y, this.y+1).equals("")) {
-					this.y = this.y - 1;
+				if (this.na0.length() >= 30) {
+					while (this.y >= 1 && this.na0.substring(this.y-1, this.y).equals("")) {
+						this.y = this.y - 1;
+					}
 				}
+				*/
 				if (this.y < 1) {
 					this.y = 1;
 				}
@@ -291,21 +296,22 @@ public class Cus060BzService extends RestBaseServerResource {
 					}
 				}
 				this.zip30 = this.wkzip;
-				this.na0 = func.StringToArrayString(this.na0, this.y, this.zip30.toString());
+				//--this.na0 = func.StringToArrayString(this.na0, this.y, this.zip30.toString());
+				this.na0 = this.na0 + " " + this.wkzip.toString();
 				flag = false;
-				if (this.z == 6) {
+				if (this.z.equals(6) && flag.equals(false)) {
 					this.na0 = paramna6;
 					flag = true;
 				}
-				if (this.z == 5) {
+				if (this.z.equals(5) && flag.equals(false)) {
 					this.na0 = paramna5;
 					flag = true;
 				}
-				if (this.z == 4) {
+				if (this.z.equals(4) && flag.equals(false)) {
 					this.na0 = paramna4;
 					flag = true;
 				}
-				if (this.z == 3) {
+				if (this.z.equals(3) && flag.equals(false)) {
 					this.na0 = paramna3;
 					flag = true;
 				}
@@ -315,10 +321,10 @@ public class Cus060BzService extends RestBaseServerResource {
 			}
 			paramwkalt = " ";
 			paramwktitl = "";
-			paramwkhmph = (int) (long)objCumast.getCuhmph();
-			paramwkbuph = (int) (long)objCumast.getCubuph();
-			paramwkssno = (int) (long)objCumast.getCussnr();
-			this.cur = func.StringToArrayString(this.cur, 0, paramwkbank);
+			paramwkhmph = objCumast.getCuhmph() == null ? 0 : (int) (long) objCumast.getCuhmph();
+			paramwkbuph = objCumast.getCubuph() == null ? 0 : (int) (long)objCumast.getCubuph();
+			paramwkssno = objCumast.getCussnr() == null ? 0 : (int) (long)objCumast.getCussnr();
+			paramwkbank =this.cur.substring(1-1,3); 
 			paramwkacct = this.wkaccx;
 
 			

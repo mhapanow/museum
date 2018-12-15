@@ -81,7 +81,6 @@ public class FUNCIONESBzService {
 	}
 	
 	public String StringToArrayString(String txtInicial, Integer iniciar, String txtInput) {
-		
 		char[] txtCaracteresI = txtInicial.toCharArray();
 		//convertir txtinput a chars
 		char[] txtCaracteres = txtInput.toCharArray();

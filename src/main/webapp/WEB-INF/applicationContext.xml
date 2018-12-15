@@ -68,16 +68,16 @@
 	<bean id="Saldom.dao.ref" class="com.ciessa.museum.dao.legacy.SaldomDAO" />
 	<bean id="Tablam.dao.ref" class="com.ciessa.museum.dao.legacy.TablamDAO" />
 	<!-- bean id="Tap001.dao.ref" class="com.ciessa.museum.dao.legacy.Tap001DAO" /-->
-	<bean id="Tap002.dao.ref" class="com.ciessa.museum.dao.legacy.Tap002DAO" />
+	<bean id="Tap002w.dao.ref" class="com.ciessa.museum.dao.legacy.Tap002wDAO" />
 	<bean id="Tap003.dao.ref" class="com.ciessa.museum.dao.legacy.Tap003DAO" />
 	<!--bean id="Tap005b.dao.ref" class="com.ciessa.museum.dao.legacy.Tap005bDAO" /-->
 	<bean id="Tap014.dao.ref" class="com.ciessa.museum.dao.legacy.Tap014DAO" />
-	<!--bean id="Tap03w.dao.ref" class="com.ciessa.museum.dao.legacy.Tap03wDAO" />
-	<bean id="Tap901.dao.ref" class="com.ciessa.museum.dao.legacy.Tap901DAO" /-->
+	<!--bean id="Tap03w.dao.ref" class="com.ciessa.museum.dao.legacy.Tap03wDAO" /-->
+	<bean id="Tap901.dao.ref" class="com.ciessa.museum.dao.legacy.Tap901DAO" />
 	<bean id="Tap902.dao.ref" class="com.ciessa.museum.dao.legacy.Tap902DAO" />
 	<bean id="Tgpp632.dao.ref" class="com.ciessa.museum.dao.legacy.Tgpp632DAO" />
-	<!--bean id="Tranem.dao.ref" class="com.ciessa.museum.dao.legacy.TranemDAO" />
-	<bean id="Transm.dao.ref" class="com.ciessa.museum.dao.legacy.TransmDAO" /-->
+	<!--bean id="Tranem.dao.ref" class="com.ciessa.museum.dao.legacy.TranemDAO" /-->
+	<bean id="Transm.dao.ref" class="com.ciessa.museum.dao.legacy.TransmDAO" />
 	<bean id="Zrspdmr.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspdmrDAO" />
 	<bean id="Zrspilr.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspilrDAO" />
 	<bean id="Zrsplem.dao.ref" class="com.ciessa.museum.dao.legacy.ZrsplemDAO" />
@@ -103,10 +103,15 @@
 	<bean id="Cfp001205.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001205DAO" />
 	<bean id="Grmact.dao.ref" class="com.ciessa.museum.dao.legacy.GrmactDAO" />
 	<bean id="Compcmo.dao.ref" class="com.ciessa.museum.dao.legacy.CompcmoDAO" />
+	<bean id="Cbiptic.dao.ref" class="com.ciessa.museum.dao.legacy.CbipticDAO" />
+	<bean id="Cfp001207.dao.ref" class="com.ciessa.museum.dao.legacy.Cfp001207DAO" />
+	<bean id="Cgrprec.dao.ref" class="com.ciessa.museum.dao.legacy.CgrprecDAO" />
 	
 	<bean id="ZRSTEMMVView01BzService" class="com.ciessa.museum.bz.legacy.ZRSTEMMVView01BzService" />
 	
 	<bean id="Cus060BzService" class="com.ciessa.museum.bz.legacy.Cus060BzService" />
+	
+	<bean id="CgrrcompBzService" class="com.ciessa.museum.bz.legacy.CgrrcompBzService" />
 
 	<!-- ** REST resource ** -->
 	<bean id="base.rest.resource"

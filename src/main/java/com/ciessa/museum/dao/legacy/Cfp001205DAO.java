@@ -28,7 +28,7 @@ public class Cfp001205DAO {
 		
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Cfp001205 WHERE cfinnr = '" + Dmdint.toString() + "'");
+			Query q = session.createQuery("FROM Cfp001205 WHERE cfinnr = '" + String.format("%03d", Dmdint) + "'");
 			Cfp001205 o = (Cfp001205)q.uniqueResult();
 			
 			if( o == null ) {

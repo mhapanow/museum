@@ -58,7 +58,7 @@
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Tablam.hbm.xml"></mapping>
 		<mapping
-			resource="com/ciessa/museum/model/legacy/Tap002.hbm.xml"></mapping>
+			resource="com/ciessa/museum/model/legacy/Tap002w.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Tap014.hbm.xml"></mapping>
 		<mapping
@@ -138,6 +138,17 @@
 			resource="com/ciessa/museum/model/legacy/Cfp001205.hbm.xml"></mapping>
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Cfp001005.hbm.xml"></mapping>
+
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cfp001207.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cbiptic.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Tap901.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Transm.hbm.xml"></mapping>
+		<mapping
+			resource="com/ciessa/museum/model/legacy/Cgrprec.hbm.xml"></mapping>
 			
 	</session-factory>
 

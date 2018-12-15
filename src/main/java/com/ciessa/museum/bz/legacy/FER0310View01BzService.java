@@ -226,7 +226,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	BigDecimal wsdact = new BigDecimal(0);
 	Integer dmdlst = 0;
 	Long dmccaw = new Long(0);
-	Integer dmpbal = 0;
+	BigDecimal dmpbal = new BigDecimal(0);
 	BigDecimal sreten = new BigDecimal(0);
 	Integer dmiodl = 0;
 	BigDecimal wsinmo = new BigDecimal(0);
@@ -263,7 +263,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	Integer sd = 0;
 	Long raactn = new Long("0");
 	
-	Integer[] cfpi = { 0, 0, 0, 0};
+	Integer[] cfpi = { 0, 0, 0, 0, 0};
 	
 	String rqacrt = "";
 	String vistat = "";
@@ -280,6 +280,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	String srcvt = "";
 	Integer yyyy = 0;
 	String swtaky = "";
+	String swtaty = "";
 	String swtaac = "";
 	Integer wshmes = 0;
 	Integer wswavs = 0;
@@ -298,7 +299,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	String sdd6 = "";
 	String adma6 = "";
 	Integer m = 0;
-	BigDecimal[] rate = new BigDecimal[4];
+	BigDecimal[] rate = new BigDecimal[5];
 	Boolean WshmesWswavs = false;
 	Integer hssec = 0;
 	Integer wkssno = 0;
@@ -440,7 +441,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	Integer inftr1 = 0;
 	BigDecimal wkaccx = new BigDecimal(0);
 	Long wkxxbl = new Long(0);
-	Long[] cfpb = new Long[4];
+	Long[] cfpb = new Long[5];
 	Integer swork7 = 0;
 	Integer swrk7f = 0;
 	Integer swrk71 = 0;
@@ -512,7 +513,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	BigDecimal wwint = new BigDecimal(0);
 	BigDecimal wpryin = new BigDecimal(0);
 	
-	Long[] sr5 = new Long[8];
+	Long[] sr5 = new Long[9];
 	
 	//Funtioness	
 	FUNCIONESBzService fc = new FUNCIONESBzService();
@@ -543,6 +544,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			long millisPre = new Date().getTime();
 			
 			this.acctno = obtainStringValue("acctno", null);
+			Arrays.fill(this.dsrt, BigDecimal.ZERO);
 			
 			this.dscndt = this.fc.FormatoFechaHora("ddMMyyyy");
 			this.modelb = "0";
@@ -623,7 +625,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			this.sr5[5] = objCfp001207.getCflim6();
 			this.sr5[6] = objCfp001207.getCflim7();
 			this.sr5[7] = objCfp001207.getCflim8();
-			this.sr5[8] = objCfp001207.getCflim9();			
+			this.sr5[8] = objCfp001207.getCflim9();
 			
 			
 			objCfp001005 = myDAOCfp001005.getUsingKey(ds);
@@ -638,6 +640,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			objTap002 = myDAOTap002w.getUsingAcctan(ds, acctan);
 			if (objTap002 != null) {
 				this.giro = "1";
+				this.dmpbal = objTap002.getDmpbal();
 				//this.acctno = "";
 				rpta += SubRutBorro(ds);
 				this.dmacct = objTap002.getDmacct();
@@ -870,6 +873,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 							objTap002 = myDAOTap002w.getUsingLdbankAndAmtypAndAncta(ds, ldbank.toString(), this.amtyp.toString(), this.ancta.toString());
 							this.dmbt25 = objTap002.getDmbt25();
 							this.dmbt23 = objTap002.getDmbt23();
+							this.dmpbal = objTap002.getDmpbal();
 							if (objTap002 != null) {
 								this.dmdopn = Integer.parseInt((new SimpleDateFormat("ddMMyyyy").parse(objTap002.getDmdopn().toString())).toString());
 								this.dmdla = Integer.parseInt((new SimpleDateFormat("ddMMyyyy").parse(objTap002.getDmdla().toString())).toString());
@@ -908,6 +912,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 				objTap002 = myDAOTap002w.getUsingLdbankAndAmtypAndAncta(ds, this.swtaky.substring(0, 3), this.swtaky.substring(3), this.swtaac);
 				this.dmbt25 = objTap002.getDmbt25();
 				this.dmbt23 = objTap002.getDmbt23();
+				this.dmpbal = objTap002.getDmpbal();
 				if (objTap002 != null) {
 					this.dmdopn = Integer.parseInt((new SimpleDateFormat("ddMMyyyy").parse(objTap002.getDmdopn().toString())).toString());
 					this.dmdla = Integer.parseInt((new SimpleDateFormat("ddMMyyyy").parse(objTap002.getDmdla().toString())).toString());
@@ -989,7 +994,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			this.fecpas = "";
 			int position = Arrays.asList(this.tabest).indexOf(objTap002.getDmstat()); 
 			if (position > -1) {
-				this.tpbloq = this.tabest[position];
+				this.tpbloq = this.tabdes[position];
 				if (objTap002.getDmstat().equals("P") || objTap002.getDmstat().equals("N") || objTap002.getDmstat().equals("O")) {
 					
 					objSaldom = myDAOSaldom.getUsingDmsf4AndDmbrchAndDmtypAndDmacct(ds, objTap002.getDmsf4(), objTap002.getDmbrch(), objTap002.getDmtyp(), objTap002.getDmacct());
@@ -1019,7 +1024,11 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			this.adia = Integer.parseInt(this.fc.FormatoFechaHora("dd"));
 			this.qdias = this.finmes - this.adia;
 			this.qdias = this.qdias + 1;
-			this.wwint = (objTap002.getDmcbal().multiply(objTap002.getDmintr()).multiply(new BigDecimal(this.qdias))).divide(new BigDecimal(36500));
+			/*BigDecimal valorCalculado = objTap002.getDmcbal().multiply(objTap002.getDmintr());
+			valorCalculado = valorCalculado.multiply(new BigDecimal(this.qdias));
+			valorCalculado = valorCalculado.divide(new BigDecimal(36500), 2);
+			this.wwint = valorCalculado;*/
+			this.wwint = (objTap002.getDmcbal().multiply(objTap002.getDmintr()).multiply(new BigDecimal(this.qdias))).divide(new BigDecimal(36500),2);
 			this.wpryin = this.wwint.add(objTap002.getDmmacc());
 			
 		} catch (Exception e) {
@@ -1047,8 +1056,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 		}
 		return "";
 	}
-	
-	
+		
 	private String SubRutBorra5(DataSet ds) {
 		try {
 			this.adbpen = BigDecimal.ZERO;
@@ -1265,7 +1273,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			this.wsdact = BigDecimal.ZERO;
 			this.dmdlst = 0;
 			this.dmccaw = new Long(0);
-			this.dmpbal = 0;
+			this.dmpbal = BigDecimal.ZERO;
 			this.sreten = BigDecimal.ZERO;
 			this.dmiodl = 0;
 			this.wsinmo = BigDecimal.ZERO;
@@ -1300,7 +1308,6 @@ public class FER0310View01BzService extends RestBaseServerResource{
 		return "";
 	}
 	
-
 	private String SubRutSrcase(DataSet ds) {
 		try {
 			this.wwidct = "";
@@ -1366,8 +1373,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			else {
 				this.wkacct = "01" + this.acctno;
 			}
-			this.dsmkey = this.wkacct;
-			this.dsmkey = this.bknum;
+			this.dsmkey = this.bknum + this.wkacct.substring(2-1,12);
 			SubRutMfproc(ds);
 			
 			
@@ -1456,10 +1462,12 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	private String SubRutMfproc(DataSet ds) {
 		try {
 			this.swtaky = this.dsmkey;
-			this.swtaac = this.swtaky.substring(5, 14); 
-			objTap002 = myDAOTap002w.getUsingTipoAndCuenta(ds, this.swtaky, this.swtaac);
+			this.swtaac = this.swtaky.substring(5-1, 14);
+			this.swtaty = this.swtaky.substring(4-1,5-1);
+			objTap002 = myDAOTap002w.getUsingTipoAndCuenta(ds, this.swtaty, this.swtaac);
 			this.dmbt25 = objTap002.getDmbt25();
 			this.dmbt23 = objTap002.getDmbt23();
+			this.dmpbal = objTap002.getDmpbal();
 			if (objTap002 != null) {
 				this.wshmes = 0;
 				this.dmacct = objTap002.getDmacct();
@@ -1506,7 +1514,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 					this.wkacct = "01" + this.acctno;
 				}
 
-				this.dsmkey = this.bknum + this.wkacct;
+				this.dsmkey = this.bknum.concat( this.wkacct);
 				SubRutGtcust(ds);
 				this.hssec = this.wkssno;
 				this.dmssno = this.hssec;
@@ -1516,12 +1524,16 @@ public class FER0310View01BzService extends RestBaseServerResource{
 					objCfp001205 = myDAOCfp001205.getUsingKeyDmdint(ds, objTap002.getDmdint());
 					if (objCfp001205 != null) {
 						this.dmdint = 0;
-						Arrays.fill(this.cfpb, 0);
-					}else {
-						this.cfpb[0] = (long) objCfp001205.getCfpb1();
-						this.cfpb[1] = (long) objCfp001205.getCfpb2();
-						this.cfpb[2] = (long) objCfp001205.getCfpb3();
-						this.cfpb[3] = (long) objCfp001205.getCfpb4();
+						this.cfpi[1] = Integer.parseInt(objCfp001205.getCfpi().substring(1-1,2));
+						this.cfpi[2] = Integer.parseInt(objCfp001205.getCfpi().substring(3-1,4));
+						this.cfpi[3] = Integer.parseInt(objCfp001205.getCfpi().substring(5-1,6));
+						this.cfpi[4] = Integer.parseInt(objCfp001205.getCfpi().substring(7-1,8));
+						//--Arrays.fill(this.cfpb, 0);
+					//--}else {
+						this.cfpb[1] = (long) objCfp001205.getCfpb1();
+						this.cfpb[2] = (long) objCfp001205.getCfpb2();
+						this.cfpb[3] = (long) objCfp001205.getCfpb3();
+						this.cfpb[4] = (long) objCfp001205.getCfpb4();
 						
 						this.bcrkey = "";
 						this.bcrkey = "1";
@@ -1766,7 +1778,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 						this.dmpsiw = o.getDminws();
 						this.dmpslt = o.getDmlast();
 					}
-					this.dmpbal = o.getDmcbal().intValue();
+					this.dmpbal = new BigDecimal(o.getDmcbal().intValue());
 					this.dmcra = 0;
 					this.dmdra = 0;
 					this.dmcri = 0;
@@ -1875,12 +1887,12 @@ public class FER0310View01BzService extends RestBaseServerResource{
 						this.srrslt = this.wkcday;
 						if (!objCfp001205.getCftrfg().equals("I")) {
 							this.i = 1;
-							while ( fc.BigDecimalComparar(this.wkcbal.toString(), this.wkxxbl.toString(), "!=")  || this.i > 4) {
+							while ( fc.BigDecimalComparar(this.wkcbal.toString(), this.wkxxbl.toString(), ">=")  && this.i <= 4) {
 								this.wkxxbl = this.cfpb[this.i];
-								if (this.wkxxbl == 9999999) {
+								if (this.wkxxbl.equals(9999999)) {
 									this.wkxxbl = (long) 999999999;
 								}
-								if (fc.BigDecimalComparar(this.wkcbal.toString(), this.wkxxbl.toString(), "=") ) {
+								if (fc.BigDecimalComparar(this.wkcbal.toString(), this.wkxxbl.toString(), ">") ) {
 									this.i = this.i + 1;
 								}
 							}
@@ -2177,7 +2189,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 		BigDecimal WSDACT = new BigDecimal(0);
 		Integer DMDLST = 0;
 		Long MCCAW = new Long(0);
-		Integer MPBAL = 0;
+		BigDecimal MPBAL = new BigDecimal(0);
 		BigDecimal RETEN = new BigDecimal(0);
 		Long DMIODL = new Long("0");
 		BigDecimal WSINMO = new BigDecimal(0);
@@ -2374,10 +2386,10 @@ public class FER0310View01BzService extends RestBaseServerResource{
 		public void setMCCAW(Long mCCAW) {
 			MCCAW = mCCAW;
 		}
-		public Integer getMPBAL() {
+		public BigDecimal getMPBAL() {
 			return MPBAL;
 		}
-		public void setMPBAL(Integer mPBAL) {
+		public void setMPBAL(BigDecimal mPBAL) {
 			MPBAL = mPBAL;
 		}
 		public BigDecimal getRETEN() {
