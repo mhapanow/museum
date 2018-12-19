@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
+import com.ciessa.museum.bz.legacy.Cus060BzService.CUS060Adapter;
 import com.ciessa.museum.dao.DataSetDAO;
 import com.ciessa.museum.dao.legacy.CgrprecDAO;
 import com.ciessa.museum.model.DataSet;
@@ -27,6 +28,22 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 	List<Cgrprec> listCgrprec = null;
 	List<Cgrprec> listCgrprecRevis = null;
 	
+	String paramwkbank = "";
+	String paramnumcue = "";
+	String paramnumche = "";
+	String paramtipope = "";
+	String paramfecrec = "";
+	String paramfecpag = "";
+	String paramfecmul = "";
+	String parammotrec = "";
+	String paramtipreg = "";
+	String paramestado = "";
+	String paramcomput = "";
+	String paramcompur = "";
+	String paramrevisi = "";
+	String parampcantm = "";
+	String paramerror = "";
+		
 	String asfech = "";
 	//String addmm = "";
 	String diapro = "";
@@ -227,6 +244,37 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 				}
 			}
 			
+			//--String paramwkbank = paramwkbank;
+			String paramnumcue = numcue;
+			String paramnumche = numche;
+			String paramtipope = tipope;
+			String paramfecrec = fecrec;
+			String paramfecpag = fecpag;
+			String paramfecmul = fecmul;
+			String parammotrec = motrec;
+			String paramtipreg = tipreg;
+			String paramestado = estado;
+			String paramcomput = comput;
+			String paramcompur = compur;
+			String paramrevisi = revisi;
+			String parampcantm = pcantm;
+			String paramerror = error;
+			
+			adapter = new CgrrcompAdapter();
+			adapter.setNUMCUE(paramnumcue);
+			adapter.setNUMCHE(paramnumche);
+			adapter.setTIPOPE(paramtipope);
+			adapter.setFECREC(paramfecrec);
+			adapter.setFECPAG(paramfecpag);
+			adapter.setFECMUL(paramfecmul);
+			adapter.setMOTREC(parammotrec);
+			adapter.setTIPREG(paramtipreg);
+			adapter.setESTADO(paramestado);
+			adapter.setCOMPUT(paramcomput);
+			adapter.setCOMPUR(paramcompur);
+			adapter.setREVISI(paramrevisi);
+			adapter.setPCANTM(parampcantm);
+			adapter.setERROR(paramerror);
 			
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
@@ -397,6 +445,118 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 		
 		public CgrrcompAdapter(){
 			
+		}
+
+		public String getNUMCUE() {
+			return NUMCUE;
+		}
+
+		public void setNUMCUE(String nUMCUE) {
+			NUMCUE = nUMCUE;
+		}
+
+		public String getNUMCHE() {
+			return NUMCHE;
+		}
+
+		public void setNUMCHE(String nUMCHE) {
+			NUMCHE = nUMCHE;
+		}
+
+		public String getTIPOPE() {
+			return TIPOPE;
+		}
+
+		public void setTIPOPE(String tIPOPE) {
+			TIPOPE = tIPOPE;
+		}
+
+		public String getFECREC() {
+			return FECREC;
+		}
+
+		public void setFECREC(String fECREC) {
+			FECREC = fECREC;
+		}
+
+		public String getFECPAG() {
+			return FECPAG;
+		}
+
+		public void setFECPAG(String fECPAG) {
+			FECPAG = fECPAG;
+		}
+
+		public String getFECMUL() {
+			return FECMUL;
+		}
+
+		public void setFECMUL(String fECMUL) {
+			FECMUL = fECMUL;
+		}
+
+		public String getMOTREC() {
+			return MOTREC;
+		}
+
+		public void setMOTREC(String mOTREC) {
+			MOTREC = mOTREC;
+		}
+
+		public String getTIPREG() {
+			return TIPREG;
+		}
+
+		public void setTIPREG(String tIPREG) {
+			TIPREG = tIPREG;
+		}
+
+		public String getESTADO() {
+			return ESTADO;
+		}
+
+		public void setESTADO(String eSTADO) {
+			ESTADO = eSTADO;
+		}
+
+		public String getCOMPUT() {
+			return COMPUT;
+		}
+
+		public void setCOMPUT(String cOMPUT) {
+			COMPUT = cOMPUT;
+		}
+
+		public String getCOMPUR() {
+			return COMPUR;
+		}
+
+		public void setCOMPUR(String cOMPUR) {
+			COMPUR = cOMPUR;
+		}
+
+		public String getREVISI() {
+			return REVISI;
+		}
+
+		public void setREVISI(String rEVISI) {
+			REVISI = rEVISI;
+		}
+
+		public String getPCANTM() {
+			return PCANTM;
+		}
+
+		public void setPCANTM(String pCANTM) {
+			PCANTM = pCANTM;
+		}
+
+		public String getERROR() {
+			return ERROR;
+		}
+
+		public void setERROR(String eRROR) {
+			ERROR = eRROR;
 		}
 		
 	}

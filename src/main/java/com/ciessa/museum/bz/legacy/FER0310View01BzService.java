@@ -137,7 +137,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	Grmcus objGrmcus = new Grmcus();
 	Inspref objInspref = new Inspref();
 	Tap002w objTap002 = new Tap002w();
-	Tap003 objTap003 = new Tap003();
+	List<Tap003> lstTap003 = null;
 	Compcmo objCompcmo = new Compcmo();
 	Zbhpvrz objZbhpvrz = new Zbhpvrz();
 	Cfp001005 objCfp001005 = new Cfp001005();
@@ -515,6 +515,8 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	
 	Long[] sr5 = new Long[9];
 	
+	Integer textoF3 = 0;
+	
 	//Funtioness	
 	FUNCIONESBzService fc = new FUNCIONESBzService();
 	
@@ -722,6 +724,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 			adapter.setAMTAMX(this.amtamx);
 			adapter.setFECAME(this.fecame);
 			adapter.setWSHMES(this.wshmes);
+			adapter.setTEXTOF3(this.textoF3);
 
 			
 			long diff = new Date().getTime() - millisPre;
@@ -776,6 +779,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 					"AMTAMX",
 					"FECAME",
 					"WSHMES",
+					"TEXTOF3"
 			};
 			
 			returnValue = getJSONRepresentationFromObject(adapter, fields);
@@ -1040,13 +1044,13 @@ public class FER0310View01BzService extends RestBaseServerResource{
 	
 	private String SubRutComput(DataSet ds) {
 		try {
-			this.numcue = "0" + objTap002.getDmacct().toString();
+			this.numcue = "0" + String.format("%010d", objTap002.getDmacct());
 			this.tipope = "CANT";
 			//ejecutar objeto 'CGRRCOMP' 
 			cgrrcompadapter = Cgrrcomp.objetoCgrrcomp(ds, numcue, "", tipope, "", "", "", "", "", "", "", "", "", "", "");
 			if (cgrrcompadapter.ERROR == "") {
-				this.wqextr = Integer.parseInt(cgrrcompadapter.COMPUT);
-				this.wrevi = cgrrcompadapter.REVISI;
+				this.wqextr = Integer.parseInt(cgrrcompadapter.getCOMPUT());
+				this.wrevi = cgrrcompadapter.getREVISI();
 				this.aabar = "/";
 			}
 			
@@ -1507,7 +1511,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 				this.wkalt = "";
 				this.wkbank = this.bknum;
 				
-				if (new Long(this.acctno) < 1000000000) {
+				if (new Long(this.acctno) < new Long("5000000000")) {
 					this.wkacct = "06" + this.acctno;
 				}
 				else {
@@ -1570,10 +1574,10 @@ public class FER0310View01BzService extends RestBaseServerResource{
 
 				
 				if (objTap002.getDmacct() < new Long("5000000000")) {
-					this.wkacct = "06" + objTap002.getDmacct().toString();
+					this.wkacct = "06" + String.format("%010d", objTap002.getDmacct());
 				}
 				else {
-					this.wkacct = "01" + objTap002.getDmacct().toString();
+					this.wkacct = "01" + String.format("%010d", objTap002.getDmacct());
 				}
 				
 				this.wktitl = objTap002.getDmtitl();
@@ -1603,7 +1607,9 @@ public class FER0310View01BzService extends RestBaseServerResource{
 				this.dshbk = objTap002.getDmbk();
 				this.dshdsv = objTap002.getDmtyp();
 				this.dsacct = objTap002.getDmacct();
-				objTap003 = myDAOTap003.getUsingDmacct(ds, objTap002.getDmacct().toString());
+				
+				lstTap003 = myDAOTap003.getUsingDmacct(ds, objTap002.getDmacct().toString());
+				this.textoF3 = this.lstTap003 == null ? 0 : (this.lstTap003.size() == 0 ? 0 : 1); 
 				
 				this.dmbk = objTap002.getDmbk();
 			}
@@ -1680,10 +1686,12 @@ public class FER0310View01BzService extends RestBaseServerResource{
 					this.dmacc5 = this.tojul;
 					this.dmaccr = this.tojul;
 				}
-				if (objCfp001205.getCfpacb().equals("1")) {
-					this.frjul = o.getDmacc5();
-					SubRutSrp013(ds);
-					this.dmaccr = this.tojul;
+				if (objCfp001205.getCfpacb() != null) {
+					if (objCfp001205.getCfpacb().equals("1")) {
+						this.frjul = o.getDmacc5();
+						SubRutSrp013(ds);
+						this.dmaccr = this.tojul;
+					}
 				}
 				this.dmnsfa = o.getDmnsfa().subtract(o.getDmnsfa());
 				this.dmnsff = this.dmnsff - this.dmnsff;
@@ -2205,9 +2213,16 @@ public class FER0310View01BzService extends RestBaseServerResource{
 		Integer AMTAMX = 0;
 		Integer FECAME = 0;
 		Integer WSHMES = 0;
+		Integer TEXTOF3 = 0;
 		
 		public String getACCTNO() {
 			return ACCTNO;
+		}
+		public Integer getTEXTOF3() {
+			return TEXTOF3;
+		}
+		public void setTEXTOF3(Integer tEXTOF3) {
+			TEXTOF3 = tEXTOF3;
 		}
 		public void setACCTNO(String aCCTNO) {
 			ACCTNO = aCCTNO;

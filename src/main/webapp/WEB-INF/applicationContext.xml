@@ -72,7 +72,7 @@
 	<bean id="Tap003.dao.ref" class="com.ciessa.museum.dao.legacy.Tap003DAO" />
 	<!--bean id="Tap005b.dao.ref" class="com.ciessa.museum.dao.legacy.Tap005bDAO" /-->
 	<bean id="Tap014.dao.ref" class="com.ciessa.museum.dao.legacy.Tap014DAO" />
-	<!--bean id="Tap03w.dao.ref" class="com.ciessa.museum.dao.legacy.Tap03wDAO" /-->
+	<bean id="Tap03w.dao.ref" class="com.ciessa.museum.dao.legacy.Tap03wDAO" />
 	<bean id="Tap901.dao.ref" class="com.ciessa.museum.dao.legacy.Tap901DAO" />
 	<bean id="Tap902.dao.ref" class="com.ciessa.museum.dao.legacy.Tap902DAO" />
 	<bean id="Tgpp632.dao.ref" class="com.ciessa.museum.dao.legacy.Tgpp632DAO" />
@@ -255,6 +255,10 @@
 	
 	<bean id="legacy.fer0310.view1"
 		class="com.ciessa.museum.bz.legacy.FER0310View01BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.fer0310.view2"
+		class="com.ciessa.museum.bz.legacy.FER0310View02BzService"
 		parent="base.rest.resource" scope="prototype" />
 	
 </beans>
