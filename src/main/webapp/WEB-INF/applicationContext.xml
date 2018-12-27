@@ -70,13 +70,13 @@
 	<!-- bean id="Tap001.dao.ref" class="com.ciessa.museum.dao.legacy.Tap001DAO" /-->
 	<bean id="Tap002w.dao.ref" class="com.ciessa.museum.dao.legacy.Tap002wDAO" />
 	<bean id="Tap003.dao.ref" class="com.ciessa.museum.dao.legacy.Tap003DAO" />
-	<!--bean id="Tap005b.dao.ref" class="com.ciessa.museum.dao.legacy.Tap005bDAO" /-->
+	<bean id="Tap005b.dao.ref" class="com.ciessa.museum.dao.legacy.Tap005bDAO" />
 	<bean id="Tap014.dao.ref" class="com.ciessa.museum.dao.legacy.Tap014DAO" />
 	<bean id="Tap03w.dao.ref" class="com.ciessa.museum.dao.legacy.Tap03wDAO" />
 	<bean id="Tap901.dao.ref" class="com.ciessa.museum.dao.legacy.Tap901DAO" />
 	<bean id="Tap902.dao.ref" class="com.ciessa.museum.dao.legacy.Tap902DAO" />
 	<bean id="Tgpp632.dao.ref" class="com.ciessa.museum.dao.legacy.Tgpp632DAO" />
-	<!--bean id="Tranem.dao.ref" class="com.ciessa.museum.dao.legacy.TranemDAO" /-->
+	<bean id="Tranem.dao.ref" class="com.ciessa.museum.dao.legacy.TranemDAO" />
 	<bean id="Transm.dao.ref" class="com.ciessa.museum.dao.legacy.TransmDAO" />
 	<bean id="Zrspdmr.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspdmrDAO" />
 	<bean id="Zrspilr.dao.ref" class="com.ciessa.museum.dao.legacy.ZrspilrDAO" />
@@ -259,6 +259,26 @@
 	
 	<bean id="legacy.fer0310.view2"
 		class="com.ciessa.museum.bz.legacy.FER0310View02BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.fer0310.view3"
+		class="com.ciessa.museum.bz.legacy.FER0310View03BzService"
+		parent="base.rest.resource" scope="prototype" />
+		
+	<bean id="legacy.fer0320.view1"
+		class="com.ciessa.museum.bz.legacy.FER0320View01BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.fer0320.view2"
+		class="com.ciessa.museum.bz.legacy.FER0320View02BzService"
+		parent="base.rest.resource" scope="prototype" />
+		
+	<bean id="legacy.fer0330.view1"
+		class="com.ciessa.museum.bz.legacy.FER0330View01BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.fer0330.view2"
+		class="com.ciessa.museum.bz.legacy.FER0330View02BzService"
 		parent="base.rest.resource" scope="prototype" />
 	
 </beans>

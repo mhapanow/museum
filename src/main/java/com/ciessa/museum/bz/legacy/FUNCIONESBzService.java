@@ -126,6 +126,14 @@ public class FUNCIONESBzService {
 		return dateFormat.format(date);
 	}
 	
+	public Date FechaActual(String Formato) {
+		Date date = new Date();
+		try {
+			date = new SimpleDateFormat(Formato).parse(date.toString());
+		} catch( Exception e ) {}
+		return date;
+	}
+	
 	public Boolean PrimerDiaHabil() {
 		
 		Calendar fecha = Calendar.getInstance();

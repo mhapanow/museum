@@ -6,7 +6,7 @@
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
 		<property name="hibernate.connection.password">123456789</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://192.168.1.20:1433;databaseName=museum</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://127.0.0.1:1433;databaseName=museum</property>
 		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.default_catalog">museum</property>
 		<property name="hibernate.default_schema">dbo</property>
@@ -150,6 +150,12 @@
 		<mapping
 			resource="com/ciessa/museum/model/legacy/Cgrprec.hbm.xml"></mapping>
 			
+<mapping
+			resource="com/ciessa/museum/model/legacy/Tap03w.hbm.xml"></mapping>
+<mapping
+			resource="com/ciessa/museum/model/legacy/Tap005b.hbm.xml"></mapping>
+<mapping
+			resource="com/ciessa/museum/model/legacy/Tranem.hbm.xml"></mapping>
 	</session-factory>
 
 </hibernate-configuration>

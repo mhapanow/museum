@@ -12,10 +12,10 @@ import com.ciessa.museum.dao.FactoryManager;
 import com.ciessa.museum.exception.ASException;
 import com.ciessa.museum.exception.ASExceptionHelper;
 import com.ciessa.museum.model.DataSet;
-import com.ciessa.museum.model.legacy.Tap003;
+import com.ciessa.museum.model.legacy.Tap005b;
 
-public class Tap003DAO {
-	public List<Tap003> getUsingDmacct(DataSet ds, String dmacct) throws ASException {
+public class Tap005bDAO {
+	public List<Tap005b> getUsingListDmbkAndDmtypAndDmacctAndDmfsttAndRegist(DataSet ds, String dmbk, String dmtyp, String dmacct, String dmfstt, String regist) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -29,13 +29,17 @@ public class Tap003DAO {
 
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Tap003 WHERE dsacct  = :dmacct and dsstat  != 'D' AND dstype  = '1' ");
+			Query q = session.createQuery("FROM Tap005b WHERE dhbank = :dmbk and dhtyp = :dmtyp and dhacct = :dmacct and dhstnr = :dmfstt and dhrec = :regist  ");
+			q.setParameter("dmbk", dmbk);
+			q.setParameter("dmtyp", dmtyp);
 			q.setParameter("dmacct", dmacct);
+			q.setParameter("dmfstt", dmfstt);
+			q.setParameter("regist", regist);
 			
 			@SuppressWarnings("unchecked")
-			List<Tap003> list = (List<Tap003>)q.list();
+			List<Tap005b> list = (List<Tap005b>)q.list();
 			
-			for( Tap003 o : list ) {
+			for( Tap005b o : list ) {
 				session.evict(o);
 			}
 			tx.commit();
@@ -50,51 +54,9 @@ public class Tap003DAO {
 		}
 	}
 	
-public List<Tap003> getUsingListAtpctaAndAcuen1(DataSet ds, String atpcta, String acuen1) throws ASException	{
-		
-		SessionFactory factory = null;
-		
-		try {
-			factory = FactoryManager.getInstance().getFactory(ds);
-		} catch (Throwable ex) {
-			System.err.println("Failed to create sessionFactory object." + ex);
-			throw new ExceptionInInitializerError(ex);
-		}
-		
-		Session session = factory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Tap003 WHERE dshdsv = :atpcta AND dsacct = :acuen1 AND dstype = '2' AND dsstat != 'D' ");
-			
-			Query q = session.createQuery(sb.toString());
-			q.setParameter("atpcta", atpcta);
-			q.setParameter("acuen1", acuen1);
-			
-			@SuppressWarnings("unchecked")
-			List<Tap003> list = (List<Tap003>)q.list();
-			
-			for( Tap003 o : list ) {
-				session.evict(o);
-			}
-			tx.commit();
-			
-			return list;
-				
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			throw ASExceptionHelper.defaultException(e.getMessage(), e);
-		} finally {
-			session.close();
-			}
-	} // fin public
+	public Tap005b getUsingKeyCodecoAndDmtypAndWnctaAndDhrec(DataSet ds, String codeco, String dmtyp, String wncta, String dhrec) throws ASException {
 
-	public List<Tap003> getUsingListDshbkAndDshdsvAndDsacct(DataSet ds, String dshbk, String dshdsv, String dsacct) throws ASException	{
-		
 		SessionFactory factory = null;
-		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -104,40 +66,37 @@ public List<Tap003> getUsingListAtpctaAndAcuen1(DataSet ds, String atpcta, Strin
 		
 		Session session = factory.openSession();
 		Transaction tx = null;
+
 		try {
 			tx = session.beginTransaction();
-			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Tap003 WHERE dshbk = :dshbk AND dshdsv = :dshdsv AND dsacct = :dsacct ");
+			Query q = session.createQuery(" FROM Tap005b where dhbank = :codeco AND dhtyp = :dmtyp AND dhacct = :wncta AND dhrec = :dhrec ");
+			q.setParameter("codeco", codeco);
+			q.setParameter("dmtyp", dmtyp);
+			q.setParameter("wncta", wncta);
+			q.setParameter("dhrec", dhrec);
+			Tap005b o = (Tap005b)q.uniqueResult();
 			
-			Query q = session.createQuery(sb.toString());
-			q.setParameter("dshbk", dshbk);
-			q.setParameter("dshdsv", dshdsv);
-			q.setParameter("dsacct", dsacct);
-			
-			@SuppressWarnings("unchecked")
-			List<Tap003> list = (List<Tap003>)q.list();
-			
-			for( Tap003 o : list ) {
-				session.evict(o);
+			if( o == null ) {
+				tx.rollback();
+				throw ASExceptionHelper.notFoundException();
 			}
+			
+			session.evict(o);
 			tx.commit();
 			
-			return list;
-				
+			return o;
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
-			}
-	} // fin public
+		}
+	}
 	
-	
-	public List<Tap003> getUsingListDshbkAndDshdsvAndDsacctAndDstypeAndDsstat(DataSet ds, String dshbk, String dshdsv, String dsacct, String dstype, String dsstat) throws ASException	{
-		
+	public Tap005b getUsingKey(DataSet ds) throws ASException {
+
 		SessionFactory factory = null;
-		
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
 		} catch (Throwable ex) {
@@ -147,37 +106,66 @@ public List<Tap003> getUsingListAtpctaAndAcuen1(DataSet ds, String atpcta, Strin
 		
 		Session session = factory.openSession();
 		Transaction tx = null;
+
 		try {
 			tx = session.beginTransaction();
-			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Tap003 WHERE dshbk = :dshbk AND dshdsv = :dshdsv AND dsacct = :dsacct AND dstype = :dstype AND dsstat != :dsstat ");
+			Query q = session.createQuery("FROM Tap005b ");
+
+			Tap005b o = (Tap005b)q.uniqueResult();
 			
-			Query q = session.createQuery(sb.toString());
-			q.setParameter("dshbk", dshbk);
-			q.setParameter("dshdsv", dshdsv);
-			q.setParameter("dsacct", dsacct);
-			q.setParameter("dstype", dstype);
-			q.setParameter("dsstat", dsstat);
-			
-			@SuppressWarnings("unchecked")
-			List<Tap003> list = (List<Tap003>)q.list();
-			
-			for( Tap003 o : list ) {
-				session.evict(o);
+			if( o == null ) {
+				tx.rollback();
+				throw ASExceptionHelper.notFoundException();
 			}
+			
+			session.evict(o);
 			tx.commit();
 			
-			return list;
-				
+			return o;
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			throw ASExceptionHelper.defaultException(e.getMessage(), e);
 		} finally {
 			session.close();
+		}
+	}
+	
+	public List<Tap005b> getUsingListCodecoAndDmtypAndWncta(DataSet ds, String codeco, String dmtyp, String wncta) throws ASException {
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery("FROM Tap005b WHERE dhbank = :codeco and dhtyp = :dmtyp and dhacct = :wncta ");
+			q.setParameter("codeco", codeco);
+			q.setParameter("dmtyp", dmtyp);
+			q.setParameter("wncta", wncta);
+			
+			@SuppressWarnings("unchecked")
+			List<Tap005b> list = (List<Tap005b>)q.list();
+			
+			for( Tap005b o : list ) {
+				session.evict(o);
 			}
-	} // fin public
-
-
+			tx.commit();
+			
+			return list;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
 
 }

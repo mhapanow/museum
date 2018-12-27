@@ -92,4 +92,43 @@ public class Cuxrf1DAO {
 				}
 			}
 	
+		public List<Cuxrf1> getUsigListCodecoAndAaplicAndActa(DataSet ds, String codeco, String aaplic, String acta ) throws ASException {
+				SessionFactory factory = null;
+				
+				try {
+					factory = FactoryManager.getInstance().getFactory(ds);
+				} catch (Throwable ex) {
+					System.err.println("Failed to create sessionFactory object." + ex);
+					throw new ExceptionInInitializerError(ex);
+				}
+				
+				Session session = factory.openSession();
+				Transaction tx = null;
+				try {
+					tx = session.beginTransaction();
+					StringBuffer sb = new StringBuffer();
+					sb.append(" FROM Cuxrf1 WHERE cuxbk = :codeco AND cux1ap = :aaplic AND cux1ac = :acta ORDER BY CUXBK, CUXREC, CUX1AP, CUX1AC, CUX1TY, CUX1CS ");
+					Query q = session.createQuery(sb.toString());
+					q.setParameter("codeco", codeco);
+					q.setParameter("aaplic", aaplic);
+					q.setParameter("acta", acta);
+					
+					@SuppressWarnings("unchecked")
+					List<Cuxrf1> list = (List<Cuxrf1>)q.list();
+					for( Cuxrf1 o : list ) {
+						session.evict(o);
+					}
+					tx.commit();
+					
+					return list;
+						
+				} catch (HibernateException e) {
+					if (tx != null)
+						tx.rollback();
+					throw ASExceptionHelper.defaultException(e.getMessage(), e);
+				} finally {
+					session.close();
+				}
+			}
+	
 }

@@ -72,7 +72,7 @@ public class Tap002wDAO {
             
             if( o == null ) {
                 tx.rollback();
-                throw ASExceptionHelper.notFoundException();
+                //throw ASExceptionHelper.notFoundException();
             }
             
             session.evict(o);
