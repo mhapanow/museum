@@ -54,8 +54,7 @@ public class Tap005bDAO {
 		}
 	}
 	
-	public Tap005b getUsingKeyCodecoAndDmtypAndWnctaAndDhrec(DataSet ds, String codeco, String dmtyp, String wncta, String dhrec) throws ASException {
-
+	public List<Tap005b> getUsingListCodecoAndDmtypAndWnctaAndDhrec(DataSet ds, String codeco, String dmtyp, String wncta, String dhrec) throws ASException {
 		SessionFactory factory = null;
 		try {
 			factory = FactoryManager.getInstance().getFactory(ds);
@@ -74,17 +73,56 @@ public class Tap005bDAO {
 			q.setParameter("dmtyp", dmtyp);
 			q.setParameter("wncta", wncta);
 			q.setParameter("dhrec", dhrec);
-			Tap005b o = (Tap005b)q.uniqueResult();
 			
-			if( o == null ) {
-				tx.rollback();
-				throw ASExceptionHelper.notFoundException();
+			@SuppressWarnings("unchecked")
+			List<Tap005b> list = (List<Tap005b>)q.list();
+			
+			for( Tap005b o : list ) {
+				session.evict(o);
 			}
-			
-			session.evict(o);
 			tx.commit();
 			
-			return o;
+			return list;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
+	
+	public List<Tap005b> getUsingKeyCodecoAndDmtypAndWnctaAndDhrecAndWfech(DataSet ds, String codeco, String dmtyp, String wncta, String dhrec, String wfech) throws ASException {
+
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery(" FROM Tap005b where dhbank = :codeco AND dhtyp = :dmtyp AND dhacct = :wncta AND dhrec = :dhrec AND dheff  >= :wfech ");
+			q.setParameter("codeco", codeco);
+			q.setParameter("dmtyp", dmtyp);
+			q.setParameter("wncta", wncta);
+			q.setParameter("dhrec", dhrec);
+			q.setParameter("wfech", wfech);
+			
+			@SuppressWarnings("unchecked")
+			List<Tap005b> list = (List<Tap005b>)q.list();
+			
+			for( Tap005b o : list ) {
+				session.evict(o);
+			}
+			tx.commit();
+					
+			return list;
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
@@ -167,5 +205,7 @@ public class Tap005bDAO {
 			session.close();
 		}
 	}
+	
+	
 
 }

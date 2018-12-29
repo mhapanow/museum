@@ -1,8 +1,11 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +31,7 @@ import com.ciessa.museum.model.legacy.Cumast;
 import com.ciessa.museum.model.legacy.Cuxrf1;
 import com.ciessa.museum.model.legacy.Tap002w;
 import com.ciessa.museum.model.legacy.Tap005b;
+import com.ciessa.museum.tools.CollectionFactory;
 
 public class FER0330View02BzService extends RestBaseServerResource{
 
@@ -75,7 +79,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	
 	String adevpr = "";
 	String fecha = "";
-	Integer wfech = 0;
+	String wfech = "";
 	Integer wfec2 = 0;
 	String qname = "";
 	String qlib = "";
@@ -92,24 +96,23 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	Integer wpdda = 0;
 	String wncta = "";
 	Boolean error = false;
-	Integer a4 = 0;
-	Integer a1 = 0;
+	Long a4 = new Long("0");
+	Long a1 = new Long("0");
 	String dmtyp = "";
 	Integer auxmon = 0;
 	Integer nrr = 0;
 	Integer samd7 = 0;
 	Integer hoja = 0;
+	Integer csdd8 = 0;
+	Integer csmm8 = 0;
+	String adia = "";
+	String ames = "";
+	String aano = "";
 	Integer csaa8 = 0;
 	
 	
-	String zsruti = "";
-	String zsfin1 = "";
-	String zsrin1 = "";
-	String zsfout = "";
-	String zsrout = "";
-	String retor = "";
-	String zscret = "";
-	String perr = "";
+	Integer amm1 = 0;
+	Integer add1 = 0;
 	Integer aaa1 = 0;
 	Integer csdma6 = 0;
 	Integer wfec3 = 0;
@@ -124,18 +127,19 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	String wnomb3 = "";
 	Integer aaplic = 0;
 	String acta = "";
-	String[] ind61 = new String[1];
+	String ind61 = "";
 	String abco = "";
 	Integer atip = 0;
 	String acuen = "";
 	Integer fecw = 0;
-	Integer aaw = 0;
+	//Integer aaw = 0;
 	BigDecimal dhamt = new BigDecimal(0);
 	Integer desde = 0;
 	BigDecimal wssald = new BigDecimal(0);
 	Integer w = 0;
 	Integer guardo = 0;
 	Integer fechai = 0;
+	String fecval = "";
 	BigDecimal wscred = new BigDecimal(0);
 	BigDecimal wsdebi = new BigDecimal(0);
 	Long cref1 = new Long("0");
@@ -144,6 +148,8 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	
 	FER0330V02Adapter adapter = null;
 	FUNCIONESBzService fc = new FUNCIONESBzService();
+	
+	List<FER0330V02Adapter> listAdapter = null;
 	
 	@Get
 	public String view() {
@@ -159,8 +165,8 @@ public class FER0330View02BzService extends RestBaseServerResource{
 			this.wdevpr = obtainStringValue("wdevpr", null);
 			
 			this.adevpr = this.wdevpr;
-			this.fecha = fc.FormatoFechaHora("ddMMyyyy");
-			this.wfech = 0;
+			this.fecha = fc.FormatoFechaHora("dd/MM/yyyy");
+			this.wfech = "0";
 			this.wfec2 = 0;
 			this.qname = "FEU0003";
 			this.qlib = "*LIBL";
@@ -169,36 +175,67 @@ public class FER0330View02BzService extends RestBaseServerResource{
 			this.march = "";
 			this.wbatch = 0;
 			this.wfec1 = 0;
+			
+			listAdapter = new ArrayList<FER0330V02Adapter>();
+			
 			SubRutUnica(ds);
+//			this.adia = "0";// this.wfech.substring(0, 2);
+			this.ames = "0";//this.wfech.substring(2, 4);
+			this.aano = "0";//this.wfech.substring(4, 6);
 			SubRutConsi(ds);
 			if (!this.error) {
 				SubRutCarga(ds);
-				if (this.wcta.equals("")) {
-					//atit = tit[1]; 
-				}
 				SubRutCarga1(ds);
-				if (this.nrr == 0 && this.wcta.equals("")) {
-					this.samd7 = objTap002w.getDmencc();
-					SubRutCarga3(ds);    
-					this.hoja = this.nrr;
-					
-				}
+				//Mostrar pantalla
 			}
-			this.wncta = "0";
-			this.wfech = 0;
-			this.amar = "0";
-
-				
 			
+			// retrieve all elements
+			Map<String,String> attributes = CollectionFactory.createMap();
 			long diff = new Date().getTime() - millisPre;
 			
 			// Logs the result
-			log.info("Element found in " + diff + " millis");
+			log.info("Number of elements found [" + listAdapter.size() + "] in " + diff + " millis");
+			
 			
 			String[] fields = new String[] {
-
+					"WNCTA", 
+					"WFECH", 
+					"CODECO",
+					"DMBRCH",
+					"DMCMCN",
+					"WNOMB1",
+					"WNOMB2",
+					"WNOMB3",
+			};
+			String[] arrayFields = new String[] {
+					"FECVAL",
+					"CTRAEX",
+					"WBATCH",
+					"CREF1",
+					"WSDEBI",
+					"WSCRED",
+					"WSSALD",
 			};
 			returnValue = getJSONRepresentationFromObject(adapter, fields);
+			returnValue.put("data", getJSONRepresentationFromArrayOfObjects(listAdapter, arrayFields).get("data"));
+			returnValue.put("WNCTA" , this.wncta);
+			returnValue.put("WFECH" , this.wfech);
+			returnValue.put("CODECO" , this.codeco);
+			returnValue.put("DMBRCH" , objTap002w.getDmbrch());
+			returnValue.put("DMCMCN" , objTap002w.getDmcmcn());
+			returnValue.put("WNOMB1" , this.wnomb1);
+			returnValue.put("WNOMB2" , this.wnomb2);
+			returnValue.put("WNOMB3" , this.wnomb3);
+			
+			if( attributes.containsKey("recordCount"))
+				returnValue.put("recordCount", Long.valueOf(attributes.get("recordCount")));
+			else 
+				returnValue.put("recordCount", listAdapter.size());
+			
+			this.wncta = "0";
+			this.wfech = "";
+			this.amar = "0";
+			
 			
 		} catch (ASException e) {
 			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
@@ -241,12 +278,12 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	
 	private String SubRutConsi(DataSet ds) {
 		try {
-			this.a4 = Integer.parseInt(this.wncta.substring(0, 3));
-			if (this.a4 == 0) {
+			this.a4 = Long.parseLong(this.wncta);
+			if (this.a4 < 1000000) {
 				this.error = true;
 			}else {
-				this.a1 = Integer.parseInt(this.a4.toString().substring(0,1));
-				if (this.a1 == 5) {
+				this.a1 = this.a4;
+				if (new Long(this.a1) >= new Long("5000000000") ) {
 					this.dmtyp = "1";
 				}else {
 					this.dmtyp = "6";
@@ -264,64 +301,48 @@ public class FER0330View02BzService extends RestBaseServerResource{
 				}
 			}
 			if (!this.error) {
-				objTap005b = myDAOTap005b.getUsingKeyCodecoAndDmtypAndWnctaAndDhrec(ds, this.codeco, this.dmtyp, this.wncta, "0");
-				if (objTap005b != null) {//exites
-					if (this.wcta.equals("")) {
-						this.error = true;
-					}
+				listTap005b = myDAOTap005b.getUsingListCodecoAndDmtypAndWnctaAndDhrec(ds, this.codeco, this.dmtyp, this.wncta, "0");
+				if ( (listTap005b == null || listTap005b.size()== 0) || ( (listTap005b != null || listTap005b.size() >  0) && listTap005b.get(0).getDhstnr() >= objTap002w.getDmfstt()  ) ) {//exite
 					this.wfec2 = 0;
 				}else {
 					this.wfec2 = objTap005b.getDheff();
 				}
 			}
 			
-			if (this.wfech > 0) {
-				//this.csdd8 = this.adia;
-				//this.csmm8 = this.ames;
-				//this.csaa8 = this.aano;
+			if (Integer.parseInt(this.wfech) > 0) {
+				this.csdd8 = Integer.parseInt(this.adia);
+				this.csmm8 = Integer.parseInt(this.ames);
+				this.csaa8 = Integer.parseInt(this.aano);
 				if (this.csaa8 < 80) {
 					this.csaa8 = this.csaa8 + 2000;
 				}else {
 					this.csaa8 = this.csaa8 + 1900;
 				}
-				this.zsruti = "SCONFEC";
-				this.zsfin1 = "CSAMD8";
-				this.zsrin1 = "*AM4";
-				this.zsfout = "";
-				this.zsrout = "*JU1";
-				//fechas
-				this.retor = this.zscret;
-				if (this.retor.equals("0")) {
-					this.perr = "";
-				}else {
-					this.perr = "1";
+				
+				this.aaa1 = Integer.parseInt(this.aano);
+				this.amm1 = Integer.parseInt(this.ames);
+				this.add1 = Integer.parseInt(this.adia);
+				if (Integer.parseInt(this.wfech) != 0) {
+					if (this.aaa1 < 80) {
+						this.aaa1 = this.aaa1 + 2000;
+					}else {
+						this.aaa1 = this.aaa1 + 1900;
+					}
 				}
-				if (this.perr.equals("1")) {
+				this.wfec1 = Integer.parseInt( this.aaa1.toString() + String.format("%02d", this.amm1) + String.format("%02d",this.add1) );
+				this.csdma6 =Integer.parseInt(objTap002w.getDmdlst().toString().substring(1, 7));
+				this.wfec3 = this.csdma6;
+				if (this.csdma6 != 0) {
+					if (this.wfec3 < 800000) {
+						this.wfec3 = this.wfec3 + 20000000;
+					}else {
+						this.wfec3 = this.wfec3 + 19000000;
+					}
+				}
+				if (this.wfec1 < this.wfec2 || this.wfec1 > this.wfec3) {
 					this.error = true;
-				}else {
-					//this.aaa1 = this.aano;
-					//this.amm1 = this.ames;
-					//this.add1 = this.adia;
-					if (this.wfech != 0) {
-						if (this.aaa1 < 80) {
-							this.aaa1 = this.aaa1 + 2000;
-						}else {
-							this.aaa1 = this.aaa1 + 1900;
-						}
-					}
-					this.csdma6 = objTap002w.getDmdlst();
-					this.wfec3 = this.csdma6;
-					if (this.csdma6 != 0) {
-						if (this.aaa3 < 80) {
-							this.aaa3 = this.aaa3 + 2000;
-						}else {
-							this.aaa3 = this.aaa3 + 1900;
-						}
-					}
-					if (this.wfec1 < this.wfec2 || this.wfec1 > this.wfec3) {
-						this.error = true;
-					}
 				}
+				
 			}
 			
 		} catch (Exception e) {
@@ -338,7 +359,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 				if (this.a1 == 5) {
 					this.aapdes = 10;
 				}else {
-					this.aapdes = 020;
+					this.aapdes = 20;
 				}
 				this.acuent = this.wncta;
 				this.arcd = 80;
@@ -382,7 +403,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 			}
 			
 			
-			this.ind61[0] = "0";
+			this.ind61 = "0";
 			this.abco = this.codeco;
 			if (this.a1 == 5) {
 				this.atip = 1;
@@ -392,17 +413,25 @@ public class FER0330View02BzService extends RestBaseServerResource{
 			this.acuen = this.wncta;
 			this.nrr = 0;
 			//Grabar registro en Pantalla2
-			if (this.wfech > 0) {
-				objTap005b = myDAOTap005b.getUsingKey(ds);
-			}else {
-				objTap005b = myDAOTap005b.getUsingKeyCodecoAndDmtypAndWnctaAndDhrec(ds, this.codeco, objTap002w.getDmtyp().toString(), this.wncta, "0");
-			}
+			adapter = new FER0330V02Adapter();
+			adapter.setFECVAL(this.fecval);
+			adapter.setCTRAEX(this.ctraex);
+			adapter.setWBATCH(this.wbatch);
+			adapter.setCREF1(this.cref1);
+			adapter.setWSDEBI(this.wsdebi);
+			adapter.setWSCRED(this.wscred);
+			adapter.setWSSALD(this.wssald);
+			listAdapter.add(adapter);
 			
-			if (objTap005b != null) {
+			List<Tap005b> lstTap005b = myDAOTap005b.getUsingKeyCodecoAndDmtypAndWnctaAndDhrecAndWfech(ds, this.codeco, this.dmtyp, this.wncta, "0", this.wfech);
+			//--objTap005b = myDAOTap005b.getUsingKeyCodecoAndDmtypAndWnctaAndDhrecAndWfech(ds, this.codeco, this.dmtyp, this.wncta, "0", this.wfech);
+			
+			if (lstTap005b.size() > 0) {
+				objTap005b = lstTap005b.get(0);
 				this.fecw = objTap005b.getDheff();
-				if ( this.aaw <= 1991 && this.auxmon == 0) {
+				if ( objTap005b.getDheff() <= 19910000  && this.auxmon == 0) {
 					this.dhamt = objTap005b.getDhamt().subtract(new BigDecimal(0.01));
-					//this.dhamt = /10000;
+					this.dhamt = this.dhamt.divide( new BigDecimal(10000)).setScale(2, BigDecimal.ROUND_HALF_UP);;
 				}
 				this.wfec2 = objTap005b.getDheff();
 				this.desde = objTap005b.getDhstnr();
@@ -428,22 +457,19 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	
 	private String SubRutCarga1(DataSet ds) {
 		try {
-			if (this.ind61[0].equals("1")) {
+			if (this.ind61.equals("1")) {
 				this.w = 9;
 			}else {
 				this.w = 8;
 			}
-			listTap005b = myDAOTap005b.getUsingListCodecoAndDmtypAndWncta(ds, this.codeco, objTap002w.getDmtyp().toString(), this.wncta);
+			listTap005b = myDAOTap005b.getUsingListCodecoAndDmtypAndWncta(ds, this.codeco, this.dmtyp, this.wncta);
 			
 			for(Tap005b o: listTap005b) {
 				if (o.getDhstnr() < objTap002w.getDmfstt() && o.getDhrec() == 1) {
 					this.guardo = this.wbatch;
 					this.fecw = o.getDheff();
 					this.fechai = o.getDheff();
-					//this.diad = this.diai;
-					//this.mesd = this.mesi;
-					//this.anod = this.anoi;
-					//this.fecval = this.fechad;
+					this.fecval = (new SimpleDateFormat("ddMMyyyy").parse(this.fechai.toString()) ).toString();
 					SubRutCarga3(ds); 
 					if (o.getDhdrcr() <= 5) {
 						this.wscred = o.getDhamt();
@@ -460,6 +486,16 @@ public class FER0330View02BzService extends RestBaseServerResource{
 						this.ctraex = o.getDhitc();
 						this.nrr = this.nrr + 1;
 						//Grabar registro en Pantalla2
+						adapter = new FER0330V02Adapter();
+						adapter.setFECVAL(this.fecval);
+						adapter.setCTRAEX(this.ctraex);
+						adapter.setWBATCH(this.wbatch);
+						adapter.setCREF1(this.cref1);
+						adapter.setWSDEBI(this.wsdebi);
+						adapter.setWSCRED(this.wscred);
+						adapter.setWSSALD(this.wssald);
+						listAdapter.add(adapter);
+						
 						this.w = this.w - 1;
 						if (this.w == 0) {
 							continue;
@@ -480,15 +516,25 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	
 	private String SubRutCarga3(DataSet ds) {
 		try {
-			if (this.ind61[0].equals("0")) {
+			if (this.ind61.equals("0")) {
 				this.nrr = this.nrr + 1;
-				this.ind61[0] = "1";
+				this.ind61 = "1";
 				this.ctraex = 0;
 				this.wbatch = 0;
 				this.cref1 = new Long(0);
 				this.wsdebi = BigDecimal.ZERO;
 				this.wscred = BigDecimal.ZERO;
+				
 				//Grabar registro en Pantalla2
+				adapter = new FER0330V02Adapter();
+				adapter.setFECVAL(this.fecval);
+				adapter.setCTRAEX(this.ctraex);
+				adapter.setWBATCH(this.wbatch);
+				adapter.setCREF1(this.cref1);
+				adapter.setWSDEBI(this.wsdebi);
+				adapter.setWSCRED(this.wscred);
+				adapter.setWSSALD(this.wssald);
+				listAdapter.add(adapter);
 			}
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
@@ -498,6 +544,78 @@ public class FER0330View02BzService extends RestBaseServerResource{
 }
 	
 	public class FER0330V02Adapter {
+		
+		String FECVAL = "";
+		Integer CTRAEX = 0;
+		Integer WBATCH = 0;
+		Long CREF1 = new Long("0");
+		BigDecimal WSDEBI = new BigDecimal(0);
+		BigDecimal WSCRED = new BigDecimal(0);
+		BigDecimal WSSALD = new BigDecimal(0);
+		
+		public FER0330V02Adapter() {
+			
+		}
+
+		public String getFECVAL() {
+			return FECVAL;
+		}
+
+		public void setFECVAL(String fECVAL) {
+			FECVAL = fECVAL;
+		}
+
+		public Integer getCTRAEX() {
+			return CTRAEX;
+		}
+
+		public void setCTRAEX(Integer cTRAEX) {
+			CTRAEX = cTRAEX;
+		}
+
+		public Integer getWBATCH() {
+			return WBATCH;
+		}
+
+		public void setWBATCH(Integer wBATCH) {
+			WBATCH = wBATCH;
+		}
+
+		public Long getCREF1() {
+			return CREF1;
+		}
+
+		public void setCREF1(Long cREF1) {
+			CREF1 = cREF1;
+		}
+
+		public BigDecimal getWSDEBI() {
+			return WSDEBI;
+		}
+
+		public void setWSDEBI(BigDecimal wSDEBI) {
+			WSDEBI = wSDEBI;
+		}
+
+		public BigDecimal getWSCRED() {
+			return WSCRED;
+		}
+
+		public void setWSCRED(BigDecimal wSCRED) {
+			WSCRED = wSCRED;
+		}
+
+		public BigDecimal getWSSALD() {
+			return WSSALD;
+		}
+
+		public void setWSSALD(BigDecimal wSSALD) {
+			WSSALD = wSSALD;
+		}
+		
+		
+
+		
 		
 	}
 	

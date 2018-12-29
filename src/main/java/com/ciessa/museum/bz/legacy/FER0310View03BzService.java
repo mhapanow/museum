@@ -158,13 +158,13 @@ public class FER0310View03BzService extends RestBaseServerResource{
 	Integer dmssno = 0;
 	Integer dmhpnr = 0;
 	Integer dmbunr = 0;
-	Integer[] cfpi = { 0, 0, 0, 0};
+	Integer[] cfpi = { 0, 0, 0, 0, 0};
 	Long[] cfpb = new Long[5];
 	String bcrkey = "";
 	Integer m = 0;
-	BigDecimal[] rate = new BigDecimal[4];
+	BigDecimal[] rate = new BigDecimal[5];
 	Integer fld5 = 0;
-	BigDecimal[] dsrt = new BigDecimal[10];
+	BigDecimal[] dsrt = new BigDecimal[11];
 	Integer toaccr = 0;
 	String accctl = "";
 	Integer scal6 = 0;
@@ -496,6 +496,7 @@ public class FER0310View03BzService extends RestBaseServerResource{
 			adapter.setDMINTS(this.dmints);
 			adapter.setNA6(this.na6);
 			adapter.setDMCBAL(this.dmcbal);
+			adapter.setDHSER(this.dhser);
 			
 			long diff = new Date().getTime() - millisPre;
 			
@@ -605,7 +606,7 @@ public class FER0310View03BzService extends RestBaseServerResource{
 
 				this.dmdopn = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(objTap002w.getDmdopn().toString())) );
 				this.dmdla = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(objTap002w.getDmdla().toString())) );
-				this.dmdlst = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(objTap002w.getDmdlst().toString())) );
+				this.dmdlst = Integer.parseInt( new SimpleDateFormat("ddMMyy").format(new SimpleDateFormat("yyMMdd").parse(String.format("%07d", objTap002w.getDmdlst()).substring(2-1,7))) );
 				this.dmdld1 = objTap002w.getDmdld();
 				this.codmon = objTap002w.getDmcmcn();
 				this.prtacc = objTap002w.getDmtacc();
@@ -1801,7 +1802,7 @@ public class FER0310View03BzService extends RestBaseServerResource{
 			//Grabar registro en PANTALLA3
 						
 			if (objTap002w.getDmlast() > 0) {
-				listTap005b = myDAOTap005b.getUsingListDmbkAndDmtypAndDmacctAndDmfsttAndRegist(ds, objTap002w.getDmbk().toString(), objTap002w.getDmtyp().toString(), objTap002w.getDmacct().toString(), objTap002w.getDmfstt().toString(), "regist");
+				listTap005b = myDAOTap005b.getUsingListDmbkAndDmtypAndDmacctAndDmfsttAndRegist(ds, objTap002w.getDmbk().toString(), objTap002w.getDmtyp().toString(), objTap002w.getDmacct().toString(), objTap002w.getDmfstt().toString(), "1");
 				for(Tap005b o:listTap005b) {
 					this.fechai = o.getDheff();
 					if (this.anoi <= 1991 && this.codmon == 0) {
@@ -1855,8 +1856,18 @@ public class FER0310View03BzService extends RestBaseServerResource{
 		Integer DMINTS = 0;
 		String NA6 = "";
 		BigDecimal DMCBAL = new BigDecimal(0);
+		Long DHSER = new Long("0");
 		
-		
+		public Long getDHSER() {
+			return DHSER;
+		}
+
+
+		public void setDHSER(Long dHSER) {
+			DHSER = dHSER;
+		}
+
+
 		public FER0310V03Adapter() {
 			
 		}

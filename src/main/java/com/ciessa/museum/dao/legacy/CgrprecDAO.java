@@ -94,5 +94,80 @@ public class CgrprecDAO {
 			session.close();
 		}
 	}
+	
+	public Cgrprec getUsingAcuentAndChequeAndNrtr(DataSet ds, String acuent, String cheque, String nrtr) throws ASException {
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery(" FROM Cgrprec where cgacct = :acuent AND cgnche = :cheque AND cgnrtr = :nrtr ");
+			q.setParameter("acuent", acuent);
+			q.setParameter("cheque", cheque);
+			q.setParameter("nrtr", nrtr);
+			
+			Cgrprec o = (Cgrprec)q.uniqueResult();
+			
+			if( o == null ) {
+				tx.rollback();
+			}
+			
+			session.evict(o);
+			tx.commit();
+			
+			return o;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
+	
+	public Cgrprec getUsingCgacctAndCgnche(DataSet ds, String cgacct, String cgnche) throws ASException {
+		SessionFactory factory = null;
+		try {
+			factory = FactoryManager.getInstance().getFactory(ds);
+		} catch (Throwable ex) {
+			System.err.println("Failed to create sessionFactory object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		Session session = factory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			Query q = session.createQuery(" FROM Cgrprec where cgacct = :cgacct AND cgnche = :cgnche  ");
+			q.setParameter("cgacct", cgacct);
+			q.setParameter("cgnche", cgnche);
+			
+			Cgrprec o = (Cgrprec)q.uniqueResult();
+			
+			if( o == null ) {
+				tx.rollback();
+			}
+			
+			session.evict(o);
+			tx.commit();
+			
+			return o;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw ASExceptionHelper.defaultException(e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+	}
 
 }

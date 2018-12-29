@@ -113,8 +113,8 @@ public class FER0320View02BzService extends RestBaseServerResource{
 	Integer wpdda = 0;
 	Integer acodr = 0;
 	String clavex = "";
-	Date f8 = null;
-	Date fecdia = null;
+	Integer f8 = 0;
+	Integer fecdia = 0;
 	String codeco = "1";
 	Boolean error = false;
 	Integer a4 = 0;
@@ -166,8 +166,8 @@ public class FER0320View02BzService extends RestBaseServerResource{
 	BigDecimal wsdebi = new BigDecimal(0);
 	BigDecimal wscred = new BigDecimal(0);
 	String cref1 = "";
-	Date fecval = null;
-	Date fecing = null;
+	Integer fecval = 0;
+	Integer fecing = 0;
 	BigDecimal aimpor = new BigDecimal(0);
 	Integer adaava = 0;
 	Integer admmva = 0;
@@ -180,7 +180,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 	Integer dsser = 0;
 	String dstype = "";
 	Integer ssssyy = 0;
-	Date fecimn = null;
+	Integer fecimn = 0;
 	
 	
 	
@@ -278,7 +278,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 			
 			this.acodr = 1;
 			this.clavex = "CODECO";
-			this.f8 = this.fc.FechaActual("ddMMyyyy");
+			this.f8 = Integer.parseInt(this.fc.FormatoFechaHora("yyyyMMdd") );
 			this.fecdia = this.f8;
 			if (!this.wcta.equals("")) {
 				this.wncta = this.wcta;
@@ -293,7 +293,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 	
 	private String SubRutConsi(DataSet ds) {
 		try {
-			this.a4 = Integer.parseInt(this.wncta.substring(0, 3));
+			this.a4 = Integer.parseInt(this.wncta.substring(0, 4));
 			if (this.a4 == 0) {
 				this.error = true;
 			}else {
@@ -575,8 +575,9 @@ public class FER0320View02BzService extends RestBaseServerResource{
 		try {
 			listTranem = myDAOTranem.getUsingKeyAnctaX(ds, this.ancta.toString(), "X");
 			listTransm = myDAOTransm.getUsingKeyAnctaX(ds, this.ancta.toString(), "X");
-			
+		
 			for ( Transm o:listTransm) {
+				this.fecval = Integer.parseInt( String.valueOf( o.getDaava() * 10000) + String.valueOf(o.getDmmva() * 100) + o.getDddva().toString() );
 				if (!o.getXerror().equals("E")) {
 					this.ncbat = o.getCbat();
 					this.wsdebi = BigDecimal.ZERO;
@@ -592,7 +593,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 						this.aimpor = o.getSimpex();
 					}
 					if (o.getCdbcr() <= 5) {
-						if (true) {//this.fecval > this.fecdia
+						if (this.fecval > this.fecdia) {
 							if (this.a1 == 0 || this.a1 == 5) {
 								this.scrpen = this.scrpen.add(this.aimpor);
 							}
@@ -618,7 +619,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 									}
 								}
 							}else {
-								if (true) {//this.fecing < this.fecdia
+								if (this.fecing < this.fecdia) {
 									this.disca = this.disca.add(this.aimpor);
 									this.wscred = this.aimpor;
 									this.wssald = this.wssald.add(this.aimpor);
@@ -630,7 +631,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 							}
 						}
 					}else {
-						if (true) {//this.fecval > this.fecdia
+						if (this.fecval > this.fecdia) {
 							this.adbpen = this.adbpen.add(this.aimpor);
 							if (this.a1 == 0 || this.a1 == 5) {
 								this.wsdebi = this.aimpor;
@@ -652,7 +653,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 									}
 								}
 							}else {
-								if (true) {//this.fecing < this.fecdia
+								if (this.fecing < this.fecdia) {
 									this.disda = this.disda.add(this.aimpor);
 									this.wsdebi = this.aimpor;
 									this.wssald = this.wssald.subtract(this.aimpor);
@@ -681,10 +682,119 @@ public class FER0320View02BzService extends RestBaseServerResource{
 						adapter.setWSCRED(this.wscred);
 						adapter.setWSSALD(this.wssald);
 						listAdapter.add(adapter);
-					}
-				}
-			}
+					}//fin if
+				}//fin if error
+			}//fin listTransm
 			
+			for ( Tranem o:listTranem) {
+				this.fecval = Integer.parseInt( String.valueOf( o.getDaava() * 10000) + String.valueOf(o.getDmmva() * 100) + o.getDddva().toString() );
+				if (!o.getXerror().equals("E")) {
+					this.ncbat = o.getCbat();
+					this.wsdebi = BigDecimal.ZERO;
+					this.wscred = BigDecimal.ZERO;
+					if (o.getCref().equals("")) {
+						this.cref1 = "0";
+					}else {
+						this.cref1 = o.getCref();
+					}
+					if (o.getCmonex() == 0) {
+						this.aimpor = o.getSimloc();
+					}else {
+						this.aimpor = o.getSimpex();
+					}
+					if (o.getCdbcr() <= 5) {
+						if (this.fecval > this.fecdia) {
+							if (this.a1 == 0 || this.a1 == 5) {
+								this.scrpen = this.scrpen.add(this.aimpor);
+							}
+							this.wscred = this.aimpor;
+							this.wssald = this.wssald.add( this.wscred );
+						}else {
+							if (this.fecval == this.fecdia) {
+								if (o.getCbat().equals("4")) {
+									if (this.a1 == 0 || this.a1 == 5) {
+										this.disca = this.disca.add(this.aimpor);
+									}
+									this.wscred = this.aimpor;
+									this.wssald = this.wssald.add(this.wscred);
+								}else {
+									if (o.getCbat().equals("5") || o.getCbat().equals("2") && o.getCtraex() == 51) {
+										this.disca = this.disca.add(this.aimpor);
+										this.wscred = this.aimpor;
+										this.wssald = this.wssald.add(this.wscred);
+									}else {
+										this.acrhoy = this.acrhoy.add(this.aimpor);
+										this.wscred = this.aimpor;
+										this.wssald = this.wssald.add( this.wscred );
+									}
+								}
+							}else {
+								if (this.fecing < this.fecdia) {
+									this.disca = this.disca.add(this.aimpor);
+									this.wscred = this.aimpor;
+									this.wssald = this.wssald.add(this.aimpor);
+								}else {
+									this.acrhoy = this.acrhoy.add(this.aimpor);
+									this.wscred = this.aimpor;
+									this.wssald = this.wssald.add(this.wscred);
+								}
+							}
+						}
+					}else {
+						if (this.fecval > this.fecdia) {
+							this.adbpen = this.adbpen.add(this.aimpor);
+							if (this.a1 == 0 || this.a1 == 5) {
+								this.wsdebi = this.aimpor;
+								this.wssald = this.wssald.subtract(this.wsdebi);
+							}
+						}else {
+							if (this.fecval == this.fecdia) {
+								if (o.getCbat().equals("4")) {
+									this.adbpen = this.adbpen.add(this.aimpor);
+									if (this.a1 == 0 || this.a1 == 5) {
+										this.wsdebi = this.aimpor;
+										this.wssald = this.wssald.subtract(this.wsdebi);
+									}
+								}else {
+									this.adbhoy = this.adbhoy.add(this.aimpor);
+									if (this.a1 == 0 || this.a1 == 5) {
+										this.wsdebi = this.aimpor;
+										this.wssald = this.wssald.subtract(this.wsdebi);
+									}
+								}
+							}else {
+								if (this.fecing < this.fecdia) {
+									this.disda = this.disda.add(this.aimpor);
+									this.wsdebi = this.aimpor;
+									this.wssald = this.wssald.subtract(this.aimpor);
+								}else {
+									this.adbhoy = this.adbhoy.add(this.aimpor);
+									if (this.a1 == 0 || this.a1 == 5) {
+										this.wsdebi = this.aimpor;
+										this.wssald = this.wssald.subtract(this.wsdebi);
+									}
+								}
+							}
+						}
+					}
+					if (this.a1 == 0 || this.a1 == 5 && this.nrr < 999) {
+						this.adaava = o.getDaava();
+						this.admmva = o.getDmmva();
+						this.adddva = o.getDddva();
+						this.nrr = this.nrr + 1;
+						//Grabar registro en Pantalla2
+						adapter = new FER0320V2Adapter();
+						//adapter.setAFECVA(this.afecva);
+						adapter.setCTRAEX(o.getCtraex());
+						//adapter.setWBATCH(this.wbatch);
+						adapter.setCREF1(this.cref1);
+						adapter.setWSDEBI(this.wsdebi);
+						adapter.setWSCRED(this.wscred);
+						adapter.setWSSALD(this.wssald);
+						listAdapter.add(adapter);
+					}//fin if
+				}//fin if error
+			}//fin listTranem
 			
 			this.dshbk = this.codeco;
 			if (this.a1 == 5) {
@@ -705,20 +815,19 @@ public class FER0320View02BzService extends RestBaseServerResource{
 				listTap901 = myDAOTap901.getUsingListDmbkAndDmtypAndDmacct(ds, this.codeco, this.amtyp.toString(), this.ancta.toString());
 				for (Tap901 o : listTap901) {
 					this.ssssyy = o.getSsedyy();
-					if (true) {//this.fecimn != 0
-						if (this.ssssyy < 80) {
-							this.ssssyy = this.ssssyy + 2000;
+					this.fecimn = Integer.parseInt( String.valueOf(o.getSsedyy() * 10000) + String.valueOf(o.getSsedmm() * 100) + o.getSseddd().toString() );
+					if (this.fecimn != 0) {
+						if (this.fecimn < 800000) {
+							this.fecimn = this.fecimn + 20000000;
 						}else {
-							this.ssssyy = this.ssssyy + 1900;
+							this.fecimn = this.fecimn + 19000000;
 						}
 					}
-					if (true) {//this.fecimn > this.fecdia
+					if (this.fecimn > this.fecdia) {
 						this.wsinmo = this.wsinmo.add(o.getSsamon());
 					}
 				}
 			}
-			
-			
 			
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
