@@ -3,10 +3,12 @@ package com.ciessa.museum.bz.legacy;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,6 +52,7 @@ import com.ciessa.museum.model.legacy.Tap901;
 import com.ciessa.museum.model.legacy.Tap902;
 import com.ciessa.museum.model.legacy.Transm;
 import com.ciessa.museum.model.legacy.Zbhpvrz;
+import com.ciessa.museum.tools.CollectionFactory;
 
 public class FER0310View03BzService extends RestBaseServerResource{
 
@@ -443,7 +446,8 @@ public class FER0310View03BzService extends RestBaseServerResource{
 	
 	CgrrcompAdapter cgrrcompadapter = null;
 	
-	FER0310V03Adapter adapter = null;	
+	FER0310V03Adapter adapter = null;
+	List<FER0310V03Adapter> listAdapter = null;
 	
 	
 	@Get
@@ -464,6 +468,7 @@ public class FER0310View03BzService extends RestBaseServerResource{
 			this.aaamm = this.ames - 1;
 			this.azbh = "Y";
 			Arrays.fill(this.dsrt, BigDecimal.ZERO);
+			listAdapter = new ArrayList<FER0310V03Adapter>();
 			rpta += SubRutLeemae(ds);
 			if (objTap002w != null) {
 				rpta += SubRutDispon(ds);
@@ -478,30 +483,14 @@ public class FER0310View03BzService extends RestBaseServerResource{
 				log.log(Level.SEVERE, rpta, new Exception());
 				return getJSONRepresentationFromException(ASExceptionHelper.defaultException(rpta, new Exception())).toString();
 			}
-			adapter = new FER0310V03Adapter();
-			adapter.setDMACCT(this.dmacct);
-			adapter.setPRDATE(this.prdate);
-			adapter.setNA1(this.na1);
-			adapter.setDMDLST(this.dmdlst);
-			adapter.setDMPBAL(this.dmpbal);
-			adapter.setNA2(this.na2);
-			adapter.setDMCRI(this.dmcri);
-			adapter.setDMCRA(this.dmcra);
-			adapter.setNA3(this.na3);
-			adapter.setDMDRI(this.dmdri);
-			adapter.setDMDRA(this.dmdra);
-			adapter.setNA4(this.na4);
-			adapter.setDMSCST(this.dmscst);
-			adapter.setNA5(this.na5);
-			adapter.setDMINTS(this.dmints);
-			adapter.setNA6(this.na6);
-			adapter.setDMCBAL(this.dmcbal);
-			adapter.setDHSER(this.dhser);
 			
+			// retrieve all elements
+			Map<String,String> attributes = CollectionFactory.createMap();
 			long diff = new Date().getTime() - millisPre;
 			
 			// Logs the result
-			log.info("Element found in " + diff + " millis");
+			log.info("Number of elements found [" + listAdapter.size() + "] in " + diff + " millis");
+			
 			
 			String[] fields = new String[] {
 					"DMACCT",
@@ -510,19 +499,39 @@ public class FER0310View03BzService extends RestBaseServerResource{
 					"DMDLST",
 					"DMPBAL",
 					"NA2",
-					"DMCRI",
-					"DMCRA",
-					"NA3",
-					"DMDRI",
-					"DMDRA",
-					"NA4",
-					"DMSCST",
-					"NA5",
-					"DMINTS",
-					"NA6",
-					"DMCBAL"
+					"DMCBAL",
+			};
+			String[] arrayFields = new String[] {
+					"WSDATE",
+					"DHITC",
+					"WBATCH",
+					"DHSER",
+					"WKDR",
+					"WKCR",
+					"WKBAL",
 			};
 			returnValue = getJSONRepresentationFromObject(adapter, fields);
+			returnValue.put("data", getJSONRepresentationFromArrayOfObjects(listAdapter, arrayFields).get("data"));
+			returnValue.put("DMACCT", this.dmacct);
+			returnValue.put("PRDATE", this.prdate);
+			returnValue.put("NA1", this.na1);
+			returnValue.put("DMDLST", String.format("%06d",this.dmdlst) );
+			returnValue.put("DMPBAL", this.dmpbal);
+			returnValue.put("NA2", this.na2);
+			returnValue.put("DMCBAL", this.dmcbal);
+			
+			if( attributes.containsKey("recordCount"))
+				returnValue.put("recordCount", Long.valueOf(attributes.get("recordCount")));
+			else 
+				returnValue.put("recordCount", listAdapter.size());
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			
@@ -1793,24 +1802,42 @@ public class FER0310View03BzService extends RestBaseServerResource{
 			this.prdate = this.scal6;
 			this.wkbal = objTap002w.getDmpbal();
 			this.rr1 = this.rr1 + 1;
-			this.wsdate = objTap002w.getDmdlst();
+			if (objTap002w.getDmdlst().toString().length() == 6)
+				this.wsdate = Integer.parseInt(objTap002w.getDmdlst().toString().substring(5-1, 6)) * 10000 +
+								Integer.parseInt(objTap002w.getDmdlst().toString().substring(3-1, 4)) * 100 +
+								Integer.parseInt(objTap002w.getDmdlst().toString().substring(1-1, 2));
+			else
+				this.wsdate = Integer.parseInt(objTap002w.getDmdlst().toString().substring(6-1, 7)) * 10000 +
+								Integer.parseInt(objTap002w.getDmdlst().toString().substring(4-1, 5)) * 100 +
+								Integer.parseInt(objTap002w.getDmdlst().toString().substring(2-1, 3));
 			this.wbatch = 0;
 			this.dhitc = 0;
 			this.dhser = new Long(0);
 			this.wkdr = BigDecimal.ZERO;
 			this.wkcr = BigDecimal.ZERO;
-			//Grabar registro en PANTALLA3
-						
+			
+			adapter = new FER0310V03Adapter();
+			adapter.setWSDATE(this.wsdate);
+			adapter.setDHITC(0);
+			adapter.setWBATCH(this.wbatch);
+			adapter.setDHSER(this.dhser);
+			adapter.setWKDR(this.wkdr);
+			adapter.setWKCR(this.wkcr);
+			adapter.setWKBAL(this.wkbal);
+			listAdapter.add(adapter);
+			
 			if (objTap002w.getDmlast() > 0) {
 				listTap005b = myDAOTap005b.getUsingListDmbkAndDmtypAndDmacctAndDmfsttAndRegist(ds, objTap002w.getDmbk().toString(), objTap002w.getDmtyp().toString(), objTap002w.getDmacct().toString(), objTap002w.getDmfstt().toString(), "1");
 				for(Tap005b o:listTap005b) {
-					this.fechai = o.getDheff();
-					if (this.anoi <= 1991 && this.codmon == 0) {
+					this.fechai = o.getDheff(); //20150102 
+					if (this.fechai <= 19910000 && this.codmon == 0) {
+					//--if (this.anoi <= 1991 && this.codmon == 0) {
 						this.dhamt = o.getDhamt().subtract(new BigDecimal(0.01)).divide(new BigDecimal(10000));
 					}
-					this.anod = this.anoi;
-					this.mesd = this.mesi;
-					this.diad = this.diai;
+					this.anod = Integer.parseInt(this.fechai.toString().substring(3-1, 4)); //--this.anoi;
+					this.mesd = Integer.parseInt(this.fechai.toString().substring(5-1, 6)); //--this.mesi;
+					this.diad = Integer.parseInt(this.fechai.toString().substring(7-1, 8)); //--this.diai;
+					this.fechad = this.diad * 10000 + this.mesd * 100 + this.anod;
 					this.wsdate = this.fechad;
 					if (o.getDhdrcr() >= 6) {
 						this.wkdr = o.getDhamt();
@@ -1825,7 +1852,18 @@ public class FER0310View03BzService extends RestBaseServerResource{
 					this.wnbat1 = o.getDhbtnr();
 					this.dhser = o.getDhref();
 					this.rr1 = this.rr1 + 1;
-					//Grabar registro en PANTALLA3
+					this.wbatch = this.wsuc1 * 100000 + this.wtbatc * 10000 + this.wnbat1;
+					
+					adapter = new FER0310V03Adapter();
+					adapter.setWSDATE(this.wsdate);
+					adapter.setDHITC(o.getDhitc());
+					adapter.setWBATCH(this.wbatch);
+					adapter.setDHSER(this.dhser);
+					adapter.setWKDR(this.wkdr);
+					adapter.setWKCR(this.wkcr);
+					adapter.setWKBAL(this.wkbal);
+					listAdapter.add(adapter);
+					
 				}
 				
 			}
@@ -1857,6 +1895,16 @@ public class FER0310View03BzService extends RestBaseServerResource{
 		String NA6 = "";
 		BigDecimal DMCBAL = new BigDecimal(0);
 		Long DHSER = new Long("0");
+		
+		
+		
+		Integer WSDATE = 0;
+		Integer DHITC = 0;
+		Integer WBATCH = 0;
+		//String DHSER = "";
+		BigDecimal WKDR = new BigDecimal(0);
+		BigDecimal WKCR = new BigDecimal(0);
+		BigDecimal WKBAL = new BigDecimal(0);
 		
 		public Long getDHSER() {
 			return DHSER;
@@ -2041,6 +2089,73 @@ public class FER0310View03BzService extends RestBaseServerResource{
 		public void setDMCBAL(BigDecimal dMCBAL) {
 			DMCBAL = dMCBAL;
 		}
+
+
+		public Integer getWSDATE() {
+			return WSDATE;
+		}
+
+
+		public void setWSDATE(Integer wSDATE) {
+			WSDATE = wSDATE;
+		}
+
+
+		public Integer getDHITC() {
+			return DHITC;
+		}
+
+
+		public void setDHITC(Integer dHITC) {
+			DHITC = dHITC;
+		}
+
+
+		public Integer getWBATCH() {
+			return WBATCH;
+		}
+
+
+		public void setWBATCH(Integer wBATCH) {
+			WBATCH = wBATCH;
+		}
+
+
+		public BigDecimal getWKDR() {
+			return WKDR;
+		}
+
+
+		public void setWKDR(BigDecimal wKDR) {
+			WKDR = wKDR;
+		}
+
+
+		public BigDecimal getWKCR() {
+			return WKCR;
+		}
+
+
+		public void setWKCR(BigDecimal wKCR) {
+			WKCR = wKCR;
+		}
+
+
+		public BigDecimal getWKBAL() {
+			return WKBAL;
+		}
+
+
+		public void setWKBAL(BigDecimal wKBAL) {
+			WKBAL = wKBAL;
+		}
+
+		
+		
+		
+		
+
+
 		
 		
 		

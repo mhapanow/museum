@@ -29,7 +29,7 @@ public class Tap005bDAO {
 
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Tap005b WHERE dhbank = :dmbk and dhtyp = :dmtyp and dhacct = :dmacct and dhstnr = :dmfstt and dhrec = :regist  ");
+			Query q = session.createQuery("FROM Tap005b WHERE dhbank = :dmbk and dhtyp = :dmtyp and dhacct = :dmacct and dhstnr = :dmfstt and dhrec = :regist  ORDER BY dheff ");
 			q.setParameter("dmbk", dmbk);
 			q.setParameter("dmtyp", dmtyp);
 			q.setParameter("dmacct", dmacct);
@@ -183,7 +183,7 @@ public class Tap005bDAO {
 
 		try {
 			tx = session.beginTransaction();
-			Query q = session.createQuery("FROM Tap005b WHERE dhbank = :codeco and dhtyp = :dmtyp and dhacct = :wncta ");
+			Query q = session.createQuery("FROM Tap005b WHERE dhbank = :codeco and dhtyp = :dmtyp and dhacct = :wncta ORDER BY dhstnr, dhrec, dheff ");
 			q.setParameter("codeco", codeco);
 			q.setParameter("dmtyp", dmtyp);
 			q.setParameter("wncta", wncta);

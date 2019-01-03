@@ -139,7 +139,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	Integer w = 0;
 	Integer guardo = 0;
 	Integer fechai = 0;
-	String fecval = "";
+	Integer fecval = 0;
 	BigDecimal wscred = new BigDecimal(0);
 	BigDecimal wsdebi = new BigDecimal(0);
 	Long cref1 = new Long("0");
@@ -412,16 +412,6 @@ public class FER0330View02BzService extends RestBaseServerResource{
 			}
 			this.acuen = this.wncta;
 			this.nrr = 0;
-			//Grabar registro en Pantalla2
-			adapter = new FER0330V02Adapter();
-			adapter.setFECVAL(this.fecval);
-			adapter.setCTRAEX(this.ctraex);
-			adapter.setWBATCH(this.wbatch);
-			adapter.setCREF1(this.cref1);
-			adapter.setWSDEBI(this.wsdebi);
-			adapter.setWSCRED(this.wscred);
-			adapter.setWSSALD(this.wssald);
-			listAdapter.add(adapter);
 			
 			List<Tap005b> lstTap005b = myDAOTap005b.getUsingKeyCodecoAndDmtypAndWnctaAndDhrecAndWfech(ds, this.codeco, this.dmtyp, this.wncta, "0", this.wfech);
 			//--objTap005b = myDAOTap005b.getUsingKeyCodecoAndDmtypAndWnctaAndDhrecAndWfech(ds, this.codeco, this.dmtyp, this.wncta, "0", this.wfech);
@@ -466,11 +456,16 @@ public class FER0330View02BzService extends RestBaseServerResource{
 			
 			for(Tap005b o: listTap005b) {
 				if (o.getDhstnr() < objTap002w.getDmfstt() && o.getDhrec() == 1) {
-					this.guardo = this.wbatch;
 					this.fecw = o.getDheff();
 					this.fechai = o.getDheff();
-					this.fecval = (new SimpleDateFormat("ddMMyyyy").parse(this.fechai.toString()) ).toString();
+					this.fecval = Integer.parseInt(this.fechai.toString().substring(7-1, 8)) * 10000 + 
+							Integer.parseInt(this.fechai.toString().substring(5-1, 6)) * 100 + 
+							Integer.parseInt(this.fechai.toString().substring(3-1, 4));
+					this.wbatch = o.getDhbtbr() * 100000 + Integer.parseInt(o.getDhbtcd()) * 10000 + o.getDhbtnr();
+					this.guardo = this.wbatch;
+					//--this.fecval = (new SimpleDateFormat("ddMMyyyy").parse(this.fechai.toString()) ).toString();
 					SubRutCarga3(ds); 
+					this.wbatch = this.guardo;
 					if (o.getDhdrcr() <= 5) {
 						this.wscred = o.getDhamt();
 						this.wsdebi = BigDecimal.ZERO;
@@ -481,7 +476,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 						this.wssald = this.wssald.subtract(o.getDhamt());
 					}
 					if (o.getDheff() >= this.wfec1) {
-						this.wbatch = this.guardo;
+						//--this.wbatch = this.guardo;
 						this.cref1 = o.getDhref();
 						this.ctraex = o.getDhitc();
 						this.nrr = this.nrr + 1;
@@ -545,7 +540,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	
 	public class FER0330V02Adapter {
 		
-		String FECVAL = "";
+		Integer FECVAL = 0;
 		Integer CTRAEX = 0;
 		Integer WBATCH = 0;
 		Long CREF1 = new Long("0");
@@ -557,11 +552,11 @@ public class FER0330View02BzService extends RestBaseServerResource{
 			
 		}
 
-		public String getFECVAL() {
+		public Integer getFECVAL() {
 			return FECVAL;
 		}
 
-		public void setFECVAL(String fECVAL) {
+		public void setFECVAL(Integer fECVAL) {
 			FECVAL = fECVAL;
 		}
 
