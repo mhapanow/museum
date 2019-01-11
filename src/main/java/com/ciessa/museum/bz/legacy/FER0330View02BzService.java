@@ -1,7 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -87,7 +86,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	String abanco = "";
 	String codeco = "1";
 	String march = "";
-	Integer wbatch = 0;
+	String wbatch = "0-0-0000";
 	Integer wfec1 = 0;
 	String banco = "";
 	Integer nroreg = 0;
@@ -137,7 +136,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 	Integer desde = 0;
 	BigDecimal wssald = new BigDecimal(0);
 	Integer w = 0;
-	Integer guardo = 0;
+	String guardo = "0-0-0000";
 	Integer fechai = 0;
 	Integer fecval = 0;
 	BigDecimal wscred = new BigDecimal(0);
@@ -173,7 +172,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 			this.qlen = 29;
 			this.abanco = this.codeco;
 			this.march = "";
-			this.wbatch = 0;
+			this.wbatch = "0-0-0000";
 			this.wfec1 = 0;
 			
 			listAdapter = new ArrayList<FER0330V02Adapter>();
@@ -461,7 +460,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 					this.fecval = Integer.parseInt(this.fechai.toString().substring(7-1, 8)) * 10000 + 
 							Integer.parseInt(this.fechai.toString().substring(5-1, 6)) * 100 + 
 							Integer.parseInt(this.fechai.toString().substring(3-1, 4));
-					this.wbatch = o.getDhbtbr() * 100000 + Integer.parseInt(o.getDhbtcd()) * 10000 + o.getDhbtnr();
+					this.wbatch = o.getDhbtbr().toString() + "-" + o.getDhbtcd() + "-" + o.getDhbtnr().toString();
 					this.guardo = this.wbatch;
 					//--this.fecval = (new SimpleDateFormat("ddMMyyyy").parse(this.fechai.toString()) ).toString();
 					SubRutCarga3(ds); 
@@ -515,7 +514,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 				this.nrr = this.nrr + 1;
 				this.ind61 = "1";
 				this.ctraex = 0;
-				this.wbatch = 0;
+				this.wbatch = "0-0-0000";
 				this.cref1 = new Long(0);
 				this.wsdebi = BigDecimal.ZERO;
 				this.wscred = BigDecimal.ZERO;
@@ -542,7 +541,7 @@ public class FER0330View02BzService extends RestBaseServerResource{
 		
 		Integer FECVAL = 0;
 		Integer CTRAEX = 0;
-		Integer WBATCH = 0;
+		String WBATCH = "";
 		Long CREF1 = new Long("0");
 		BigDecimal WSDEBI = new BigDecimal(0);
 		BigDecimal WSCRED = new BigDecimal(0);
@@ -568,11 +567,11 @@ public class FER0330View02BzService extends RestBaseServerResource{
 			CTRAEX = cTRAEX;
 		}
 
-		public Integer getWBATCH() {
+		public String getWBATCH() {
 			return WBATCH;
 		}
 
-		public void setWBATCH(Integer wBATCH) {
+		public void setWBATCH(String wBATCH) {
 			WBATCH = wBATCH;
 		}
 

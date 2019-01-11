@@ -1,5 +1,6 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,12 +65,31 @@ public class CGRRCRECView04BzService extends RestBaseServerResource{
 	String cuitl8 = "";
 	String cuitl9 = "";
 	String cuitl0 = "";
-	Integer afeaut = 0;
+	String afeaut = "";
 	String userau = "";
 	String det = "";
 	
+	Integer fecreg = 0;
+	Integer afech = 0;
+	String pend = "REG. PENDIENTE   ";  
+	String auto = "REG. AUTORIZADO  ";  
+	String baja = "REG. DADO DE BAJA";
+	String bcra = "ELIMINADO DE BCRA";
+	Integer fecpch = 0;
+	Integer fecpm = 0;
+	Integer fecrec = 0;
+	Integer fecdbt = 0;
+	Integer fecult = 0;
+	Integer feccie = 0;
+	Integer fecenv = 0;
+	BigDecimal impmul = new BigDecimal(0);
+	Integer fcdevo = 0;
+	BigDecimal devmul = new BigDecimal(0);
+	String dvacct = "";
+	String dvnche = "";
+	Integer ssfdev = 0;
 	
-	
+	Integer fecaut = 0;
 	
 	CGRRCRECV04Adapter adapter = null;
 
@@ -97,8 +117,78 @@ public class CGRRCRECView04BzService extends RestBaseServerResource{
 			log.info("Element found in " + diff + " millis");
 			
 			String[] fields = new String[] {
-
+					"CTACTE",
+					"NUMCHQ",
+					"NSEC",
+					"NUMSUC",
+					"CAUSA",
+					"TIPOR",
+					"MENSA",
+					"IMPORT",
+					"FECREC",
+					"FECREG",
+					"PLADIF",
+					"FECPCH",
+					"FECDBT",
+					"FECPM",
+					"IMPMUL",
+					"FCDEVO",
+					"DEVMUL",
+					"NUMREF",
+					"FECCIE",
+					"CUITL1",
+					"CUITL2",
+					"CUITL3",
+					"CUITL4",
+					"CUITL5",
+					"CUITL6",
+					"CUITL7",
+					"CUITL8",
+					"CUITL9",
+					"CUITL0",
+					"FECENV",
+					"USERI",
+					"FECULT",
+					"USERAU",
+					"FECAUT",
 			};
+			this.adapter = new CGRRCRECV04Adapter();
+			adapter.setCTACTE(this.ctacte);
+			adapter.setNUMCHQ(this.numchq);
+			adapter.setNSEC(this.nsec);
+			adapter.setNUMSUC(this.numsuc);
+			adapter.setCAUSA(this.causa);
+			adapter.setTIPOR(this.tipor);
+			adapter.setMENSA(this.mensa);
+			adapter.setIMPORT(this.imp0rt);
+			adapter.setFECREC(this.fecrec);
+			adapter.setFECREG(this.fecreg);
+			adapter.setPLADIF(this.pladif);
+			adapter.setFECPCH(this.fecpch);
+			adapter.setFECDBT(this.fecdbt);
+			adapter.setFECPM(this.fecpm);
+			adapter.setIMPMUL(this.impmul);
+			adapter.setFCDEVO(this.fcdevo);
+			adapter.setDEVMUL(this.devmul);
+			adapter.setNUMREF(this.numref);
+			adapter.setFECCIE(this.feccie);
+			adapter.setCUITL1(this.cuitl1);
+			adapter.setCUITL2(this.cuitl2);
+			adapter.setCUITL3(this.cuitl3);
+			adapter.setCUITL4(this.cuitl4);
+			adapter.setCUITL5(this.cuitl5);
+			adapter.setCUITL6(this.cuitl6);
+			adapter.setCUITL7(this.cuitl7);
+			adapter.setCUITL8(this.cuitl8);
+			adapter.setCUITL9(this.cuitl9);
+			adapter.setCUITL0(this.cuitl0);
+			adapter.setFECENV(this.fecenv);
+			adapter.setUSERI(this.useri);
+			adapter.setFECULT(this.fecult);
+			adapter.setUSERAU(this.userau);
+			adapter.setFECAUT(this.fecaut);
+			
+			
 			returnValue = getJSONRepresentationFromObject(adapter, fields);
 			
 		} catch (ASException e) {
@@ -126,7 +216,7 @@ public class CGRRCRECView04BzService extends RestBaseServerResource{
 			this.numchq = this.numch;
 			this.cheque = this.numch;
 			this.imp0rt = this.imp;
-			this.acuent = this.cuenta;
+			this.acuent = "0" + this.cuenta;
 			
 			objCgrprec = myDAOCgrprec.getUsingAcuentAndChequeAndNrtr(ds, this.acuent, this.cheque, this.nrtr);
 			if (objCgrprec != null) {
@@ -143,57 +233,60 @@ public class CGRRCRECView04BzService extends RestBaseServerResource{
 				this.aano = objCgrprec.getCgareg();
 				this.ames = objCgrprec.getCgmreg();
 				this.adia = objCgrprec.getCgdreg();
-				//this.fecreg = this.afech;
+				this.afech = Integer.parseInt(this.adia)*10000 + Integer.parseInt(this.ames) * 100 + Integer.parseInt(this.aano);
+				this.fecreg = this.afech;
 				if (objCgrprec.getCgstat().equals("1")) {
-					this.mensa = "PEND";
+					this.mensa = this.pend;
 				}else {
 					if (objCgrprec.getCgstat().equals("2")) {
-						this.mensa = "AUTO";
+						this.mensa = this.auto;
 					}else {
 						if (objCgrprec.getCgstat().equals("3") || objCgrprec.getCgstat().equals("4") ) {
-							this.mensa = "BAJA";
+							this.mensa = this.baja;
 						}else {
 							this.mensa = "";
 						}
 					}
 				}
-				
-				objCgrprec = myDAOCgrprec.getUsingCgacctAndCgnche(ds, objCgrprec.getCgacct(), objCgrprec.getCgnche());
-				if (objCgrprec != null) {
-					this.mensa = "BCRA";
-				}//fin if null
-				this.aano = objCgrprec.getCgapag();
+				this.aano = objCgrprec.getCgapag().substring(3-1,4);
 				this.ames = objCgrprec.getCgmpag();
 				this.adia = objCgrprec.getCgdpag();
-				//this.fecpch = this.afech;
-				this.aano = objCgrprec.getCgasam();
+				this.afech = Integer.parseInt(this.adia)*10000 + Integer.parseInt(this.ames) * 100 + Integer.parseInt(this.aano);
+				this.fecpch = this.afech;
+				this.aano = objCgrprec.getCgasam().substring(3-1,4);
 				this.ames = objCgrprec.getCgmsam();
 				this.adia = objCgrprec.getCgdsam();
-				//this.fecpm = this.afech;
-				this.aano = objCgrprec.getCgarec();
+				this.afech = Integer.parseInt(this.adia)*10000 + Integer.parseInt(this.ames) * 100 + Integer.parseInt(this.aano);
+				this.fecpm = this.afech;
+				this.aano = objCgrprec.getCgarec().substring(3-1,4);
 				this.ames = objCgrprec.getCgmrec();
 				this.adia = objCgrprec.getCgdrec();
-				//this.fecrec = this.afech;
-				this.aano = objCgrprec.getCgadbt();
+				this.afech = Integer.parseInt(this.adia)*10000 + Integer.parseInt(this.ames) * 100 + Integer.parseInt(this.aano);
+				this.fecrec = this.afech;
+				this.aano = objCgrprec.getCgadbt().substring(3-1,4);
 				this.ames = objCgrprec.getCgmdbt();
 				this.adia = objCgrprec.getCgddbt();
-				//this.fecdbt = this.afech;
-				//this.aano = objCgrprec.getCgauc();
-				//this.ames = objCgrprec.getCgmuc();
-				//this.adia = objCgrprec.getCgduc();
-				//this.fecult = this.afech;
+				this.afech = Integer.parseInt(this.adia)*10000 + Integer.parseInt(this.ames) * 100 + Integer.parseInt(this.aano);
+				this.fecdbt = this.afech;
+				this.aano = objCgrprec.getCgfeuc().toString().substring(3-1, 4);
+				this.ames = objCgrprec.getCgfeuc().toString().substring(5-1, 6);
+				this.adia = objCgrprec.getCgfeuc().toString().substring(7-1, 8);
+				this.afech = Integer.parseInt(this.adia)*10000 + Integer.parseInt(this.ames) * 100 + Integer.parseInt(this.aano);
+				this.fecult = this.afech;
 				this.useri = "";
 				this.useri = objCgrprec.getCgusri();
 				this.pladif = objCgrprec.getCgpdif();
-				this.aano = objCgrprec.getCgacie();
+				this.aano = objCgrprec.getCgacie().substring(3-1,4);
 				this.ames = objCgrprec.getCgmcie();
 				this.adia = objCgrprec.getCgdcie();
-				//this.feccie = this.afech;
+				this.afech = Integer.parseInt(this.adia)*10000 + Integer.parseInt(this.ames) * 100 + Integer.parseInt(this.aano);
+				this.feccie = this.afech;
 				this.numref = objCgrprec.getCgnref();
-				//this.aano = objCgrprec.getCgaenr();
-				//this.ames = objCgrprec.getCgmenr();
-				//this.adia = objCgrprec.getCgdenr();
-				//this.fecenv = this.afech;
+				this.aano = objCgrprec.getCgfenr().toString().substring(3-1, 4);
+				this.ames = objCgrprec.getCgfenr().toString().substring(5-1, 6);
+				this.adia = objCgrprec.getCgfenr().toString().substring(7-1, 8);
+				this.afech = Integer.parseInt(this.adia)*10000 + Integer.parseInt(this.ames) * 100 + Integer.parseInt(this.aano);
+				this.fecenv = this.afech;
 				this.cuitl1 = "0";
 				this.cuitl2 = "0";
 				this.cuitl3 = "0";
@@ -233,14 +326,20 @@ public class CGRRCRECView04BzService extends RestBaseServerResource{
 					}
 				}
 				
-				this.afeaut = objCgrprec.getCgfaut();
+				this.afeaut = objCgrprec.getCgfaut().toString();
+				this.fecaut = Integer.parseInt(this.afeaut.substring(7-1, 8) + this.afeaut.substring(5-1, 6) + this.afeaut.substring(3-1, 4));
 				/*this.fecaut = this.adiaau;
 				this.aauxau = this.amesau;
 				this.aauxau = this.aanoau;
 				this.fecaut = this.aauxau;*/
 				this.userau = "";
 				this.userau = objCgrprec.getCgusra();
-				SubRutDevolu(ds);    
+				SubRutDevolu(ds);
+				objCgrprec = myDAOCgrprec.getUsingCgacctAndCgnche(ds, objCgrprec.getCgacct(), objCgrprec.getCgnche());
+				if (objCgrprec != null) {
+					if (objCgrprec.getCgtipr().equals("B"))
+						this.mensa = this.bcra;
+				}//fin if null
 				//Mostrar Pantalla4
 				this.det = " ";
 				
@@ -256,6 +355,20 @@ public class CGRRCRECView04BzService extends RestBaseServerResource{
 	
 	private String SubRutDevolu(DataSet ds) {
 		try {
+			this.impmul = objCgrprec.getCgmult();
+			this.fcdevo = 0;
+			this.devmul = BigDecimal.ZERO;
+			this.dvacct = this.ctacte;
+			this.dvnche = this.numchq;
+			if (objCgrprec.getCgfdev() != 0) {
+				this.ssfdev = objCgrprec.getCgfdev();
+				/*this.diadev = this.ssddev;
+				this.mesdev = this.ssmdev;
+				this.anodev = this.ssadev;*/
+				this.impmul = objCgrprec.getCgmult();
+				this.devmul = objCgrprec.getCgmult();
+			}
+			
 			
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
@@ -269,15 +382,317 @@ public class CGRRCRECView04BzService extends RestBaseServerResource{
 	
 	public class CGRRCRECV04Adapter {
 		
-		
-		
+		String CTACTE = "";
+		String NUMCHQ = "";
+		String NSEC = "";
+		String NUMSUC = "";
+		String CAUSA = "";
+		String TIPOR = "";
+		String MENSA = "";
+		String IMPORT = "";
+		Integer FECREC = 0;
+		Integer FECREG = 0;
+		String PLADIF = "";
+		Integer FECPCH = 0;
+		Integer FECDBT = 0;
+		Integer FECPM = 0;
+		BigDecimal IMPMUL = new BigDecimal(0);
+		Integer FCDEVO = 0;
+		BigDecimal DEVMUL = new BigDecimal(0);
+		Long NUMREF = new Long("0");
+		Integer FECCIE = 0;
+		String CUITL1 = "";
+		String CUITL2 = "";
+		String CUITL3 = "";
+		String CUITL4 = "";
+		String CUITL5 = "";
+		String CUITL6 = "";
+		String CUITL7 = "";
+		String CUITL8 = "";
+		String CUITL9 = "";
+		String CUITL0 = "";
+		Integer FECENV = 0;
+		String USERI = "";
+		Integer FECULT = 0;
+		String USERAU = "";
+		Integer FECAUT = 0;
 		
 		public CGRRCRECV04Adapter () {
 			
 		}
-		
-		
-		
+
+		public String getCTACTE() {
+			return CTACTE;
+		}
+
+		public void setCTACTE(String cTACTE) {
+			CTACTE = cTACTE;
+		}
+
+		public String getNUMCHQ() {
+			return NUMCHQ;
+		}
+
+		public void setNUMCHQ(String nUMCHQ) {
+			NUMCHQ = nUMCHQ;
+		}
+
+		public String getNSEC() {
+			return NSEC;
+		}
+
+		public void setNSEC(String nSEC) {
+			NSEC = nSEC;
+		}
+
+		public String getNUMSUC() {
+			return NUMSUC;
+		}
+
+		public void setNUMSUC(String nUMSUC) {
+			NUMSUC = nUMSUC;
+		}
+
+		public String getCAUSA() {
+			return CAUSA;
+		}
+
+		public void setCAUSA(String cAUSA) {
+			CAUSA = cAUSA;
+		}
+
+		public String getTIPOR() {
+			return TIPOR;
+		}
+
+		public void setTIPOR(String tIPOR) {
+			TIPOR = tIPOR;
+		}
+
+		public String getMENSA() {
+			return MENSA;
+		}
+
+		public void setMENSA(String mENSA) {
+			MENSA = mENSA;
+		}
+
+		public String getIMPORT() {
+			return IMPORT;
+		}
+
+		public void setIMPORT(String iMPORT) {
+			IMPORT = iMPORT;
+		}
+
+		public Integer getFECREC() {
+			return FECREC;
+		}
+
+		public void setFECREC(Integer fECREC) {
+			FECREC = fECREC;
+		}
+
+		public Integer getFECREG() {
+			return FECREG;
+		}
+
+		public void setFECREG(Integer fECREG) {
+			FECREG = fECREG;
+		}
+
+		public String getPLADIF() {
+			return PLADIF;
+		}
+
+		public void setPLADIF(String pLADIF) {
+			PLADIF = pLADIF;
+		}
+
+		public Integer getFECPCH() {
+			return FECPCH;
+		}
+
+		public void setFECPCH(Integer fECPCH) {
+			FECPCH = fECPCH;
+		}
+
+		public Integer getFECDBT() {
+			return FECDBT;
+		}
+
+		public void setFECDBT(Integer fECDBT) {
+			FECDBT = fECDBT;
+		}
+
+		public Integer getFECPM() {
+			return FECPM;
+		}
+
+		public void setFECPM(Integer fECPM) {
+			FECPM = fECPM;
+		}
+
+		public BigDecimal getIMPMUL() {
+			return IMPMUL;
+		}
+
+		public void setIMPMUL(BigDecimal iMPMUL) {
+			IMPMUL = iMPMUL;
+		}
+
+		public Integer getFCDEVO() {
+			return FCDEVO;
+		}
+
+		public void setFCDEVO(Integer fCDEVO) {
+			FCDEVO = fCDEVO;
+		}
+
+		public BigDecimal getDEVMUL() {
+			return DEVMUL;
+		}
+
+		public void setDEVMUL(BigDecimal dEVMUL) {
+			DEVMUL = dEVMUL;
+		}
+
+		public Long getNUMREF() {
+			return NUMREF;
+		}
+
+		public void setNUMREF(Long nUMREF) {
+			NUMREF = nUMREF;
+		}
+
+		public Integer getFECCIE() {
+			return FECCIE;
+		}
+
+		public void setFECCIE(Integer fECCIE) {
+			FECCIE = fECCIE;
+		}
+
+		public String getCUITL1() {
+			return CUITL1;
+		}
+
+		public void setCUITL1(String cUITL1) {
+			CUITL1 = cUITL1;
+		}
+
+		public String getCUITL2() {
+			return CUITL2;
+		}
+
+		public void setCUITL2(String cUITL2) {
+			CUITL2 = cUITL2;
+		}
+
+		public String getCUITL3() {
+			return CUITL3;
+		}
+
+		public void setCUITL3(String cUITL3) {
+			CUITL3 = cUITL3;
+		}
+
+		public String getCUITL4() {
+			return CUITL4;
+		}
+
+		public void setCUITL4(String cUITL4) {
+			CUITL4 = cUITL4;
+		}
+
+		public String getCUITL5() {
+			return CUITL5;
+		}
+
+		public void setCUITL5(String cUITL5) {
+			CUITL5 = cUITL5;
+		}
+
+		public String getCUITL6() {
+			return CUITL6;
+		}
+
+		public void setCUITL6(String cUITL6) {
+			CUITL6 = cUITL6;
+		}
+
+		public String getCUITL7() {
+			return CUITL7;
+		}
+
+		public void setCUITL7(String cUITL7) {
+			CUITL7 = cUITL7;
+		}
+
+		public String getCUITL8() {
+			return CUITL8;
+		}
+
+		public void setCUITL8(String cUITL8) {
+			CUITL8 = cUITL8;
+		}
+
+		public String getCUITL9() {
+			return CUITL9;
+		}
+
+		public void setCUITL9(String cUITL9) {
+			CUITL9 = cUITL9;
+		}
+
+		public String getCUITL0() {
+			return CUITL0;
+		}
+
+		public void setCUITL0(String cUITL0) {
+			CUITL0 = cUITL0;
+		}
+
+		public Integer getFECENV() {
+			return FECENV;
+		}
+
+		public void setFECENV(Integer fECENV) {
+			FECENV = fECENV;
+		}
+
+		public String getUSERI() {
+			return USERI;
+		}
+
+		public void setUSERI(String uSERI) {
+			USERI = uSERI;
+		}
+
+		public Integer getFECULT() {
+			return FECULT;
+		}
+
+		public void setFECULT(Integer fECULT) {
+			FECULT = fECULT;
+		}
+
+		public String getUSERAU() {
+			return USERAU;
+		}
+
+		public void setUSERAU(String uSERAU) {
+			USERAU = uSERAU;
+		}
+
+		public Integer getFECAUT() {
+			return FECAUT;
+		}
+
+		public void setFECAUT(Integer fECAUT) {
+			FECAUT = fECAUT;
+		}
+
 		
 		
 	}

@@ -1,5 +1,7 @@
 package com.ciessa.museum.bz.legacy;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,9 +36,6 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 	List<Cgrprec> listCgrprec = null;
 	
 	
-	
-	
-	
 	String aamcue = "";
 	String cuenta = "";
 	String error = "";
@@ -47,12 +46,12 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 	String acgimp = "";
 	String tipr1 = "";
 	String nrtr = "";
-	String imp = ""; 
+	BigDecimal imp = new BigDecimal("0"); 
 	String aimpte = "";  
 	String mot1 = "       SIN FONDOS";  
 	String mot2 = "     FALLA FORMAL";  
 	String mot3 = "  DE REGISTRACION";  
-	String cuit = "";
+	Long cuit = new Long("0");
 	String aanore = "";
 	String amesre = "";
 	String adiare = "";
@@ -92,6 +91,7 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 	CgrrcompAdapter cgrrcompadapter = null;
 	
 	CGRRCRECV03Adapter adapter = null;
+	List<CGRRCRECV03Adapter> listAdapter = null;
 	
 	
 
@@ -107,6 +107,9 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 			this.aamcue = obtainStringValue("aamcue", null);
 			
 			this.cuenta = this.aamcue;
+			
+			this.listAdapter = new ArrayList<CGRRCRECV03Adapter>();
+			
 			SubRutCherec(ds);    
 			SubRutLeesfl(ds);    
 
@@ -116,9 +119,22 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 			log.info("Element found in " + diff + " millis");
 			
 			String[] fields = new String[] {
-
 			};
+			
+			String[] arrayFields = new String[] {
+					"CCTE",
+					"NUMCH",
+					"TIPR1",
+					"IMP",
+					"RECH",
+					"COMPU",
+					"REVI",
+					"CUIT",
+					"NRTR"
+			};
+			
 			returnValue = getJSONRepresentationFromObject(adapter, fields);
+			returnValue.put("data", getJSONRepresentationFromArrayOfObjects(listAdapter, arrayFields).get("data"));
 			
 		} catch (ASException e) {
 			if (e.getErrorCode() == ASExceptionHelper.AS_EXCEPTION_AUTHTOKENEXPIRED_CODE
@@ -139,7 +155,8 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 	
 	private String SubRutCherec(DataSet ds) {
 		try {
-			this.acuent = String.format("%011d", this.cuenta);
+			Long con = new Long(this.cuenta);
+			this.acuent = String.format("%011d", con );
 			listCgrprec = myDAOCgrprec.getUsingListNumcue(ds, this.acuent);
 			for(Cgrprec o: listCgrprec) {
 				this.det = " ";
@@ -149,7 +166,7 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 				this.tipr1 = o.getCgtipr();
 				this.nrtr = o.getCgnrtr();
 				this.aimpte = this.acgimp.substring(5, 15);
-				this.imp = this.aimpte;
+				this.imp = new BigDecimal(this.aimpte).divide(new BigDecimal("100"),2);
 				if (o.getCgrech().equals("1")) {
 					this.rech = this.mot1;
 				}else {
@@ -161,7 +178,7 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 							}	
 						}
 				}
-				this.cuit = o.getCgcui1();
+				this.cuit = new Long(o.getCgcui1());
 				this.aanore = o.getCgarec();
 				this.amesre = o.getCgmrec();
 				this.adiare = o.getCgdrec();
@@ -174,8 +191,7 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 				this.aanodi = fc.FormatoFechaHora("yyyy");
 				this.amesdi = fc.FormatoFechaHora("MM");
 				this.adiadi = fc.FormatoFechaHora("dd");
-				this.numcue = this.cuenta;
-				this.numcue = "0";
+				this.numcue = "0" + this.cuenta;
 				this.numche = o.getCgnche();
 				this.tipope = "CHEQ";
 				//this.aecrec = this.afecre;
@@ -220,10 +236,21 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 				}
 				
 				
-				if (o.getCgrech().equals("2") || this.compu.equals("S")) {
+				//--if (o.getCgrech().equals("2") || this.compu.equals("S")) {
 					this.rrn3 = this.rrn3 + 1;
 					//Grabar registro en Pantalla3 
-				}
+					adapter = new CGRRCRECV03Adapter();
+					adapter.setCCTE(this.ccte);
+					adapter.setNUMCH(this.numch);
+					adapter.setTIPR1(this.tipr1);
+					adapter.setIMP(this.imp);
+					adapter.setRECH(this.rech);
+					adapter.setCOMPU(this.compu);
+					adapter.setREVI(this.revi);
+					adapter.setCUIT(this.cuit);
+					adapter.setNRTR(this.nrtr);
+					listAdapter.add(adapter);	
+				//--}
 				
 				
 				this.ccte = "";
@@ -253,6 +280,7 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 			if (this.rrn3 > 0) {
 				this.limite = this.rrn3;
 				//Mostrar Pantalla3 
+				
 			}
 			
 		} catch (Exception e) {
@@ -278,9 +306,90 @@ public class CGRRCRECView03BzService extends RestBaseServerResource{
 	
 	public class CGRRCRECV03Adapter {
 		
+		String CCTE = "";
+		String NUMCH = "";
+		String TIPR1 = "";
+		BigDecimal IMP = new BigDecimal(0);
+		String RECH = "";
+		String COMPU = "";
+		String REVI = "";
+		Long CUIT = new Long("0");
+		String NRTR = "";
 		
 		public CGRRCRECV03Adapter() {
 			
+		}
+
+		public String getNRTR() {
+			return NRTR;
+		}
+
+		public void setNRTR(String nRTR) {
+			NRTR = nRTR;
+		}
+
+		public String getCCTE() {
+			return CCTE;
+		}
+
+		public void setCCTE(String cCTE) {
+			CCTE = cCTE;
+		}
+
+		public String getNUMCH() {
+			return NUMCH;
+		}
+
+		public void setNUMCH(String nUMCH) {
+			NUMCH = nUMCH;
+		}
+
+		public String getTIPR1() {
+			return TIPR1;
+		}
+
+		public void setTIPR1(String tIPR1) {
+			TIPR1 = tIPR1;
+		}
+
+		public BigDecimal getIMP() {
+			return IMP;
+		}
+
+		public void setIMP(BigDecimal iMP) {
+			IMP = iMP;
+		}
+
+		public String getRECH() {
+			return RECH;
+		}
+
+		public void setRECH(String rECH) {
+			RECH = rECH;
+		}
+
+		public String getCOMPU() {
+			return COMPU;
+		}
+
+		public void setCOMPU(String cOMPU) {
+			COMPU = cOMPU;
+		}
+
+		public String getREVI() {
+			return REVI;
+		}
+
+		public void setREVI(String rEVI) {
+			REVI = rEVI;
+		}
+
+		public Long getCUIT() {
+			return CUIT;
+		}
+
+		public void setCUIT(Long cUIT) {
+			CUIT = cUIT;
 		}
 		
 	}

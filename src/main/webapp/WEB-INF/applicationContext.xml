@@ -280,5 +280,13 @@
 	<bean id="legacy.fer0330.view2"
 		class="com.ciessa.museum.bz.legacy.FER0330View02BzService"
 		parent="base.rest.resource" scope="prototype" />
+		
+	<bean id="legacy.cgrrcrec.view3"
+		class="com.ciessa.museum.bz.legacy.CGRRCRECView03BzService"
+		parent="base.rest.resource" scope="prototype" />
+	
+	<bean id="legacy.cgrrcrec.view4"
+		class="com.ciessa.museum.bz.legacy.CGRRCRECView04BzService"
+		parent="base.rest.resource" scope="prototype" />
 	
 </beans>

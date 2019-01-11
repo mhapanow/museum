@@ -31,7 +31,7 @@ public class CgrprecDAO {
 		try {
 			tx = session.beginTransaction();
 			StringBuffer sb = new StringBuffer();
-			sb.append(" FROM Cgrprec where cgacct = :numcue ");
+			sb.append(" FROM Cgrprec where cgacct = :numcue ORDER BY cgnche, cgnrtr ");
 			
 			Query q = session.createQuery(sb.toString());
 			

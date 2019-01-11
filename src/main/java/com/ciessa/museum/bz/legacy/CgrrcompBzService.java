@@ -148,9 +148,9 @@ public static final Logger log = Logger.getLogger(CgrrcompBzService.class.getNam
 					for(Cgrprec o:listCgrprec) {
 						this.cgnche = o.getCgnche();
 						if (o.getCgtipr().equals("A") || o.getCgtipr().equals("M")) {
-							this.fecpag = Integer.parseInt(o.getCgapag() + String.format("%02d", o.getCgmpag()) + String.format("%02d", o.getCgdpag()));
-							this.fecmul = Integer.parseInt(o.getCgasam() + String.format("%02d", o.getCgmsam()) + String.format("%02d", o.getCgdsam()));
-							this.fecrec = Integer.parseInt(o.getCgarec() + String.format("%02d", o.getCgmrec()) + String.format("%02d", o.getCgdrec()));
+							this.fecpag = Integer.parseInt(o.getCgapag() + o.getCgmpag() + o.getCgdpag());
+							this.fecmul = Integer.parseInt(o.getCgasam() + o.getCgmsam() + o.getCgdsam());
+							this.fecrec = Integer.parseInt(o.getCgarec() + o.getCgmrec() + o.getCgdrec());
 							this.estado = o.getCgstat();
 							this.tipreg = o.getCgtipr();
 							this.motrec = o.getCgrech();

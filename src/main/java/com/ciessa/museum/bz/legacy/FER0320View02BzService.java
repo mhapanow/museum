@@ -121,12 +121,15 @@ public class FER0320View02BzService extends RestBaseServerResource{
 	Integer a1 = 0;
 	String dmtyp1 = "";
 	
+	String wbatch = "";
+	Integer afecva = 0;
+	
 	String[] ind67 = new String[1];
 	String[] ind68 = new String[1];
 	Integer nrr = 0;
 	BigDecimal wssald = new BigDecimal(0);
 	BigDecimal ascrha = new BigDecimal(0);
-	Integer ancta = 0;
+	Long ancta = new Long("0");
 	BigDecimal disdbu = new BigDecimal(0);
 	BigDecimal discbu = new BigDecimal(0);
 	BigDecimal disda = new BigDecimal(0);
@@ -141,7 +144,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 	BigDecimal areten = new BigDecimal(0);
 	Integer aaplic = 0;
 	Integer t = 0;
-	Integer ancta1 = 0;
+	Long ancta1 = new Long("0");
 	String segmen = "";
 	BigDecimal tipcam = new BigDecimal(0);
 	Integer acmcn = 0;
@@ -155,11 +158,8 @@ public class FER0320View02BzService extends RestBaseServerResource{
 	Long dmiodl = new Long("0");
 	String abnk = "";
 	Integer aapdes = 0;
-	Integer acuent = 0;
+	Long acuent = new Long("0");
 	Integer arcd = 0;
-	String wnomb1 = "";
-	String wnomb2 = "";
-	String wnomb3 = "";
 	String acta = "";
 	BigDecimal scrpen = new BigDecimal(0);
 	String ncbat = "";
@@ -175,13 +175,18 @@ public class FER0320View02BzService extends RestBaseServerResource{
 	String dshbk = "";
 	String atpcta = "";
 	String dshdsv = "";
-	Integer acuen1 = 0;
-	Integer dsacct = 0;
+	Long acuen1 = new Long("0");
+	Long dsacct = new Long("0");
 	Integer dsser = 0;
 	String dstype = "";
 	Integer ssssyy = 0;
 	Integer fecimn = 0;
 	
+	Integer dmbrch = 0;
+	Integer dmcmcn = 0;
+	String wnomb1 = "";
+	String wnomb2 = "";
+	String wnomb3 = "";
 	
 	
 	FUNCIONESBzService fc = new FUNCIONESBzService();
@@ -208,14 +213,18 @@ public class FER0320View02BzService extends RestBaseServerResource{
 			this.udate = fc.FechaActual("ddMMyyyy");
 			this.fecha = this.udate;
 			
+			this.ind68[0] = "0";
+			this.ind67[0] = "0";
+			
 			listAdapter = new ArrayList<FER0320V2Adapter>();
 			
 			SubRutUnica(ds);
 			SubRutConsi(ds);
 			if (!this.error) {
 				SubRutCarga(ds);
+				this.dmbrch = objTap002w.getDmbrch();
+				this.dmcmcn = objTap002w.getDmcmcn();
 				//Mostrar Pantalla2 
-				this.wncta = "0";
 			}
 			this.amar = "0";
 
@@ -227,6 +236,18 @@ public class FER0320View02BzService extends RestBaseServerResource{
 			log.info("Number of elements found [" + listAdapter.size() + "] in " + diff + " millis");
 			
 			String[] fields = new String[] {
+					"WNCTA",
+					"CODECO",
+					"DMBRCH",
+					"DMCMCN",
+					"WNOMB1",
+					"WNOMB2",
+					"WNOMB3",
+					"DMIODL",
+					"WSDISP",
+			};
+			
+			String[] arrayFields = new String[] {
 					"AFECVA",
 					"CTRAEX",
 					"WBATCH",
@@ -235,7 +256,21 @@ public class FER0320View02BzService extends RestBaseServerResource{
 					"WSCRED",
 					"WSSALD",
 			};
-			returnValue = this.getJSONRepresentationFromArrayOfObjects(listAdapter, fields);
+			
+			returnValue = getJSONRepresentationFromObject(adapter, fields);
+			returnValue.put("data", getJSONRepresentationFromArrayOfObjects(listAdapter, arrayFields).get("data"));
+			returnValue.put("WNCTA", this.wncta);
+			returnValue.put("CODECO", this.codeco);
+			returnValue.put("DMBRCH", this.dmbrch);
+			returnValue.put("DMCMCN", this.dmcmcn);
+			returnValue.put("WNOMB1", this.wnomb1);
+			returnValue.put("WNOMB2", this.wnomb2);
+			returnValue.put("WNOMB3", this.wnomb3);
+			returnValue.put("DMIODL", this.dmiodl);
+			returnValue.put("WSDISP", this.wsdisp);
+			
+			
+			
 			if( attributes.containsKey("recordCount"))
 				returnValue.put("recordCount", Long.valueOf(attributes.get("recordCount")));
 			else 
@@ -327,7 +362,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 				this.wssald = objTap002w.getDmcbal();
 				this.ascrha = BigDecimal.ZERO;
 				if (this.a1 == 5 || this.a1 == 0) {
-					this.ancta = Integer.parseInt(this.wncta);
+					this.ancta = Long.parseLong(this.wncta);
 					SubRutBorra5(ds);
 					SubRutDispon(ds);
 					this.discbu = this.disca;
@@ -355,9 +390,9 @@ public class FER0320View02BzService extends RestBaseServerResource{
 						}
 						this.acmcn = this.objTap002w.getDmcmcn();
 						listTap902 = myDAOTap902.getUsingListLdbankANDAcodrANDaaplicANDancta1(ds, this.codeco, this.acodr.toString(), this.aaplic.toString(), this.ancta1.toString());
-						if (listTap902 != null || listTap902.size()>0) {
+						if (listTap902 != null && listTap902.size()>0) {
 							this.aaplic = listTap902.get(0).getCaplp();
-							this.ancta1 = listTap902.get(0).getNctap().intValue();
+							this.ancta1 = listTap902.get(0).getNctap();
 							this.ind67[0] = "1";
 						}else {
 							this.ind68[0] = "1";
@@ -374,7 +409,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 											this.amtyp = 6;
 										}
 									}
-									this.ancta = o.getNctap().intValue();
+									this.ancta = o.getNctap();
 								}else {
 									if (o.getCaplv() == this.wpsav) {
 										this.amtyp = 1;
@@ -383,7 +418,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 											this.amtyp = 6;
 										}
 									}
-									this.ancta = o.getNctav().intValue();
+									this.ancta = o.getNctav();
 								}
 								objTap002w = myDAOTap002w.getUsingLdbankAndAmtypAndAncta(ds, this.codeco, this.amtyp.toString(), this.ancta.toString());
 								if (objTap002w != null && ( !objTap002w.getDmstat().equals("2") && !objTap002w.getDmstat().equals("3") && !objTap002w.getDmstat().equals("4") && !objTap002w.getDmstat().equals("7") && !objTap002w.getDmstat().equals("P") && !objTap002w.getDmstat().equals("N") && !objTap002w.getDmstat().equals("O")  ) && !objTap002w.getDmusr1().equals("2") ) {
@@ -417,8 +452,8 @@ public class FER0320View02BzService extends RestBaseServerResource{
 									}	
 								}
 							}
+							objTap002w = myDAOTap002w.getUsingLdbankAndAmtypAndAncta(ds, this.codeco, this.amtyp.toString(), this.ancta.toString());
 						}
-						objTap002w = myDAOTap002w.getUsingLdbankAndAmtypAndAncta(ds, this.codeco, this.amtyp.toString(), this.ancta.toString());
 					}
 					this.dmcbal = objTap002w.getDmcbal().subtract( this.disdbu);
 					this.dmcbal = this.dmcbal.add( this.discbu );
@@ -490,7 +525,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 					}else {
 						this.aapdes = 20;
 					}
-					this.acuent = Integer.parseInt(this.wncta);
+					this.acuent = Long.parseLong(this.wncta);
 					this.arcd = 80;
 					objAltnam = myDAOAltnam.getUsingAbnkAndAapdesAndAcuentAndArcd(ds, abnk, aapdes.toString(), acuent.toString(), arcd.toString());
 					if (objAltnam != null ) {
@@ -546,8 +581,8 @@ public class FER0320View02BzService extends RestBaseServerResource{
 			this.sreten = BigDecimal.ZERO;
 			this.wsdisp = BigDecimal.ZERO;
 			this.asdisp = BigDecimal.ZERO;
-			this.ancta = 0;
-			this.ancta1 = 0;
+			this.ancta = new Long("0");
+			this.ancta1 = new Long("0");
 			
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
@@ -577,7 +612,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 			listTransm = myDAOTransm.getUsingKeyAnctaX(ds, this.ancta.toString(), "X");
 		
 			for ( Transm o:listTransm) {
-				this.fecval = Integer.parseInt( String.valueOf( o.getDaava() * 10000) + String.valueOf(o.getDmmva() * 100) + o.getDddva().toString() );
+				this.fecval = o.getDaava() * 10000 + o.getDmmva() * 100 + o.getDddva();
 				if (!o.getXerror().equals("E")) {
 					this.ncbat = o.getCbat();
 					this.wsdebi = BigDecimal.ZERO;
@@ -668,15 +703,17 @@ public class FER0320View02BzService extends RestBaseServerResource{
 						}
 					}
 					if (this.a1 == 0 || this.a1 == 5 && this.nrr < 999) {
-						this.adaava = o.getDaava();
+						this.adaava = Integer.parseInt(o.getDaava().toString().substring(3-1, 4));
 						this.admmva = o.getDmmva();
 						this.adddva = o.getDddva();
+						this.afecva = this.adddva * 10000 + this.admmva * 100 + this.adaava; 
 						this.nrr = this.nrr + 1;
+						this.wbatch = o.getCsucur().toString() + "-" + o.getCbat() + "-" + o.getNbat().toString();  
 						//Grabar registro en Pantalla2
 						adapter = new FER0320V2Adapter();
-						//adapter.setAFECVA(this.afecva);
+						adapter.setAFECVA(this.afecva);
 						adapter.setCTRAEX(o.getCtraex());
-						//adapter.setWBATCH(this.wbatch);
+						adapter.setWBATCH(this.wbatch);
 						adapter.setCREF1(this.cref1);
 						adapter.setWSDEBI(this.wsdebi);
 						adapter.setWSCRED(this.wscred);
@@ -687,7 +724,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 			}//fin listTransm
 			
 			for ( Tranem o:listTranem) {
-				this.fecval = Integer.parseInt( String.valueOf( o.getDaava() * 10000) + String.valueOf(o.getDmmva() * 100) + o.getDddva().toString() );
+				this.fecval = o.getDaava() * 10000 + o.getDmmva() * 100 + o.getDddva();
 				if (!o.getXerror().equals("E")) {
 					this.ncbat = o.getCbat();
 					this.wsdebi = BigDecimal.ZERO;
@@ -840,7 +877,7 @@ public class FER0320View02BzService extends RestBaseServerResource{
 	
 	public class FER0320V2Adapter{
 
-		String AFECVA = "";
+		Integer AFECVA = 0;
 		Integer CTRAEX = 0;
 		String WBATCH = "";
 		String CREF1 = "";
@@ -852,11 +889,11 @@ public class FER0320View02BzService extends RestBaseServerResource{
 			
 		}
 
-		public String getAFECVA() {
+		public Integer getAFECVA() {
 			return AFECVA;
 		}
 
-		public void setAFECVA(String aFECVA) {
+		public void setAFECVA(Integer aFECVA) {
 			AFECVA = aFECVA;
 		}
 

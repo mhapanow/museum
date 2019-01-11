@@ -859,7 +859,7 @@ public class FER0310View01BzService extends RestBaseServerResource{
 				
 				listTap902 = myDAOTap902.getUsingListLdbankANDAcodrANDaaplicANDancta1(ds, ldbank.toString(), this.acodr.toString(), this.aaplic.toString(), this.ancta1.toString());
 				
-				if (listTap902 != null || listTap902.size()>0) {
+				if (listTap902 != null && listTap902.size()>0) {
 					this.aaplic = listTap902.get(0).getCaplp();
 					this.ancta1 = listTap902.get(0).getNctap().intValue();
 					
@@ -912,15 +912,18 @@ public class FER0310View01BzService extends RestBaseServerResource{
 					}//fin for list					
 				}//fin if primer register.
 				
-				this.swtaac = this.swtaky.substring(5, 14);
-				objTap002 = myDAOTap002w.getUsingLdbankAndAmtypAndAncta(ds, this.swtaky.substring(0, 3), this.swtaky.substring(3), this.swtaac);
+				this.swtaac = this.swtaky.substring(5-1, 14);
+				objTap002 = myDAOTap002w.getUsingLdbankAndAmtypAndAncta(ds, this.swtaky.substring(0, 3), this.swtaky.substring(4-1,4), this.swtaac);
 				this.dmbt25 = objTap002.getDmbt25();
 				this.dmbt23 = objTap002.getDmbt23();
 				this.dmpbal = objTap002.getDmpbal();
 				if (objTap002 != null) {
-					this.dmdopn = Integer.parseInt((new SimpleDateFormat("ddMMyyyy").parse(objTap002.getDmdopn().toString())).toString());
-					this.dmdla = Integer.parseInt((new SimpleDateFormat("ddMMyyyy").parse(objTap002.getDmdla().toString())).toString());
-					this.dmdlst = Integer.parseInt((new SimpleDateFormat("ddMMyyyy").parse(objTap002.getDmdlst().toString())).toString());
+					this.dmdopn = objTap002.getDmdopn();
+					this.dmdla = objTap002.getDmdla();
+					this.dmdlst = objTap002.getDmdlst();
+					//this.dmdopn = Integer.parseInt((new SimpleDateFormat("yyMMdd").parse(objTap002.getDmdopn().toString())).toString());
+					//this.dmdla = Integer.parseInt((new SimpleDateFormat("ddMMyyyy").parse(objTap002.getDmdla().toString())).toString());
+					//this.dmdlst = Integer.parseInt((new SimpleDateFormat("ddMMyyyy").parse(objTap002.getDmdlst().toString())).toString());
 				}
 				
 				
@@ -1350,7 +1353,8 @@ public class FER0310View01BzService extends RestBaseServerResource{
 						this.bkgnty = 66;
 						this.bkgncd = objGrmcus.getRbsgcd();
 						objInspref = myDAOInspref.getUsingBkgntyAndBkgncd(ds, bkgnty.toString(), bkgncd.toString());
-						this.wwsrds = objInspref.getBksrds();
+						if (objInspref != null)
+							this.wwsrds = objInspref.getBksrds();
 					}
 				}
 			}
