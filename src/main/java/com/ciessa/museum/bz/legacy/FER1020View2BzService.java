@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 import org.restlet.resource.Get;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.ciessa.museum.bz.RestBaseServerResource;
 import com.ciessa.museum.dao.DataSetDAO;
@@ -48,7 +49,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 	@Autowired
 	Tap014DAO myDaoTap014;
 
-	Tap002w Tap002w = new Tap002w();
+	Tap002w tap002w = new Tap002w();
 	Altnam altnam = new Altnam();
 	Saldom saldom = new Saldom();
 	Long wdias = new Long(0);
@@ -114,7 +115,7 @@ public class FER1020View2BzService extends RestBaseServerResource{
 				ArrayList<Tap014> lstTap014 = SubRut007(ds, wcta, wbas, waca, wpto, wtod, fecjud, fecjuh, wimp, range);
 
 				// Obtains the user JSON representation
-				Fer1020Adapter adapter = new Fer1020Adapter(Tap002w, altnam, saldom, wdias);
+				Fer1020Adapter adapter = new Fer1020Adapter(tap002w, altnam, saldom, wdias);
 				ArrayList<Fer1020SFLAdapter> sflAdapter = new ArrayList<FER1020View2BzService.Fer1020SFLAdapter>();
 				if (lstTap014 != null) {
 					for( Tap014 obj : lstTap014) {
@@ -186,9 +187,9 @@ public class FER1020View2BzService extends RestBaseServerResource{
 	
 	private ArrayList<Tap014> SubRut007(DataSet ds, String wcta, String wbas, String waca, String wpto, String wtod, Date fecjud, Date fecjuh, double wimp, Range range) throws ParseException, ASException {
 		Date dexaca;
-		Tap002w = myDaoTap002w.getUsingWcta(ds, wcta);
+		tap002w = myDaoTap002w.getUsingWcta(ds, wcta);
 		altnam = myDaoAltnam.getUsingWcta(ds, wcta);
-		if (Tap002w.getDmcbal().intValue() < 0) {
+		if (tap002w.getDmcbal().intValue() < 0) {
 			saldom = myDaoSaldom.getUsingWcta(ds, wcta);
 			if (saldom != null) {
 				if (saldom.getDexaca() > 0) {

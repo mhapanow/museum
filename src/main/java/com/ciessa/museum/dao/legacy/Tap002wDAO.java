@@ -50,6 +50,44 @@ public class Tap002wDAO {
 		}
 	}
 	
+    public Tap002w getUsingLdbankAndAmtypAndAncta(DataSet ds, String ldbank, String amtyp, String ancta) throws ASException {
+        SessionFactory factory = null;
+        try {
+            factory = FactoryManager.getInstance().getFactory(ds);
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+        
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            Query q = session.createQuery("FROM Tap002w where dmbk = :ldbank and dmtyp = :amtyp AND dmacct = :ancta");
+            q.setParameter("ldbank", ldbank);
+            q.setParameter("amtyp", amtyp);
+            q.setParameter("ancta", ancta);
+            Tap002w o = (Tap002w)q.uniqueResult();
+            
+            if( o == null ) {
+                tx.rollback();
+                //throw ASExceptionHelper.notFoundException();
+            }
+            
+            session.evict(o);
+            tx.commit();
+            
+            return o;
+        } catch (HibernateException e) {
+            if (tx != null)
+                tx.rollback();
+            throw ASExceptionHelper.defaultException(e.getMessage(), e);
+        } finally {
+            session.close();
+        }
+    }
+	
 	public Tap002w getUsingWbas(DataSet ds, String wbas) throws ASException {
 		SessionFactory factory = null;
 		try {

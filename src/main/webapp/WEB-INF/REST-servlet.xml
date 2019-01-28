@@ -82,7 +82,30 @@
 				<entry key="/legacy/zrstrecl/view1"
 					value-ref="spring.legacy.zrstrecl.view1" />
 				<entry key="/legacy/zrstrecl/view2"
-					value-ref="spring.legacy.zrstrecl.view2" />				
+					value-ref="spring.legacy.zrstrecl.view2" />
+
+				<entry key="/legacy/fer0310/view1"
+					value-ref="spring.legacy.fer0310.view1" />
+				<entry key="/legacy/fer0310/view2"
+					value-ref="spring.legacy.fer0310.view2" />
+				<entry key="/legacy/fer0310/view3"
+					value-ref="spring.legacy.fer0310.view3" />
+				
+				<entry key="/legacy/fer0320/view1"
+					value-ref="spring.legacy.fer0320.view1" />
+				<entry key="/legacy/fer0320/view2"
+					value-ref="spring.legacy.fer0320.view2" />
+				
+				<entry key="/legacy/fer0330/view1"
+					value-ref="spring.legacy.fer0330.view1" />
+				<entry key="/legacy/fer0330/view2"
+					value-ref="spring.legacy.fer0330.view2" />
+					
+				<entry key="/legacy/cgrrcrec/view3"
+					value-ref="spring.legacy.cgrrcrec.view3" />
+				<entry key="/legacy/cgrrcrec/view4"
+					value-ref="spring.legacy.cgrrcrec.view4" />
+								
 			</map>
 		</property>
 	</bean>
@@ -258,4 +281,62 @@
 		<lookup-method name="create"
 			bean="legacy.zrstemmv.view1" />
 	</bean>
+	
+	<bean id="spring.legacy.fer0310.view1"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.fer0310.view1" />
+	</bean>
+	
+	<bean id="spring.legacy.fer0310.view2"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.fer0310.view2" />
+	</bean>
+	
+	<bean id="spring.legacy.fer0310.view3"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.fer0310.view3" />
+	</bean>
+	
+	<bean id="spring.legacy.fer0320.view1"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.fer0320.view1" />
+	</bean>
+	
+	<bean id="spring.legacy.fer0320.view2"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.fer0320.view2" />
+	</bean>
+	
+	
+	<bean id="spring.legacy.fer0330.view1"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.fer0330.view1" />
+	</bean>
+	
+	<bean id="spring.legacy.fer0330.view2"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.fer0330.view2" />
+	</bean>
+	
+	<bean id="spring.legacy.cgrrcrec.view3"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.cgrrcrec.view3" />
+	</bean>
+	
+	<bean id="spring.legacy.cgrrcrec.view4"
+		class="org.restlet.ext.spring.SpringFinder">
+		<lookup-method name="create"
+			bean="legacy.cgrrcrec.view4" />
+	</bean>
+	
+	
+	
 </beans>

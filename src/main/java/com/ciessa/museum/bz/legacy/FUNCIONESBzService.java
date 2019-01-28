@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class FUNCIONESBzService {
@@ -80,7 +81,6 @@ public class FUNCIONESBzService {
 	}
 	
 	public String StringToArrayString(String txtInicial, Integer iniciar, String txtInput) {
-		
 		char[] txtCaracteresI = txtInicial.toCharArray();
 		//convertir txtinput a chars
 		char[] txtCaracteres = txtInput.toCharArray();
@@ -124,6 +124,23 @@ public class FUNCIONESBzService {
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat(Formato);
 		return dateFormat.format(date);
+	}
+	
+	public Date FechaActual(String Formato) {
+		Date date = new Date();
+		try {
+			date = new SimpleDateFormat(Formato).parse(date.toString());
+		} catch( Exception e ) {}
+		return date;
+	}
+	
+	public Boolean PrimerDiaHabil() {
+		
+		Calendar fecha = Calendar.getInstance();
+		if ( (fecha.get(Calendar.DATE) == 1 && fecha.get(Calendar.DAY_OF_WEEK) != 7 && fecha.get(Calendar.DAY_OF_WEEK) != 1 ) || ( (fecha.get(Calendar.DATE) == 2 || fecha.get(Calendar.DATE) == 3) && fecha.get(Calendar.DAY_OF_WEEK) == 2 ) ) {
+			return true;
+		}
+		return false;
 	}
 	
 	public Boolean BigDecimalComparar(String valor1, String valor2, String simbolo) {
